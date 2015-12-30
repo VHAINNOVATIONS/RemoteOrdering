@@ -1,0 +1,82 @@
+unit fRemoteLocations;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls,
+  Vcl.CheckLst, ORCtrls,fODLab, fODBase; //fODBase;
+
+type
+  TfrmSelectLocalRemote = class(TfrmODBase)
+    Panel1: TPanel;
+    btnSelect: TButton;
+    btnClose: TButton;
+    CaptionCheckListBox1: TCaptionCheckListBox;
+    Label1: TLabel;
+    procedure CaptionCheckListBox1ClickCheck(Sender: TObject);
+    procedure btnCloseClick(Sender: TObject);
+  private
+    function GetLocationNMs: string;
+    procedure SetLocationNMs(const Value: string);
+    { Private declarations }
+
+  public
+    { Public declarations }
+
+  published
+  property  RMLocationNames: string   read GetLocationNMs  write SetLocationNMs;
+
+  end;
+
+
+implementation
+
+//uses fODLab;
+
+{$R *.dfm}
+
+
+procedure TfrmSelectLocalRemote.btnCloseClick(Sender: TObject);
+var
+ i: string;
+begin
+  inherited;
+  RMLocationNames :=CaptionCheckListBox1.Items.Strings[i];
+
+  TfrmODLab.grpBxLocalRemote.ItemIndex:=0;
+
+end;
+
+
+
+procedure TfrmSelectLocalRemote.CaptionCheckListBox1ClickCheck(Sender: TObject);
+var
+ i: integer;
+ ODLab: TfrmODLab;
+begin
+  for i := 0 to CaptionCheckListBox1.Items.Count-1 do
+   begin
+     if CaptionCheckListBox1.Checked[i] then
+      begin
+      // ODLab.RMLocationName :=CaptionCheckListBox1.Items.Strings[i];
+       btnSelect.Enabled:=true;
+       break;
+      end;
+   end;
+
+
+end;
+
+
+function TfrmSelectLocalRemote.GetLocationNMs: string;
+begin
+
+end;
+
+procedure TfrmSelectLocalRemote.SetLocationNMs(const Value: string);
+begin
+
+end;
+
+end.

@@ -1,0 +1,96 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{407B79B4-B262-466F-9171-836470DE9661}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="..\Broker\XWB_DXE3.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="OR\BorlandXE3.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="VA\VASharedXE3.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="508\VA508AccessXE3.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="OR\ORCtrlLibXE3.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="OR\CopyMonitorProj.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="XWB_DXE3">
+        <MSBuild Projects="..\Broker\XWB_DXE3.dproj"/>
+    </Target>
+    <Target Name="XWB_DXE3:Clean">
+        <MSBuild Projects="..\Broker\XWB_DXE3.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="XWB_DXE3:Make">
+        <MSBuild Projects="..\Broker\XWB_DXE3.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="BorlandXE3">
+        <MSBuild Projects="OR\BorlandXE3.dproj"/>
+    </Target>
+    <Target Name="BorlandXE3:Clean">
+        <MSBuild Projects="OR\BorlandXE3.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="BorlandXE3:Make">
+        <MSBuild Projects="OR\BorlandXE3.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="VASharedXE3">
+        <MSBuild Projects="VA\VASharedXE3.dproj"/>
+    </Target>
+    <Target Name="VASharedXE3:Clean">
+        <MSBuild Projects="VA\VASharedXE3.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="VASharedXE3:Make">
+        <MSBuild Projects="VA\VASharedXE3.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="VA508AccessXE3">
+        <MSBuild Projects="508\VA508AccessXE3.dproj"/>
+    </Target>
+    <Target Name="VA508AccessXE3:Clean">
+        <MSBuild Projects="508\VA508AccessXE3.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="VA508AccessXE3:Make">
+        <MSBuild Projects="508\VA508AccessXE3.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="ORCtrlLibXE3">
+        <MSBuild Projects="OR\ORCtrlLibXE3.dproj"/>
+    </Target>
+    <Target Name="ORCtrlLibXE3:Clean">
+        <MSBuild Projects="OR\ORCtrlLibXE3.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="ORCtrlLibXE3:Make">
+        <MSBuild Projects="OR\ORCtrlLibXE3.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="CopyMonitorProj">
+        <MSBuild Projects="OR\CopyMonitorProj.dproj"/>
+    </Target>
+    <Target Name="CopyMonitorProj:Clean">
+        <MSBuild Projects="OR\CopyMonitorProj.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="CopyMonitorProj:Make">
+        <MSBuild Projects="OR\CopyMonitorProj.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="XWB_DXE3;BorlandXE3;VASharedXE3;VA508AccessXE3;ORCtrlLibXE3;CopyMonitorProj"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="XWB_DXE3:Clean;BorlandXE3:Clean;VASharedXE3:Clean;VA508AccessXE3:Clean;ORCtrlLibXE3:Clean;CopyMonitorProj:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="XWB_DXE3:Make;BorlandXE3:Make;VASharedXE3:Make;VA508AccessXE3:Make;ORCtrlLibXE3:Make;CopyMonitorProj:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

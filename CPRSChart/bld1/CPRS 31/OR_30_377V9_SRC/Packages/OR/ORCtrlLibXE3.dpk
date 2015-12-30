@@ -1,0 +1,63 @@
+package ORCtrlLibXE3;
+
+{$R *.res}
+{$R 'Source\ORCtrlsDsgn.dcr'}
+{$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO ON}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION OFF}
+{$OVERFLOWCHECKS ON}
+{$RANGECHECKS ON}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES ON}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST ON}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DEFINE DEBUG}
+{$ENDIF IMPLICITBUILDING}
+{$DESCRIPTION 'CPRS Custom Controls'}
+{$DESIGNONLY}
+{$IMPLICITBUILD ON}
+
+requires
+  vcl,
+  vclx,
+  designide,
+  rtl,
+  VASharedXE3,
+  Tee,
+  XWB_RXE3,
+  dbrtl,
+  VclSmp,
+  vcldb,
+  VA508AccessXE3;
+
+contains
+  ORCtrls in 'Source\ORCtrls.pas',
+  ORCtrlsDsgn in 'Source\ORCtrlsDsgn.pas',
+  ORStaticText in 'Source\ORStaticText.pas',
+  ORSystem in 'Source\ORSystem.pas',
+  ORFn in 'Source\ORFn.pas',
+  ORClasses in 'Source\ORClasses.pas',
+  ORNet in 'Source\ORNet.pas',
+  ORCtrlsVA508Compatibility in 'Source\ORCtrlsVA508Compatibility.pas',
+  OR2006Compatibility in 'Source\OR2006Compatibility.pas' {frm2006Compatibility},
+  ORDtTmRng in 'Source\ORDtTmRng.pas' {ORfrmDateRange},
+  ORDtTmCal in 'Source\ORDtTmCal.pas',
+  ORDtTm in 'Source\ORDtTm.pas' {ORfrmDtTm},
+  ORRadioCheck in 'Source\ORRadioCheck.pas',
+  ORSplitter in 'Source\ORSplitter.pas';
+
+end.
+

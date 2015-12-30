@@ -1,0 +1,63 @@
+package ORCtrlLibXE5;
+
+{$R *.res}
+{$R 'XE5\OR\Source\ORCtrlsDsgn.dcr'}
+{$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO ON}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION OFF}
+{$OVERFLOWCHECKS ON}
+{$RANGECHECKS ON}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES ON}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST ON}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DEFINE DEBUG}
+{$ENDIF IMPLICITBUILDING}
+{$DESCRIPTION 'CPRS Custom Controls'}
+{$DESIGNONLY}
+{$IMPLICITBUILD ON}
+
+requires
+  vcl,
+  vclx,
+  designide,
+  rtl,
+  VASharedXE5,
+  Tee,
+  XWB_RXE5,
+  dbrtl,
+  VclSmp,
+  vcldb,
+  VA508AccessXE5;
+
+contains
+  ORCtrls in 'XE5\OR\Source\ORCtrls.pas',
+  ORCtrlsDsgn in 'XE5\OR\Source\ORCtrlsDsgn.pas',
+  ORStaticText in 'XE5\OR\Source\ORStaticText.pas',
+  ORSystem in 'XE5\OR\Source\ORSystem.pas',
+  ORFn in 'XE5\OR\Source\ORFn.pas',
+  ORClasses in 'XE5\OR\Source\ORClasses.pas',
+  ORNet in 'XE5\OR\Source\ORNet.pas',
+  ORCtrlsVA508Compatibility in 'XE5\OR\Source\ORCtrlsVA508Compatibility.pas',
+  OR2006Compatibility in 'XE5\OR\Source\OR2006Compatibility.pas' {frm2006Compatibility},
+  ORDtTmRng in 'XE5\OR\Source\ORDtTmRng.pas' {ORfrmDateRange},
+  ORDtTmCal in 'XE5\OR\Source\ORDtTmCal.pas',
+  ORDtTm in 'XE5\OR\Source\ORDtTm.pas' {ORfrmDtTm},
+  ORRadioCheck in 'XE5\OR\Source\ORRadioCheck.pas',
+  ORSplitter in 'XE5\OR\Source\ORSplitter.pas';
+
+end.
+
