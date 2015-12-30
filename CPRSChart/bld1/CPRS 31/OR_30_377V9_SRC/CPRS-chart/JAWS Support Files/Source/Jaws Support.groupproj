@@ -1,0 +1,60 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{4E028078-6D96-4BBF-8C21-7836F8784AE7}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="JAW Update\JAWSUpdate.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="JAWS Dll\JAWS.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="JAWS Dispatcher\VA508JAWSDispatcherUnicode.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="JAWSUpdate">
+        <MSBuild Projects="JAW Update\JAWSUpdate.dproj"/>
+    </Target>
+    <Target Name="JAWSUpdate:Clean">
+        <MSBuild Projects="JAW Update\JAWSUpdate.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="JAWSUpdate:Make">
+        <MSBuild Projects="JAW Update\JAWSUpdate.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="JAWS">
+        <MSBuild Projects="JAWS Dll\JAWS.dproj"/>
+    </Target>
+    <Target Name="JAWS:Clean">
+        <MSBuild Projects="JAWS Dll\JAWS.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="JAWS:Make">
+        <MSBuild Projects="JAWS Dll\JAWS.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="VA508JAWSDispatcherUnicode">
+        <MSBuild Projects="JAWS Dispatcher\VA508JAWSDispatcherUnicode.dproj"/>
+    </Target>
+    <Target Name="VA508JAWSDispatcherUnicode:Clean">
+        <MSBuild Projects="JAWS Dispatcher\VA508JAWSDispatcherUnicode.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="VA508JAWSDispatcherUnicode:Make">
+        <MSBuild Projects="JAWS Dispatcher\VA508JAWSDispatcherUnicode.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="JAWSUpdate;JAWS;VA508JAWSDispatcherUnicode"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="JAWSUpdate:Clean;JAWS:Clean;VA508JAWSDispatcherUnicode:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="JAWSUpdate:Make;JAWS:Make;VA508JAWSDispatcherUnicode:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

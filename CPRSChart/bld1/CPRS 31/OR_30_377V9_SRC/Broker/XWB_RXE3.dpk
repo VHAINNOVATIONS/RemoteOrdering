@@ -1,0 +1,65 @@
+package XWB_RXE3;
+
+{$R *.res}
+{$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO ON}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION OFF}
+{$OVERFLOWCHECKS OFF}
+{$RANGECHECKS OFF}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES ON}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST OFF}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DEFINE DEBUG}
+{$ENDIF IMPLICITBUILDING}
+{$DESCRIPTION 'VistA RPC Broker Runtime Package'}
+{$RUNONLY}
+{$IMPLICITBUILD OFF}
+
+requires
+  vcl,
+  rtl;
+
+contains
+  Xwbut1 in 'Source\Xwbut1.pas' {in 'Xwbut1.pas'},
+  XlfSid in 'Source\XlfSid.pas',
+  Hash in 'Source\Hash.pas' {in 'Hash.pas'},
+  Loginfrm in 'Source\Loginfrm.pas' {in 'Loginfrm.pas'},
+  MFunStr in 'Source\MFunStr.pas' {in 'Mfunstr.pas'},
+  Rpcberr in 'Source\Rpcberr.pas' {in 'Rpcberr.pas'},
+  Rpcconf1 in 'Source\Rpcconf1.pas' {in 'Rpcconf1.pas'},
+  RpcNet in 'Source\RpcNet.pas' {in 'Rpcnet.pas'},
+  seldiv in 'Source\seldiv.pas' {in 'SelDiv.pas'},
+  SgnonCnf in 'Source\SgnonCnf.pas' {in 'Sgnoncnf.pas'},
+  Splvista in 'Source\Splvista.pas' {in 'Splvista.pas'},
+  Trpcb in 'Source\Trpcb.pas' {in 'Trpcb.pas'},
+  VCEdit in 'Source\VCEdit.pas' {in 'Vcedit.pas'},
+  Wsockc in 'Source\Wsockc.pas' {in 'WSockc.pas'},
+  frmSignonMessage in 'Source\frmSignonMessage.pas' {in 'frmSignonMessage.pas'},
+  RpcSLogin in 'Source\RpcSLogin.pas' {in 'Rpcslogin.pas'},
+  XWBRich20 in 'Source\XWBRich20.PAS',
+  AddServer in 'Source\AddServer.pas' {frmAddServer},
+  fRPCBErrMsg in 'Source\fRPCBErrMsg.pas' {frmErrMsg},
+  fDebugInfo in 'Source\fDebugInfo.pas' {frmDebugInfo},
+  fSgnonDlg in 'Source\fSgnonDlg.pas' {frmSignonDialog},
+  VERGENCECONTEXTORLib_TLB in 'Source\VERGENCECONTEXTORLib_TLB.pas',
+  fPlinkpw in 'Source\fPlinkpw.pas' {fPlinkPassword},
+  fSSHUsername in 'Source\fSSHUsername.pas' {SSHUsername},
+  CCOW_const in 'Source\CCOW_const.pas',
+  uNetPlace in 'Source\uNetPlace.pas',
+  uTokenTools in 'Source\uTokenTools.pas';
+
+end.

@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2015/11/30 20:12:06.000.230,=rtl.dcp</Transaction>
+    <Transaction>2015/11/30 20:14:06.000.172,D:\CPRS 31\OR_30_377V9_SRC\Package1.dproj=D:\CPRS 31\OR_30_377V9_SRC\XWB_RXE3.dproj</Transaction>
+    <Transaction>2015/11/30 20:14:26.000.483,D:\CPRS 31\OR_30_377V9_SRC\XWB_RXE3.dproj=D:\CPRS 31\OR_30_377V9_SRC\Packages\XWB_RXE3.dproj</Transaction>
+  </Transactions>
+</BorlandProject>

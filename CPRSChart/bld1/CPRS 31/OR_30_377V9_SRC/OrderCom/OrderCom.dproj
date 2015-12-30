@@ -1,0 +1,449 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{B1AB8084-98BB-4520-B867-3D3EA4FB6FD1}</ProjectGuid>
+        <MainSource>OrderCom.dpr</MainSource>
+        <Base>True</Base>
+        <Config Condition="'$(Config)'==''">Debug</Config>
+        <TargetedPlatforms>1</TargetedPlatforms>
+        <AppType>Library</AppType>
+        <FrameworkType>VCL</FrameworkType>
+        <ProjectVersion>14.4</ProjectVersion>
+        <Platform Condition="'$(Platform)'==''">Win32</Platform>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='OSX32' and '$(Base)'=='true') or '$(Base_OSX32)'!=''">
+        <Base_OSX32>true</Base_OSX32>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Base)'=='true') or '$(Base_Win32)'!=''">
+        <Base_Win32>true</Base_Win32>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win64' and '$(Base)'=='true') or '$(Base_Win64)'!=''">
+        <Base_Win64>true</Base_Win64>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Config)'=='Release' or '$(Cfg_1)'!=''">
+        <Cfg_1>true</Cfg_1>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Config)'=='Debug' or '$(Cfg_2)'!=''">
+        <Cfg_2>true</Cfg_2>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='OSX32' and '$(Cfg_2)'=='true') or '$(Cfg_2_OSX32)'!=''">
+        <Cfg_2_OSX32>true</Cfg_2_OSX32>
+        <CfgParent>Cfg_2</CfgParent>
+        <Cfg_2>true</Cfg_2>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Cfg_2)'=='true') or '$(Cfg_2_Win32)'!=''">
+        <Cfg_2_Win32>true</Cfg_2_Win32>
+        <CfgParent>Cfg_2</CfgParent>
+        <Cfg_2>true</Cfg_2>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Base)'!=''">
+        <VerInfo_Release>16</VerInfo_Release>
+        <VerInfo_MajorVer>2</VerInfo_MajorVer>
+        <Manifest_File>None</Manifest_File>
+        <DCC_UnitSearchPath>..\OrderCom\;..\OrderCom\dcu;..\OrderCom\BCMA;..\OrderCom\BcmaCom-Orders;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+        <DCC_F>false</DCC_F>
+        <DCC_MapFile>3</DCC_MapFile>
+        <DCC_Namespace>System;Xml;Data;Datasnap;Web;Soap;System.Win;Winapi;Vcl;Vcl.Samples;Vcl.Imaging;Vcl.Touch;Vcl.Shell;$(DCC_Namespace)</DCC_Namespace>
+        <DCC_ImageBase>00400000</DCC_ImageBase>
+        <DCC_K>false</DCC_K>
+        <DCC_S>false</DCC_S>
+        <DCC_WriteableConstants>true</DCC_WriteableConstants>
+        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+        <GenDll>true</GenDll>
+        <VerInfo_DLL>true</VerInfo_DLL>
+        <VerInfo_Keys>CompanyName=Department of Veterans Affairs;FileDescription=04/02/2015;FileVersion=2.0.16.0;InternalName=OrderCom;LegalCopyright=;LegalTrademarks=;OriginalFilename=BCMAOrderCom.dll;ProductName=VA One Step Order Admin;ProductVersion=2.0.16.0;Comments=CPRS Med Order Button / One Step Clinic Admin</VerInfo_Keys>
+        <DCC_Optimize>false</DCC_Optimize>
+        <VerInfo_Locale>1033</VerInfo_Locale>
+        <DCC_SymbolReferenceInfo>1</DCC_SymbolReferenceInfo>
+        <DCC_N>true</DCC_N>
+        <DCC_E>false</DCC_E>
+        <DCC_BplOutput>..\OrderCom\</DCC_BplOutput>
+        <DCC_DcuOutput>..\OrderCom\dcu</DCC_DcuOutput>
+        <DCC_ExeOutput>..\OrderCom\</DCC_ExeOutput>
+        <DCC_UsePackage>Vcl50;Vclx50;VclSmp50;Qrpt50;Vcldb50;Vclbde50;ibevnt50;vcldbx50;TeeUI50;TeeDB50;Tee50;TeeQR50;VCLIB50;vclie50;Inetdb50;Inet50;NMFast50;dclocx50;dclaxserver50;XWB_R50;vcl;vclx;VclSmp;tee;XWB_R60;XWB_R2006;$(DCC_UsePackage)</DCC_UsePackage>
+        <DCC_DcpOutput>..\OrderCom\</DCC_DcpOutput>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Base_OSX32)'!=''">
+        <Icns_MainIcns>$(BDS)\bin\delphi_PROJECTICNS.icns</Icns_MainIcns>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Base_Win32)'!=''">
+        <DCC_Namespace>Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Base_Win64)'!=''">
+        <Icon_MainIcon>BcmaOrderCom_Icon.ico</Icon_MainIcon>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_1)'!=''">
+        <DCC_DebugInformation>false</DCC_DebugInformation>
+        <DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
+        <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
+        <DCC_Define>RELEASE;$(DCC_Define)</DCC_Define>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_2)'!=''">
+        <DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
+        <DCC_GenerateStackFrames>true</DCC_GenerateStackFrames>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_2_OSX32)'!=''">
+        <Icns_MainIcns>$(BDS)\bin\delphi_PROJECTICNS.icns</Icns_MainIcns>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
+        <VerInfo_Debug>true</VerInfo_Debug>
+        <Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
+        <Debugger_RunParams>S=10.5.21.65 P=9030</Debugger_RunParams>
+    </PropertyGroup>
+    <ItemGroup>
+        <DelphiCompile Include="$(MainSource)">
+            <MainSource>MainSource</MainSource>
+        </DelphiCompile>
+        <DCCReference Include="OrderComIntf.pas">
+            <CoClasses>BcmaOrder</CoClasses>
+        </DCCReference>
+        <DCCReference Include="BcmaCom-Orders\uBcmaOrder.pas"/>
+        <DCCReference Include="BcmaCom-Orders\fOCAccept.pas"/>
+        <DCCReference Include="BcmaCom-Orders\fAutoSz.pas">
+            <Form>frmAutoSz</Form>
+        </DCCReference>
+        <DCCReference Include="BcmaCom-Orders\fODMedFA.pas"/>
+        <DCCReference Include="BcmaCom-Orders\fODMedIV.pas"/>
+        <DCCReference Include="BcmaCom-Orders\fODMedOIFA.pas"/>
+        <DCCReference Include="BcmaCom-Orders\fODMeds.pas">
+            <Form>lst</Form>
+        </DCCReference>
+        <DCCReference Include="BcmaCom-Orders\rCore.pas"/>
+        <DCCReference Include="BcmaCom-Orders\rODBase.pas"/>
+        <DCCReference Include="BcmaCom-Orders\rODMeds.pas"/>
+        <DCCReference Include="BcmaCom-Orders\rOrders.pas"/>
+        <DCCReference Include="BcmaCom-Orders\uBcmaConst.pas"/>
+        <DCCReference Include="BcmaCom-Orders\uConst.pas"/>
+        <DCCReference Include="BcmaCom-Orders\fSignItem.pas">
+            <Form>frmSignItem</Form>
+        </DCCReference>
+        <DCCReference Include="BcmaCom-Orders\fOCSession.pas">
+            <Form>frmOCSession</Form>
+        </DCCReference>
+        <DCCReference Include="BcmaCom-Orders\fODBase.pas">
+            <Form>frmODBase</Form>
+        </DCCReference>
+        <DCCReference Include="BcmaCom-Orders\fReview.pas">
+            <Form>frmReview</Form>
+        </DCCReference>
+        <DCCReference Include="BcmaCom-Lib\ORNet.pas"/>
+        <DCCReference Include="BcmaCom-Orders\uODBase.pas"/>
+        <DCCReference Include="BcmaCom-Orders\fBase508Form.pas">
+            <Form>frmBase508Form</Form>
+        </DCCReference>
+        <DCCReference Include="BcmaCom-Orders\fHSplit.pas"/>
+        <DCCReference Include="BcmaCom-Orders\fPage.pas">
+            <Form>frmPage</Form>
+        </DCCReference>
+        <DCCReference Include="BcmaCom-Orders\fODMessage.pas">
+            <Form>frmODMessage</Form>
+        </DCCReference>
+        <DCCReference Include="BcmaCom-Orders\fIVRoutes.pas">
+            <Form>frmIVRoutes</Form>
+        </DCCReference>
+        <DCCReference Include="BcmaCom-Orders\fOtherSchedule.pas">
+            <Form>frmOtherSchedule</Form>
+        </DCCReference>
+        <DCCReference Include="BCMA\BCMA_OrderMan.pas">
+            <Form>frmCPRSOrderManager</Form>
+        </DCCReference>
+        <DCCReference Include="BCMA\BCMA_Objects.pas"/>
+        <DCCReference Include="BCMA\VHA_Objects.pas"/>
+        <DCCReference Include="BCMA\BCMA_Common.pas"/>
+        <DCCReference Include="BCMA\BCMA_Util.pas"/>
+        <DCCReference Include="BCMA\uBCMA.pas"/>
+        <DCCReference Include="BCMA\MultipleOrderedDrugs.pas">
+            <Form>frmMultipleOrderedDrugs</Form>
+        </DCCReference>
+        <DCCReference Include="fEncnt.pas">
+            <Form>frmEncounter</Form>
+        </DCCReference>
+        <DCCReference Include="BcmaCom-Orders\uCore.pas"/>
+        <DCCReference Include="BcmaCom-Orders\uOrders.pas"/>
+        <DCCReference Include="XuDigSigSC_TLB.pas"/>
+        <DCCReference Include="BcmaCom-Orders\fOCMonograph.pas">
+            <Form>frmOCMonograph</Form>
+        </DCCReference>
+        <BuildConfiguration Include="Debug">
+            <Key>Cfg_2</Key>
+            <CfgParent>Base</CfgParent>
+        </BuildConfiguration>
+        <BuildConfiguration Include="Base">
+            <Key>Base</Key>
+        </BuildConfiguration>
+        <BuildConfiguration Include="Release">
+            <Key>Cfg_1</Key>
+            <CfgParent>Base</CfgParent>
+        </BuildConfiguration>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Delphi.Personality.12</Borland.Personality>
+        <Borland.ProjectType>VCLApplication</Borland.ProjectType>
+        <BorlandProject>
+            <Delphi.Personality>
+                <Source>
+                    <Source Name="MainSource">OrderCom.dpr</Source>
+                </Source>
+                <Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dcloffice2k170.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dclofficexp170.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
+                </Excluded_Packages>
+                <VersionInfo>
+                    <VersionInfo Name="IncludeVerInfo">False</VersionInfo>
+                    <VersionInfo Name="AutoIncBuild">False</VersionInfo>
+                    <VersionInfo Name="MajorVer">1</VersionInfo>
+                    <VersionInfo Name="MinorVer">0</VersionInfo>
+                    <VersionInfo Name="Release">0</VersionInfo>
+                    <VersionInfo Name="Build">0</VersionInfo>
+                    <VersionInfo Name="Debug">False</VersionInfo>
+                    <VersionInfo Name="PreRelease">False</VersionInfo>
+                    <VersionInfo Name="Special">False</VersionInfo>
+                    <VersionInfo Name="Private">False</VersionInfo>
+                    <VersionInfo Name="DLL">False</VersionInfo>
+                    <VersionInfo Name="Locale">1033</VersionInfo>
+                    <VersionInfo Name="CodePage">1252</VersionInfo>
+                </VersionInfo>
+                <VersionInfoKeys>
+                    <VersionInfoKeys Name="CompanyName"/>
+                    <VersionInfoKeys Name="FileDescription"/>
+                    <VersionInfoKeys Name="FileVersion">1.0.0.0</VersionInfoKeys>
+                    <VersionInfoKeys Name="InternalName"/>
+                    <VersionInfoKeys Name="LegalCopyright"/>
+                    <VersionInfoKeys Name="LegalTrademarks"/>
+                    <VersionInfoKeys Name="OriginalFilename"/>
+                    <VersionInfoKeys Name="ProductName"/>
+                    <VersionInfoKeys Name="ProductVersion">1.0.0.0</VersionInfoKeys>
+                    <VersionInfoKeys Name="Comments"/>
+                    <VersionInfoKeys Name="CFBundleName"/>
+                    <VersionInfoKeys Name="CFBundleDisplayName"/>
+                    <VersionInfoKeys Name="CFBundleIdentifier"/>
+                    <VersionInfoKeys Name="CFBundleVersion"/>
+                    <VersionInfoKeys Name="CFBundlePackageType"/>
+                    <VersionInfoKeys Name="CFBundleSignature"/>
+                    <VersionInfoKeys Name="CFBundleAllowMixedLocalizations"/>
+                    <VersionInfoKeys Name="CFBundleExecutable"/>
+                </VersionInfoKeys>
+            </Delphi.Personality>
+            <Platforms>
+                <Platform value="OSX32">False</Platform>
+                <Platform value="Win32">True</Platform>
+                <Platform value="Win64">False</Platform>
+            </Platforms>
+            <ActiveXProjectInfo>
+                <version>1</version>
+            </ActiveXProjectInfo>
+            <Deployment>
+                <DeployFile LocalName="..\OrderCom\dcu\OrderCom.dll" Configuration="Debug" Class="ProjectOutput">
+                    <Platform Name="Win32"/>
+                </DeployFile>
+                <DeployFile LocalName="..\OrderCom\dcu\OrderCom.rsm" Configuration="Debug" Class="DebugSymbols">
+                    <Platform Name="Win32">
+                        <RemoteName>BcmaOrderCom.rsm</RemoteName>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="$(BDS)\Redist\osx32\libcgunwind.1.0.dylib" Class="DependencyModule">
+                    <Platform Name="OSX32"/>
+                    <Platform Name="iOSSimulator"/>
+                    <Platform Name="iOSDevice"/>
+                </DeployFile>
+                <DeployClass Required="true" Name="DependencyPackage">
+                    <Platform Name="iOSDevice">
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                    <Platform Name="Win32">
+                        <Operation>0</Operation>
+                        <Extensions>.bpl</Extensions>
+                    </Platform>
+                    <Platform Name="OSX32">
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="DependencyModule">
+                    <Platform Name="iOSDevice">
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                    <Platform Name="Win32">
+                        <Operation>0</Operation>
+                        <Extensions>.dll;.bpl</Extensions>
+                    </Platform>
+                    <Platform Name="OSX32">
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPad_Launch2048">
+                    <Platform Name="iOSDevice">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="ProjectOSXInfoPList"/>
+                <DeployClass Name="ProjectiOSDeviceInfoPList"/>
+                <DeployClass Name="iPad_Launch1024">
+                    <Platform Name="iOSDevice">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="ProjectiOSResource">
+                    <Platform Name="iOSDevice">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="ProjectiOSSimulatorInfoPList"/>
+                <DeployClass Name="ProjectOSXEntitlements"/>
+                <DeployClass Name="iPhone_Launch640">
+                    <Platform Name="iOSDevice">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="ProjectOSXResource">
+                    <Platform Name="OSX32">
+                        <RemoteDir>Contents\Resources</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPhone_Launch320">
+                    <Platform Name="iOSDevice">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPad_Launch768">
+                    <Platform Name="iOSDevice">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Required="true" Name="ProjectOutput">
+                    <Platform Name="iOSDevice">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Win32">
+                        <Operation>0</Operation>
+                    </Platform>
+                    <Platform Name="OSX32">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="ProjectiOSDeviceResourceRules"/>
+                <DeployClass Name="File">
+                    <Platform Name="iOSDevice">
+                        <Operation>0</Operation>
+                    </Platform>
+                    <Platform Name="Win32">
+                        <Operation>0</Operation>
+                    </Platform>
+                    <Platform Name="OSX32">
+                        <Operation>0</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <Operation>0</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="DebugSymbols">
+                    <Platform Name="iOSDevice">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Win32">
+                        <Operation>0</Operation>
+                    </Platform>
+                    <Platform Name="OSX32">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="DependencyFramework">
+                    <Platform Name="OSX32">
+                        <Operation>1</Operation>
+                        <Extensions>.framework</Extensions>
+                    </Platform>
+                    <Platform Name="Win32">
+                        <Operation>0</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="ProjectiOSEntitlements">
+                    <Platform Name="iOSDevice">
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPad_Launch1536">
+                    <Platform Name="iOSDevice">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="AdditionalDebugSymbols">
+                    <Platform Name="iOSDevice">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Win32">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <Operation>0</Operation>
+                    </Platform>
+                    <Platform Name="OSX32">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <ProjectRoot Platform="iOSDevice" Name="$(PROJECTNAME).app"/>
+                <ProjectRoot Platform="Win32" Name="$(PROJECTNAME)"/>
+                <ProjectRoot Platform="OSX32" Name="$(PROJECTNAME)"/>
+                <ProjectRoot Platform="iOSSimulator" Name="$(PROJECTNAME).app"/>
+                <ProjectRoot Platform="Win64" Name="$(PROJECTNAME)"/>
+            </Deployment>
+        </BorlandProject>
+        <ProjectFileVersion>12</ProjectFileVersion>
+    </ProjectExtensions>
+    <Import Project="$(BDS)\Bin\CodeGear.Delphi.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Delphi.Targets')"/>
+    <Import Project="$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj" Condition="Exists('$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj')"/>
+    <Import Project="$(MSBuildProjectName).deployproj" Condition="Exists('$(MSBuildProjectName).deployproj')"/>
+</Project>
