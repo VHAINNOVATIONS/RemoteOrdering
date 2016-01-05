@@ -1,0 +1,43 @@
+
+GOLDDEV>ZP
+LRREM    ;SAIC/TCK - REMOTE ORDERING ; 1/4/16 11:05am
+         ;;1.0;REMOTE ORDERING;;DEC 28, 2015;Build 1
+         Q
+         ;
+EN(MSG1,MSG2) ;Pass in message from VistA or CPRS
+         N HLA,PROT,PR,REC,FLG S (CHK,FLG)=0
+         I $D(MSG1)>1 M REC=XQORMSG D GENMSG(.REC)
+         S PROT="LA7DOD ORM-O01 EVENT 2.4",U="^"
+         I $G(MSG2)'="" I $G(ORAPMSG)'="" M REC=@ORAPMSG D GENMSG(.REC)
+         I $G(MSG1)["TMP" M REC=@XQORMSG D GENMSG(.REC)
+         I $G(MSG)["TMP" M REC=@MSG D GENMSG(.REC)
+         K MSG,MSG1,REC,CHK,FLG,ODC,AP,VFGL,STOP,CHG,MSGTYP,MSGNDE
+         Q
+         ;
+GENMSG(REC) ;
+         B
+         I $D(REC) M ^XTMP("MESSAGE")=REC
+         S ZCNT="",(CHK,FLG,ODC,AP,VFLG,STOP,CHG)=0
+         I $D(JVORIN) S JVOD=1,FLG=2 Q
+         F  S ZCNT=$O(REC(ZCNT)) Q:ZCNT=""  D  Q:FLG=2
+         .S MSGNDE=REC(ZCNT),MSGTYP=$P($G(REC(ZCNT)),"|")
+         .Q:MSGTYP=""
+         .I MSGTYP="ORC",$P($G(MSGNDE),"|",2)="NA" S FLG=2 Q
+         .I MSGTYP="ORC",$P($G(MSGNDE),"|",2)="SN" S FLG=1
+         .I MSGTYP="ORC",$P($G(MSGNDE),"|",2)="NW" S FLG=1
+         Q:FLG=2
+         S ORIFN=+ORDERID
+         D GTREM(.PROT,ORIFN)
+         ;S PROT="LA7V Order to 659"
+         M HLA("HLS")=REC K HLA("HLS",1) D GENERATE^HLMA($O(^ORD(101,"B",PROT,0)),"LM",1,.HLREST,"",.HLP) S FLG=3
+         Q
+GTREM(PROT,ORIFN) ;
+         S PROT=0
+         Q:$G(ORIFN)'>0
+         Q:'$D(^OR(100,ORIFN,4.5,"ID"))
+         Q:'$D(^OR(100,ORIFN,4.5,"ID","comments"))
+         S IFN="",IFN=$O(^OR(100,ORIFN,4.5,"ID","comments",IFN))
+         S REM=^OR(100,ORIFN,4.5,8,1)
+         S PROT="LA7V Order to "_REM
+         Q
+
