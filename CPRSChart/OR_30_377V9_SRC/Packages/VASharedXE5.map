@@ -1,0 +1,1851 @@
+
+ Start         Length     Name                   Class
+ 0001:00401000 0000A460H .text                   CODE
+ 0002:0040C000 00000378H .itext                  ICODE
+ 0003:0040D000 0000092CH .data                   DATA
+ 0004:0040E000 00000108H .bss                    BSS
+ 0005:00000000 00000000H .tls                    TLS
+ 0006:00400000 00000000H .pdata                  PDATA
+
+
+Detailed map of segments
+
+ 0001:00000000 000001C8 C=CODE     S=.text    G=(none)   M=System   ACBP=A9
+ 0001:000001C8 000007D0 C=CODE     S=.text    G=(none)   M=SysInit  ACBP=A9
+ 0001:00000998 0000017C C=CODE     S=.text    G=(none)   M=Winapi.Windows ACBP=A9
+ 0001:00000B14 00000594 C=CODE     S=.text    G=(none)   M=Winapi.PsAPI ACBP=A9
+ 0001:000010A8 00000008 C=CODE     S=.text    G=(none)   M=System.Internal.ExcUtils ACBP=A9
+ 0001:000010B0 00000088 C=CODE     S=.text    G=(none)   M=System.SysUtils ACBP=A9
+ 0001:00001138 00000148 C=CODE     S=.text    G=(none)   M=Winapi.Messages ACBP=A9
+ 0001:00001280 00000008 C=CODE     S=.text    G=(none)   M=System.VarUtils ACBP=A9
+ 0001:00001288 00000040 C=CODE     S=.text    G=(none)   M=System.Variants ACBP=A9
+ 0001:000012C8 00000010 C=CODE     S=.text    G=(none)   M=System.StrUtils ACBP=A9
+ 0001:000012D8 00000008 C=CODE     S=.text    G=(none)   M=System.AnsiStrings ACBP=A9
+ 0001:000012E0 00000008 C=CODE     S=.text    G=(none)   M=System.Math ACBP=A9
+ 0001:000012E8 00000008 C=CODE     S=.text    G=(none)   M=System.TimeSpan ACBP=A9
+ 0001:000012F0 00000008 C=CODE     S=.text    G=(none)   M=System.SyncObjs ACBP=A9
+ 0001:000012F8 00000010 C=CODE     S=.text    G=(none)   M=System.Generics.Defaults ACBP=A9
+ 0001:00001308 00000008 C=CODE     S=.text    G=(none)   M=System.Rtti ACBP=A9
+ 0001:00001310 00000008 C=CODE     S=.text    G=(none)   M=System.TypInfo ACBP=A9
+ 0001:00001318 00000130 C=CODE     S=.text    G=(none)   M=System.Classes ACBP=A9
+ 0001:00001448 00000008 C=CODE     S=.text    G=(none)   M=System.DateUtils ACBP=A9
+ 0001:00001450 00000010 C=CODE     S=.text    G=(none)   M=System.IOUtils ACBP=A9
+ 0001:00001460 00000008 C=CODE     S=.text    G=(none)   M=System.Win.Registry ACBP=A9
+ 0001:00001468 00000018 C=CODE     S=.text    G=(none)   M=Vcl.Graphics ACBP=A9
+ 0001:00001480 00000008 C=CODE     S=.text    G=(none)   M=System.Actions ACBP=A9
+ 0001:00001488 00000008 C=CODE     S=.text    G=(none)   M=Vcl.ActnList ACBP=A9
+ 0001:00001490 00000008 C=CODE     S=.text    G=(none)   M=System.HelpIntfs ACBP=A9
+ 0001:00001498 00000008 C=CODE     S=.text    G=(none)   M=Winapi.UxTheme ACBP=A9
+ 0001:000014A0 00000008 C=CODE     S=.text    G=(none)   M=Vcl.GraphUtil ACBP=A9
+ 0001:000014A8 00000090 C=CODE     S=.text    G=(none)   M=Vcl.StdCtrls ACBP=A9
+ 0001:00001538 00000008 C=CODE     S=.text    G=(none)   M=Winapi.ShlObj ACBP=A9
+ 0001:00001540 00000008 C=CODE     S=.text    G=(none)   M=Vcl.Printers ACBP=A9
+ 0001:00001548 00000008 C=CODE     S=.text    G=(none)   M=Vcl.Clipbrd ACBP=A9
+ 0001:00001550 000000D8 C=CODE     S=.text    G=(none)   M=Vcl.ComCtrls ACBP=A9
+ 0001:00001628 00000008 C=CODE     S=.text    G=(none)   M=Vcl.Dialogs ACBP=A9
+ 0001:00001630 00000028 C=CODE     S=.text    G=(none)   M=Vcl.ExtCtrls ACBP=A9
+ 0001:00001658 00000008 C=CODE     S=.text    G=(none)   M=Vcl.Themes ACBP=A9
+ 0001:00001660 00000008 C=CODE     S=.text    G=(none)   M=Winapi.FlatSB ACBP=A9
+ 0001:00001668 000000A0 C=CODE     S=.text    G=(none)   M=Vcl.Forms ACBP=A9
+ 0001:00001708 00000008 C=CODE     S=.text    G=(none)   M=Vcl.Menus ACBP=A9
+ 0001:00001710 00000018 C=CODE     S=.text    G=(none)   M=System.Win.ComObj ACBP=A9
+ 0001:00001728 00000180 C=CODE     S=.text    G=(none)   M=Vcl.Controls ACBP=A9
+ 0001:000018A8 00001140 C=CODE     S=.text    G=(none)   M=VAClasses ACBP=A9
+ 0001:000029E8 00000424 C=CODE     S=.text    G=(none)   M=Winapi.TlHelp32 ACBP=A9
+ 0001:00002E0C 00004498 C=CODE     S=.text    G=(none)   M=VAUtils  ACBP=A9
+ 0001:000072A4 000014FC C=CODE     S=.text    G=(none)   M=HRBuffers ACBP=A9
+ 0001:000087A0 00000B30 C=CODE     S=.text    G=(none)   M=HRParser ACBP=A9
+ 0001:000092D0 00000694 C=CODE     S=.text    G=(none)   M=HRParserPas ACBP=A9
+ 0001:00009964 000004C4 C=CODE     S=.text    G=(none)   M=VA2006Utils ACBP=A9
+ 0001:00009E28 00000638 C=CODE     S=.text    G=(none)   M=.VASharedXE5 ACBP=A9
+ 0002:00000000 00000008 C=ICODE    S=.itext   G=(none)   M=System   ACBP=A9
+ 0002:00000008 00000008 C=ICODE    S=.itext   G=(none)   M=SysInit  ACBP=A9
+ 0002:00000010 00000018 C=ICODE    S=.itext   G=(none)   M=Winapi.Windows ACBP=A9
+ 0002:00000028 00000008 C=ICODE    S=.itext   G=(none)   M=System.Internal.ExcUtils ACBP=A9
+ 0002:00000030 00000028 C=ICODE    S=.itext   G=(none)   M=System.SysUtils ACBP=A9
+ 0002:00000058 00000008 C=ICODE    S=.itext   G=(none)   M=System.VarUtils ACBP=A9
+ 0002:00000060 00000008 C=ICODE    S=.itext   G=(none)   M=System.Variants ACBP=A9
+ 0002:00000068 00000008 C=ICODE    S=.itext   G=(none)   M=System.AnsiStrings ACBP=A9
+ 0002:00000070 00000008 C=ICODE    S=.itext   G=(none)   M=System.Math ACBP=A9
+ 0002:00000078 00000008 C=ICODE    S=.itext   G=(none)   M=System.TimeSpan ACBP=A9
+ 0002:00000080 00000008 C=ICODE    S=.itext   G=(none)   M=System.SyncObjs ACBP=A9
+ 0002:00000088 00000010 C=ICODE    S=.itext   G=(none)   M=System.Generics.Defaults ACBP=A9
+ 0002:00000098 00000008 C=ICODE    S=.itext   G=(none)   M=System.Rtti ACBP=A9
+ 0002:000000A0 00000008 C=ICODE    S=.itext   G=(none)   M=System.TypInfo ACBP=A9
+ 0002:000000A8 00000030 C=ICODE    S=.itext   G=(none)   M=System.Classes ACBP=A9
+ 0002:000000D8 00000008 C=ICODE    S=.itext   G=(none)   M=System.DateUtils ACBP=A9
+ 0002:000000E0 00000010 C=ICODE    S=.itext   G=(none)   M=System.IOUtils ACBP=A9
+ 0002:000000F0 00000008 C=ICODE    S=.itext   G=(none)   M=System.Win.Registry ACBP=A9
+ 0002:000000F8 00000008 C=ICODE    S=.itext   G=(none)   M=Vcl.Graphics ACBP=A9
+ 0002:00000100 00000008 C=ICODE    S=.itext   G=(none)   M=System.Actions ACBP=A9
+ 0002:00000108 00000008 C=ICODE    S=.itext   G=(none)   M=Vcl.ActnList ACBP=A9
+ 0002:00000110 00000008 C=ICODE    S=.itext   G=(none)   M=System.HelpIntfs ACBP=A9
+ 0002:00000118 00000008 C=ICODE    S=.itext   G=(none)   M=Winapi.UxTheme ACBP=A9
+ 0002:00000120 00000008 C=ICODE    S=.itext   G=(none)   M=Vcl.GraphUtil ACBP=A9
+ 0002:00000128 00000090 C=ICODE    S=.itext   G=(none)   M=Vcl.StdCtrls ACBP=A9
+ 0002:000001B8 00000008 C=ICODE    S=.itext   G=(none)   M=Vcl.Printers ACBP=A9
+ 0002:000001C0 00000008 C=ICODE    S=.itext   G=(none)   M=Vcl.Clipbrd ACBP=A9
+ 0002:000001C8 000000C8 C=ICODE    S=.itext   G=(none)   M=Vcl.ComCtrls ACBP=A9
+ 0002:00000290 00000008 C=ICODE    S=.itext   G=(none)   M=Vcl.Dialogs ACBP=A9
+ 0002:00000298 00000028 C=ICODE    S=.itext   G=(none)   M=Vcl.ExtCtrls ACBP=A9
+ 0002:000002C0 00000008 C=ICODE    S=.itext   G=(none)   M=Vcl.Themes ACBP=A9
+ 0002:000002C8 00000008 C=ICODE    S=.itext   G=(none)   M=Winapi.FlatSB ACBP=A9
+ 0002:000002D0 00000020 C=ICODE    S=.itext   G=(none)   M=Vcl.Forms ACBP=A9
+ 0002:000002F0 00000008 C=ICODE    S=.itext   G=(none)   M=Vcl.Menus ACBP=A9
+ 0002:000002F8 00000010 C=ICODE    S=.itext   G=(none)   M=System.Win.ComObj ACBP=A9
+ 0002:00000308 00000008 C=ICODE    S=.itext   G=(none)   M=Vcl.Controls ACBP=A9
+ 0002:00000310 00000008 C=ICODE    S=.itext   G=(none)   M=VAClasses ACBP=A9
+ 0002:00000318 00000038 C=ICODE    S=.itext   G=(none)   M=VAUtils  ACBP=A9
+ 0002:00000350 00000008 C=ICODE    S=.itext   G=(none)   M=HRBuffers ACBP=A9
+ 0002:00000358 00000008 C=ICODE    S=.itext   G=(none)   M=HRParser ACBP=A9
+ 0002:00000360 00000008 C=ICODE    S=.itext   G=(none)   M=HRParserPas ACBP=A9
+ 0002:00000368 00000008 C=ICODE    S=.itext   G=(none)   M=VA2006Utils ACBP=A9
+ 0002:00000370 00000008 C=ICODE    S=.itext   G=(none)   M=.VASharedXE5 ACBP=A9
+ 0003:00000000 00000088 C=DATA     S=.data    G=DGROUP   M=SysInit  ACBP=A9
+ 0003:00000088 0000000C C=DATA     S=.data    G=DGROUP   M=Winapi.Windows ACBP=A9
+ 0003:00000094 00000854 C=DATA     S=.data    G=DGROUP   M=VAUtils  ACBP=A9
+ 0003:000008E8 00000040 C=DATA     S=.data    G=DGROUP   M=HRParserPas ACBP=A9
+ 0004:00000000 0000001C C=BSS      S=.bss     G=DGROUP   M=SysInit  ACBP=A9
+ 0004:0000001C 00000008 C=BSS      S=.bss     G=DGROUP   M=Winapi.Windows ACBP=A9
+ 0004:00000024 00000060 C=BSS      S=.bss     G=DGROUP   M=Winapi.PsAPI ACBP=A9
+ 0004:00000084 00000004 C=BSS      S=.bss     G=DGROUP   M=VAClasses ACBP=A9
+ 0004:00000088 00000054 C=BSS      S=.bss     G=DGROUP   M=Winapi.TlHelp32 ACBP=A9
+ 0004:000000DC 0000001C C=BSS      S=.bss     G=DGROUP   M=VAUtils  ACBP=A9
+ 0004:000000F8 00000004 C=BSS      S=.bss     G=DGROUP   M=HRBuffers ACBP=A9
+ 0004:000000FC 00000004 C=BSS      S=.bss     G=DGROUP   M=HRParser ACBP=A9
+ 0004:00000100 00000004 C=BSS      S=.bss     G=DGROUP   M=HRParserPas ACBP=A9
+ 0004:00000104 00000004 C=BSS      S=.bss     G=DGROUP   M=VA2006Utils ACBP=A9
+
+
+  Address             Publics by Name
+
+ 0002:00000370       .VASharedXE5..VASharedXE5
+ 0001:0000A440       .VASharedXE5.@GetPackageInfoTable
+ 0001:0000A448       .VASharedXE5.@PackageLoad
+ 0001:0000A454       .VASharedXE5.@PackageUnload
+ 0004:000000F8       HRBuffers..6
+ 0001:000072A4       HRBuffers..THRBuffer
+ 0001:00007588       HRBuffers..THRBufferChar
+ 0001:000074B8       HRBuffers..THRBufferEOB
+ 0001:000079E4       HRBuffers..THRBufferList
+ 0001:0000784C       HRBuffers..THRBufferStream
+ 0001:00008798       HRBuffers.Finalization
+ 0002:00000350       HRBuffers.HRBuffers
+ 0001:00007C94       HRBuffers.THRBuffer.Create
+ 0001:00007D8C       HRBuffers.THRBuffer.CreateBuffer
+ 0001:00007CDC       HRBuffers.THRBuffer.Destroy
+ 0001:00007E5C       HRBuffers.THRBuffer.FreeBuffer
+ 0001:00007D5C       HRBuffers.THRBuffer.GetItems
+ 0001:00007DD4       HRBuffers.THRBuffer.ResizeBuffer
+ 0001:00007D78       HRBuffers.THRBuffer.SetItems
+ 0001:00007D18       HRBuffers.THRBuffer.SetSize
+ 0001:00007EA8       HRBuffers.THRBufferChar.Create
+ 0001:00007EF0       HRBuffers.THRBufferChar.Destroy
+ 0001:000080EC       HRBuffers.THRBufferChar.GetAsPChar
+ 0001:00008150       HRBuffers.THRBufferChar.GetAsString
+ 0001:00007F24       HRBuffers.THRBufferChar.GetEOB
+ 0001:00007F40       HRBuffers.THRBufferChar.GetItems
+ 0001:00007FC8       HRBuffers.THRBufferChar.Read
+ 0001:00008108       HRBuffers.THRBufferChar.SetAsPChar
+ 0001:00008168       HRBuffers.THRBufferChar.SetAsString
+ 0001:00007F88       HRBuffers.THRBufferChar.SetItems
+ 0001:00008018       HRBuffers.THRBufferChar.Write
+ 0001:00008064       HRBuffers.THRBufferChar.WritePChar
+ 0001:000080A8       HRBuffers.THRBufferChar.WriteString
+ 0001:00007E94       HRBuffers.THRBufferEOB.GetEOB
+ 0001:00008670       HRBuffers.THRBufferList.Add
+ 0001:00008348       HRBuffers.THRBufferList.Create
+ 0001:00008788       HRBuffers.THRBufferList.Delete
+ 0001:000083A0       HRBuffers.THRBufferList.Destroy
+ 0001:000084EC       HRBuffers.THRBufferList.GetCount
+ 0001:00008644       HRBuffers.THRBufferList.GetItemBuffer
+ 0001:000083D4       HRBuffers.THRBufferList.GetItemPos
+ 0001:00008508       HRBuffers.THRBufferList.GetItemSize
+ 0001:00008534       HRBuffers.THRBufferList.SetItemSize
+ 0001:000081AC       HRBuffers.THRBufferStream.Create
+ 0001:00008200       HRBuffers.THRBufferStream.Destroy
+ 0001:00008274       HRBuffers.THRBufferStream.GetEOB
+ 0001:00008290       HRBuffers.THRBufferStream.GetItems
+ 0001:00008334       HRBuffers.THRBufferStream.SetItems
+ 0001:00008234       HRBuffers.THRBufferStream.SetStream
+ 0004:000000FC       HRParser..3
+ 0001:00008820       HRParser..THRParser
+ 0001:00008A58       HRParser..THRParserText
+ 0001:000092C8       HRParser.Finalization
+ 0002:00000358       HRParser.HRParser
+ 0001:00008B5C       HRParser.THRParser.Create
+ 0001:00008BE0       HRParser.THRParser.Destroy
+ 0001:00008DA0       HRParser.THRParser.GetNextToken
+ 0001:00008C38       HRParser.THRParser.GetSource
+ 0001:00008C90       HRParser.THRParser.IncLine
+ 0001:00008E00       HRParser.THRParser.NextToken
+ 0001:00008C54       HRParser.THRParser.SetSource
+ 0001:00008C74       HRParser.THRParser.SetSourcePos
+ 0001:00008D34       HRParser.THRParser.SkipBlanks
+ 0001:00008CAC       HRParser.THRParser.SkipToSourcePos
+ 0001:00008E90       HRParser.THRParserText.Create
+ 0001:00008ED4       HRParser.THRParserText.Destroy
+ 0001:00008F08       HRParser.THRParserText.GetNextToken
+ 0004:00000100       HRParserPas..2
+ 0001:0000941C       HRParserPas..THRParserPas
+ 0001:0000995C       HRParserPas.Finalization
+ 0002:00000360       HRParserPas.HRParserPas
+ 0003:000008E8       HRParserPas.HR_TOKEN_PAS_DESC
+ 0001:0000951C       HRParserPas.THRParserPas.Create
+ 0001:00009560       HRParserPas.THRParserPas.Destroy
+ 0001:00009594       HRParserPas.THRParserPas.GetNextToken
+ 0001:00000870       SysInit...
+ 0001:000008B0       SysInit...
+ 0001:00000978       SysInit...
+ 0001:00000968       SysInit...
+ 0001:000008C0       SysInit...
+ 0001:00000944       SysInit...
+ 0001:0000091C       SysInit...
+ 0001:000008D4       SysInit...
+ 0001:00000904       SysInit...
+ 0001:000008A0       SysInit...
+ 0001:00000890       SysInit...
+ 0003:00000034       SysInit...
+ 0001:00000880       SysInit...
+ 0004:00000014       SysInit..1
+ 0001:00000344       SysInit.@InitPkg
+ 0001:000003A8       SysInit.@PackageLoad
+ 0001:000003B4       SysInit.@PackageUnload
+ 0001:000003C0       SysInit.@_delayLoadHelper2
+ 0001:000006A0       SysInit.@_FUnloadDelayLoadedDLL2
+ 0001:000007B0       SysInit.@_HrLoadAllImportsForDll
+ 0004:00000010       SysInit.@_pfnDliFailureHook2
+ 0004:0000000C       SysInit.@_pfnDliNotifyHook2
+ 0001:00000234       SysInit.AllocTlsBuffer
+ 0001:000002F0       SysInit.ExitProcessTLS
+ 0001:000002B8       SysInit.ExitThreadTLS
+ 0001:00000988       SysInit.Finalization
+ 0001:000001DC       SysInit.FreeLibrary
+ 0001:00000214       SysInit.GetLastError
+ 0001:0000022C       SysInit.GetProcAddress
+ 0001:00000240       SysInit.GetTlsSize
+ 0004:00000004       SysInit.HInstance
+ 0001:00000314       SysInit.InitializeModule
+ 0001:0000028C       SysInit.InitProcessTLS
+ 0001:00000248       SysInit.InitThreadTLS
+ 0001:000001C8       SysInit.InterlockedExchange
+ 0001:0000021C       SysInit.LoadLibraryA
+ 0001:000001E4       SysInit.LocalAlloc
+ 0001:000001EC       SysInit.LocalFree
+ 0003:00000008       SysInit.Module
+ 0004:00000000       SysInit.ModuleIsLib
+ 0004:00000001       SysInit.ModuleIsPackage
+ 0003:00000004       SysInit.PtrToNil
+ 0001:00000224       SysInit.RaiseException
+ 0001:00000868       SysInit.ShutdownDelayHelp2
+ 0002:00000008       SysInit.SysInit
+ 0001:000001F4       SysInit.TlsAlloc
+ 0004:00000018       SysInit.tlsBuffer
+ 0001:000001FC       SysInit.TlsFree
+ 0001:00000204       SysInit.TlsGetValue
+ 0003:00000000       SysInit.TlsIndex
+ 0005:00000000       SysInit.TlsLast
+ 0003:00000024       SysInit.TlsProc
+ 0001:0000020C       SysInit.TlsSetValue
+ 0001:00000320       SysInit.UninitializeModule
+ 0004:FFFF2000       SysInit.__ImageBase
+ 0001:000000A0       System.@AfterConstruction
+ 0001:000000D8       System.@Assert
+ 0001:000000A8       System.@BeforeDestruction
+ 0001:00000090       System.@ClassCreate
+ 0001:00000098       System.@ClassDestroy
+ 0001:000001A0       System.@DynArraySetLength
+ 0001:00000198       System.@FinalizeArray
+ 0001:00000190       System.@FinalizeRecord
+ 0001:00000008       System.@FreeMem
+ 0001:00000000       System.@GetMem
+ 0001:000000B0       System.@HandleFinally
+ 0001:000001B8       System.@IntfClear
+ 0001:00000058       System.@IsClass
+ 0001:000000E8       System.@LStrClr
+ 0001:00000120       System.@LStrFromPWChar
+ 0001:00000128       System.@LStrToPChar
+ 0001:000000C0       System.@PackageLoad
+ 0001:000000C8       System.@PackageUnload
+ 0001:000000B8       System.@RaiseExcept
+ 0001:000000D0       System.@RunError
+ 0001:000000F8       System.@UStrAddRef
+ 0001:000000F0       System.@UStrArrayClr
+ 0001:00000108       System.@UStrAsg
+ 0001:00000158       System.@UStrCat
+ 0001:00000160       System.@UStrCat3
+ 0001:00000168       System.@UStrCatN
+ 0001:000000E0       System.@UStrClr
+ 0001:00000178       System.@UStrCopy
+ 0001:00000180       System.@UStrDelete
+ 0001:00000170       System.@UStrEqual
+ 0001:00000140       System.@UStrFromPWChar
+ 0001:00000100       System.@UStrFromPWCharLen
+ 0001:00000148       System.@UStrFromWArray
+ 0001:00000138       System.@UStrFromWChar
+ 0001:00000110       System.@UStrLAsg
+ 0001:00000118       System.@UStrLen
+ 0001:00000150       System.@UStrSetLength
+ 0001:00000130       System.@UStrToPWChar
+ 0001:000001C0       System.Finalization
+ 0001:00000010       System.Move
+ 0001:00000018       System.ParamStr
+ 0001:00000188       System.Pos
+ 0001:000001A8       System.RegisterModule
+ 0002:00000000       System.System
+ 0001:00000078       System.TObject.AfterConstruction
+ 0001:00000080       System.TObject.BeforeDestruction
+ 0001:00000030       System.TObject.Create
+ 0001:00000070       System.TObject.DefaultHandler
+ 0001:00000038       System.TObject.Destroy
+ 0001:00000088       System.TObject.Dispatch
+ 0001:00000048       System.TObject.Equals
+ 0001:00000040       System.TObject.Free
+ 0001:00000028       System.TObject.FreeInstance
+ 0001:00000050       System.TObject.GetHashCode
+ 0001:00000020       System.TObject.NewInstance
+ 0001:00000060       System.TObject.SafeCallException
+ 0001:00000068       System.TObject.ToString
+ 0001:000001B0       System.UnregisterModule
+ 0001:00001480       System.Actions.Finalization
+ 0002:00000100       System.Actions.System.Actions
+ 0001:000012D8       System.AnsiStrings.Finalization
+ 0002:00000068       System.AnsiStrings.System.AnsiStrings
+ 0001:00001440       System.Classes.Finalization
+ 0002:000000D0       System.Classes.System.Classes
+ 0002:000000B0       System.Classes.TBinaryWriter.Create@
+ 0001:00001428       System.Classes.TBinaryWriter.Destroy@
+ 0001:000013A0       System.Classes.TComponent.BeforeDestruction
+ 0001:00001400       System.Classes.TComponent.CanObserve
+ 0001:00001390       System.Classes.TComponent.Create
+ 0002:000000C0       System.Classes.TComponent.Create@
+ 0001:000013C0       System.Classes.TComponent.DefineProperties
+ 0001:00001398       System.Classes.TComponent.Destroy
+ 0001:00001318       System.Classes.TComponent.Destroy@
+ 0001:000013A8       System.Classes.TComponent.FreeNotification
+ 0001:000013F0       System.Classes.TComponent.GetObservers
+ 0001:000013C8       System.Classes.TComponent.Loaded
+ 0001:000013B8       System.Classes.TComponent.Notification
+ 0001:00001408       System.Classes.TComponent.ObserverAdded
+ 0001:00001420       System.Classes.TComponent.QueryInterface
+ 0001:000013D0       System.Classes.TComponent.ReadState
+ 0001:000013B0       System.Classes.TComponent.RemoveFreeNotification
+ 0001:00001410       System.Classes.TComponent.SafeCallException
+ 0001:000013E8       System.Classes.TComponent.SetName
+ 0001:000013F8       System.Classes.TComponent.UpdateAction
+ 0001:00001418       System.Classes.TComponent.UpdateRegistry
+ 0001:000013E0       System.Classes.TComponent.ValidateRename
+ 0001:000013D8       System.Classes.TComponent.WriteState
+ 0001:00001328       System.Classes.TList.Add
+ 0001:00001330       System.Classes.TList.Clear
+ 0001:00001338       System.Classes.TList.Delete
+ 0001:00001320       System.Classes.TList.Destroy
+ 0001:00001340       System.Classes.TList.Error
+ 0001:00001348       System.Classes.TList.Get
+ 0001:00001350       System.Classes.TList.Grow
+ 0001:00001358       System.Classes.TList.IndexOf
+ 0002:000000C8       System.Classes.TLoginCredentialService.Create@
+ 0001:00001430       System.Classes.TLoginCredentialService.Destroy@
+ 0002:000000A8       System.Classes.TObserverMapping.Create@
+ 0001:00001438       System.Classes.TObserverMapping.Destroy@
+ 0001:00001360       System.Classes.TPersistent.Assign
+ 0001:00001368       System.Classes.TPersistent.AssignTo
+ 0001:00001380       System.Classes.TStream.SetPosition
+ 0001:00001378       System.Classes.TStringList.Create
+ 0001:00001370       System.Classes.TStringList.SetSorted
+ 0002:000000B8       System.Classes.TThread.Create@
+ 0001:00001388       System.Classes.TThread.Destroy@
+ 0002:000000D8       System.DateUtils.TTimeZone.Create@
+ 0001:00001448       System.DateUtils.TTimeZone.Destroy@
+ 0002:00000090       System.Generics.Defaults.TIStringComparer.Create@
+ 0001:00001300       System.Generics.Defaults.TIStringComparer.Destroy@
+ 0002:00000088       System.Generics.Defaults.TStringComparer.Create@
+ 0001:000012F8       System.Generics.Defaults.TStringComparer.Destroy@
+ 0001:00001490       System.HelpIntfs.Finalization
+ 0002:00000110       System.HelpIntfs.System.HelpIntfs
+ 0001:000010A8       System.Internal.ExcUtils.Finalization
+ 0002:00000028       System.Internal.ExcUtils.System.Internal.ExcUtils
+ 0001:00001458       System.IOUtils.Finalization
+ 0002:000000E8       System.IOUtils.System.IOUtils
+ 0002:000000E0       System.IOUtils.TPath.Create@
+ 0001:00001450       System.IOUtils.TPath.Destroy@
+ 0001:000012E0       System.Math.Finalization
+ 0002:00000070       System.Math.System.Math
+ 0001:00001308       System.Rtti.Finalization
+ 0002:00000098       System.Rtti.System.Rtti
+ 0001:000012D0       System.StrUtils.PosEx
+ 0001:000012C8       System.StrUtils.RightStr
+ 0001:000012F0       System.SyncObjs.Finalization
+ 0002:00000080       System.SyncObjs.System.SyncObjs
+ 0001:000010B8       System.SysUtils.CharInSet
+ 0001:00001108       System.SysUtils.Exception.Create
+ 0002:00000040       System.SysUtils.Exception.Create@
+ 0001:00001110       System.SysUtils.Exception.Destroy@
+ 0001:000010D8       System.SysUtils.ExtractFileDrive
+ 0001:000010E0       System.SysUtils.ExtractFileName
+ 0001:00001130       System.SysUtils.Finalization
+ 0001:00001118       System.SysUtils.FreeAndNil
+ 0001:000010C8       System.SysUtils.IntToHex
+ 0001:000010F0       System.SysUtils.StrEnd
+ 0001:000010E8       System.SysUtils.StrLen
+ 0001:000010F8       System.SysUtils.StrMove
+ 0001:00001100       System.SysUtils.StrScan
+ 0001:000010D0       System.SysUtils.StrToIntDef
+ 0002:00000050       System.SysUtils.System.SysUtils
+ 0002:00000038       System.SysUtils.TEncoding.Create@
+ 0001:00001128       System.SysUtils.TEncoding.Destroy@
+ 0002:00000030       System.SysUtils.TLanguages.Create@
+ 0001:00001120       System.SysUtils.TLanguages.Destroy@
+ 0002:00000048       System.SysUtils.TOSVersion.Create@
+ 0001:000010B0       System.SysUtils.TOSVersion.Destroy@
+ 0001:000010C0       System.SysUtils.UpperCase
+ 0002:00000078       System.TimeSpan.TTimeSpan.Create@
+ 0001:000012E8       System.TimeSpan.TTimeSpan.Destroy@
+ 0001:00001310       System.TypInfo.Finalization
+ 0002:000000A0       System.TypInfo.System.TypInfo
+ 0001:00001290       System.Variants.@DispInvoke
+ 0001:000012B0       System.Variants.@OleVarFromVar
+ 0001:00001288       System.Variants.@VarClear
+ 0001:000012B8       System.Variants.@VarCmpEQ
+ 0001:000012A8       System.Variants.@VarFromDisp
+ 0001:000012A0       System.Variants.@VarFromInt
+ 0001:00001298       System.Variants.@VarToInteger
+ 0001:000012C0       System.Variants.Finalization
+ 0002:00000060       System.Variants.System.Variants
+ 0001:00001280       System.VarUtils.Finalization
+ 0002:00000058       System.VarUtils.System.VarUtils
+ 0001:00001718       System.Win.ComObj.CreateOleObject
+ 0001:00001720       System.Win.ComObj.Finalization
+ 0002:00000300       System.Win.ComObj.System.Win.ComObj
+ 0002:000002F8       System.Win.ComObj.TComServerObject.Create@
+ 0001:00001710       System.Win.ComObj.TComServerObject.Destroy@
+ 0002:000000F0       System.Win.Registry.TRegistry.Create@
+ 0001:00001460       System.Win.Registry.TRegistry.Destroy@
+ 0004:00000104       VA2006Utils..2
+ 0001:00009964       VA2006Utils..TfraTabStopFalse
+ 0001:00009B40       VA2006Utils..THeaderControl2006BugFixer
+ 0001:00009E20       VA2006Utils.Finalization
+ 0001:00009DE0       VA2006Utils.FixHeaderControlDelphi2006Bug
+ 0001:00009DFC       VA2006Utils.TfraTabStopFalse.GetTabStop
+ 0001:00009E10       VA2006Utils.TfraTabStopFalse.SetTabStop
+ 0001:00009D70       VA2006Utils.THeaderControl2006BugFixer.CreateWrapper
+ 0001:00009CA8       VA2006Utils.THeaderControl2006BugFixer.HeaderControlMessageHandler
+ 0001:00009D20       VA2006Utils.THeaderControl2006BugFixer.Notification
+ 0002:00000368       VA2006Utils.VA2006Utils
+ 0004:00000084       VAClasses..6
+ 0001:000018A8       VAClasses..TVABaseMethodList
+ 0001:00001CAC       VAClasses..TVALinkedMethodList
+ 0001:00002238       VAClasses..TVAList
+ 0001:00001A04       VAClasses..TVAMethodList
+ 0001:00001FF4       VAClasses..TVANotificationEventComponent
+ 0001:000029E0       VAClasses.Finalization
+ 0001:00002360       VAClasses.TVABaseMethodList.Add
+ 0001:000023A0       VAClasses.TVABaseMethodList.Clear
+ 0001:000023C0       VAClasses.TVABaseMethodList.Count
+ 0001:000023DC       VAClasses.TVABaseMethodList.Create
+ 0001:00002438       VAClasses.TVABaseMethodList.Delete
+ 0001:00002464       VAClasses.TVABaseMethodList.Destroy
+ 0001:000024AC       VAClasses.TVABaseMethodList.GetMethod
+ 0001:000024E8       VAClasses.TVABaseMethodList.IndexOf
+ 0001:0000257C       VAClasses.TVABaseMethodList.Remove
+ 0001:00002770       VAClasses.TVALinkedMethodList.Add
+ 0001:000027D0       VAClasses.TVALinkedMethodList.Clear
+ 0001:000027FC       VAClasses.TVALinkedMethodList.Count
+ 0001:00002818       VAClasses.TVALinkedMethodList.Create
+ 0001:0000286C       VAClasses.TVALinkedMethodList.Delete
+ 0001:000028A8       VAClasses.TVALinkedMethodList.Destroy
+ 0001:000028E4       VAClasses.TVALinkedMethodList.GetMethod
+ 0001:0000292C       VAClasses.TVALinkedMethodList.IndexOf
+ 0001:00002960       VAClasses.TVALinkedMethodList.Remove
+ 0001:00002990       VAClasses.TVAList.Notify
+ 0001:000025BC       VAClasses.TVAMethodList.Add
+ 0001:000025D8       VAClasses.TVAMethodList.Clear
+ 0001:000025EC       VAClasses.TVAMethodList.Count
+ 0001:00002608       VAClasses.TVAMethodList.Create
+ 0001:0000264C       VAClasses.TVAMethodList.Delete
+ 0001:00002668       VAClasses.TVAMethodList.Destroy
+ 0001:0000269C       VAClasses.TVAMethodList.IndexOf
+ 0001:000026C0       VAClasses.TVAMethodList.Remove
+ 0001:000026DC       VAClasses.TVANotificationEventComponent.Notification
+ 0001:00002718       VAClasses.TVANotificationEventComponent.NotifyCreate
+ 0002:00000310       VAClasses.VAClasses
+ 0004:000000DC       VAUtils..3
+ 0001:000057EC       VAUtils..TVACustomMessageEventInterceptor
+ 0001:0000591C       VAUtils..TVAMessageEventHandler
+ 0001:00005AF0       VAUtils..TVAWinProcMonitor
+ 0001:00005D2C       VAUtils.AddMessageHandler
+ 0001:0000671C       VAUtils.AnotherInstanceRunning
+ 0001:0000532C       VAUtils.AppendBackSlash
+ 0003:00000494       VAUtils.BinChars
+ 0003:000004D4       VAUtils.CheckScreenReaderSupport
+ 0001:00005CF0       VAUtils.CleanupMessageHandlerSystem
+ 0001:00005C94       VAUtils.Clear
+ 0003:000004D8       VAUtils.CRC32_TABLE
+ 0001:00005298       VAUtils.CRCForString
+ 0001:00006D44       VAUtils.ExecuteAndWait
+ 0001:000051A8       VAUtils.FastHexToBinary
+ 0001:00004F0C       VAUtils.FastHexToByte
+ 0001:00004FE4       VAUtils.FastHexToInt
+ 0001:00004E7C       VAUtils.FastIntToHex
+ 0001:00004ED0       VAUtils.FastWordToHex
+ 0001:000068E8       VAUtils.FileVersionValue
+ 0001:0000724C       VAUtils.Finalization
+ 0001:00004A6C       VAUtils.FreeAndNilTStringsAndObjects
+ 0001:00005678       VAUtils.GetAlternateProgramFilesPath
+ 0001:00006FA0       VAUtils.GetDLLFileName
+ 0001:00004CE0       VAUtils.GetFileWithShortenedPath
+ 0001:00006490       VAUtils.GetInstanceCount
+ 0001:000066C8       VAUtils.GetInstanceCount
+ 0001:000067B0       VAUtils.GetNum
+ 0001:00005660       VAUtils.GetProgramFilesPath
+ 0001:000053BC       VAUtils.GetSpecialFolderPath
+ 0001:00006AD4       VAUtils.GetV
+ 0001:000057A4       VAUtils.GetWindowClassName
+ 0001:0000575C       VAUtils.GetWindowTitle
+ 0001:000071AC       VAUtils.HeightInPixels
+ 0003:00000094       VAUtils.HexChars
+ 0001:00005C20       VAUtils.InitializeMessageHandlerSystem
+ 0001:00006440       VAUtils.ListTooSmall
+ 0001:00005F1C       VAUtils.MessageHandlerCount
+ 0004:000000EC       VAUtils.ModuleHandles
+ 0001:00004C80       VAUtils.OldScreenReaderActive
+ 0001:00006BD0       VAUtils.parse
+ 0004:000000E0       VAUtils.PIDList
+ 0001:00004634       VAUtils.Piece
+ 0001:000046D4       VAUtils.Pieces
+ 0001:00004AC8       VAUtils.ProcessExists
+ 0001:00005E80       VAUtils.RemoveAllMessageHandlers
+ 0001:00005DD8       VAUtils.RemoveMessageHandler
+ 0001:00004C4C       VAUtils.ScreenReaderActive
+ 0001:00004CB4       VAUtils.ScreenReaderSupportEnabled
+ 0001:000047A4       VAUtils.ShowMsg
+ 0001:0000490C       VAUtils.ShowMsg
+ 0001:000063AC       VAUtils.TDataArray.Clear
+ 0001:000063D0       VAUtils.TDataArray.SetCapacity
+ 0001:00006424       VAUtils.TDataArray.Size
+ 0001:00006018       VAUtils.TVACustomMessageEventInterceptor.Create
+ 0001:00006100       VAUtils.TVACustomMessageEventInterceptor.Destroy
+ 0001:00006148       VAUtils.TVACustomMessageEventInterceptor.NewMessageHandler
+ 0001:00006168       VAUtils.TVAMessageEventHandler.AddMessageHandler
+ 0001:00006184       VAUtils.TVAMessageEventHandler.Create
+ 0001:000061E0       VAUtils.TVAMessageEventHandler.Destroy
+ 0001:0000621C       VAUtils.TVAMessageEventHandler.DoMessageHandlers
+ 0001:00006280       VAUtils.TVAMessageEventHandler.HandlerCount
+ 0001:000062A0       VAUtils.TVAMessageEventHandler.NewMessageHandler
+ 0001:000062D4       VAUtils.TVAMessageEventHandler.RemoveMessageHandler
+ 0001:00005FA8       VAUtils.TVAWinProcMonitor.Notification
+ 0001:00005FEC       VAUtils.TVAWinProcMonitor.RemoveFromList
+ 0003:000008D8       VAUtils.uEventMessageHandlers
+ 0003:000008DC       VAUtils.uHandlePointers
+ 0003:000008E4       VAUtils.uMessageHandlerSystemRunning
+ 0003:000004D5       VAUtils.uScreenReaderSupportEnabled
+ 0003:000008E0       VAUtils.uWinProcMonitor
+ 0002:00000318       VAUtils.VAUtils
+ 0001:00006C6C       VAUtils.VersionOK
+ 0001:00006730       VAUtils.VersionStringSplit
+ 0001:00006758       VAUtils.VersionStringSplit
+ 0001:00006784       VAUtils.VersionStringSplit
+ 0001:00006864       VAUtils.VersionStringSplit
+ 0001:000070C0       VAUtils.WidthInPixels
+ 0001:00001488       Vcl.ActnList.Finalization
+ 0002:00000108       Vcl.ActnList.Vcl.ActnList
+ 0001:00001548       Vcl.Clipbrd.Finalization
+ 0002:000001C0       Vcl.Clipbrd.Vcl.Clipbrd
+ 0001:00001620       Vcl.ComCtrls.Finalization
+ 0002:00000270       Vcl.ComCtrls.TComboBoxEx.Create@
+ 0001:00001600       Vcl.ComCtrls.TComboBoxEx.Destroy@
+ 0002:00000250       Vcl.ComCtrls.TCoolBar.Create@
+ 0001:000015E0       Vcl.ComCtrls.TCoolBar.Destroy@
+ 0002:00000268       Vcl.ComCtrls.TCustomComboBoxEx.Create@
+ 0001:000015F8       Vcl.ComCtrls.TCustomComboBoxEx.Destroy@
+ 0002:000001E0       Vcl.ComCtrls.TCustomHeaderControl.Create@
+ 0001:00001570       Vcl.ComCtrls.TCustomHeaderControl.Destroy@
+ 0002:00000228       Vcl.ComCtrls.TCustomHotKey.Create@
+ 0001:000015B8       Vcl.ComCtrls.TCustomHotKey.Destroy@
+ 0002:00000238       Vcl.ComCtrls.TCustomListView.Create@
+ 0001:000015C8       Vcl.ComCtrls.TCustomListView.Destroy@
+ 0002:00000208       Vcl.ComCtrls.TCustomRichEdit.Create@
+ 0001:00001598       Vcl.ComCtrls.TCustomRichEdit.Destroy@
+ 0002:000001D8       Vcl.ComCtrls.TCustomStatusBar.Create@
+ 0001:00001560       Vcl.ComCtrls.TCustomStatusBar.Destroy@
+ 0002:000001C8       Vcl.ComCtrls.TCustomTabControl.Create@
+ 0001:00001550       Vcl.ComCtrls.TCustomTabControl.Destroy@
+ 0002:000001E8       Vcl.ComCtrls.TCustomTreeView.Create@
+ 0001:00001578       Vcl.ComCtrls.TCustomTreeView.Destroy@
+ 0002:00000218       Vcl.ComCtrls.TCustomUpDown.Create@
+ 0001:000015A8       Vcl.ComCtrls.TCustomUpDown.Destroy@
+ 0002:00000258       Vcl.ComCtrls.TDateTimePicker.Create@
+ 0001:000015E8       Vcl.ComCtrls.TDateTimePicker.Destroy@
+ 0002:00000280       Vcl.ComCtrls.THeaderControl.Create@
+ 0001:00001610       Vcl.ComCtrls.THeaderControl.Destroy@
+ 0001:00001618       Vcl.ComCtrls.THeaderControl.GetOnSectionClick
+ 0001:00001568       Vcl.ComCtrls.THeaderSections.GetItem
+ 0002:00000230       Vcl.ComCtrls.THotKey.Create@
+ 0001:000015C0       Vcl.ComCtrls.THotKey.Destroy@
+ 0002:00000240       Vcl.ComCtrls.TListView.Create@
+ 0001:000015D0       Vcl.ComCtrls.TListView.Destroy@
+ 0002:00000260       Vcl.ComCtrls.TPageScroller.Create@
+ 0001:000015F0       Vcl.ComCtrls.TPageScroller.Destroy@
+ 0002:00000200       Vcl.ComCtrls.TProgressBar.Create@
+ 0001:00001590       Vcl.ComCtrls.TProgressBar.Destroy@
+ 0002:00000210       Vcl.ComCtrls.TRichEdit.Create@
+ 0001:000015A0       Vcl.ComCtrls.TRichEdit.Destroy@
+ 0002:00000278       Vcl.ComCtrls.TStatusBar.Create@
+ 0001:00001608       Vcl.ComCtrls.TStatusBar.Destroy@
+ 0002:000001D0       Vcl.ComCtrls.TTabControl.Create@
+ 0001:00001558       Vcl.ComCtrls.TTabControl.Destroy@
+ 0002:00000248       Vcl.ComCtrls.TToolBar.Create@
+ 0001:000015D8       Vcl.ComCtrls.TToolBar.Destroy@
+ 0002:000001F8       Vcl.ComCtrls.TTrackBar.Create@
+ 0001:00001588       Vcl.ComCtrls.TTrackBar.Destroy@
+ 0002:000001F0       Vcl.ComCtrls.TTreeView.Create@
+ 0001:00001580       Vcl.ComCtrls.TTreeView.Destroy@
+ 0002:00000220       Vcl.ComCtrls.TUpDown.Create@
+ 0001:000015B0       Vcl.ComCtrls.TUpDown.Destroy@
+ 0002:00000288       Vcl.ComCtrls.Vcl.ComCtrls
+ 0001:000018A0       Vcl.Controls.Finalization
+ 0001:00001770       Vcl.Controls.TControl.CreateTouchManager
+ 0001:00001738       Vcl.Controls.TControl.GetAction
+ 0001:00001728       Vcl.Controls.TControl.GetDragImages
+ 0001:00001730       Vcl.Controls.TControl.GetEnabled
+ 0001:00001780       Vcl.Controls.TControl.GetFloating
+ 0001:00001788       Vcl.Controls.TControl.GetFloatingDockSiteClass
+ 0001:00001790       Vcl.Controls.TControl.InitiateAction
+ 0001:00001778       Vcl.Controls.TControl.Loaded
+ 0001:00001748       Vcl.Controls.TControl.SetAutoSize
+ 0001:00001760       Vcl.Controls.TControl.SetBiDiMode
+ 0001:00001740       Vcl.Controls.TControl.SetDragMode
+ 0001:00001758       Vcl.Controls.TControl.SetEnabled
+ 0001:00001750       Vcl.Controls.TControl.SetName
+ 0001:00001768       Vcl.Controls.TControl.SetParentBiDiMode
+ 0001:00001870       Vcl.Controls.TWinControl.AssignTo
+ 0001:00001878       Vcl.Controls.TWinControl.CanAutoSize
+ 0001:00001858       Vcl.Controls.TWinControl.CanResize
+ 0001:00001860       Vcl.Controls.TWinControl.ConstrainedResize
+ 0001:000017C8       Vcl.Controls.TWinControl.CreateHandle
+ 0001:000017A8       Vcl.Controls.TWinControl.CreateWindowHandle
+ 0001:000017D0       Vcl.Controls.TWinControl.CustomAlignInsertBefore
+ 0001:000017D8       Vcl.Controls.TWinControl.CustomAlignPosition
+ 0001:000017F8       Vcl.Controls.TWinControl.DefaultHandler
+ 0001:000017B0       Vcl.Controls.TWinControl.DefineProperties
+ 0001:000017E0       Vcl.Controls.TWinControl.DestroyHandle
+ 0001:000017C0       Vcl.Controls.TWinControl.DestroyWindowHandle
+ 0001:000017B8       Vcl.Controls.TWinControl.DestroyWnd
+ 0001:00001888       Vcl.Controls.TWinControl.DockReplaceDockClient
+ 0001:00001848       Vcl.Controls.TWinControl.GetClientOrigin
+ 0001:00001850       Vcl.Controls.TWinControl.GetClientRect
+ 0001:00001840       Vcl.Controls.TWinControl.GetControlExtents
+ 0001:00001818       Vcl.Controls.TWinControl.GetDeviceContext
+ 0001:00001820       Vcl.Controls.TWinControl.Invalidate
+ 0001:000017A0       Vcl.Controls.TWinControl.Notification
+ 0001:00001798       Vcl.Controls.TWinControl.ReadState
+ 0001:00001830       Vcl.Controls.TWinControl.Repaint
+ 0001:00001800       Vcl.Controls.TWinControl.RequestAlign
+ 0001:00001808       Vcl.Controls.TWinControl.SetBounds
+ 0001:00001838       Vcl.Controls.TWinControl.SetFocus
+ 0001:00001880       Vcl.Controls.TWinControl.SetParentBackground
+ 0001:000017E8       Vcl.Controls.TWinControl.SetParentDoubleBuffered
+ 0001:00001810       Vcl.Controls.TWinControl.ShowControl
+ 0001:00001828       Vcl.Controls.TWinControl.Update
+ 0001:00001898       Vcl.Controls.TWinControl.UpdateControlOriginalParentSize
+ 0001:00001868       Vcl.Controls.TWinControl.UpdateStyleElements
+ 0001:00001890       Vcl.Controls.TWinControl.UpdateTIPStatus
+ 0001:000017F0       Vcl.Controls.TWinControl.WndProc
+ 0002:00000308       Vcl.Controls.Vcl.Controls
+ 0001:00001628       Vcl.Dialogs.Finalization
+ 0002:00000290       Vcl.Dialogs.Vcl.Dialogs
+ 0001:00001650       Vcl.ExtCtrls.Finalization
+ 0002:000002A0       Vcl.ExtCtrls.TCategoryPanelGroup.Create@
+ 0001:00001638       Vcl.ExtCtrls.TCategoryPanelGroup.Destroy@
+ 0002:00000298       Vcl.ExtCtrls.TCustomCategoryPanelGroup.Create@
+ 0001:00001630       Vcl.ExtCtrls.TCustomCategoryPanelGroup.Destroy@
+ 0002:000002A8       Vcl.ExtCtrls.TCustomLinkLabel.Create@
+ 0001:00001640       Vcl.ExtCtrls.TCustomLinkLabel.Destroy@
+ 0002:000002B0       Vcl.ExtCtrls.TLinkLabel.Create@
+ 0001:00001648       Vcl.ExtCtrls.TLinkLabel.Destroy@
+ 0002:000002B8       Vcl.ExtCtrls.Vcl.ExtCtrls
+ 0001:00001700       Vcl.Forms.Finalization
+ 0001:000016F8       Vcl.Forms.TApplication.GetExeName
+ 0001:000016E8       Vcl.Forms.TApplication.GetTitle
+ 0001:000016F0       Vcl.Forms.TApplication.MessageBox
+ 0002:000002D8       Vcl.Forms.TCustomForm.Create@
+ 0001:000016D8       Vcl.Forms.TCustomForm.Destroy@
+ 0001:000016B8       Vcl.Forms.TCustomFrame.Create
+ 0001:000016C0       Vcl.Forms.TCustomFrame.CreateParams
+ 0001:000016C8       Vcl.Forms.TCustomFrame.PaintWindow
+ 0001:000016D0       Vcl.Forms.TCustomFrame.SetParent
+ 0002:000002E0       Vcl.Forms.TForm.Create@
+ 0001:000016E0       Vcl.Forms.TForm.Destroy@
+ 0002:000002D0       Vcl.Forms.TScrollBox.Create@
+ 0001:000016B0       Vcl.Forms.TScrollBox.Destroy@
+ 0001:000016A8       Vcl.Forms.TScrollingWinControl.AdjustClientRect
+ 0001:00001678       Vcl.Forms.TScrollingWinControl.AlignControls
+ 0001:00001680       Vcl.Forms.TScrollingWinControl.AutoScrollEnabled
+ 0001:00001698       Vcl.Forms.TScrollingWinControl.AutoScrollInView
+ 0001:00001670       Vcl.Forms.TScrollingWinControl.CreateWnd
+ 0001:00001668       Vcl.Forms.TScrollingWinControl.Destroy
+ 0001:00001688       Vcl.Forms.TScrollingWinControl.DoGesture
+ 0001:00001690       Vcl.Forms.TScrollingWinControl.DoGetGestureOptions
+ 0001:000016A0       Vcl.Forms.TScrollingWinControl.Resizing
+ 0002:000002E8       Vcl.Forms.Vcl.Forms
+ 0001:00001478       Vcl.Graphics.Finalization
+ 0001:00001470       Vcl.Graphics.TCustomCanvas.TextWidth
+ 0001:00001468       Vcl.Graphics.TFont.GetHandle
+ 0002:000000F8       Vcl.Graphics.Vcl.Graphics
+ 0001:000014A0       Vcl.GraphUtil.Finalization
+ 0002:00000120       Vcl.GraphUtil.Vcl.GraphUtil
+ 0001:00001708       Vcl.Menus.Finalization
+ 0002:000002F0       Vcl.Menus.Vcl.Menus
+ 0001:00001540       Vcl.Printers.Finalization
+ 0002:000001B8       Vcl.Printers.Vcl.Printers
+ 0002:00000198       Vcl.StdCtrls.TButton.Create@
+ 0001:00001518       Vcl.StdCtrls.TButton.Destroy@
+ 0002:000001A0       Vcl.StdCtrls.TCheckBox.Create@
+ 0001:00001520       Vcl.StdCtrls.TCheckBox.Destroy@
+ 0002:00000190       Vcl.StdCtrls.TComboBox.Create@
+ 0001:00001510       Vcl.StdCtrls.TComboBox.Destroy@
+ 0002:00000148       Vcl.StdCtrls.TCustomButton.Create@
+ 0001:000014C8       Vcl.StdCtrls.TCustomButton.Destroy@
+ 0002:00000150       Vcl.StdCtrls.TCustomCheckBox.Create@
+ 0001:000014D0       Vcl.StdCtrls.TCustomCheckBox.Destroy@
+ 0002:00000140       Vcl.StdCtrls.TCustomComboBox.Create@
+ 0001:000014C0       Vcl.StdCtrls.TCustomComboBox.Destroy@
+ 0002:00000130       Vcl.StdCtrls.TCustomEdit.Create@
+ 0001:000014B0       Vcl.StdCtrls.TCustomEdit.Destroy@
+ 0002:00000128       Vcl.StdCtrls.TCustomGroupBox.Create@
+ 0001:000014A8       Vcl.StdCtrls.TCustomGroupBox.Destroy@
+ 0002:00000160       Vcl.StdCtrls.TCustomListBox.Create@
+ 0001:000014E0       Vcl.StdCtrls.TCustomListBox.Destroy@
+ 0002:00000138       Vcl.StdCtrls.TCustomMemo.Create@
+ 0001:000014B8       Vcl.StdCtrls.TCustomMemo.Destroy@
+ 0002:00000170       Vcl.StdCtrls.TCustomStaticText.Create@
+ 0001:000014F0       Vcl.StdCtrls.TCustomStaticText.Destroy@
+ 0002:00000180       Vcl.StdCtrls.TEdit.Create@
+ 0001:00001500       Vcl.StdCtrls.TEdit.Destroy@
+ 0002:00000178       Vcl.StdCtrls.TGroupBox.Create@
+ 0001:000014F8       Vcl.StdCtrls.TGroupBox.Destroy@
+ 0002:000001A8       Vcl.StdCtrls.TListBox.Create@
+ 0001:00001528       Vcl.StdCtrls.TListBox.Destroy@
+ 0002:00000188       Vcl.StdCtrls.TMemo.Create@
+ 0001:00001508       Vcl.StdCtrls.TMemo.Destroy@
+ 0002:00000158       Vcl.StdCtrls.TRadioButton.Create@
+ 0001:000014D8       Vcl.StdCtrls.TRadioButton.Destroy@
+ 0002:00000168       Vcl.StdCtrls.TScrollBar.Create@
+ 0001:000014E8       Vcl.StdCtrls.TScrollBar.Destroy@
+ 0002:000001B0       Vcl.StdCtrls.TStaticText.Create@
+ 0001:00001530       Vcl.StdCtrls.TStaticText.Destroy@
+ 0002:000002C0       Vcl.Themes.TCustomStyleEngine.Create@
+ 0001:00001658       Vcl.Themes.TCustomStyleEngine.Destroy@
+ 0001:00001660       Winapi.FlatSB.Finalization
+ 0002:000002C8       Winapi.FlatSB.Winapi.FlatSB
+ 0001:00000B14       Winapi.PsAPI.CheckPSAPILoaded
+ 0001:00000FF4       Winapi.PsAPI.EnumProcesses
+ 0001:00001018       Winapi.PsAPI.EnumProcessModules
+ 0001:00001048       Winapi.PsAPI.GetModuleFileNameEx
+ 0001:00001078       Winapi.PsAPI.GetModuleInformation
+ 0004:00000024       Winapi.PsAPI.hPSAPI
+ 0004:0000004C       Winapi.PsAPI._EmptyWorkingSet
+ 0004:0000007C       Winapi.PsAPI._EnumDeviceDrivers
+ 0004:00000028       Winapi.PsAPI._EnumProcesses
+ 0004:0000002C       Winapi.PsAPI._EnumProcessModules
+ 0004:0000005C       Winapi.PsAPI._GetDeviceDriverBaseName
+ 0004:00000068       Winapi.PsAPI._GetDeviceDriverBaseNameA
+ 0004:00000074       Winapi.PsAPI._GetDeviceDriverBaseNameW
+ 0004:00000060       Winapi.PsAPI._GetDeviceDriverFileName
+ 0004:0000006C       Winapi.PsAPI._GetDeviceDriverFileNameA
+ 0004:00000078       Winapi.PsAPI._GetDeviceDriverFileNameW
+ 0004:00000058       Winapi.PsAPI._GetMappedFileName
+ 0004:00000064       Winapi.PsAPI._GetMappedFileNameA
+ 0004:00000070       Winapi.PsAPI._GetMappedFileNameW
+ 0004:00000030       Winapi.PsAPI._GetModuleBaseName
+ 0004:00000038       Winapi.PsAPI._GetModuleBaseNameA
+ 0004:00000040       Winapi.PsAPI._GetModuleBaseNameW
+ 0004:00000034       Winapi.PsAPI._GetModuleFileNameEx
+ 0004:0000003C       Winapi.PsAPI._GetModuleFileNameExA
+ 0004:00000044       Winapi.PsAPI._GetModuleFileNameExW
+ 0004:00000048       Winapi.PsAPI._GetModuleInformation
+ 0004:00000080       Winapi.PsAPI._GetProcessMemoryInfo
+ 0004:00000054       Winapi.PsAPI._InitializeProcessForWsWatch
+ 0004:00000050       Winapi.PsAPI._QueryWorkingSet
+ 0001:00001538       Winapi.ShlObj.SHGetSpecialFolderPath
+ 0001:00002DAC       Winapi.TlHelp32.CreateToolhelp32Snapshot
+ 0001:000029E8       Winapi.TlHelp32.InitToolHelp
+ 0004:00000088       Winapi.TlHelp32.KernelHandle
+ 0001:00002DCC       Winapi.TlHelp32.Process32First
+ 0001:00002DEC       Winapi.TlHelp32.Process32Next
+ 0004:0000008C       Winapi.TlHelp32._CreateToolhelp32Snapshot
+ 0004:00000098       Winapi.TlHelp32._Heap32First
+ 0004:00000090       Winapi.TlHelp32._Heap32ListFirst
+ 0004:00000094       Winapi.TlHelp32._Heap32ListNext
+ 0004:0000009C       Winapi.TlHelp32._Heap32Next
+ 0004:000000C4       Winapi.TlHelp32._Module32First
+ 0004:000000CC       Winapi.TlHelp32._Module32FirstA
+ 0004:000000D4       Winapi.TlHelp32._Module32FirstW
+ 0004:000000C8       Winapi.TlHelp32._Module32Next
+ 0004:000000D0       Winapi.TlHelp32._Module32NextA
+ 0004:000000D8       Winapi.TlHelp32._Module32NextW
+ 0004:000000A4       Winapi.TlHelp32._Process32First
+ 0004:000000AC       Winapi.TlHelp32._Process32FirstA
+ 0004:000000B4       Winapi.TlHelp32._Process32FirstW
+ 0004:000000A8       Winapi.TlHelp32._Process32Next
+ 0004:000000B0       Winapi.TlHelp32._Process32NextA
+ 0004:000000B8       Winapi.TlHelp32._Process32NextW
+ 0004:000000BC       Winapi.TlHelp32._Thread32First
+ 0004:000000C0       Winapi.TlHelp32._Thread32Next
+ 0004:000000A0       Winapi.TlHelp32._Toolhelp32ReadProcessMemory
+ 0001:00001498       Winapi.UxTheme.Finalization
+ 0002:00000118       Winapi.UxTheme.Winapi.UxTheme
+ 0004:0000001C       Winapi.Windows..2
+ 0001:00000998       Winapi.Windows.CloseHandle
+ 0001:00000AF4       Winapi.Windows.Finalization
+ 0001:000009A0       Winapi.Windows.FreeLibrary
+ 0001:00000A8C       Winapi.Windows.GetClassName
+ 0001:000009A8       Winapi.Windows.GetCurrentProcess
+ 0001:00000A94       Winapi.Windows.GetDC
+ 0001:00000A5C       Winapi.Windows.GetFileVersionInfo
+ 0001:00000A64       Winapi.Windows.GetFileVersionInfoSize
+ 0001:000009B0       Winapi.Windows.GetModuleFileName
+ 0001:000009B8       Winapi.Windows.GetModuleHandle
+ 0001:000009C0       Winapi.Windows.GetProcAddress
+ 0001:000009C8       Winapi.Windows.GetProcAddress
+ 0001:00000A74       Winapi.Windows.GetTextExtentPoint32
+ 0001:00000A7C       Winapi.Windows.GetTextMetrics
+ 0001:00000A3C       Winapi.Windows.GetVersionEx
+ 0001:00000A9C       Winapi.Windows.GetWindowText
+ 0001:00000AB4       Winapi.Windows.HiWord
+ 0004:00000020       Winapi.Windows.HtmlHelpModule
+ 0001:00000AB8       Winapi.Windows.InitVersionInfo
+ 0001:00000A44       Winapi.Windows.LoadLibrary
+ 0001:00000A4C       Winapi.Windows.OpenProcess
+ 0001:00000AA4       Winapi.Windows.ReleaseDC
+ 0001:00000A84       Winapi.Windows.SelectObject
+ 0001:00000A54       Winapi.Windows.Sleep
+ 0001:00000AAC       Winapi.Windows.SystemParametersInfo
+ 0001:00000A6C       Winapi.Windows.VerQueryValue
+ 0003:00000088       Winapi.Windows.Win32MajorVersion
+ 0003:0000008C       Winapi.Windows.Win32MinorVersion
+ 0003:00000090       Winapi.Windows.Win32Platform
+ 0002:00000010       Winapi.Windows.Winapi.Windows
+
+
+  Address             Publics by Value
+
+ 0001:00000000       System.@GetMem
+ 0001:00000008       System.@FreeMem
+ 0001:00000010       System.Move
+ 0001:00000018       System.ParamStr
+ 0001:00000020       System.TObject.NewInstance
+ 0001:00000028       System.TObject.FreeInstance
+ 0001:00000030       System.TObject.Create
+ 0001:00000038       System.TObject.Destroy
+ 0001:00000040       System.TObject.Free
+ 0001:00000048       System.TObject.Equals
+ 0001:00000050       System.TObject.GetHashCode
+ 0001:00000058       System.@IsClass
+ 0001:00000060       System.TObject.SafeCallException
+ 0001:00000068       System.TObject.ToString
+ 0001:00000070       System.TObject.DefaultHandler
+ 0001:00000078       System.TObject.AfterConstruction
+ 0001:00000080       System.TObject.BeforeDestruction
+ 0001:00000088       System.TObject.Dispatch
+ 0001:00000090       System.@ClassCreate
+ 0001:00000098       System.@ClassDestroy
+ 0001:000000A0       System.@AfterConstruction
+ 0001:000000A8       System.@BeforeDestruction
+ 0001:000000B0       System.@HandleFinally
+ 0001:000000B8       System.@RaiseExcept
+ 0001:000000C0       System.@PackageLoad
+ 0001:000000C8       System.@PackageUnload
+ 0001:000000D0       System.@RunError
+ 0001:000000D8       System.@Assert
+ 0001:000000E0       System.@UStrClr
+ 0001:000000E8       System.@LStrClr
+ 0001:000000F0       System.@UStrArrayClr
+ 0001:000000F8       System.@UStrAddRef
+ 0001:00000100       System.@UStrFromPWCharLen
+ 0001:00000108       System.@UStrAsg
+ 0001:00000110       System.@UStrLAsg
+ 0001:00000118       System.@UStrLen
+ 0001:00000120       System.@LStrFromPWChar
+ 0001:00000128       System.@LStrToPChar
+ 0001:00000130       System.@UStrToPWChar
+ 0001:00000138       System.@UStrFromWChar
+ 0001:00000140       System.@UStrFromPWChar
+ 0001:00000148       System.@UStrFromWArray
+ 0001:00000150       System.@UStrSetLength
+ 0001:00000158       System.@UStrCat
+ 0001:00000160       System.@UStrCat3
+ 0001:00000168       System.@UStrCatN
+ 0001:00000170       System.@UStrEqual
+ 0001:00000178       System.@UStrCopy
+ 0001:00000180       System.@UStrDelete
+ 0001:00000188       System.Pos
+ 0001:00000190       System.@FinalizeRecord
+ 0001:00000198       System.@FinalizeArray
+ 0001:000001A0       System.@DynArraySetLength
+ 0001:000001A8       System.RegisterModule
+ 0001:000001B0       System.UnregisterModule
+ 0001:000001B8       System.@IntfClear
+ 0001:000001C0       System.Finalization
+ 0001:000001C8       SysInit.InterlockedExchange
+ 0001:000001DC       SysInit.FreeLibrary
+ 0001:000001E4       SysInit.LocalAlloc
+ 0001:000001EC       SysInit.LocalFree
+ 0001:000001F4       SysInit.TlsAlloc
+ 0001:000001FC       SysInit.TlsFree
+ 0001:00000204       SysInit.TlsGetValue
+ 0001:0000020C       SysInit.TlsSetValue
+ 0001:00000214       SysInit.GetLastError
+ 0001:0000021C       SysInit.LoadLibraryA
+ 0001:00000224       SysInit.RaiseException
+ 0001:0000022C       SysInit.GetProcAddress
+ 0001:00000234       SysInit.AllocTlsBuffer
+ 0001:00000240       SysInit.GetTlsSize
+ 0001:00000248       SysInit.InitThreadTLS
+ 0001:0000028C       SysInit.InitProcessTLS
+ 0001:000002B8       SysInit.ExitThreadTLS
+ 0001:000002F0       SysInit.ExitProcessTLS
+ 0001:00000314       SysInit.InitializeModule
+ 0001:00000320       SysInit.UninitializeModule
+ 0001:00000344       SysInit.@InitPkg
+ 0001:000003A8       SysInit.@PackageLoad
+ 0001:000003B4       SysInit.@PackageUnload
+ 0001:000003C0       SysInit.@_delayLoadHelper2
+ 0001:000006A0       SysInit.@_FUnloadDelayLoadedDLL2
+ 0001:000007B0       SysInit.@_HrLoadAllImportsForDll
+ 0001:00000868       SysInit.ShutdownDelayHelp2
+ 0001:00000870       SysInit...
+ 0001:00000880       SysInit...
+ 0001:00000890       SysInit...
+ 0001:000008A0       SysInit...
+ 0001:000008B0       SysInit...
+ 0001:000008C0       SysInit...
+ 0001:000008D4       SysInit...
+ 0001:00000904       SysInit...
+ 0001:0000091C       SysInit...
+ 0001:00000944       SysInit...
+ 0001:00000968       SysInit...
+ 0001:00000978       SysInit...
+ 0001:00000988       SysInit.Finalization
+ 0001:00000998       Winapi.Windows.CloseHandle
+ 0001:000009A0       Winapi.Windows.FreeLibrary
+ 0001:000009A8       Winapi.Windows.GetCurrentProcess
+ 0001:000009B0       Winapi.Windows.GetModuleFileName
+ 0001:000009B8       Winapi.Windows.GetModuleHandle
+ 0001:000009C0       Winapi.Windows.GetProcAddress
+ 0001:000009C8       Winapi.Windows.GetProcAddress
+ 0001:00000A3C       Winapi.Windows.GetVersionEx
+ 0001:00000A44       Winapi.Windows.LoadLibrary
+ 0001:00000A4C       Winapi.Windows.OpenProcess
+ 0001:00000A54       Winapi.Windows.Sleep
+ 0001:00000A5C       Winapi.Windows.GetFileVersionInfo
+ 0001:00000A64       Winapi.Windows.GetFileVersionInfoSize
+ 0001:00000A6C       Winapi.Windows.VerQueryValue
+ 0001:00000A74       Winapi.Windows.GetTextExtentPoint32
+ 0001:00000A7C       Winapi.Windows.GetTextMetrics
+ 0001:00000A84       Winapi.Windows.SelectObject
+ 0001:00000A8C       Winapi.Windows.GetClassName
+ 0001:00000A94       Winapi.Windows.GetDC
+ 0001:00000A9C       Winapi.Windows.GetWindowText
+ 0001:00000AA4       Winapi.Windows.ReleaseDC
+ 0001:00000AAC       Winapi.Windows.SystemParametersInfo
+ 0001:00000AB4       Winapi.Windows.HiWord
+ 0001:00000AB8       Winapi.Windows.InitVersionInfo
+ 0001:00000AF4       Winapi.Windows.Finalization
+ 0001:00000B14       Winapi.PsAPI.CheckPSAPILoaded
+ 0001:00000FF4       Winapi.PsAPI.EnumProcesses
+ 0001:00001018       Winapi.PsAPI.EnumProcessModules
+ 0001:00001048       Winapi.PsAPI.GetModuleFileNameEx
+ 0001:00001078       Winapi.PsAPI.GetModuleInformation
+ 0001:000010A8       System.Internal.ExcUtils.Finalization
+ 0001:000010B0       System.SysUtils.TOSVersion.Destroy@
+ 0001:000010B8       System.SysUtils.CharInSet
+ 0001:000010C0       System.SysUtils.UpperCase
+ 0001:000010C8       System.SysUtils.IntToHex
+ 0001:000010D0       System.SysUtils.StrToIntDef
+ 0001:000010D8       System.SysUtils.ExtractFileDrive
+ 0001:000010E0       System.SysUtils.ExtractFileName
+ 0001:000010E8       System.SysUtils.StrLen
+ 0001:000010F0       System.SysUtils.StrEnd
+ 0001:000010F8       System.SysUtils.StrMove
+ 0001:00001100       System.SysUtils.StrScan
+ 0001:00001108       System.SysUtils.Exception.Create
+ 0001:00001110       System.SysUtils.Exception.Destroy@
+ 0001:00001118       System.SysUtils.FreeAndNil
+ 0001:00001120       System.SysUtils.TLanguages.Destroy@
+ 0001:00001128       System.SysUtils.TEncoding.Destroy@
+ 0001:00001130       System.SysUtils.Finalization
+ 0001:00001280       System.VarUtils.Finalization
+ 0001:00001288       System.Variants.@VarClear
+ 0001:00001290       System.Variants.@DispInvoke
+ 0001:00001298       System.Variants.@VarToInteger
+ 0001:000012A0       System.Variants.@VarFromInt
+ 0001:000012A8       System.Variants.@VarFromDisp
+ 0001:000012B0       System.Variants.@OleVarFromVar
+ 0001:000012B8       System.Variants.@VarCmpEQ
+ 0001:000012C0       System.Variants.Finalization
+ 0001:000012C8       System.StrUtils.RightStr
+ 0001:000012D0       System.StrUtils.PosEx
+ 0001:000012D8       System.AnsiStrings.Finalization
+ 0001:000012E0       System.Math.Finalization
+ 0001:000012E8       System.TimeSpan.TTimeSpan.Destroy@
+ 0001:000012F0       System.SyncObjs.Finalization
+ 0001:000012F8       System.Generics.Defaults.TStringComparer.Destroy@
+ 0001:00001300       System.Generics.Defaults.TIStringComparer.Destroy@
+ 0001:00001308       System.Rtti.Finalization
+ 0001:00001310       System.TypInfo.Finalization
+ 0001:00001318       System.Classes.TComponent.Destroy@
+ 0001:00001320       System.Classes.TList.Destroy
+ 0001:00001328       System.Classes.TList.Add
+ 0001:00001330       System.Classes.TList.Clear
+ 0001:00001338       System.Classes.TList.Delete
+ 0001:00001340       System.Classes.TList.Error
+ 0001:00001348       System.Classes.TList.Get
+ 0001:00001350       System.Classes.TList.Grow
+ 0001:00001358       System.Classes.TList.IndexOf
+ 0001:00001360       System.Classes.TPersistent.Assign
+ 0001:00001368       System.Classes.TPersistent.AssignTo
+ 0001:00001370       System.Classes.TStringList.SetSorted
+ 0001:00001378       System.Classes.TStringList.Create
+ 0001:00001380       System.Classes.TStream.SetPosition
+ 0001:00001388       System.Classes.TThread.Destroy@
+ 0001:00001390       System.Classes.TComponent.Create
+ 0001:00001398       System.Classes.TComponent.Destroy
+ 0001:000013A0       System.Classes.TComponent.BeforeDestruction
+ 0001:000013A8       System.Classes.TComponent.FreeNotification
+ 0001:000013B0       System.Classes.TComponent.RemoveFreeNotification
+ 0001:000013B8       System.Classes.TComponent.Notification
+ 0001:000013C0       System.Classes.TComponent.DefineProperties
+ 0001:000013C8       System.Classes.TComponent.Loaded
+ 0001:000013D0       System.Classes.TComponent.ReadState
+ 0001:000013D8       System.Classes.TComponent.WriteState
+ 0001:000013E0       System.Classes.TComponent.ValidateRename
+ 0001:000013E8       System.Classes.TComponent.SetName
+ 0001:000013F0       System.Classes.TComponent.GetObservers
+ 0001:000013F8       System.Classes.TComponent.UpdateAction
+ 0001:00001400       System.Classes.TComponent.CanObserve
+ 0001:00001408       System.Classes.TComponent.ObserverAdded
+ 0001:00001410       System.Classes.TComponent.SafeCallException
+ 0001:00001418       System.Classes.TComponent.UpdateRegistry
+ 0001:00001420       System.Classes.TComponent.QueryInterface
+ 0001:00001428       System.Classes.TBinaryWriter.Destroy@
+ 0001:00001430       System.Classes.TLoginCredentialService.Destroy@
+ 0001:00001438       System.Classes.TObserverMapping.Destroy@
+ 0001:00001440       System.Classes.Finalization
+ 0001:00001448       System.DateUtils.TTimeZone.Destroy@
+ 0001:00001450       System.IOUtils.TPath.Destroy@
+ 0001:00001458       System.IOUtils.Finalization
+ 0001:00001460       System.Win.Registry.TRegistry.Destroy@
+ 0001:00001468       Vcl.Graphics.TFont.GetHandle
+ 0001:00001470       Vcl.Graphics.TCustomCanvas.TextWidth
+ 0001:00001478       Vcl.Graphics.Finalization
+ 0001:00001480       System.Actions.Finalization
+ 0001:00001488       Vcl.ActnList.Finalization
+ 0001:00001490       System.HelpIntfs.Finalization
+ 0001:00001498       Winapi.UxTheme.Finalization
+ 0001:000014A0       Vcl.GraphUtil.Finalization
+ 0001:000014A8       Vcl.StdCtrls.TCustomGroupBox.Destroy@
+ 0001:000014B0       Vcl.StdCtrls.TCustomEdit.Destroy@
+ 0001:000014B8       Vcl.StdCtrls.TCustomMemo.Destroy@
+ 0001:000014C0       Vcl.StdCtrls.TCustomComboBox.Destroy@
+ 0001:000014C8       Vcl.StdCtrls.TCustomButton.Destroy@
+ 0001:000014D0       Vcl.StdCtrls.TCustomCheckBox.Destroy@
+ 0001:000014D8       Vcl.StdCtrls.TRadioButton.Destroy@
+ 0001:000014E0       Vcl.StdCtrls.TCustomListBox.Destroy@
+ 0001:000014E8       Vcl.StdCtrls.TScrollBar.Destroy@
+ 0001:000014F0       Vcl.StdCtrls.TCustomStaticText.Destroy@
+ 0001:000014F8       Vcl.StdCtrls.TGroupBox.Destroy@
+ 0001:00001500       Vcl.StdCtrls.TEdit.Destroy@
+ 0001:00001508       Vcl.StdCtrls.TMemo.Destroy@
+ 0001:00001510       Vcl.StdCtrls.TComboBox.Destroy@
+ 0001:00001518       Vcl.StdCtrls.TButton.Destroy@
+ 0001:00001520       Vcl.StdCtrls.TCheckBox.Destroy@
+ 0001:00001528       Vcl.StdCtrls.TListBox.Destroy@
+ 0001:00001530       Vcl.StdCtrls.TStaticText.Destroy@
+ 0001:00001538       Winapi.ShlObj.SHGetSpecialFolderPath
+ 0001:00001540       Vcl.Printers.Finalization
+ 0001:00001548       Vcl.Clipbrd.Finalization
+ 0001:00001550       Vcl.ComCtrls.TCustomTabControl.Destroy@
+ 0001:00001558       Vcl.ComCtrls.TTabControl.Destroy@
+ 0001:00001560       Vcl.ComCtrls.TCustomStatusBar.Destroy@
+ 0001:00001568       Vcl.ComCtrls.THeaderSections.GetItem
+ 0001:00001570       Vcl.ComCtrls.TCustomHeaderControl.Destroy@
+ 0001:00001578       Vcl.ComCtrls.TCustomTreeView.Destroy@
+ 0001:00001580       Vcl.ComCtrls.TTreeView.Destroy@
+ 0001:00001588       Vcl.ComCtrls.TTrackBar.Destroy@
+ 0001:00001590       Vcl.ComCtrls.TProgressBar.Destroy@
+ 0001:00001598       Vcl.ComCtrls.TCustomRichEdit.Destroy@
+ 0001:000015A0       Vcl.ComCtrls.TRichEdit.Destroy@
+ 0001:000015A8       Vcl.ComCtrls.TCustomUpDown.Destroy@
+ 0001:000015B0       Vcl.ComCtrls.TUpDown.Destroy@
+ 0001:000015B8       Vcl.ComCtrls.TCustomHotKey.Destroy@
+ 0001:000015C0       Vcl.ComCtrls.THotKey.Destroy@
+ 0001:000015C8       Vcl.ComCtrls.TCustomListView.Destroy@
+ 0001:000015D0       Vcl.ComCtrls.TListView.Destroy@
+ 0001:000015D8       Vcl.ComCtrls.TToolBar.Destroy@
+ 0001:000015E0       Vcl.ComCtrls.TCoolBar.Destroy@
+ 0001:000015E8       Vcl.ComCtrls.TDateTimePicker.Destroy@
+ 0001:000015F0       Vcl.ComCtrls.TPageScroller.Destroy@
+ 0001:000015F8       Vcl.ComCtrls.TCustomComboBoxEx.Destroy@
+ 0001:00001600       Vcl.ComCtrls.TComboBoxEx.Destroy@
+ 0001:00001608       Vcl.ComCtrls.TStatusBar.Destroy@
+ 0001:00001610       Vcl.ComCtrls.THeaderControl.Destroy@
+ 0001:00001618       Vcl.ComCtrls.THeaderControl.GetOnSectionClick
+ 0001:00001620       Vcl.ComCtrls.Finalization
+ 0001:00001628       Vcl.Dialogs.Finalization
+ 0001:00001630       Vcl.ExtCtrls.TCustomCategoryPanelGroup.Destroy@
+ 0001:00001638       Vcl.ExtCtrls.TCategoryPanelGroup.Destroy@
+ 0001:00001640       Vcl.ExtCtrls.TCustomLinkLabel.Destroy@
+ 0001:00001648       Vcl.ExtCtrls.TLinkLabel.Destroy@
+ 0001:00001650       Vcl.ExtCtrls.Finalization
+ 0001:00001658       Vcl.Themes.TCustomStyleEngine.Destroy@
+ 0001:00001660       Winapi.FlatSB.Finalization
+ 0001:00001668       Vcl.Forms.TScrollingWinControl.Destroy
+ 0001:00001670       Vcl.Forms.TScrollingWinControl.CreateWnd
+ 0001:00001678       Vcl.Forms.TScrollingWinControl.AlignControls
+ 0001:00001680       Vcl.Forms.TScrollingWinControl.AutoScrollEnabled
+ 0001:00001688       Vcl.Forms.TScrollingWinControl.DoGesture
+ 0001:00001690       Vcl.Forms.TScrollingWinControl.DoGetGestureOptions
+ 0001:00001698       Vcl.Forms.TScrollingWinControl.AutoScrollInView
+ 0001:000016A0       Vcl.Forms.TScrollingWinControl.Resizing
+ 0001:000016A8       Vcl.Forms.TScrollingWinControl.AdjustClientRect
+ 0001:000016B0       Vcl.Forms.TScrollBox.Destroy@
+ 0001:000016B8       Vcl.Forms.TCustomFrame.Create
+ 0001:000016C0       Vcl.Forms.TCustomFrame.CreateParams
+ 0001:000016C8       Vcl.Forms.TCustomFrame.PaintWindow
+ 0001:000016D0       Vcl.Forms.TCustomFrame.SetParent
+ 0001:000016D8       Vcl.Forms.TCustomForm.Destroy@
+ 0001:000016E0       Vcl.Forms.TForm.Destroy@
+ 0001:000016E8       Vcl.Forms.TApplication.GetTitle
+ 0001:000016F0       Vcl.Forms.TApplication.MessageBox
+ 0001:000016F8       Vcl.Forms.TApplication.GetExeName
+ 0001:00001700       Vcl.Forms.Finalization
+ 0001:00001708       Vcl.Menus.Finalization
+ 0001:00001710       System.Win.ComObj.TComServerObject.Destroy@
+ 0001:00001718       System.Win.ComObj.CreateOleObject
+ 0001:00001720       System.Win.ComObj.Finalization
+ 0001:00001728       Vcl.Controls.TControl.GetDragImages
+ 0001:00001730       Vcl.Controls.TControl.GetEnabled
+ 0001:00001738       Vcl.Controls.TControl.GetAction
+ 0001:00001740       Vcl.Controls.TControl.SetDragMode
+ 0001:00001748       Vcl.Controls.TControl.SetAutoSize
+ 0001:00001750       Vcl.Controls.TControl.SetName
+ 0001:00001758       Vcl.Controls.TControl.SetEnabled
+ 0001:00001760       Vcl.Controls.TControl.SetBiDiMode
+ 0001:00001768       Vcl.Controls.TControl.SetParentBiDiMode
+ 0001:00001770       Vcl.Controls.TControl.CreateTouchManager
+ 0001:00001778       Vcl.Controls.TControl.Loaded
+ 0001:00001780       Vcl.Controls.TControl.GetFloating
+ 0001:00001788       Vcl.Controls.TControl.GetFloatingDockSiteClass
+ 0001:00001790       Vcl.Controls.TControl.InitiateAction
+ 0001:00001798       Vcl.Controls.TWinControl.ReadState
+ 0001:000017A0       Vcl.Controls.TWinControl.Notification
+ 0001:000017A8       Vcl.Controls.TWinControl.CreateWindowHandle
+ 0001:000017B0       Vcl.Controls.TWinControl.DefineProperties
+ 0001:000017B8       Vcl.Controls.TWinControl.DestroyWnd
+ 0001:000017C0       Vcl.Controls.TWinControl.DestroyWindowHandle
+ 0001:000017C8       Vcl.Controls.TWinControl.CreateHandle
+ 0001:000017D0       Vcl.Controls.TWinControl.CustomAlignInsertBefore
+ 0001:000017D8       Vcl.Controls.TWinControl.CustomAlignPosition
+ 0001:000017E0       Vcl.Controls.TWinControl.DestroyHandle
+ 0001:000017E8       Vcl.Controls.TWinControl.SetParentDoubleBuffered
+ 0001:000017F0       Vcl.Controls.TWinControl.WndProc
+ 0001:000017F8       Vcl.Controls.TWinControl.DefaultHandler
+ 0001:00001800       Vcl.Controls.TWinControl.RequestAlign
+ 0001:00001808       Vcl.Controls.TWinControl.SetBounds
+ 0001:00001810       Vcl.Controls.TWinControl.ShowControl
+ 0001:00001818       Vcl.Controls.TWinControl.GetDeviceContext
+ 0001:00001820       Vcl.Controls.TWinControl.Invalidate
+ 0001:00001828       Vcl.Controls.TWinControl.Update
+ 0001:00001830       Vcl.Controls.TWinControl.Repaint
+ 0001:00001838       Vcl.Controls.TWinControl.SetFocus
+ 0001:00001840       Vcl.Controls.TWinControl.GetControlExtents
+ 0001:00001848       Vcl.Controls.TWinControl.GetClientOrigin
+ 0001:00001850       Vcl.Controls.TWinControl.GetClientRect
+ 0001:00001858       Vcl.Controls.TWinControl.CanResize
+ 0001:00001860       Vcl.Controls.TWinControl.ConstrainedResize
+ 0001:00001868       Vcl.Controls.TWinControl.UpdateStyleElements
+ 0001:00001870       Vcl.Controls.TWinControl.AssignTo
+ 0001:00001878       Vcl.Controls.TWinControl.CanAutoSize
+ 0001:00001880       Vcl.Controls.TWinControl.SetParentBackground
+ 0001:00001888       Vcl.Controls.TWinControl.DockReplaceDockClient
+ 0001:00001890       Vcl.Controls.TWinControl.UpdateTIPStatus
+ 0001:00001898       Vcl.Controls.TWinControl.UpdateControlOriginalParentSize
+ 0001:000018A0       Vcl.Controls.Finalization
+ 0001:000018A8       VAClasses..TVABaseMethodList
+ 0001:00001A04       VAClasses..TVAMethodList
+ 0001:00001CAC       VAClasses..TVALinkedMethodList
+ 0001:00001FF4       VAClasses..TVANotificationEventComponent
+ 0001:00002238       VAClasses..TVAList
+ 0001:00002360       VAClasses.TVABaseMethodList.Add
+ 0001:000023A0       VAClasses.TVABaseMethodList.Clear
+ 0001:000023C0       VAClasses.TVABaseMethodList.Count
+ 0001:000023DC       VAClasses.TVABaseMethodList.Create
+ 0001:00002438       VAClasses.TVABaseMethodList.Delete
+ 0001:00002464       VAClasses.TVABaseMethodList.Destroy
+ 0001:000024AC       VAClasses.TVABaseMethodList.GetMethod
+ 0001:000024E8       VAClasses.TVABaseMethodList.IndexOf
+ 0001:0000257C       VAClasses.TVABaseMethodList.Remove
+ 0001:000025BC       VAClasses.TVAMethodList.Add
+ 0001:000025D8       VAClasses.TVAMethodList.Clear
+ 0001:000025EC       VAClasses.TVAMethodList.Count
+ 0001:00002608       VAClasses.TVAMethodList.Create
+ 0001:0000264C       VAClasses.TVAMethodList.Delete
+ 0001:00002668       VAClasses.TVAMethodList.Destroy
+ 0001:0000269C       VAClasses.TVAMethodList.IndexOf
+ 0001:000026C0       VAClasses.TVAMethodList.Remove
+ 0001:000026DC       VAClasses.TVANotificationEventComponent.Notification
+ 0001:00002718       VAClasses.TVANotificationEventComponent.NotifyCreate
+ 0001:00002770       VAClasses.TVALinkedMethodList.Add
+ 0001:000027D0       VAClasses.TVALinkedMethodList.Clear
+ 0001:000027FC       VAClasses.TVALinkedMethodList.Count
+ 0001:00002818       VAClasses.TVALinkedMethodList.Create
+ 0001:0000286C       VAClasses.TVALinkedMethodList.Delete
+ 0001:000028A8       VAClasses.TVALinkedMethodList.Destroy
+ 0001:000028E4       VAClasses.TVALinkedMethodList.GetMethod
+ 0001:0000292C       VAClasses.TVALinkedMethodList.IndexOf
+ 0001:00002960       VAClasses.TVALinkedMethodList.Remove
+ 0001:00002990       VAClasses.TVAList.Notify
+ 0001:000029E0       VAClasses.Finalization
+ 0001:000029E8       Winapi.TlHelp32.InitToolHelp
+ 0001:00002DAC       Winapi.TlHelp32.CreateToolhelp32Snapshot
+ 0001:00002DCC       Winapi.TlHelp32.Process32First
+ 0001:00002DEC       Winapi.TlHelp32.Process32Next
+ 0001:00004634       VAUtils.Piece
+ 0001:000046D4       VAUtils.Pieces
+ 0001:000047A4       VAUtils.ShowMsg
+ 0001:0000490C       VAUtils.ShowMsg
+ 0001:00004A6C       VAUtils.FreeAndNilTStringsAndObjects
+ 0001:00004AC8       VAUtils.ProcessExists
+ 0001:00004C4C       VAUtils.ScreenReaderActive
+ 0001:00004C80       VAUtils.OldScreenReaderActive
+ 0001:00004CB4       VAUtils.ScreenReaderSupportEnabled
+ 0001:00004CE0       VAUtils.GetFileWithShortenedPath
+ 0001:00004E7C       VAUtils.FastIntToHex
+ 0001:00004ED0       VAUtils.FastWordToHex
+ 0001:00004F0C       VAUtils.FastHexToByte
+ 0001:00004FE4       VAUtils.FastHexToInt
+ 0001:000051A8       VAUtils.FastHexToBinary
+ 0001:00005298       VAUtils.CRCForString
+ 0001:0000532C       VAUtils.AppendBackSlash
+ 0001:000053BC       VAUtils.GetSpecialFolderPath
+ 0001:00005660       VAUtils.GetProgramFilesPath
+ 0001:00005678       VAUtils.GetAlternateProgramFilesPath
+ 0001:0000575C       VAUtils.GetWindowTitle
+ 0001:000057A4       VAUtils.GetWindowClassName
+ 0001:000057EC       VAUtils..TVACustomMessageEventInterceptor
+ 0001:0000591C       VAUtils..TVAMessageEventHandler
+ 0001:00005AF0       VAUtils..TVAWinProcMonitor
+ 0001:00005C20       VAUtils.InitializeMessageHandlerSystem
+ 0001:00005C94       VAUtils.Clear
+ 0001:00005CF0       VAUtils.CleanupMessageHandlerSystem
+ 0001:00005D2C       VAUtils.AddMessageHandler
+ 0001:00005DD8       VAUtils.RemoveMessageHandler
+ 0001:00005E80       VAUtils.RemoveAllMessageHandlers
+ 0001:00005F1C       VAUtils.MessageHandlerCount
+ 0001:00005FA8       VAUtils.TVAWinProcMonitor.Notification
+ 0001:00005FEC       VAUtils.TVAWinProcMonitor.RemoveFromList
+ 0001:00006018       VAUtils.TVACustomMessageEventInterceptor.Create
+ 0001:00006100       VAUtils.TVACustomMessageEventInterceptor.Destroy
+ 0001:00006148       VAUtils.TVACustomMessageEventInterceptor.NewMessageHandler
+ 0001:00006168       VAUtils.TVAMessageEventHandler.AddMessageHandler
+ 0001:00006184       VAUtils.TVAMessageEventHandler.Create
+ 0001:000061E0       VAUtils.TVAMessageEventHandler.Destroy
+ 0001:0000621C       VAUtils.TVAMessageEventHandler.DoMessageHandlers
+ 0001:00006280       VAUtils.TVAMessageEventHandler.HandlerCount
+ 0001:000062A0       VAUtils.TVAMessageEventHandler.NewMessageHandler
+ 0001:000062D4       VAUtils.TVAMessageEventHandler.RemoveMessageHandler
+ 0001:000063AC       VAUtils.TDataArray.Clear
+ 0001:000063D0       VAUtils.TDataArray.SetCapacity
+ 0001:00006424       VAUtils.TDataArray.Size
+ 0001:00006440       VAUtils.ListTooSmall
+ 0001:00006490       VAUtils.GetInstanceCount
+ 0001:000066C8       VAUtils.GetInstanceCount
+ 0001:0000671C       VAUtils.AnotherInstanceRunning
+ 0001:00006730       VAUtils.VersionStringSplit
+ 0001:00006758       VAUtils.VersionStringSplit
+ 0001:00006784       VAUtils.VersionStringSplit
+ 0001:000067B0       VAUtils.GetNum
+ 0001:00006864       VAUtils.VersionStringSplit
+ 0001:000068E8       VAUtils.FileVersionValue
+ 0001:00006AD4       VAUtils.GetV
+ 0001:00006BD0       VAUtils.parse
+ 0001:00006C6C       VAUtils.VersionOK
+ 0001:00006D44       VAUtils.ExecuteAndWait
+ 0001:00006FA0       VAUtils.GetDLLFileName
+ 0001:000070C0       VAUtils.WidthInPixels
+ 0001:000071AC       VAUtils.HeightInPixels
+ 0001:0000724C       VAUtils.Finalization
+ 0001:000072A4       HRBuffers..THRBuffer
+ 0001:000074B8       HRBuffers..THRBufferEOB
+ 0001:00007588       HRBuffers..THRBufferChar
+ 0001:0000784C       HRBuffers..THRBufferStream
+ 0001:000079E4       HRBuffers..THRBufferList
+ 0001:00007C94       HRBuffers.THRBuffer.Create
+ 0001:00007CDC       HRBuffers.THRBuffer.Destroy
+ 0001:00007D18       HRBuffers.THRBuffer.SetSize
+ 0001:00007D5C       HRBuffers.THRBuffer.GetItems
+ 0001:00007D78       HRBuffers.THRBuffer.SetItems
+ 0001:00007D8C       HRBuffers.THRBuffer.CreateBuffer
+ 0001:00007DD4       HRBuffers.THRBuffer.ResizeBuffer
+ 0001:00007E5C       HRBuffers.THRBuffer.FreeBuffer
+ 0001:00007E94       HRBuffers.THRBufferEOB.GetEOB
+ 0001:00007EA8       HRBuffers.THRBufferChar.Create
+ 0001:00007EF0       HRBuffers.THRBufferChar.Destroy
+ 0001:00007F24       HRBuffers.THRBufferChar.GetEOB
+ 0001:00007F40       HRBuffers.THRBufferChar.GetItems
+ 0001:00007F88       HRBuffers.THRBufferChar.SetItems
+ 0001:00007FC8       HRBuffers.THRBufferChar.Read
+ 0001:00008018       HRBuffers.THRBufferChar.Write
+ 0001:00008064       HRBuffers.THRBufferChar.WritePChar
+ 0001:000080A8       HRBuffers.THRBufferChar.WriteString
+ 0001:000080EC       HRBuffers.THRBufferChar.GetAsPChar
+ 0001:00008108       HRBuffers.THRBufferChar.SetAsPChar
+ 0001:00008150       HRBuffers.THRBufferChar.GetAsString
+ 0001:00008168       HRBuffers.THRBufferChar.SetAsString
+ 0001:000081AC       HRBuffers.THRBufferStream.Create
+ 0001:00008200       HRBuffers.THRBufferStream.Destroy
+ 0001:00008234       HRBuffers.THRBufferStream.SetStream
+ 0001:00008274       HRBuffers.THRBufferStream.GetEOB
+ 0001:00008290       HRBuffers.THRBufferStream.GetItems
+ 0001:00008334       HRBuffers.THRBufferStream.SetItems
+ 0001:00008348       HRBuffers.THRBufferList.Create
+ 0001:000083A0       HRBuffers.THRBufferList.Destroy
+ 0001:000083D4       HRBuffers.THRBufferList.GetItemPos
+ 0001:000084EC       HRBuffers.THRBufferList.GetCount
+ 0001:00008508       HRBuffers.THRBufferList.GetItemSize
+ 0001:00008534       HRBuffers.THRBufferList.SetItemSize
+ 0001:00008644       HRBuffers.THRBufferList.GetItemBuffer
+ 0001:00008670       HRBuffers.THRBufferList.Add
+ 0001:00008788       HRBuffers.THRBufferList.Delete
+ 0001:00008798       HRBuffers.Finalization
+ 0001:00008820       HRParser..THRParser
+ 0001:00008A58       HRParser..THRParserText
+ 0001:00008B5C       HRParser.THRParser.Create
+ 0001:00008BE0       HRParser.THRParser.Destroy
+ 0001:00008C38       HRParser.THRParser.GetSource
+ 0001:00008C54       HRParser.THRParser.SetSource
+ 0001:00008C74       HRParser.THRParser.SetSourcePos
+ 0001:00008C90       HRParser.THRParser.IncLine
+ 0001:00008CAC       HRParser.THRParser.SkipToSourcePos
+ 0001:00008D34       HRParser.THRParser.SkipBlanks
+ 0001:00008DA0       HRParser.THRParser.GetNextToken
+ 0001:00008E00       HRParser.THRParser.NextToken
+ 0001:00008E90       HRParser.THRParserText.Create
+ 0001:00008ED4       HRParser.THRParserText.Destroy
+ 0001:00008F08       HRParser.THRParserText.GetNextToken
+ 0001:000092C8       HRParser.Finalization
+ 0001:0000941C       HRParserPas..THRParserPas
+ 0001:0000951C       HRParserPas.THRParserPas.Create
+ 0001:00009560       HRParserPas.THRParserPas.Destroy
+ 0001:00009594       HRParserPas.THRParserPas.GetNextToken
+ 0001:0000995C       HRParserPas.Finalization
+ 0001:00009964       VA2006Utils..TfraTabStopFalse
+ 0001:00009B40       VA2006Utils..THeaderControl2006BugFixer
+ 0001:00009CA8       VA2006Utils.THeaderControl2006BugFixer.HeaderControlMessageHandler
+ 0001:00009D20       VA2006Utils.THeaderControl2006BugFixer.Notification
+ 0001:00009D70       VA2006Utils.THeaderControl2006BugFixer.CreateWrapper
+ 0001:00009DE0       VA2006Utils.FixHeaderControlDelphi2006Bug
+ 0001:00009DFC       VA2006Utils.TfraTabStopFalse.GetTabStop
+ 0001:00009E10       VA2006Utils.TfraTabStopFalse.SetTabStop
+ 0001:00009E20       VA2006Utils.Finalization
+ 0001:0000A440       .VASharedXE5.@GetPackageInfoTable
+ 0001:0000A448       .VASharedXE5.@PackageLoad
+ 0001:0000A454       .VASharedXE5.@PackageUnload
+ 0002:00000000       System.System
+ 0002:00000008       SysInit.SysInit
+ 0002:00000010       Winapi.Windows.Winapi.Windows
+ 0002:00000028       System.Internal.ExcUtils.System.Internal.ExcUtils
+ 0002:00000030       System.SysUtils.TLanguages.Create@
+ 0002:00000038       System.SysUtils.TEncoding.Create@
+ 0002:00000040       System.SysUtils.Exception.Create@
+ 0002:00000048       System.SysUtils.TOSVersion.Create@
+ 0002:00000050       System.SysUtils.System.SysUtils
+ 0002:00000058       System.VarUtils.System.VarUtils
+ 0002:00000060       System.Variants.System.Variants
+ 0002:00000068       System.AnsiStrings.System.AnsiStrings
+ 0002:00000070       System.Math.System.Math
+ 0002:00000078       System.TimeSpan.TTimeSpan.Create@
+ 0002:00000080       System.SyncObjs.System.SyncObjs
+ 0002:00000088       System.Generics.Defaults.TStringComparer.Create@
+ 0002:00000090       System.Generics.Defaults.TIStringComparer.Create@
+ 0002:00000098       System.Rtti.System.Rtti
+ 0002:000000A0       System.TypInfo.System.TypInfo
+ 0002:000000A8       System.Classes.TObserverMapping.Create@
+ 0002:000000B0       System.Classes.TBinaryWriter.Create@
+ 0002:000000B8       System.Classes.TThread.Create@
+ 0002:000000C0       System.Classes.TComponent.Create@
+ 0002:000000C8       System.Classes.TLoginCredentialService.Create@
+ 0002:000000D0       System.Classes.System.Classes
+ 0002:000000D8       System.DateUtils.TTimeZone.Create@
+ 0002:000000E0       System.IOUtils.TPath.Create@
+ 0002:000000E8       System.IOUtils.System.IOUtils
+ 0002:000000F0       System.Win.Registry.TRegistry.Create@
+ 0002:000000F8       Vcl.Graphics.Vcl.Graphics
+ 0002:00000100       System.Actions.System.Actions
+ 0002:00000108       Vcl.ActnList.Vcl.ActnList
+ 0002:00000110       System.HelpIntfs.System.HelpIntfs
+ 0002:00000118       Winapi.UxTheme.Winapi.UxTheme
+ 0002:00000120       Vcl.GraphUtil.Vcl.GraphUtil
+ 0002:00000128       Vcl.StdCtrls.TCustomGroupBox.Create@
+ 0002:00000130       Vcl.StdCtrls.TCustomEdit.Create@
+ 0002:00000138       Vcl.StdCtrls.TCustomMemo.Create@
+ 0002:00000140       Vcl.StdCtrls.TCustomComboBox.Create@
+ 0002:00000148       Vcl.StdCtrls.TCustomButton.Create@
+ 0002:00000150       Vcl.StdCtrls.TCustomCheckBox.Create@
+ 0002:00000158       Vcl.StdCtrls.TRadioButton.Create@
+ 0002:00000160       Vcl.StdCtrls.TCustomListBox.Create@
+ 0002:00000168       Vcl.StdCtrls.TScrollBar.Create@
+ 0002:00000170       Vcl.StdCtrls.TCustomStaticText.Create@
+ 0002:00000178       Vcl.StdCtrls.TGroupBox.Create@
+ 0002:00000180       Vcl.StdCtrls.TEdit.Create@
+ 0002:00000188       Vcl.StdCtrls.TMemo.Create@
+ 0002:00000190       Vcl.StdCtrls.TComboBox.Create@
+ 0002:00000198       Vcl.StdCtrls.TButton.Create@
+ 0002:000001A0       Vcl.StdCtrls.TCheckBox.Create@
+ 0002:000001A8       Vcl.StdCtrls.TListBox.Create@
+ 0002:000001B0       Vcl.StdCtrls.TStaticText.Create@
+ 0002:000001B8       Vcl.Printers.Vcl.Printers
+ 0002:000001C0       Vcl.Clipbrd.Vcl.Clipbrd
+ 0002:000001C8       Vcl.ComCtrls.TCustomTabControl.Create@
+ 0002:000001D0       Vcl.ComCtrls.TTabControl.Create@
+ 0002:000001D8       Vcl.ComCtrls.TCustomStatusBar.Create@
+ 0002:000001E0       Vcl.ComCtrls.TCustomHeaderControl.Create@
+ 0002:000001E8       Vcl.ComCtrls.TCustomTreeView.Create@
+ 0002:000001F0       Vcl.ComCtrls.TTreeView.Create@
+ 0002:000001F8       Vcl.ComCtrls.TTrackBar.Create@
+ 0002:00000200       Vcl.ComCtrls.TProgressBar.Create@
+ 0002:00000208       Vcl.ComCtrls.TCustomRichEdit.Create@
+ 0002:00000210       Vcl.ComCtrls.TRichEdit.Create@
+ 0002:00000218       Vcl.ComCtrls.TCustomUpDown.Create@
+ 0002:00000220       Vcl.ComCtrls.TUpDown.Create@
+ 0002:00000228       Vcl.ComCtrls.TCustomHotKey.Create@
+ 0002:00000230       Vcl.ComCtrls.THotKey.Create@
+ 0002:00000238       Vcl.ComCtrls.TCustomListView.Create@
+ 0002:00000240       Vcl.ComCtrls.TListView.Create@
+ 0002:00000248       Vcl.ComCtrls.TToolBar.Create@
+ 0002:00000250       Vcl.ComCtrls.TCoolBar.Create@
+ 0002:00000258       Vcl.ComCtrls.TDateTimePicker.Create@
+ 0002:00000260       Vcl.ComCtrls.TPageScroller.Create@
+ 0002:00000268       Vcl.ComCtrls.TCustomComboBoxEx.Create@
+ 0002:00000270       Vcl.ComCtrls.TComboBoxEx.Create@
+ 0002:00000278       Vcl.ComCtrls.TStatusBar.Create@
+ 0002:00000280       Vcl.ComCtrls.THeaderControl.Create@
+ 0002:00000288       Vcl.ComCtrls.Vcl.ComCtrls
+ 0002:00000290       Vcl.Dialogs.Vcl.Dialogs
+ 0002:00000298       Vcl.ExtCtrls.TCustomCategoryPanelGroup.Create@
+ 0002:000002A0       Vcl.ExtCtrls.TCategoryPanelGroup.Create@
+ 0002:000002A8       Vcl.ExtCtrls.TCustomLinkLabel.Create@
+ 0002:000002B0       Vcl.ExtCtrls.TLinkLabel.Create@
+ 0002:000002B8       Vcl.ExtCtrls.Vcl.ExtCtrls
+ 0002:000002C0       Vcl.Themes.TCustomStyleEngine.Create@
+ 0002:000002C8       Winapi.FlatSB.Winapi.FlatSB
+ 0002:000002D0       Vcl.Forms.TScrollBox.Create@
+ 0002:000002D8       Vcl.Forms.TCustomForm.Create@
+ 0002:000002E0       Vcl.Forms.TForm.Create@
+ 0002:000002E8       Vcl.Forms.Vcl.Forms
+ 0002:000002F0       Vcl.Menus.Vcl.Menus
+ 0002:000002F8       System.Win.ComObj.TComServerObject.Create@
+ 0002:00000300       System.Win.ComObj.System.Win.ComObj
+ 0002:00000308       Vcl.Controls.Vcl.Controls
+ 0002:00000310       VAClasses.VAClasses
+ 0002:00000318       VAUtils.VAUtils
+ 0002:00000350       HRBuffers.HRBuffers
+ 0002:00000358       HRParser.HRParser
+ 0002:00000360       HRParserPas.HRParserPas
+ 0002:00000368       VA2006Utils.VA2006Utils
+ 0002:00000370       .VASharedXE5..VASharedXE5
+ 0003:00000000       SysInit.TlsIndex
+ 0003:00000004       SysInit.PtrToNil
+ 0003:00000008       SysInit.Module
+ 0003:00000024       SysInit.TlsProc
+ 0003:00000034       SysInit...
+ 0003:00000088       Winapi.Windows.Win32MajorVersion
+ 0003:0000008C       Winapi.Windows.Win32MinorVersion
+ 0003:00000090       Winapi.Windows.Win32Platform
+ 0003:00000094       VAUtils.HexChars
+ 0003:00000494       VAUtils.BinChars
+ 0003:000004D4       VAUtils.CheckScreenReaderSupport
+ 0003:000004D5       VAUtils.uScreenReaderSupportEnabled
+ 0003:000004D8       VAUtils.CRC32_TABLE
+ 0003:000008D8       VAUtils.uEventMessageHandlers
+ 0003:000008DC       VAUtils.uHandlePointers
+ 0003:000008E0       VAUtils.uWinProcMonitor
+ 0003:000008E4       VAUtils.uMessageHandlerSystemRunning
+ 0003:000008E8       HRParserPas.HR_TOKEN_PAS_DESC
+ 0004:FFFF2000       SysInit.__ImageBase
+ 0004:00000000       SysInit.ModuleIsLib
+ 0004:00000001       SysInit.ModuleIsPackage
+ 0004:00000004       SysInit.HInstance
+ 0004:0000000C       SysInit.@_pfnDliNotifyHook2
+ 0004:00000010       SysInit.@_pfnDliFailureHook2
+ 0004:00000014       SysInit..1
+ 0004:00000018       SysInit.tlsBuffer
+ 0004:0000001C       Winapi.Windows..2
+ 0004:00000020       Winapi.Windows.HtmlHelpModule
+ 0004:00000024       Winapi.PsAPI.hPSAPI
+ 0004:00000028       Winapi.PsAPI._EnumProcesses
+ 0004:0000002C       Winapi.PsAPI._EnumProcessModules
+ 0004:00000030       Winapi.PsAPI._GetModuleBaseName
+ 0004:00000034       Winapi.PsAPI._GetModuleFileNameEx
+ 0004:00000038       Winapi.PsAPI._GetModuleBaseNameA
+ 0004:0000003C       Winapi.PsAPI._GetModuleFileNameExA
+ 0004:00000040       Winapi.PsAPI._GetModuleBaseNameW
+ 0004:00000044       Winapi.PsAPI._GetModuleFileNameExW
+ 0004:00000048       Winapi.PsAPI._GetModuleInformation
+ 0004:0000004C       Winapi.PsAPI._EmptyWorkingSet
+ 0004:00000050       Winapi.PsAPI._QueryWorkingSet
+ 0004:00000054       Winapi.PsAPI._InitializeProcessForWsWatch
+ 0004:00000058       Winapi.PsAPI._GetMappedFileName
+ 0004:0000005C       Winapi.PsAPI._GetDeviceDriverBaseName
+ 0004:00000060       Winapi.PsAPI._GetDeviceDriverFileName
+ 0004:00000064       Winapi.PsAPI._GetMappedFileNameA
+ 0004:00000068       Winapi.PsAPI._GetDeviceDriverBaseNameA
+ 0004:0000006C       Winapi.PsAPI._GetDeviceDriverFileNameA
+ 0004:00000070       Winapi.PsAPI._GetMappedFileNameW
+ 0004:00000074       Winapi.PsAPI._GetDeviceDriverBaseNameW
+ 0004:00000078       Winapi.PsAPI._GetDeviceDriverFileNameW
+ 0004:0000007C       Winapi.PsAPI._EnumDeviceDrivers
+ 0004:00000080       Winapi.PsAPI._GetProcessMemoryInfo
+ 0004:00000084       VAClasses..6
+ 0004:00000088       Winapi.TlHelp32.KernelHandle
+ 0004:0000008C       Winapi.TlHelp32._CreateToolhelp32Snapshot
+ 0004:00000090       Winapi.TlHelp32._Heap32ListFirst
+ 0004:00000094       Winapi.TlHelp32._Heap32ListNext
+ 0004:00000098       Winapi.TlHelp32._Heap32First
+ 0004:0000009C       Winapi.TlHelp32._Heap32Next
+ 0004:000000A0       Winapi.TlHelp32._Toolhelp32ReadProcessMemory
+ 0004:000000A4       Winapi.TlHelp32._Process32First
+ 0004:000000A8       Winapi.TlHelp32._Process32Next
+ 0004:000000AC       Winapi.TlHelp32._Process32FirstA
+ 0004:000000B0       Winapi.TlHelp32._Process32NextA
+ 0004:000000B4       Winapi.TlHelp32._Process32FirstW
+ 0004:000000B8       Winapi.TlHelp32._Process32NextW
+ 0004:000000BC       Winapi.TlHelp32._Thread32First
+ 0004:000000C0       Winapi.TlHelp32._Thread32Next
+ 0004:000000C4       Winapi.TlHelp32._Module32First
+ 0004:000000C8       Winapi.TlHelp32._Module32Next
+ 0004:000000CC       Winapi.TlHelp32._Module32FirstA
+ 0004:000000D0       Winapi.TlHelp32._Module32NextA
+ 0004:000000D4       Winapi.TlHelp32._Module32FirstW
+ 0004:000000D8       Winapi.TlHelp32._Module32NextW
+ 0004:000000DC       VAUtils..3
+ 0004:000000E0       VAUtils.PIDList
+ 0004:000000EC       VAUtils.ModuleHandles
+ 0004:000000F8       HRBuffers..6
+ 0004:000000FC       HRParser..3
+ 0004:00000100       HRParserPas..2
+ 0004:00000104       VA2006Utils..2
+ 0005:00000000       SysInit.TlsLast
+
+
+Line numbers for VAClasses(VAClasses.pas) segment .text
+
+    99 0001:00002360   100 0001:0000236C   102 0001:0000237B   103 0001:0000238B
+   105 0001:0000239C   108 0001:000023A0   109 0001:000023A7   110 0001:000023B2
+   111 0001:000023BD   114 0001:000023C0   115 0001:000023C9   116 0001:000023D5
+   119 0001:000023DC   120 0001:000023F4   121 0001:00002406   122 0001:00002418
+   125 0001:00002438   126 0001:00002444   127 0001:00002452   128 0001:00002460
+   131 0001:00002464   132 0001:00002475   133 0001:00002480   134 0001:0000248B
+   135 0001:00002499   138 0001:000024AC   139 0001:000024BB   140 0001:000024CE
+   141 0001:000024E2   144 0001:000024E8   145 0001:000024F4   147 0001:00002511
+   149 0001:00002518   148 0001:0000251B   150 0001:00002554   153 0001:0000256B
+   154 0001:00002572   160 0001:0000257C   161 0001:00002588   162 0001:00002596
+   164 0001:0000259C   165 0001:000025AA   167 0001:000025B8   172 0001:000025BC
+   173 0001:000025C8   174 0001:000025D3   177 0001:000025D8   178 0001:000025DF
+   179 0001:000025E7   182 0001:000025EC   183 0001:000025F5   184 0001:00002600
+   187 0001:00002608   188 0001:00002620   189 0001:0000262A   192 0001:0000264C
+   193 0001:00002658   194 0001:00002663   197 0001:00002668   198 0001:00002679
+   199 0001:00002687   202 0001:0000269C   203 0001:000026A8   204 0001:000026B6
+   207 0001:000026C0   208 0001:000026CC   209 0001:000026D7   215 0001:000026DC
+   216 0001:000026EC   217 0001:00002705   218 0001:00002713   222 0001:00002718
+   223 0001:00002733   224 0001:00002740   225 0001:0000274F   230 0001:00002770
+   231 0001:0000277F   233 0001:0000279C   234 0001:000027AA   235 0001:000027BA
+   237 0001:000027CB   240 0001:000027D0   241 0001:000027D7   242 0001:000027E2
+   243 0001:000027ED   244 0001:000027F8   247 0001:000027FC   248 0001:00002805
+   249 0001:00002811   252 0001:00002818   253 0001:00002830   254 0001:0000283A
+   255 0001:0000284C   258 0001:0000286C   259 0001:00002878   260 0001:00002886
+   261 0001:00002894   262 0001:000028A2   265 0001:000028A8   266 0001:000028B9
+   267 0001:000028C4   268 0001:000028D2   273 0001:000028E4   274 0001:000028F3
+   275 0001:00002901   277 0001:00002907   278 0001:0000290E   281 0001:00002918
+   282 0001:00002926   285 0001:0000292C   286 0001:00002938   287 0001:0000293E
+   289 0001:00002951   290 0001:00002958   295 0001:00002960   296 0001:0000296C
+   297 0001:0000297A   298 0001:00002980   299 0001:0000298B   304 0001:00002990
+   305 0001:000029A0   307 0001:000029B0   308 0001:000029B6   310 0001:000029C9
+   312 0001:000029DA
+
+Line numbers for VAClasses(VAClasses.pas) segment .itext
+
+   314 0002:00000310
+
+Line numbers for VAUtils(VAUtils.pas) segment .text
+
+   231 0001:00004634   232 0001:00004644   233 0001:0000464B   234 0001:00004656
+   237 0001:00004667   238 0001:0000466A   239 0001:00004673   235 0001:00004682
+   241 0001:00004690   242 0001:000046A1   243 0001:000046CB   249 0001:000046D4
+   250 0001:000046FB   251 0001:00004703   252 0001:00004753   253 0001:0000477A
+   266 0001:000047A4   267 0001:000047C7   268 0001:000047CE   269 0001:000047E3
+   270 0001:000047E9   271 0001:000047EF   272 0001:000047F5   274 0001:000047F9
+   275 0001:00004822   276 0001:00004828   277 0001:0000482E   278 0001:00004834
+   279 0001:0000483A   280 0001:00004840   282 0001:00004844   283 0001:0000484F
+   284 0001:00004855   285 0001:00004864   286 0001:0000488B   287 0001:000048BA
+   288 0001:000048C0   289 0001:000048C6   290 0001:000048CC   291 0001:000048D2
+   292 0001:000048D8   293 0001:000048DE   295 0001:000048E2   301 0001:0000490C
+   302 0001:00004932   303 0001:0000493A   304 0001:0000494F   305 0001:0000495E
+   306 0001:0000496D   307 0001:0000497C   309 0001:00004989   310 0001:000049A6
+   311 0001:000049BB   317 0001:00004A6C   318 0001:00004A75   319 0001:00004A7D
+   320 0001:00004A95   321 0001:00004AA4   319 0001:00004AB7   322 0001:00004ABC
+   323 0001:00004AC4   330 0001:00004AC8   331 0001:00004B16   332 0001:00004B25
+   333 0001:00004B2F   334 0001:00004B40   337 0001:00004B49   341 0001:00004BEE
+   343 0001:00004BF2   335 0001:00004C03   345 0001:00004C0D   346 0001:00004C16
+   349 0001:00004C4C   350 0001:00004C50   351 0001:00004C5D   357 0001:00004C80
+   359 0001:00004C86   360 0001:00004C98   361 0001:00004CAD   368 0001:00004CB4
+   369 0001:00004CB8   371 0001:00004CC1   372 0001:00004CCB   374 0001:00004CD2
+   375 0001:00004CDA   386 0001:00004CE0   387 0001:00004D0E   388 0001:00004D19
+   389 0001:00004D1E   390 0001:00004D23   391 0001:00004D28   394 0001:00004D2D
+   395 0001:00004D43   396 0001:00004D4C   398 0001:00004D52   399 0001:00004D58
+   401 0001:00004D5F   404 0001:00004D65   405 0001:00004D75   407 0001:00004D8B
+   409 0001:00004D91   410 0001:00004D99   411 0001:00004DAC   412 0001:00004DF0
+   415 0001:00004DFB   416 0001:00004E11   418 0001:00004E14   419 0001:00004E26
+   425 0001:00004E7C   426 0001:00004E88   427 0001:00004E8E   428 0001:00004ECB
+   434 0001:00004ED0   435 0001:00004EDD   436 0001:00004EE5   437 0001:00004F05
+   451 0001:00004F0C   452 0001:00004F34   454 0001:00004F81   458 0001:00004FE4
+   459 0001:0000500D   467 0001:00005144   474 0001:000051A8   475 0001:000051CF
+   476 0001:000051DA   477 0001:000051E2   479 0001:000051F3   480 0001:00005206
+   481 0001:0000521B   482 0001:00005221   483 0001:00005236   477 0001:00005239
+   484 0001:0000523E   526 0001:00005298   527 0001:000052B7   528 0001:000052BE
+   529 0001:000052D4   530 0001:000052FF   528 0001:00005302   531 0001:00005307
+   534 0001:0000532C   535 0001:0000534B   536 0001:0000536C   537 0001:0000537C
+   538 0001:00005389   545 0001:000053BC   546 0001:000053E3   547 0001:000053F7
+   548 0001:0000540B   549 0001:0000541E   550 0001:0000542C   554 0001:00005660
+   555 0001:00005667   556 0001:00005674   566 0001:00005678   567 0001:00005695
+   568 0001:0000569D   569 0001:000056B7   570 0001:000056C2   571 0001:000056CF
+   572 0001:000056F4   574 0001:000056FE   575 0001:00005709   579 0001:0000575C
+   580 0001:00005768   581 0001:00005775   582 0001:0000579E   585 0001:000057A4
+   586 0001:000057B0   587 0001:000057BD   588 0001:000057E6   673 0001:00005C20
+   674 0001:00005C23   679 0001:00005C2C   680 0001:00005C3D   681 0001:00005C49
+   682 0001:00005C52   683 0001:00005C63   684 0001:00005C6F   685 0001:00005C78
+   686 0001:00005C8B   688 0001:00005C92   695 0001:00005C94   696 0001:00005CA0
+   698 0001:00005CA8   700 0001:00005CAE   701 0001:00005CC8   700 0001:00005CDD
+   703 0001:00005CE2   705 0001:00005CEA   707 0001:00005CF0   709 0001:00005CF3
+   710 0001:00005D01   711 0001:00005D0F   712 0001:00005D18   713 0001:00005D22
+   714 0001:00005D29   744 0001:00005D2C   745 0001:00005D49   746 0001:00005D4E
+   747 0001:00005D59   748 0001:00005D69   750 0001:00005D6F   751 0001:00005D81
+   754 0001:00005D93   755 0001:00005DA3   756 0001:00005DB1   789 0001:00005DD8
+   790 0001:00005DF4   791 0001:00005DFD   792 0001:00005E08   793 0001:00005E18
+   795 0001:00005E1E   796 0001:00005E2E   797 0001:00005E3C   799 0001:00005E48
+   800 0001:00005E50   803 0001:00005E5D   812 0001:00005E80   813 0001:00005E9C
+   814 0001:00005EA5   827 0001:00005EB0   828 0001:00005EC0   830 0001:00005EC6
+   831 0001:00005ED6   832 0001:00005EDE   835 0001:00005EEB   836 0001:00005EF9
+   845 0001:00005F1C   846 0001:00005F38   847 0001:00005F3D   849 0001:00005F46
+   860 0001:00005F51   861 0001:00005F61   863 0001:00005F67   864 0001:00005F77
+   866 0001:00005F82   946 0001:00005FA8   947 0001:00005FB7   948 0001:00005FC5
+   949 0001:00005FDD   950 0001:00005FE8   953 0001:00005FEC   954 0001:00005FF8
+   955 0001:0000600A   956 0001:00006012   962 0001:00006018   963 0001:00006033
+   964 0001:00006039   965 0001:0000604F   966 0001:00006058   967 0001:00006069
+   968 0001:0000607E   969 0001:00006092   972 0001:00006100   973 0001:00006111
+   974 0001:00006126   975 0001:00006134   979 0001:00006148   980 0001:00006155
+   981 0001:00006161  1045 0001:00006168  1046 0001:0000616F  1047 0001:0000617D
+  1050 0001:00006184  1051 0001:0000619F  1052 0001:000061B1  1053 0001:000061BE
+  1056 0001:000061E0  1057 0001:000061F1  1058 0001:000061FF  1059 0001:0000620A
+  1067 0001:0000621C  1068 0001:0000622B  1069 0001:00006231  1071 0001:0000624C
+  1072 0001:0000625D  1073 0001:00006269  1075 0001:00006271  1069 0001:00006274
+  1076 0001:00006279  1079 0001:00006280  1080 0001:00006289  1081 0001:00006297
+  1087 0001:000062A0  1088 0001:000062AD  1089 0001:000062BB  1090 0001:000062C1
+  1091 0001:000062CD  1094 0001:000062D4  1095 0001:000062DB  1096 0001:000062E9
+  1116 0001:000063AC  1117 0001:000063B3  1118 0001:000063BD  1119 0001:000063CA
+  1122 0001:000063D0  1123 0001:000063DC  1125 0001:000063E6  1126 0001:000063EE
+  1127 0001:0000640B  1128 0001:00006416  1130 0001:00006420  1134 0001:00006424
+  1135 0001:0000642D  1136 0001:00006438  1155 0001:00006440  1156 0001:00006449
+  1157 0001:00006451  1158 0001:0000645D  1159 0001:00006469  1160 0001:0000646F
+  1162 0001:00006480  1163 0001:00006489  1165 0001:00006490  1166 0001:000064BA
+  1167 0001:000064BF  1168 0001:000064CA  1170 0001:000064D4  1171 0001:000064D8
+  1172 0001:000064F4  1173 0001:0000650A  1174 0001:0000650E  1175 0001:0000651A
+  1177 0001:00006524  1179 0001:0000653D  1180 0001:00006558  1182 0001:00006562
+  1183 0001:00006570  1185 0001:0000657A  1186 0001:0000657E  1187 0001:0000659F
+  1188 0001:000065B5  1189 0001:000065B9  1190 0001:000065C5  1192 0001:000065CB
+  1194 0001:000065E0  1195 0001:000065ED  1196 0001:00006619  1197 0001:0000662F
+  1199 0001:0000663C  1200 0001:0000663F  1202 0001:00006641  1192 0001:00006644
+  1205 0001:00006656  1208 0001:00006667  1177 0001:0000666A  1210 0001:00006673
+  1211 0001:0000667F  1212 0001:0000668B  1216 0001:000066C8  1217 0001:000066E1
+  1218 0001:000066F6  1221 0001:0000671C  1222 0001:00006720  1223 0001:0000672A
+  1228 0001:00006730  1229 0001:0000673C  1230 0001:00006752  1235 0001:00006758
+  1236 0001:00006767  1237 0001:0000677D  1242 0001:00006784  1243 0001:00006793
+  1244 0001:000067A9  1254 0001:000067B0  1255 0001:000067C9  1256 0001:000067E1
+  1257 0001:000067E7  1258 0001:000067F6  1259 0001:0000681B  1260 0001:0000682E
+  1262 0001:00006864  1263 0001:00006887  1264 0001:00006892  1265 0001:0000689E
+  1266 0001:000068AA  1267 0001:000068B6  1268 0001:000068C2  1285 0001:000068E8
+  1286 0001:00006914  1287 0001:0000691C  1288 0001:00006931  1290 0001:0000693B
+  1291 0001:00006946  1292 0001:00006954  1293 0001:0000696E  1294 0001:00006984
+  1297 0001:000069D1  1298 0001:000069EB  1299 0001:000069F9  1300 0001:00006A04
+  1302 0001:00006A1C  1305 0001:00006A2C  1317 0001:00006AD4  1318 0001:00006AF3
+  1319 0001:00006B0B  1321 0001:00006B1A  1322 0001:00006B27  1323 0001:00006B3C
+  1324 0001:00006B42  1325 0001:00006B50  1326 0001:00006B74  1327 0001:00006B84
+  1332 0001:00006BD0  1333 0001:00006BF3  1334 0001:00006BFE  1335 0001:00006C10
+  1336 0001:00006C22  1337 0001:00006C34  1338 0001:00006C46  1340 0001:00006C6C
+  1341 0001:00006C96  1342 0001:00006CAE  1343 0001:00006CC6  1344 0001:00006CCA
+  1345 0001:00006CD2  1346 0001:00006CD8  1348 0001:00006CE0  1349 0001:00006CE8
+  1350 0001:00006CEE  1352 0001:00006CF6  1353 0001:00006CFE  1354 0001:00006D04
+  1356 0001:00006D0C  1357 0001:00006D14  1361 0001:00006D18  1368 0001:00006D44
+  1369 0001:00006D77  1370 0001:00006D9C  1372 0001:00006DB8  1373 0001:00006DC3
+  1374 0001:00006DC9  1375 0001:00006DE1  1376 0001:00006DF9  1377 0001:00006E07
+  1378 0001:00006E2B  1380 0001:00006E3B  1379 0001:00006E42  1381 0001:00006E72
+  1383 0001:00006E9F  1386 0001:00006EBC  1388 0001:00006ECC  1426 0001:00006FA0
+  1427 0001:00006FB3  1428 0001:00006FBB  1429 0001:00006FC3  1431 0001:00006FE2
+  1432 0001:00006FED  1433 0001:00006FF7  1434 0001:00007000  1436 0001:00007016
+  1438 0001:00007031  1440 0001:00007071  1441 0001:0000707E  1442 0001:000070AE
+  1445 0001:000070B0  1434 0001:000070B3  1447 0001:000070BC  1455 0001:000070C0
+  1456 0001:000070E2  1457 0001:000070EC  1458 0001:000070FA  1459 0001:0000710F
+  1460 0001:0000711D  1461 0001:0000713C  1463 0001:00007150  1466 0001:00007172
+  1468 0001:00007185  1476 0001:000071AC  1477 0001:000071B5  1478 0001:000071BF
+  1479 0001:000071CD  1480 0001:000071E2  1481 0001:000071F0  1482 0001:000071FD
+  1484 0001:00007210  1487 0001:00007232  1489 0001:00007245  1496 0001:0000724C
+  1501 0001:0000726A
+
+Line numbers for VAUtils(VAUtils.pas) segment .itext
+
+  1492 0002:00000318  1493 0002:00000332  1495 0002:00000337
+
+Line numbers for HRBuffers(HRBuffers.pas) segment .text
+
+   137 0001:00007C94   138 0001:00007CAC   139 0001:00007CB4   140 0001:00007CBC
+   143 0001:00007CDC   144 0001:00007CED   145 0001:00007CF5   146 0001:00007D03
+   150 0001:00007D18   151 0001:00007D24   153 0001:00007D2D   155 0001:00007D3A
+   157 0001:00007D40   159 0001:00007D4D   160 0001:00007D55   164 0001:00007D5C
+   165 0001:00007D68   166 0001:00007D6E   170 0001:00007D78   171 0001:00007D88
+   175 0001:00007D8C   176 0001:00007D98   179 0001:00007DA1   180 0001:00007DAA
+   182 0001:00007DBC   184 0001:00007DCE   191 0001:00007DD4   192 0001:00007DE0
+   195 0001:00007DE9   196 0001:00007DF5   197 0001:00007E11   198 0001:00007E22
+   199 0001:00007E34   200 0001:00007E3D   201 0001:00007E46   203 0001:00007E58
+   207 0001:00007E5C   208 0001:00007E63   211 0001:00007E6C   212 0001:00007E7E
+   213 0001:00007E86   215 0001:00007E8E   221 0001:00007E94   222 0001:00007E9D
+   223 0001:00007EA1   229 0001:00007EA8   230 0001:00007EC0   231 0001:00007ECA
+   232 0001:00007ED1   236 0001:00007EF0   237 0001:00007F01   238 0001:00007F0F
+   242 0001:00007F24   243 0001:00007F2D   244 0001:00007F36   248 0001:00007F40
+   249 0001:00007F4C   252 0001:00007F57   253 0001:00007F68   257 0001:00007F71
+   258 0001:00007F77   260 0001:00007F7E   264 0001:00007F88   265 0001:00007F98
+   268 0001:00007FA3   269 0001:00007FB4   273 0001:00007FBD   275 0001:00007FC4
+   279 0001:00007FC8   280 0001:00007FD1   283 0001:00007FDF   284 0001:00007FF3
+   285 0001:00007FF9   289 0001:00008002   290 0001:00008008   292 0001:0000800F
+   296 0001:00008018   297 0001:00008025   300 0001:00008033   301 0001:00008047
+   302 0001:0000804D   306 0001:00008056   308 0001:0000805D   314 0001:00008064
+   315 0001:00008070   316 0001:000080A2   322 0001:000080A8   323 0001:000080B4
+   324 0001:000080E5   328 0001:000080EC   329 0001:000080F5   330 0001:000080FE
+   336 0001:00008108   337 0001:00008114   338 0001:0000811F   342 0001:0000812A
+   343 0001:0000813B   347 0001:00008144   349 0001:0000814B   353 0001:00008150
+   354 0001:0000815C   355 0001:00008164   359 0001:00008168   360 0001:0000818A
+   369 0001:000081AC   370 0001:000081C4   371 0001:000081CE   372 0001:000081D6
+   373 0001:000081E0   377 0001:00008200   378 0001:00008211   379 0001:0000821F
+   383 0001:00008234   384 0001:00008240   387 0001:0000824B   388 0001:00008254
+   389 0001:00008264   391 0001:0000826E   395 0001:00008274   396 0001:0000827D
+   397 0001:00008286   401 0001:00008290   402 0001:0000829D   405 0001:000082A8
+   411 0001:000082CD   412 0001:000082DE   413 0001:000082F5   416 0001:000082FE
+   417 0001:00008315   422 0001:0000831E   423 0001:00008324   425 0001:0000832B
+   429 0001:00008334   430 0001:00008344   440 0001:00008348   441 0001:00008360
+   443 0001:0000836A   444 0001:00008377   445 0001:00008381   449 0001:000083A0
+   450 0001:000083B1   451 0001:000083BF   459 0001:000083D4   461 0001:000083E0
+   463 0001:00008401   465 0001:00008408   466 0001:0000840D   469 0001:00008415
+   471 0001:00008427   472 0001:00008433   466 0001:00008436   474 0001:0000843E
+   475 0001:00008444   479 0001:000084EC   480 0001:000084F5   481 0001:00008500
+   485 0001:00008508   486 0001:00008514   487 0001:0000852C   498 0001:00008534
+   499 0001:00008543   502 0001:00008551   503 0001:00008561   506 0001:0000856A
+   508 0001:00008574   513 0001:0000857A   514 0001:00008592   515 0001:0000859D
+   516 0001:000085B1   518 0001:000085BF   523 0001:000085D2   525 0001:000085DB
+   527 0001:000085EC   528 0001:00008604   529 0001:0000860F   530 0001:00008620
+   534 0001:0000862E   535 0001:0000863E   539 0001:00008644   540 0001:00008650
+   541 0001:00008669   552 0001:00008670   554 0001:0000867F   557 0001:00008686
+   561 0001:0000868D   563 0001:0000869D   564 0001:000086A9   558 0001:000086AC
+   568 0001:000086C2   571 0001:000086CA   573 0001:000086DB   575 0001:000086EA
+   577 0001:000086F2   578 0001:000086F6   568 0001:000086F9   582 0001:00008701
+   583 0001:0000870A   586 0001:0000871E   589 0001:0000872C   590 0001:0000873A
+   591 0001:00008752   592 0001:0000875B   596 0001:00008769   598 0001:00008779
+   599 0001:00008781   603 0001:00008788   609 0001:00008794
+
+Line numbers for HRBuffers(HRBuffers.pas) segment .itext
+
+   612 0002:00000350
+
+Line numbers for HRParser(HRParser.pas) segment .text
+
+   103 0001:00008B5C   104 0001:00008B74   105 0001:00008B86   106 0001:00008B96
+   107 0001:00008BA8   108 0001:00008BB8   109 0001:00008BC0   113 0001:00008BE0
+   114 0001:00008BF1   115 0001:00008BFC   116 0001:00008C04   117 0001:00008C0F
+   118 0001:00008C17   119 0001:00008C25   123 0001:00008C38   124 0001:00008C41
+   125 0001:00008C4D   129 0001:00008C54   130 0001:00008C60   131 0001:00008C6E
+   135 0001:00008C74   136 0001:00008C80   137 0001:00008C8B   141 0001:00008C90
+   142 0001:00008C97   143 0001:00008C9D   144 0001:00008CA9   148 0001:00008CAC
+   149 0001:00008CB8   150 0001:00008CC0   151 0001:00008CC8   152 0001:00008CD0
+   155 0001:00008CE2   156 0001:00008D00   157 0001:00008D06   153 0001:00008D16
+   159 0001:00008D30   163 0001:00008D34   164 0001:00008D3B   167 0001:00008D4D
+   168 0001:00008D6C   169 0001:00008D6F   171 0001:00008D77   172 0001:00008D7D
+   165 0001:00008D8D   174 0001:00008D9C   178 0001:00008DA0   179 0001:00008DA7
+   180 0001:00008DB7   183 0001:00008DC6   184 0001:00008DE3   185 0001:00008DE9
+   190 0001:00008DF3   192 0001:00008DFA   197 0001:00008E00   198 0001:00008E0E
+   200 0001:00008E19   203 0001:00008E21   205 0001:00008E2A   206 0001:00008E36
+   207 0001:00008E42   210 0001:00008E54   212 0001:00008E5B   213 0001:00008E68
+   214 0001:00008E77   215 0001:00008E87   221 0001:00008E90   222 0001:00008EA8
+   223 0001:00008EB2   227 0001:00008ED4   228 0001:00008EE5   229 0001:00008EF3
+   233 0001:00008F08   237 0001:00008F0F   239 0001:00008F25   240 0001:00008F42
+   243 0001:00008F4A   244 0001:00008F67   241 0001:00008F6D   246 0001:00008F83
+   247 0001:00008F8A   251 0001:00008F8D   253 0001:00008FAF   254 0001:00008FCC
+   257 0001:00008FD2   261 0001:0000901E   262 0001:0000903B   267 0001:00009043
+   269 0001:00009062   270 0001:0000907F   273 0001:00009085   278 0001:0000908A
+   280 0001:000090A9   281 0001:000090C6   255 0001:000090CC   291 0001:000090D1
+   292 0001:000090D8   296 0001:000090DB   301 0001:00009136   302 0001:00009153
+   305 0001:0000915B   306 0001:00009178   307 0001:0000917E   303 0001:00009185
+   314 0001:000091A5   315 0001:000091C2   316 0001:000091C8   311 0001:000091CF
+   319 0001:0000921A   322 0001:0000921D   326 0001:00009225
+
+Line numbers for HRParser(HRParser.pas) segment .itext
+
+   329 0002:00000358
+
+Line numbers for HRParserPas(HRParserPas.pas) segment .text
+
+    83 0001:0000951C    84 0001:00009534    85 0001:0000953E    89 0001:00009560
+    90 0001:00009571    91 0001:0000957F    95 0001:00009594    99 0001:0000959B
+   102 0001:000095B5   105 0001:000095BB   108 0001:000095D9   109 0001:000095E0
+   113 0001:000095E5   115 0001:000095EC   116 0001:000095F2   120 0001:000095F7
+   121 0001:00009614   122 0001:00009632   103 0001:00009638   130 0001:0000963A
+   133 0001:0000966F   136 0001:00009676   138 0001:0000968B   139 0001:00009692
+   141 0001:00009697   143 0001:000096C4   145 0001:000096CB   146 0001:000096D2
+   148 0001:000096D7   149 0001:000096F4   150 0001:00009712   134 0001:00009718
+   156 0001:0000971D   159 0001:0000974E   160 0001:00009755   163 0001:0000975E
+   164 0001:0000977B   165 0001:00009799   161 0001:0000979F   167 0001:000097B5
+   171 0001:000097B8   174 0001:000097CE   177 0001:000097D4   180 0001:000097FE
+   181 0001:00009805   185 0001:00009807   186 0001:0000980E   190 0001:00009810
+   191 0001:0000982D   175 0001:00009833   196 0001:00009835   197 0001:0000983B
+   201 0001:0000983E   204 0001:00009854   207 0001:0000985C   208 0001:00009879
+   205 0001:0000987F   210 0001:0000989D   211 0001:000098A4   215 0001:000098A7
+   218 0001:000098BD   221 0001:000098C5   222 0001:000098E2   219 0001:000098E8
+   224 0001:00009906   225 0001:0000990D   228 0001:00009910   232 0001:00009918
+
+Line numbers for HRParserPas(HRParserPas.pas) segment .itext
+
+   235 0002:00000360
+
+Line numbers for VA2006Utils(VA2006Utils.pas) segment .text
+
+    46 0001:00009CA8    47 0001:00009CB7    49 0001:00009CD1    50 0001:00009CD7
+    51 0001:00009CDF    52 0001:00009CED    53 0001:00009CF4    55 0001:00009D1C
+    59 0001:00009D20    60 0001:00009D2F    61 0001:00009D3D    63 0001:00009D4E
+    64 0001:00009D62    66 0001:00009D6A    69 0001:00009D70    70 0001:00009D8B
+    71 0001:00009D97    72 0001:00009DA0    73 0001:00009DAE    74 0001:00009DBF
+    77 0001:00009DE0    78 0001:00009DE7    79 0001:00009DF6    84 0001:00009DFC
+    85 0001:00009E05    86 0001:00009E09    89 0001:00009E10    91 0001:00009E1C
+
+Line numbers for VA2006Utils(VA2006Utils.pas) segment .itext
+
+    93 0002:00000368
+
+Line numbers for .VASharedXE5(VASharedXE5.dpk) segment .itext
+
+    44 0002:00000370
+
+Bound resource files
+
+VASharedXE5.res
+VASharedXE5.drf
+
+
+Program entry point at 0002:00000370

@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2014/03/31 14:10:47.000.628,=C:\DEV\cprs\OR_3_350\CPRS-chart\JAWS Support Files\Source\JAWS Dll\Unit1.pas</Transaction>
+    <Transaction>2014/03/31 14:12:52.000.122,=C:\DEV\cprs\OR_3_350\JAWS Support Files\Source\JAWS Dispatcher\fVA508DispatcherHiddenWindow.pas</Transaction>
+    <Transaction>2014/03/31 15:25:05.000.231,C:\DEV\cprs\OR_3_350\JAWS Support Files\Source\JAWS Dispatcher\fVA508DispatcherHiddenWindow.pas=</Transaction>
+    <Transaction>2014/04/01 09:30:17.000.940,=C:\DEV\cprs\OR_3_350\CPRS-chart\JAWS Support Files\Source\JAWS Dll\JAWS.todo</Transaction>
+    <Transaction>2014/05/06 11:09:33.000.820,=C:\DEV\cprs\OR_3_350\CPRS-chart\JAWS Support Files\Source\JAWS Dll\Untitled1.htm</Transaction>
+    <Transaction>2014/05/06 11:12:44.000.468,=C:\DEV\cprs\OR_3_306V29\docs\ScreenReaders\FlowChart.vsd</Transaction>
+    <Transaction>2014/05/06 11:12:58.000.530,C:\DEV\cprs\OR_3_306V29\docs\ScreenReaders\FlowChart.vsd=</Transaction>
+  </Transactions>
+</BorlandProject>

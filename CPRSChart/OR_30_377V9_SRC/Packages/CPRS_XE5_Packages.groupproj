@@ -1,0 +1,108 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{B9A37485-F6EB-4C0D-B1C7-0EBA671C30BA}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="..\Broker\XWB_RXE5.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\Broker\XWB_DXE5.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="VASharedXE5.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="VA508AccessXE5.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="BorlandXE5.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="ORCtrlLibXE5.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="ORCopyMonitor.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="XWB_RXE5">
+        <MSBuild Projects="..\Broker\XWB_RXE5.dproj"/>
+    </Target>
+    <Target Name="XWB_RXE5:Clean">
+        <MSBuild Projects="..\Broker\XWB_RXE5.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="XWB_RXE5:Make">
+        <MSBuild Projects="..\Broker\XWB_RXE5.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="XWB_DXE5">
+        <MSBuild Projects="..\Broker\XWB_DXE5.dproj"/>
+    </Target>
+    <Target Name="XWB_DXE5:Clean">
+        <MSBuild Projects="..\Broker\XWB_DXE5.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="XWB_DXE5:Make">
+        <MSBuild Projects="..\Broker\XWB_DXE5.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="VASharedXE5">
+        <MSBuild Projects="VASharedXE5.dproj"/>
+    </Target>
+    <Target Name="VASharedXE5:Clean">
+        <MSBuild Projects="VASharedXE5.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="VASharedXE5:Make">
+        <MSBuild Projects="VASharedXE5.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="VA508AccessXE5">
+        <MSBuild Projects="VA508AccessXE5.dproj"/>
+    </Target>
+    <Target Name="VA508AccessXE5:Clean">
+        <MSBuild Projects="VA508AccessXE5.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="VA508AccessXE5:Make">
+        <MSBuild Projects="VA508AccessXE5.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="BorlandXE5">
+        <MSBuild Projects="BorlandXE5.dproj"/>
+    </Target>
+    <Target Name="BorlandXE5:Clean">
+        <MSBuild Projects="BorlandXE5.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="BorlandXE5:Make">
+        <MSBuild Projects="BorlandXE5.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="ORCtrlLibXE5">
+        <MSBuild Projects="ORCtrlLibXE5.dproj"/>
+    </Target>
+    <Target Name="ORCtrlLibXE5:Clean">
+        <MSBuild Projects="ORCtrlLibXE5.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="ORCtrlLibXE5:Make">
+        <MSBuild Projects="ORCtrlLibXE5.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="ORCopyMonitor">
+        <MSBuild Projects="ORCopyMonitor.dproj"/>
+    </Target>
+    <Target Name="ORCopyMonitor:Clean">
+        <MSBuild Projects="ORCopyMonitor.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="ORCopyMonitor:Make">
+        <MSBuild Projects="ORCopyMonitor.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="XWB_RXE5;XWB_DXE5;VASharedXE5;VA508AccessXE5;BorlandXE5;ORCtrlLibXE5;ORCopyMonitor"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="XWB_RXE5:Clean;XWB_DXE5:Clean;VASharedXE5:Clean;VA508AccessXE5:Clean;BorlandXE5:Clean;ORCtrlLibXE5:Clean;ORCopyMonitor:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="XWB_RXE5:Make;XWB_DXE5:Make;VASharedXE5:Make;VA508AccessXE5:Make;BorlandXE5:Make;ORCtrlLibXE5:Make;ORCopyMonitor:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
