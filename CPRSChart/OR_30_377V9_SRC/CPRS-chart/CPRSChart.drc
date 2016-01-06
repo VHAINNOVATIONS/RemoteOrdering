@@ -876,285 +876,286 @@ BEGIN
 	System_SysConst_SInvalidOp,	L"Invalid floating point operation"
 END
 
-/* c:\dxe3\lib\Win32\release\Controls.res */
-/* c:\dxe3\lib\Win32\release\Buttons.res */
-/* C:\Vista\CPRS\Packages\OR\Source\ORCTRLS.RES */
-/* c:\dxe3\lib\Win32\release\TeeFonts.res */
-/* c:\dxe3\lib\Win32\release\TeeResou.res */
-/* C:\Vista\CPRS\Broker\Source\fSgnonDlg.DFM */
-/* C:\Vista\CPRS\Broker\Source\Sgnoncnf.DFM */
-/* C:\Vista\CPRS\Broker\Source\frmSignonMessage.DFM */
-/* C:\Vista\CPRS\Broker\Source\Rpcberr.DFM */
-/* C:\Vista\CPRS\Broker\Source\fDebugInfo.DFM */
-/* C:\Vista\CPRS\Broker\Source\SelDiv.DFM */
-/* C:\Vista\CPRS\Broker\Source\VCEdit.DFM */
-/* C:\Vista\CPRS\Broker\Source\fRPCBErrMsg.DFM */
-/* C:\Vista\CPRS\Broker\Source\RpcNet.DFM */
-/* C:\Vista\CPRS\Broker\Source\AddServer.DFM */
-/* C:\Vista\CPRS\Broker\Source\Rpcconf1.DFM */
-/* C:\Vista\CPRS\Broker\Source\Loginfrm.DFM */
-/* C:\Vista\CPRS\Broker\Source\fPlinkpw.DFM */
-/* C:\Vista\CPRS\Broker\Source\fSSHUsername.DFM */
-/* c:\dxe3\lib\Win32\release\Vcl.DBLogDlg.dfm */
-/* c:\dxe3\lib\Win32\release\Vcl.DBPWDlg.dfm */
-/* c:\dxe3\lib\Win32\release\DBCtrls.res */
-/* c:\dxe3\lib\Win32\release\DBGrids.res */
-/* C:\Vista\CPRS\Packages\OR\Source\OR2006Compatibility.dfm */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fBase508Form.dfm */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fHSplit.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fAutoSz.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fODMedOIFA.DFM */
-/* C:\Vista\CPRS\Packages\OR\Source\ORDtTm.DFM */
-/* C:\Vista\CPRS\Packages\OR\Source\ORDtTm.RES */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fODDietLT.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\mTreeGrid.dfm */
-/* c:\dxe3\lib\Win32\release\Tabs.res */
-/* C:\Vista\CPRS\PKI\fPKIPINPrompt.dfm */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fDebugReport.dfm */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fPtSelMsg.DFM */
-/* C:\Vista\CPRS\Packages\OR\Source\ORDtTmRng.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fDupPts.dfm */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fPtSens.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fPtSelDemog.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fPtSelOptSave.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fPtSelOptns.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fReportsPrint.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fReportsAdhocSubItem1.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fReportsAdhocComponent1.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fGraphData.dfm */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fGraphSettings.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fGraphOthers.dfm */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fGraphProfiles.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fGraphs.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fReports.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fRptBox.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fPatientFlagMulti.dfm */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fAlertForward.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fDeferDialog.dfm */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fPtSel.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fOMAction.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Consults\fConsult513Prt.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fNotePrt.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Templates\fTemplateView.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Templates\fTemplateObjects.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fSpellNotify.dfm */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fTimeout.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Templates\fTemplateAutoGen.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Templates\fFindingTemplates.dfm */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\mImgText.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fIconLegend.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fMHTest.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fRemCoverPreview.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fRemCoverSheet.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\sremcvr.RES */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fReminderTree.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Vitals\fVitalsDate.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Encounter\mVisitRelated.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fRemVisitInfo.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Templates\mTemplateFieldButton.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fReminderDialog.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\mDrawers.dfm */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Templates\fTemplateFields.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Templates\fTemplateFieldEditor.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Templates\fTemplateEditor.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fDrawers.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fVisit.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Consults\fConsultBS.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Consults\fConsultBD.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fSignItem.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Consults\fConsultBSt.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Consults\fConsultsView.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Consults\fConsultAlertTo.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Consults\fConsultAct.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fOrdersDC.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fOrdersHold.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fOrdersUnhold.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fOCMonograph.dfm */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fOCAccept.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fDateRange.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fRenewOutMed.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fOrdersRenew.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fODGen.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fODAuto.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fOMVerify.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fOMNavA.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fOrdersRefill.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fOrdersTS.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fOrdersCopy.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\mEvntDelay.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fMedCopy.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fODChild.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fActivateDeactivate.dfm */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fMeds.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fClinicWardMeds.dfm */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fPrintLocation.dfm */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fCSRemaining.dfm */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\mCoPayDesc.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fNoteBA.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fNoteBD.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Encounter\fPCEBase.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Encounter\fVisitType.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Encounter\fPCEBaseGrid.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Encounter\fPCEOther.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Encounter\fHFSearch.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Encounter\fPCEBaseMain.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Encounter\fDiagnoses.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Encounter\fProcedure.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Encounter\fImmunization.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Encounter\fSkinTest.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Encounter\fPatientEd.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Encounter\fHealthFactor.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Encounter\fExam.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fvit.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fVitals.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Encounter\fEncVitals.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Encounter\fGAF.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Encounter\fPCEProvider.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Encounter\fEncounterFrame.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fNoteProps.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fAddlSigners.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fNoteDR.DFM */
-/* c:\dxe3\lib\Win32\release\SPIN.RES */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fTIUView.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fDCSummProps.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fNotesBP.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fNoteIDParents.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fDCSumm.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fOCSession.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fDeviceSelect.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fOrdersPrint.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fLkUpLocation.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fSurgeryView.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fNoteCslt.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Encounter\fPCEEdit.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fSurgery.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fReview.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fEncnt.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Consults\fPreReq.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Consults\fODConsult.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Consults\fODProc.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Consults\fCsltNote.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Consults\fEditProc.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Consults\fEditConsult.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Consults\fConsMedRslt.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fNoteCPFields.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Consults\fConsults.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fPrintList.dfm */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fNoteST.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fNoteSTStop.dfm */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fFocusedControls.dfm */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fNotificationProcessor.dfm */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fNotes.dfm */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fARTFreeTextMsg.dfm */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fAllgyFind.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fPtCWAD.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fARTAllgy.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fAllgyBox.dfm */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fCover.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fProbCmt.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fProbFreetext.dfm */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fProbLex.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fProbEdt.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fProbflt.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fProbs.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fLabTest.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fLabTests.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fLabTestGroups.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fLabPrint.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fLabs.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fPtDemo.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fAbout.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fxBroker.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fxLists.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fxServer.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fSplash.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fLabInfo.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\BA\fBAOptionsDiagnoses.dfm */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Options\fOptionsDays.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Options\fOptionsReminders.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Options\fOptionsSurrogate.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Options\fOptionsPatientSelection.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Options\fOptionsNewList.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Options\fOptionsLists.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Options\fOptionsTeams.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Options\fOptionsCombinations.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Options\fOptionsOther.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Options\fOptionsNotes.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Options\fOptionsTitles.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Options\fOptionsReportsCustom.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Options\fOptionsReportsDefault.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Options\fOptions.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fDefaultEvent.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fOrdersSign.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fOtherSchedule.dfm */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fIVRoutes.dfm */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fCombatVet.dfm */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fViewNotifications.dfm */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fFrame.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\sBitmaps.RES */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\sRemSrch.RES */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Encounter\fPCELex.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\BA\fBALocalDiagnoses.dfm */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Templates\fTemplateDialog.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Templates\fTemplateImport.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\dShared.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fODDiet.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fODMisc.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fODMedFA.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fODMedIn.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fODMedComplex.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fODMedOut.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fODText.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fODRadApproval.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fODRadConShRes.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fODRad.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fODLabOthCollSamp.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fODLabOthSpec.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fODLabImmedColl.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fLabCollTimes.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fODLab.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fODBBank.dfm */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fODMeds.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fODMedIV.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fODVitals.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fEffectDate.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fRename.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fOrderSaveQuick.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fOMSet.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fOMHTML.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fODMedNVA.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fODChangeUnreleasedRenew.dfm */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fODRTC.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fODMessage.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fODBase.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fOrderVw.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fODChangeEvtDisp.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fOrdersCV.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fOrdersAlert.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fOrderFlag.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fOrderUnflag.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fOrdersRelease.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fOrdersOnChart.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fOrdersEvntRelease.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fOrdersComplete.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fOrdersVerify.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fOrderComment.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fODReleaseEvent.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fODActive.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fODValidateAction.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fOrders.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fPage.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fHP.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fODRadImType.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fODSaveQuick.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fOMProgress.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Options\fOptionsPrimaryList.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Options\fOptionsSubscribe.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fAResize.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\Orders\fODAllgy.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\fPostings.DFM */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\mColumnTree.dfm */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\mRadioListView.dfm */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\CPRSChart.TLB */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\CPRSChart.RES */
-/* C:\Vista\CPRS\OR_3_377\CPRS-chart\CPRSChart.drf */
+/* c:\program files (x86)\embarcadero\rad studio\10.0\lib\Win32\release\Controls.res */
+/* c:\program files (x86)\embarcadero\rad studio\10.0\lib\Win32\release\Buttons.res */
+/* D:\CPRS 31\OR_30_377V9_SRC\Packages\OR\Source\ORCTRLS.RES */
+/* c:\program files (x86)\embarcadero\rad studio\10.0\lib\Win32\release\TeeFonts.res */
+/* c:\program files (x86)\embarcadero\rad studio\10.0\lib\Win32\release\TeeResou.res */
+/* D:\CPRS 31\OR_30_377V9_SRC\Broker\Source\fSgnonDlg.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\Broker\Source\Sgnoncnf.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\Broker\Source\frmSignonMessage.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\Broker\Source\Rpcberr.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\Broker\Source\fDebugInfo.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\Broker\Source\SelDiv.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\Broker\Source\VCEdit.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\Broker\Source\fRPCBErrMsg.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\Broker\Source\RpcNet.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\Broker\Source\AddServer.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\Broker\Source\Rpcconf1.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\Broker\Source\Loginfrm.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\Broker\Source\fPlinkpw.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\Broker\Source\fSSHUsername.DFM */
+/* c:\program files (x86)\embarcadero\rad studio\10.0\lib\Win32\release\Vcl.DBLogDlg.dfm */
+/* c:\program files (x86)\embarcadero\rad studio\10.0\lib\Win32\release\Vcl.DBPWDlg.dfm */
+/* c:\program files (x86)\embarcadero\rad studio\10.0\lib\Win32\release\DBCtrls.res */
+/* c:\program files (x86)\embarcadero\rad studio\10.0\lib\Win32\release\DBGrids.res */
+/* D:\CPRS 31\OR_30_377V9_SRC\Packages\OR\Source\OR2006Compatibility.dfm */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fBase508Form.dfm */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fHSplit.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fAutoSz.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODMedOIFA.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\Packages\OR\Source\ORDtTm.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\Packages\OR\Source\ORDtTm.RES */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODDietLT.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\mTreeGrid.dfm */
+/* c:\program files (x86)\embarcadero\rad studio\10.0\lib\Win32\release\Tabs.res */
+/* D:\CPRS 31\OR_30_377V9_SRC\PKI\fPKIPINPrompt.dfm */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fDebugReport.dfm */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fPtSelMsg.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\Packages\OR\Source\ORDtTmRng.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fDupPts.dfm */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fPtSens.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fPtSelDemog.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fPtSelOptSave.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fPtSelOptns.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fReportsPrint.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fReportsAdhocSubItem1.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fReportsAdhocComponent1.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fGraphData.dfm */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fGraphSettings.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fGraphOthers.dfm */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fGraphProfiles.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fGraphs.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fReports.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fRptBox.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fPatientFlagMulti.dfm */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fAlertForward.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fDeferDialog.dfm */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fPtSel.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fOMAction.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Consults\fConsult513Prt.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fNotePrt.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Templates\fTemplateView.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Templates\fTemplateObjects.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fSpellNotify.dfm */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fTimeout.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Templates\fTemplateAutoGen.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Templates\fFindingTemplates.dfm */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\mImgText.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fIconLegend.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fMHTest.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fRemCoverPreview.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fRemCoverSheet.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\sremcvr.RES */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fReminderTree.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Vitals\fVitalsDate.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Encounter\mVisitRelated.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fRemVisitInfo.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Templates\mTemplateFieldButton.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fReminderDialog.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\mDrawers.dfm */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Templates\fTemplateFields.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Templates\fTemplateFieldEditor.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Templates\fTemplateEditor.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fDrawers.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fVisit.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Consults\fConsultBS.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Consults\fConsultBD.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fSignItem.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Consults\fConsultBSt.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Consults\fConsultsView.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Consults\fConsultAlertTo.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Consults\fConsultAct.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fOrdersDC.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fOrdersHold.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fOrdersUnhold.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fOCMonograph.dfm */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fOCAccept.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fDateRange.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fRenewOutMed.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fOrdersRenew.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODGen.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODAuto.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fOMVerify.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fOMNavA.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fOrdersRefill.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fOrdersTS.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fOrdersCopy.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\mEvntDelay.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fMedCopy.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODChild.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fActivateDeactivate.dfm */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fMeds.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fClinicWardMeds.dfm */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fPrintLocation.dfm */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fCSRemaining.dfm */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\mCoPayDesc.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fNoteBA.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fNoteBD.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Encounter\fPCEBase.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Encounter\fVisitType.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Encounter\fPCEBaseGrid.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Encounter\fPCEOther.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Encounter\fHFSearch.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Encounter\fPCEBaseMain.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Encounter\fDiagnoses.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Encounter\fProcedure.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Encounter\fImmunization.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Encounter\fSkinTest.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Encounter\fPatientEd.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Encounter\fHealthFactor.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Encounter\fExam.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fvit.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fVitals.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Encounter\fEncVitals.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Encounter\fGAF.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Encounter\fPCEProvider.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Encounter\fEncounterFrame.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fNoteProps.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fAddlSigners.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fNoteDR.DFM */
+/* c:\program files (x86)\embarcadero\rad studio\10.0\lib\Win32\release\SPIN.RES */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fTIUView.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fDCSummProps.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fNotesBP.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fNoteIDParents.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fDCSumm.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fOCSession.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fDeviceSelect.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fOrdersPrint.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fLkUpLocation.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fSurgeryView.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fNoteCslt.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Encounter\fPCEEdit.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fSurgery.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fReview.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fEncnt.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Consults\fPreReq.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Consults\fODConsult.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Consults\fODProc.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Consults\fCsltNote.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Consults\fEditProc.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Consults\fEditConsult.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Consults\fConsMedRslt.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fNoteCPFields.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Consults\fConsults.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fPrintList.dfm */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fNoteST.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fNoteSTStop.dfm */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fFocusedControls.dfm */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fNotificationProcessor.dfm */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fNotes.dfm */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fARTFreeTextMsg.dfm */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fAllgyFind.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fPtCWAD.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fARTAllgy.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fAllgyBox.dfm */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fCover.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fProbCmt.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fProbFreetext.dfm */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fProbLex.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fProbEdt.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fProbflt.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fProbs.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fLabTest.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fLabTests.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fLabTestGroups.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fLabPrint.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fLabs.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fPtDemo.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fAbout.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fxBroker.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fxLists.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fxServer.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fSplash.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fLabInfo.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\BA\fBAOptionsDiagnoses.dfm */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Options\fOptionsDays.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Options\fOptionsReminders.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Options\fOptionsSurrogate.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Options\fOptionsPatientSelection.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Options\fOptionsNewList.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Options\fOptionsLists.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Options\fOptionsTeams.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Options\fOptionsCombinations.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Options\fOptionsOther.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Options\fOptionsNotes.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Options\fOptionsTitles.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Options\fOptionsReportsCustom.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Options\fOptionsReportsDefault.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Options\fOptions.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fDefaultEvent.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fOrdersSign.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fOtherSchedule.dfm */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fIVRoutes.dfm */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fCombatVet.dfm */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fViewNotifications.dfm */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fFrame.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\sBitmaps.RES */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\sRemSrch.RES */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Encounter\fPCELex.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\BA\fBALocalDiagnoses.dfm */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Templates\fTemplateDialog.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Templates\fTemplateImport.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\dShared.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODDiet.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODMisc.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODMedFA.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODMedIn.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODMedComplex.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODMedOut.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODText.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODLabOthCollSamp.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODLabOthSpec.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODLabImmedColl.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fLabCollTimes.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fRemoteLocations.dfm */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODLab.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODRadApproval.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODRadConShRes.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODRad.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODBBank.dfm */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODMeds.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODMedIV.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODVitals.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fEffectDate.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fRename.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fOrderSaveQuick.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fOMSet.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fOMHTML.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODMedNVA.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODChangeUnreleasedRenew.dfm */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODRTC.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODMessage.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODBase.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fOrderVw.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODChangeEvtDisp.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fOrdersCV.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fOrdersAlert.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fOrderFlag.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fOrderUnflag.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fOrdersRelease.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fOrdersOnChart.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fOrdersEvntRelease.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fOrdersComplete.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fOrdersVerify.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fOrderComment.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODReleaseEvent.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODActive.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODValidateAction.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fOrders.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fPage.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fHP.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODRadImType.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODSaveQuick.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fOMProgress.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Options\fOptionsPrimaryList.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Options\fOptionsSubscribe.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fAResize.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODAllgy.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fPostings.DFM */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\mColumnTree.dfm */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\mRadioListView.dfm */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\CPRSChart.TLB */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\CPRSChart.RES */
+/* D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\CPRSChart.drf */

@@ -102,9 +102,9 @@
         <DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
-        <VerInfo_Keys>CompanyName=Department of Veterans Affairs;FileDescription=9/3/2015;FileVersion=1.0.31.8;InternalName=1.0.31.8 server required;LegalCopyright=Unauthorized access or misuse of this system and/or its data is a federal crime. Use of all data shall be in accordance with VA policy on security and privacy.;LegalTrademarks=;OriginalFilename=Patch 377;ProductName=Computerized Patient Record System;ProductVersion=1.0.31.8;Comments=Version 1.0.31.8;CFBundleName=;CFBundleDisplayName=;CFBundleIdentifier=;CFBundleVersion=;CFBundlePackageType=;CFBundleSignature=;CFBundleAllowMixedLocalizations=;CFBundleExecutable=</VerInfo_Keys>
-        <VerInfo_Build>8</VerInfo_Build>
-        <Debugger_RunParams>s=10.5.21.65 p=9009</Debugger_RunParams>
+        <VerInfo_Keys>CompanyName=Department of Veterans Affairs;FileDescription=9/3/2015;FileVersion=1.0.31.9;InternalName=1.0.31.9 server required;LegalCopyright=Unauthorized access or misuse of this system and/or its data is a federal crime. Use of all data shall be in accordance with VA policy on security and privacy.;LegalTrademarks=;OriginalFilename=Patch 377;ProductName=Computerized Patient Record System;ProductVersion=1.0.31.9;Comments=Version 1.0.31.9;CFBundleName=;CFBundleDisplayName=;CFBundleIdentifier=;CFBundleVersion=;CFBundlePackageType=;CFBundleSignature=;CFBundleAllowMixedLocalizations=;CFBundleExecutable=</VerInfo_Keys>
+        <VerInfo_Build>9</VerInfo_Build>
+        <Debugger_RunParams>S=54.166.15.74  P=9230</Debugger_RunParams>
         <DCC_RemoteDebug>true</DCC_RemoteDebug>
         <DCC_MapFile>3</DCC_MapFile>
         <DCC_WriteableConstants>true</DCC_WriteableConstants>
@@ -922,6 +922,9 @@
         <DCCReference Include="uInfoBoxWithBtnControls.pas"/>
         <DCCReference Include="Orders\fODRTC.pas">
             <Form>frmODRTC</Form>
+        </DCCReference>
+        <DCCReference Include="Orders\fRemoteLocations.pas">
+            <Form>$R *.TLB</Form>
         </DCCReference>
         <RidlCompile Include="CPRSChart.ridl"/>
         <None Include="ModelSupport_CPRSChart\default.txaPackage"/>

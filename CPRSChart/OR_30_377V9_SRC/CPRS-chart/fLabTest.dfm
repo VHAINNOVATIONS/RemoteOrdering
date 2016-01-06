@@ -7,8 +7,8 @@ inherited frmLabTest: TfrmLabTest
   OldCreateOrder = True
   Position = poScreenCenter
   OnCreate = FormCreate
-  ExplicitWidth = 285
-  ExplicitHeight = 308
+  ExplicitWidth = 293
+  ExplicitHeight = 320
   PixelsPerInch = 96
   TextHeight = 13
   object pnlLabTest: TORAutoPanel [0]
@@ -85,6 +85,7 @@ inherited frmLabTest: TfrmLabTest
       Sorted = False
       SynonymChars = '<>'
       TabOrder = 0
+      Text = ''
       OnDblClick = cmdOKClick
       OnEnter = cboListEnter
       OnExit = cboListExit
@@ -114,11 +115,14 @@ inherited frmLabTest: TfrmLabTest
       Sorted = False
       SynonymChars = '<>'
       TabOrder = 1
+      Text = ''
       OnNeedData = cboSpecimenNeedData
       CharsNeedMatch = 1
     end
   end
   inherited amgrMain: TVA508AccessibilityManager
+    Left = 56
+    Top = 56
     Data = (
       (
         'Component = pnlLabTest'

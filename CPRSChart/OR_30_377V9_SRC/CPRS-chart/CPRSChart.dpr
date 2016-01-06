@@ -311,7 +311,8 @@ uses
   fViewNotifications in 'fViewNotifications.pas' {frmViewNotifications},
   fNotificationProcessor in 'fNotificationProcessor.pas' {frmNotificationProcessor},
   uInfoBoxWithBtnControls in 'uInfoBoxWithBtnControls.pas',
-  fODRTC in 'Orders\fODRTC.pas' {frmODRTC};
+  fODRTC in 'Orders\fODRTC.pas' {frmODRTC},
+  fRemoteLocations in 'Orders\fRemoteLocations.pas';
 
 {$R *.TLB}
 

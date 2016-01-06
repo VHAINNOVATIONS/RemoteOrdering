@@ -2,7 +2,7 @@ inherited frmFrame: TfrmFrame
   Left = 219
   Top = 102
   Caption = ']='
-  ClientHeight = 828
+  ClientHeight = 721
   ClientWidth = 976
   FormStyle = fsMDIForm
   Menu = mnuFrame
@@ -15,14 +15,14 @@ inherited frmFrame: TfrmFrame
   OnDestroy = FormDestroy
   OnResize = FormResize
   ExplicitWidth = 992
-  ExplicitHeight = 886
+  ExplicitHeight = 780
   PixelsPerInch = 96
   TextHeight = 13
   object pnlNoPatientSelected: TPanel [0]
     Left = 0
     Top = 0
     Width = 976
-    Height = 828
+    Height = 721
     Margins.Left = 4
     Margins.Top = 4
     Margins.Right = 4
@@ -42,7 +42,7 @@ inherited frmFrame: TfrmFrame
     Left = 0
     Top = 0
     Width = 976
-    Height = 828
+    Height = 721
     Margins.Left = 4
     Margins.Top = 4
     Margins.Right = 4
@@ -825,7 +825,7 @@ inherited frmFrame: TfrmFrame
     end
     object stsArea: TStatusBar
       Left = 1
-      Top = 806
+      Top = 699
       Width = 974
       Height = 21
       Margins.Left = 5
@@ -857,7 +857,7 @@ inherited frmFrame: TfrmFrame
     end
     object tabPage: TTabControl
       Left = 1
-      Top = 779
+      Top = 672
       Width = 974
       Height = 27
       Margins.Left = 4
@@ -881,7 +881,7 @@ inherited frmFrame: TfrmFrame
       Left = 1
       Top = 64
       Width = 974
-      Height = 715
+      Height = 608
       Margins.Left = 4
       Margins.Top = 4
       Margins.Right = 4
