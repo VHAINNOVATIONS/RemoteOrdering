@@ -7,6 +7,7 @@ uses
   Forms, Dialogs, StdCtrls, ORCtrls, ORfn, fODBase, ExtCtrls, ComCtrls, uConst,
   ORDtTm, Buttons, Menus, VA508AccessibilityManager, VA508AccessibilityRouter;
 
+
 type
   TfrmODLab = class(TfrmODBase)
     lblAvailTests: TLabel;
@@ -60,6 +61,8 @@ type
     HowManyDayslbl508: TVA508StaticText;
     specimenlbl508: TVA508StaticText;
     CollSamplbl508: TVA508StaticText;
+    grpBxLocalRemote: TRadioGroup;
+    ORLabLocation: TOROffsetLabel;
     procedure FormCreate(Sender: TObject);
     procedure ControlChange(Sender: TObject);
     procedure cboAvailTestNeedData(Sender: TObject;
@@ -90,6 +93,9 @@ type
     procedure pnlCollTimeButtonEnter(Sender: TObject);
     procedure pnlCollTimeButtonExit(Sender: TObject);
     procedure ViewinReportWindow1Click(Sender: TObject);
+    procedure grpBxLocalRemoteClick(Sender: TObject);
+    procedure Frequencylbl508Click(Sender: TObject);
+    procedure cmdAcceptClick(Sender: TObject);
   protected
     FCmtTypes: TStringList ;
     procedure InitDialog; override;
@@ -111,12 +117,20 @@ type
     procedure ReadServerVariables;
     procedure DisplayChangedOrders(ACollType: string);
     procedure setup508Label(text: string; lbl: TVA508StaticText; ctrl: TControl; lbl2: string);
+    function GetLocationNM: string;
+    function GetRMSiteID: Integer;
+    procedure SetLocationNM(Value: string);
+    procedure SetRMSiteID(const Value: Integer);
+    procedure SetSiteID(const Value: Integer);
   public
+    strOrigCaption: string;
     procedure SetupDialog(OrderAction: Integer; const ID: string); override;
     procedure LoadRequiredComment(CmtType: integer);
     procedure DetermineCollectionDefaults(Responses: TResponses);
     property  EvtDelayLoc: integer   read FEvtDelayLoc   write FEvtDelayLoc;
     property  EvtDivision: integer   read FEvtDivision   write FEvtDivision;
+    property  RMLocationName: string   read GetLocationNM  write SetLocationNM;
+    property  RMSiteID: Integer      read GetRMSiteID    write SetRMSiteID;
   end;
 
   type
@@ -176,22 +190,39 @@ type
     function ObtainComment: Boolean;
   end;
 
+  TRMInfo = class(TObject)
+    SiteID: Integer;                  { Remote site location ID}
+    RemoteSiteName: string;           { Name of RemoteSite }
+    RmteSelected : boolean;
+    property SiteName : string read RemoteSiteName;
+    procedure SetSiteName(aSiteNM : String);
+    property IsRmteNameSet : boolean read RmteSelected;
+    procedure SetIsRmteNameSet(isSet : boolean);
+    procedure SetStationID(SiteInfo: String);
+  end;
+
+
+
 const
   CmtType: array[0..6] of string = ('ANTICOAGULATION','DOSE/DRAW TIMES','ORDER COMMENT',
                                     'ORDER COMMENT MODIFIED','TDM (PEAK-TROUGH)',
                                     'TRANSFUSION','URINE VOLUME');
 
+var
+ RmteName  : TRMInfo;
+
 implementation
 
-{$R *.DFM}
-
 uses rODBase, rODLab, uCore, rCore, fODLabOthCollSamp, fODLabOthSpec, fODLabImmedColl, fLabCollTimes,
- rOrders, uODBase, fRptBox, fFrame;
+rOrders, uODBase, fRptBox, fFrame, fRemoteLocations;
+
+{$R *.DFM}
 
 
 var
   uDfltUrgency: Integer;
   uDfltCollType: string;
+  RemoteSiteLabName: String;
   ALabTest: TLabTest;
   UserHasLRLABKey: boolean;
   LRFZX     : string;  //the default collection type  (LC,WC,SP,I)
@@ -213,6 +244,10 @@ var
   i, n, HMD508: integer;
   AList: TStringList;
 begin
+  strOrigCaption:=Caption;
+  RmteName:= TRMInfo.Create();
+  RmteName.SetSiteName('Local');
+  RmteName.SetIsRmteNameSet(false);
   frmFrame.pnlVisit.Enabled := false;
   AutoSizeDisabled := True;
   inherited;
@@ -236,6 +271,8 @@ begin
     StatusText('Loading Dialog Definition');
     pnlHide.BringToFront;
     lblReqComment.Visible := False ;
+    RMLocationName:='';
+    RMSiteID:=0;
     FCmtTypes := TStringList.Create;
     for i := 0 to 6 do FCmtTypes.Add(CmtType[i]) ;
     Responses.Dialog := 'LR OTHER LAB TESTS';        // loads formatting info
@@ -304,6 +341,14 @@ begin
   finally
     AList.Free;
   end;
+
+
+end;
+
+procedure TfrmODLab.Frequencylbl508Click(Sender: TObject);
+begin
+  inherited;
+
 end;
 
 {TDP - CQ#19396 Added to address 508 related changes. I modified slightly to
@@ -1711,6 +1756,37 @@ begin
   ControlChange(Self);
 end;
 
+procedure TfrmODLab.grpBxLocalRemoteClick(Sender: TObject);
+var
+ strRmtMssage: String;
+ SelectLocalRemote: TfrmSelectLocalRemote;
+begin
+ caption:=strOrigCaption;
+  if grpBxLocalRemote.ItemIndex = 1 then
+   begin
+      //Caption:=Caption+'Local';
+      Caption:=strOrigCaption +'-'+'Remote';
+
+     try
+
+       SelectLocalRemote:= TfrmSelectLocalRemote.Create(self);
+       with SelectLocalRemote do
+        begin
+          showmodal;
+        end;
+
+     finally
+      Caption:=strOrigCaption+'-'+RmteName.SiteName;
+       RmteName.SetStationID(RmteName.SiteName);
+       SelectLocalRemote.Free;
+       SelectLocalRemote:=nil;
+
+     end
+   end
+  else
+   Caption:=strOrigCaption +'-'+'Local';
+end;
+
 procedure TfrmODLab.grpPeakTroughClick(Sender: TObject);
 begin
   inherited;
@@ -1955,6 +2031,16 @@ begin
       end;
 end;
 
+function TfrmODLab.GetLocationNM: string;
+begin
+Result:=Caption;
+end;
+
+function TfrmODLab.GetRMSiteID: Integer;
+begin
+
+end;
+
 procedure TfrmODLab.cboSpecimenKeyPause(Sender: TObject);
 begin
   inherited;
@@ -1968,6 +2054,17 @@ begin
       cboSpecimen.ItemIndex := -1;
     end ;
   ControlChange(Self);
+end;
+
+procedure TfrmODLab.cmdAcceptClick(Sender: TObject);
+begin
+if (RmteName.IsRmteNameSet = false) and (grpBxLocalRemote.ItemIndex = 1)  then
+     MessageDlg('You selected Remote Lab Location order; However,'+#10#13+
+     'no site location is selected. Please select Remote option'+#10+#13+
+     'and then choose Lab Site.',  mtError, [mbOK], 0)
+else
+  inherited;
+
 end;
 
 procedure TfrmODLab.cmdImmedCollClick(Sender: TObject);
@@ -1996,6 +2093,24 @@ begin
   LRFDATE := KeyVariable['LRFDATE'];
   LRFURG  := KeyVariable['LRFURG'];
   LRFSCH  := KeyVariable['LRFSCH'];
+end;
+
+procedure TfrmODLab.SetLocationNM(Value: string);
+var
+ NewCaption: string;
+begin
+ NewCaption:= strOrigCaption + Value;
+ Caption:= NewCaption;
+end;
+
+procedure TfrmODLab.SetRMSiteID(const Value: Integer);
+begin
+
+end;
+
+procedure TfrmODLab.SetSiteID(const Value: Integer);
+begin
+
 end;
 
 procedure TfrmODLab.DetermineCollectionDefaults(Responses: TResponses);
@@ -2079,6 +2194,33 @@ procedure TfrmODLab.ViewinReportWindow1Click(Sender: TObject);
 begin
   inherited;
   ReportBox(memMessage.Lines, 'Lab Procedure', True);
+end;
+
+{ TLabSiteLocation }
+
+
+{ TRMInfo }
+
+procedure TRMInfo.SetIsRmteNameSet(isSet: boolean);
+begin
+  RmteSelected:=isSet;
+end;
+
+procedure TRMInfo.SetSiteName(aSiteNM: String);
+begin
+  RemoteSiteName:=aSiteNM;
+end;
+
+procedure TRMInfo.SetStationID(SiteInfo: String);
+var
+RMsite: integer;
+pos1: integer;
+pos2: integer;
+begin
+    pos1:= pos('(',RmteName.RemoteSiteName);
+    pos2:= Pos(')',RmteName.RemoteSiteName);
+    RMsite:=Strtoint(Copy(RmteName.RemoteSiteName,pos1+1,(pos2-1)-(pos1)));
+    RmteName.SiteID:=RMsite;
 end;
 
 end.

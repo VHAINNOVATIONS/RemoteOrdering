@@ -5,7 +5,7 @@ interface
 uses
   SysUtils, WinTypes, WinProcs, Messages, Classes, Graphics, Controls,
   Forms, Dialogs, StdCtrls, ORCtrls, fODBase, ORFn, ExtCtrls,
-  ComCtrls, uConst, ORDtTm, VA508AccessibilityManager, VA508AccessibilityRouter;
+  ComCtrls, uConst, ORDtTm, fODLab, VA508AccessibilityManager, VA508AccessibilityRouter;
 
 type
   TfrmODRad = class(TfrmODBase)

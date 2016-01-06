@@ -17,6 +17,7 @@ type
     WrapWP:    Boolean;
     Children:  string;
     IsChild:   Boolean;
+    RMSiteID:  Integer;
   end;
 
   TResponse = class
@@ -134,7 +135,7 @@ function ODForVitals: TStrings;
 
 implementation
 
-uses TRPCB, uOrders, uODBase, fODBase;
+uses TRPCB, uOrders, uODBase, fODBase, fODLab;
 
 var
   uLastDispenseIEN: Integer;
@@ -511,6 +512,7 @@ begin
     if ConstructOrder.LogTime > 0
       then Param[7].Mult['"ORSLOG"'] := FloatToStr(ConstructOrder.LogTime);
     Param[7].Mult['"ORTS"'] := IntToStr(Patient.Specialty);  // pass in treating specialty for ORTS
+    Param[7].Mult['16035,1'] :=intToStr(RmteName.SiteID); //Pass the Labortory Site Location -MNJ
     Param[8].PType := literal;
     Param[8].Value := ConstructOrder.DigSig;
     if (Constructorder.IsIMODialog) or (ConstructOrder.DGroup = ClinDisp) or (ConstructOrder.DGroup = ClinIVDisp) then
@@ -522,7 +524,7 @@ begin
       Param[9].PType := literal;                       //IMO
       Param[9].Value := '';
     end;
-    Param[10].PType := literal;
+     Param[10].PType := literal;
     Param[10].Value := OrderSource;
     Param[11].PType := literal;
     Param[11].Value := IntToStr(Constructorder.IsEventDefaultOR);

@@ -5,35 +5,31 @@ inherited frmODRad: TfrmODRad
   Width = 586
   Height = 404
   Caption = 'Order an Imaging Procedure'
-  Constraints.MinHeight = 497
-  Constraints.MinWidth = 721
+  Constraints.MinHeight = 404
+  Constraints.MinWidth = 586
   ExplicitWidth = 586
   ExplicitHeight = 404
-  PixelsPerInch = 120
-  TextHeight = 16
+  PixelsPerInch = 96
+  TextHeight = 13
   inherited memOrder: TCaptionMemo
     Left = 0
-    Top = 401
-    Width = 603
-    Margins.Left = 5
-    Margins.Top = 5
-    Margins.Right = 5
-    Margins.Bottom = 5
-    Anchors = [akLeft, akRight, akBottom]
-    TabOrder = 4
-    ExplicitLeft = 0
-    ExplicitTop = 401
-    ExplicitWidth = 603
-  end
-  object FRadCommonCombo: TORListBox [1]
-    Left = 516
-    Top = 446
-    Width = 149
-    Height = 13
+    Top = 326
+    Width = 490
     Margins.Left = 4
     Margins.Top = 4
     Margins.Right = 4
     Margins.Bottom = 4
+    Anchors = [akLeft, akRight, akBottom]
+    TabOrder = 4
+    ExplicitLeft = 0
+    ExplicitTop = 326
+    ExplicitWidth = 490
+  end
+  object FRadCommonCombo: TORListBox [1]
+    Left = 419
+    Top = 362
+    Width = 121
+    Height = 11
     ItemHeight = 13
     ParentShowHint = False
     ShowHint = True
@@ -46,68 +42,44 @@ inherited frmODRad: TfrmODRad
   object pnlLeft: TORAutoPanel [2]
     Left = 0
     Top = 0
-    Width = 265
-    Height = 395
-    Margins.Left = 4
-    Margins.Top = 4
-    Margins.Right = 4
-    Margins.Bottom = 4
+    Width = 215
+    Height = 321
     Anchors = [akLeft, akTop, akBottom]
     BevelOuter = bvNone
     TabOrder = 0
     object lblDrug: TLabel
       Left = 0
-      Top = 42
-      Width = 114
-      Height = 16
-      Margins.Left = 4
-      Margins.Top = 4
-      Margins.Right = 4
-      Margins.Bottom = 4
+      Top = 34
+      Width = 89
+      Height = 13
       Caption = 'Imaging Procedure'
     end
     object lblAvailMod: TLabel
       Left = 0
-      Top = 209
-      Width = 115
-      Height = 16
-      Margins.Left = 4
-      Margins.Top = 4
-      Margins.Right = 4
-      Margins.Bottom = 4
+      Top = 170
+      Width = 88
+      Height = 13
       Caption = 'Available Modifiers'
     end
     object lblImType: TLabel
       Left = 0
       Top = 0
-      Width = 83
-      Height = 16
-      Margins.Left = 4
-      Margins.Top = 4
-      Margins.Right = 4
-      Margins.Bottom = 4
+      Width = 64
+      Height = 13
       Caption = 'Imaging Type'
     end
     object lblSelectMod: TLabel
-      Left = 134
-      Top = 209
-      Width = 112
-      Height = 16
-      Margins.Left = 4
-      Margins.Top = 4
-      Margins.Right = 4
-      Margins.Bottom = 4
+      Left = 109
+      Top = 170
+      Width = 87
+      Height = 13
       Caption = 'Selected Modifiers'
     end
     object cboImType: TORComboBox
       Left = 0
-      Top = 16
-      Width = 261
-      Height = 24
-      Margins.Left = 4
-      Margins.Top = 4
-      Margins.Right = 4
-      Margins.Bottom = 4
+      Top = 13
+      Width = 212
+      Height = 21
       Style = orcsDropDown
       AutoSelect = True
       Caption = 'Imaging Type'
@@ -131,15 +103,12 @@ inherited frmODRad: TfrmODRad
       CharsNeedMatch = 1
     end
     object lstSelectMod: TORListBox
-      Left = 134
-      Top = 226
-      Width = 126
-      Height = 84
-      Margins.Left = 4
-      Margins.Top = 4
-      Margins.Right = 4
-      Margins.Bottom = 4
+      Left = 109
+      Top = 184
+      Width = 102
+      Height = 68
       ExtendedSelect = False
+      ItemHeight = 13
       ParentShowHint = False
       ShowHint = True
       TabOrder = 3
@@ -150,13 +119,9 @@ inherited frmODRad: TfrmODRad
     end
     object cboProcedure: TORComboBox
       Left = 0
-      Top = 58
-      Width = 261
-      Height = 150
-      Margins.Left = 4
-      Margins.Top = 4
-      Margins.Right = 4
-      Margins.Bottom = 4
+      Top = 47
+      Width = 212
+      Height = 122
       Style = orcsSimple
       AutoSelect = True
       Caption = 'Imaging Procedure'
@@ -181,13 +146,9 @@ inherited frmODRad: TfrmODRad
     end
     object cboAvailMod: TORComboBox
       Left = 0
-      Top = 226
-      Width = 126
-      Height = 116
-      Margins.Left = 4
-      Margins.Top = 4
-      Margins.Right = 4
-      Margins.Bottom = 4
+      Top = 184
+      Width = 102
+      Height = 94
       Style = orcsSimple
       AutoSelect = True
       Caption = 'Available Modifiers'
@@ -212,143 +173,94 @@ inherited frmODRad: TfrmODRad
       CharsNeedMatch = 1
     end
     object cmdRemove: TButton
-      Left = 135
-      Top = 314
-      Width = 126
-      Height = 22
-      Margins.Left = 4
-      Margins.Top = 4
-      Margins.Right = 4
-      Margins.Bottom = 4
+      Left = 110
+      Top = 255
+      Width = 102
+      Height = 18
       Caption = 'Remove'
       TabOrder = 5
       OnClick = cmdRemoveClick
     end
   end
   object pnlRightBase: TORAutoPanel [3]
-    Left = 265
+    Left = 215
     Top = 0
-    Width = 445
-    Height = 396
-    Margins.Left = 4
-    Margins.Top = 4
-    Margins.Right = 4
-    Margins.Bottom = 4
+    Width = 362
+    Height = 322
     Anchors = [akLeft, akTop, akRight, akBottom]
     BevelOuter = bvNone
     Caption = 'pnlRightBase'
     TabOrder = 1
     object pnlRight: TORAutoPanel
       Left = 0
-      Top = 156
-      Width = 445
-      Height = 240
-      Margins.Left = 4
-      Margins.Top = 4
-      Margins.Right = 4
-      Margins.Bottom = 4
+      Top = 127
+      Width = 362
+      Height = 195
       Align = alBottom
       Anchors = [akLeft, akTop, akRight, akBottom]
       BevelOuter = bvNone
       TabOrder = 1
-      ExplicitWidth = 446
       object lblRequestDate: TLabel
-        Left = 5
-        Top = 6
-        Width = 80
-        Height = 16
-        Margins.Left = 4
-        Margins.Top = 4
-        Margins.Right = 4
-        Margins.Bottom = 4
+        Left = 4
+        Top = 5
+        Width = 62
+        Height = 13
         Caption = 'Date Desired'
       end
       object lblUrgency: TLabel
-        Left = 128
-        Top = 6
-        Width = 51
-        Height = 16
-        Margins.Left = 4
-        Margins.Top = 4
-        Margins.Right = 4
-        Margins.Bottom = 4
+        Left = 104
+        Top = 5
+        Width = 40
+        Height = 13
         Caption = 'Urgency'
       end
       object lblTransport: TLabel
-        Left = 251
-        Top = 6
-        Width = 58
-        Height = 16
-        Margins.Left = 4
-        Margins.Top = 4
-        Margins.Right = 4
-        Margins.Bottom = 4
+        Left = 204
+        Top = 5
+        Width = 45
+        Height = 13
         Caption = 'Transport'
       end
       object lblCategory: TLabel
-        Left = 5
-        Top = 52
-        Width = 55
-        Height = 16
-        Margins.Left = 4
-        Margins.Top = 4
-        Margins.Right = 4
-        Margins.Bottom = 4
+        Left = 4
+        Top = 42
+        Width = 42
+        Height = 13
         Caption = 'Category'
       end
       object lblSubmit: TLabel
-        Left = 190
-        Top = 55
-        Width = 61
-        Height = 16
-        Margins.Left = 4
-        Margins.Top = 4
-        Margins.Right = 4
-        Margins.Bottom = 4
+        Left = 154
+        Top = 45
+        Width = 48
+        Height = 13
         Caption = 'Submit To'
       end
       object lblLastExam: TLabel
-        Left = 5
-        Top = 101
-        Width = 167
-        Height = 16
-        Margins.Left = 4
-        Margins.Top = 4
-        Margins.Right = 4
-        Margins.Bottom = 4
+        Left = 4
+        Top = 82
+        Width = 134
+        Height = 13
         Caption = 'Exams Over the Last 7 Days'
       end
       object lblAskSubmit: TLabel
-        Left = 549
-        Top = 127
+        Left = 446
+        Top = 103
         Width = 3
-        Height = 16
-        Margins.Left = 4
-        Margins.Top = 4
-        Margins.Right = 4
-        Margins.Bottom = 4
+        Height = 13
         Visible = False
       end
       object lblPreOp: TLabel
-        Left = 244
-        Top = 192
-        Width = 107
-        Height = 16
-        Margins.Left = 4
-        Margins.Top = 4
-        Margins.Right = 4
-        Margins.Bottom = 4
+        Left = 198
+        Top = 156
+        Width = 84
+        Height = 13
         Caption = 'PreOp Scheduled'
       end
       object calPreOp: TORDateBox
-        Left = 244
-        Top = 209
-        Width = 118
+        Left = 198
+        Top = 170
+        Width = 96
         Height = 21
-        Margins.Left = 4
-        Margins.Top = 4
-        Margins.Right = 4
-        Margins.Bottom = 4
         TabOrder = 9
         OnChange = calPreOpChange
         OnExit = calPreOpExit
@@ -357,15 +269,11 @@ inherited frmODRad: TfrmODRad
         Caption = 'PreOp Scheduled'
       end
       object chkIsolation: TCheckBox
-        Left = 244
-        Top = 116
-        Width = 119
-        Height = 21
+        Left = 198
+        Top = 94
+        Width = 97
+        Height = 17
         Hint = 'Is patient on isolation procedures?'
-        Margins.Left = 4
-        Margins.Top = 4
-        Margins.Right = 4
-        Margins.Bottom = 4
         Caption = 'Isolation'
         ParentShowHint = False
         ShowHint = True
@@ -374,14 +282,10 @@ inherited frmODRad: TfrmODRad
         OnExit = chkIsolationExit
       end
       object calRequestDate: TORDateBox
-        Left = 5
-        Top = 22
-        Width = 113
+        Left = 4
+        Top = 18
+        Width = 92
         Height = 21
-        Margins.Left = 4
-        Margins.Top = 4
-        Margins.Right = 4
-        Margins.Bottom = 4
         TabOrder = 0
         OnChange = ControlChange
         DateOnly = False
@@ -389,14 +293,10 @@ inherited frmODRad: TfrmODRad
         Caption = 'Date Desired'
       end
       object cboUrgency: TORComboBox
-        Left = 128
-        Top = 22
-        Width = 113
-        Height = 24
-        Margins.Left = 4
-        Margins.Top = 4
-        Margins.Right = 4
-        Margins.Bottom = 4
+        Left = 104
+        Top = 18
+        Width = 92
+        Height = 21
         Style = orcsDropDown
         AutoSelect = True
         Caption = 'Urgency'
@@ -418,14 +318,10 @@ inherited frmODRad: TfrmODRad
         CharsNeedMatch = 1
       end
       object cboTransport: TORComboBox
-        Left = 251
-        Top = 22
-        Width = 113
-        Height = 24
-        Margins.Left = 4
-        Margins.Top = 4
-        Margins.Right = 4
-        Margins.Bottom = 4
+        Left = 204
+        Top = 18
+        Width = 92
+        Height = 21
         Style = orcsDropDown
         AutoSelect = True
         Caption = 'Transport'
@@ -447,14 +343,10 @@ inherited frmODRad: TfrmODRad
         CharsNeedMatch = 1
       end
       object cboCategory: TORComboBox
-        Left = 5
-        Top = 70
-        Width = 172
-        Height = 24
-        Margins.Left = 4
-        Margins.Top = 4
-        Margins.Right = 4
-        Margins.Bottom = 4
+        Left = 4
+        Top = 57
+        Width = 140
+        Height = 21
         Style = orcsDropDown
         AutoSelect = True
         Caption = 'Category'
@@ -476,28 +368,20 @@ inherited frmODRad: TfrmODRad
         CharsNeedMatch = 1
       end
       object chkPreOp: TCheckBox
-        Left = 180
-        Top = 287
-        Width = 75
-        Height = 21
-        Margins.Left = 4
-        Margins.Top = 4
-        Margins.Right = 4
-        Margins.Bottom = 4
+        Left = 146
+        Top = 233
+        Width = 61
+        Height = 17
         Caption = 'Pre-Op'
         TabOrder = 13
         Visible = False
         OnClick = ControlChange
       end
       object cboSubmit: TORComboBox
-        Left = 190
-        Top = 70
-        Width = 174
-        Height = 24
-        Margins.Left = 4
-        Margins.Top = 4
-        Margins.Right = 4
-        Margins.Bottom = 4
+        Left = 154
+        Top = 57
+        Width = 142
+        Height = 21
         Style = orcsDropDown
         AutoSelect = True
         Caption = 'Submit To'
@@ -519,16 +403,13 @@ inherited frmODRad: TfrmODRad
         CharsNeedMatch = 1
       end
       object lstLastExam: TORListBox
-        Left = 5
-        Top = 117
-        Width = 230
-        Height = 121
-        Margins.Left = 4
-        Margins.Top = 4
-        Margins.Right = 4
-        Margins.Bottom = 4
+        Left = 4
+        Top = 95
+        Width = 187
+        Height = 98
         Color = clBtnFace
         ExtendedSelect = False
+        ItemHeight = 13
         MultiSelect = True
         ParentShowHint = False
         ShowHint = True
@@ -539,51 +420,35 @@ inherited frmODRad: TfrmODRad
         Pieces = '2'
       end
       object grpPregnant: TGroupBox
-        Left = 241
-        Top = 138
-        Width = 195
-        Height = 50
-        Margins.Left = 4
-        Margins.Top = 4
-        Margins.Right = 4
-        Margins.Bottom = 4
+        Left = 196
+        Top = 112
+        Width = 158
+        Height = 41
         Caption = 'Pregnant'
         TabOrder = 8
         object radPregnant: TRadioButton
           Left = 2
-          Top = 21
-          Width = 48
-          Height = 21
-          Margins.Left = 4
-          Margins.Top = 4
-          Margins.Right = 4
-          Margins.Bottom = 4
+          Top = 17
+          Width = 39
+          Height = 17
           Caption = 'Yes'
           TabOrder = 0
           OnClick = ControlChange
         end
         object radPregnantNo: TRadioButton
-          Left = 58
-          Top = 21
-          Width = 43
-          Height = 21
-          Margins.Left = 4
-          Margins.Top = 4
-          Margins.Right = 4
-          Margins.Bottom = 4
+          Left = 47
+          Top = 17
+          Width = 35
+          Height = 17
           Caption = 'No'
           TabOrder = 1
           OnClick = ControlChange
         end
         object radPregnantUnknown: TRadioButton
-          Left = 107
-          Top = 20
-          Width = 81
-          Height = 21
-          Margins.Left = 4
-          Margins.Top = 4
-          Margins.Right = 4
-          Margins.Bottom = 4
+          Left = 87
+          Top = 16
+          Width = 66
+          Height = 17
           Caption = 'Unknown'
           TabOrder = 2
           OnClick = ControlChange
@@ -591,14 +456,10 @@ inherited frmODRad: TfrmODRad
       end
       object Submitlbl508: TVA508StaticText
         Name = 'Submitlbl508'
-        Left = 190
-        Top = 53
-        Width = 183
-        Height = 22
-        Margins.Left = 4
-        Margins.Top = 4
-        Margins.Right = 4
-        Margins.Bottom = 4
+        Left = 154
+        Top = 43
+        Width = 98
+        Height = 12
         Alignment = taLeftJustify
         Caption = 'Submit To (for screen R.)'
         Enabled = False
@@ -610,49 +471,32 @@ inherited frmODRad: TfrmODRad
     object pnlHandR: TPanel
       Left = 0
       Top = 0
-      Width = 445
-      Height = 156
-      Margins.Left = 4
-      Margins.Top = 4
-      Margins.Right = 4
-      Margins.Bottom = 4
+      Width = 362
+      Height = 127
       Align = alClient
       BevelOuter = bvNone
       TabOrder = 0
-      ExplicitWidth = 446
       object lblHistory: TLabel
         Left = 0
-        Top = 42
-        Width = 149
-        Height = 16
-        Margins.Left = 4
-        Margins.Top = 4
-        Margins.Right = 4
-        Margins.Bottom = 4
+        Top = 34
+        Width = 116
+        Height = 13
         Align = alTop
         Caption = 'Clinical History (Optional)'
       end
       object lblReason: TLabel
         Left = 0
         Top = 0
-        Width = 335
-        Height = 16
-        Margins.Left = 4
-        Margins.Top = 4
-        Margins.Right = 4
-        Margins.Bottom = 4
+        Width = 268
+        Height = 13
         Align = alTop
         Caption = 'Reason for Study (REQUIRED - 64 characters maximum)'
       end
       object memHistory: TCaptionMemo
         Left = 0
-        Top = 58
-        Width = 446
-        Height = 98
-        Margins.Left = 4
-        Margins.Top = 4
-        Margins.Right = 4
-        Margins.Bottom = 4
+        Top = 47
+        Width = 362
+        Height = 80
         Align = alClient
         ScrollBars = ssVertical
         TabOrder = 3
@@ -662,13 +506,9 @@ inherited frmODRad: TfrmODRad
       end
       object txtReason: TCaptionEdit
         Left = 0
-        Top = 16
-        Width = 446
+        Top = 13
+        Width = 362
         Height = 21
-        Margins.Left = 4
-        Margins.Top = 4
-        Margins.Right = 4
-        Margins.Bottom = 4
         Align = alTop
         MaxLength = 64
         TabOrder = 0
@@ -678,65 +518,65 @@ inherited frmODRad: TfrmODRad
     end
   end
   inherited cmdAccept: TButton
-    Left = 612
-    Top = 401
-    Margins.Left = 5
-    Margins.Top = 5
-    Margins.Right = 5
-    Margins.Bottom = 5
+    Left = 497
+    Top = 326
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akRight, akBottom]
     TabOrder = 5
-    ExplicitLeft = 612
-    ExplicitTop = 401
+    ExplicitLeft = 497
+    ExplicitTop = 326
   end
   inherited cmdQuit: TButton
-    Left = 613
-    Top = 434
-    Margins.Left = 5
-    Margins.Top = 5
-    Margins.Right = 5
-    Margins.Bottom = 5
+    Left = 498
+    Top = 353
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Anchors = [akRight, akBottom]
     TabOrder = 6
-    ExplicitLeft = 613
-    ExplicitTop = 434
+    ExplicitLeft = 498
+    ExplicitTop = 353
   end
   inherited pnlMessage: TPanel
-    Left = 6
-    Top = 391
-    Width = 502
-    Height = 68
-    Margins.Left = 5
-    Margins.Top = 5
-    Margins.Right = 5
-    Margins.Bottom = 5
+    Left = 5
+    Top = 318
+    Width = 408
+    Height = 55
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     TabOrder = 2
     OnMouseUp = pnlMessageMouseUp
-    ExplicitLeft = 6
-    ExplicitTop = 391
-    ExplicitWidth = 502
-    ExplicitHeight = 68
+    ExplicitLeft = 5
+    ExplicitTop = 318
+    ExplicitWidth = 408
+    ExplicitHeight = 55
     inherited imgMessage: TImage
-      Left = 12
-      Top = 11
-      Margins.Left = 5
-      Margins.Top = 5
-      Margins.Right = 5
-      Margins.Bottom = 5
-      ExplicitLeft = 12
-      ExplicitTop = 11
+      Left = 10
+      Top = 9
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
+      ExplicitLeft = 10
+      ExplicitTop = 9
     end
     inherited memMessage: TRichEdit
-      Left = 68
-      Width = 423
-      Height = 53
-      Margins.Left = 5
-      Margins.Top = 5
-      Margins.Right = 5
-      Margins.Bottom = 5
-      ExplicitLeft = 68
-      ExplicitWidth = 423
-      ExplicitHeight = 53
+      Left = 55
+      Width = 344
+      Height = 43
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
+      ExplicitLeft = 55
+      ExplicitWidth = 344
+      ExplicitHeight = 43
     end
   end
   inherited amgrMain: TVA508AccessibilityManager
