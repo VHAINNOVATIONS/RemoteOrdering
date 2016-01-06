@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2013/04/18 14:18:56.000.682,C:\pf\Broker\BDK32P50_XE3\Source\XWB_RXE2.dproj=C:\pf\Broker\BDK32P50_XE3\XWB_RXE3.dproj</Transaction>
+    <Transaction>2013/09/09 10:31:43.000.606,=C:\pf\cprs\Broker\Unit1.pas</Transaction>
+    <Transaction>2013/09/09 10:32:33.000.769,C:\pf\cprs\Broker\Unit1.pas=C:\pf\cprs\Broker\Source\uServer.pas</Transaction>
+    <Transaction>2013/09/09 12:20:32.000.717,C:\pf\cprs\Broker\Source\uServer.pas=C:\pf\cprs\Broker\Source\uNetPlace.pas</Transaction>
+    <Transaction>2013/09/25 09:47:17.000.623,=C:\pf\cprs\Broker\Source\uTokenTools.pas</Transaction>
+  </Transactions>
+	<ProjectSortOrder AutoSort="0" SortType="0">
+    <File Path="Source"/>
+    <File Path="Source\AddServer.pas"/>
+    <File Path="Source\AddServer.dfm"/>
+    <File Path="Source\CCOW_const.pas"/>
+    <File Path="Source\fDebugInfo.pas"/>
+    <File Path="Source\fDebugInfo.dfm"/>
+    <File Path="Source\fPlinkpw.pas"/>
+    <File Path="Source\fPlinkpw.dfm"/>
+    <File Path="Source\frmSignonMessage.pas"/>
+    <File Path="Source\frmSignonMessage.dfm"/>
+    <File Path="Source\fRPCBErrMsg.pas"/>
+    <File Path="Source\fRPCBErrMsg.dfm"/>
+    <File Path="Source\fSgnonDlg.pas"/>
+    <File Path="Source\fSgnonDlg.dfm"/>
+    <File Path="Source\fSSHUsername.pas"/>
+    <File Path="Source\fSSHUsername.dfm"/>
+    <File Path="Source\Hash.pas"/>
+    <File Path="Source\Loginfrm.pas"/>
+    <File Path="Source\Loginfrm.dfm"/>
+    <File Path="Source\MFunStr.pas"/>
+    <File Path="Source\Rpcberr.pas"/>
+    <File Path="Source\Rpcberr.dfm"/>
+    <File Path="Source\Rpcconf1.pas"/>
+    <File Path="Source\Rpcconf1.dfm"/>
+    <File Path="Source\RpcNet.pas"/>
+    <File Path="Source\RpcNet.dfm"/>
+    <File Path="Source\RpcSLogin.pas"/>
+    <File Path="Source\seldiv.pas"/>
+    <File Path="Source\seldiv.dfm"/>
+    <File Path="Source\SgnonCnf.pas"/>
+    <File Path="Source\SgnonCnf.dfm"/>
+    <File Path="Source\Splvista.pas"/>
+    <File Path="Source\Splvista.dfm"/>
+    <File Path="Source\Trpcb.pas"/>
+    <File Path="Source\uNetPlace.pas"/>
+    <File Path="Source\uTokenTools.pas"/>
+    <File Path="Source\VCEdit.pas"/>
+    <File Path="Source\VCEdit.dfm"/>
+    <File Path="Source\VERGENCECONTEXTORLib_TLB.pas"/>
+    <File Path="Source\Wsockc.pas"/>
+    <File Path="Source\XlfSid.pas"/>
+    <File Path="Source\XWBRich20.PAS"/>
+    <File Path="Source\Xwbut1.pas"/>
+    <File Path="rtl.dcp"/>
+    <File Path="vcl.dcp"/>
+  </ProjectSortOrder>
+</BorlandProject>

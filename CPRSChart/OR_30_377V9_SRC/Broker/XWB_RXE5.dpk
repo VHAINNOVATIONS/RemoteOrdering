@@ -1,0 +1,65 @@
+package XWB_RXE5;
+
+{$R *.res}
+{$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO ON}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION OFF}
+{$OVERFLOWCHECKS OFF}
+{$RANGECHECKS OFF}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES ON}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST ON}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DEFINE DEBUG}
+{$ENDIF IMPLICITBUILDING}
+{$DESCRIPTION 'VistA RPC Broker Runtime Package'}
+{$RUNONLY}
+{$IMPLICITBUILD OFF}
+
+requires
+  vcl,
+  rtl;
+
+contains
+  Xwbut1 in 'XE5\Xwbut1.pas' {in 'Xwbut1.pas'},
+  XlfSid in 'XE5\XlfSid.pas',
+  Hash in 'XE5\Hash.pas' {in 'Hash.pas'},
+  Loginfrm in 'XE5\Loginfrm.pas' {in 'Loginfrm.pas'},
+  MFunStr in 'XE5\MFunStr.pas' {in 'Mfunstr.pas'},
+  Rpcberr in 'XE5\Rpcberr.pas' {in 'Rpcberr.pas'},
+  Rpcconf1 in 'XE5\Rpcconf1.pas' {in 'Rpcconf1.pas'},
+  RpcNet in 'XE5\RpcNet.pas' {in 'Rpcnet.pas'},
+  seldiv in 'XE5\seldiv.pas' {in 'SelDiv.pas'},
+  SgnonCnf in 'XE5\SgnonCnf.pas' {in 'Sgnoncnf.pas'},
+  Splvista in 'XE5\Splvista.pas' {in 'Splvista.pas'},
+  Trpcb in 'XE5\Trpcb.pas' {in 'Trpcb.pas'},
+  VCEdit in 'XE5\VCEdit.pas' {in 'Vcedit.pas'},
+  Wsockc in 'XE5\Wsockc.pas' {in 'WSockc.pas'},
+  frmSignonMessage in 'XE5\frmSignonMessage.pas' {in 'frmSignonMessage.pas'},
+  RpcSLogin in 'XE5\RpcSLogin.pas' {in 'Rpcslogin.pas'},
+  XWBRich20 in 'XE5\XWBRich20.PAS',
+  AddServer in 'XE5\AddServer.pas' {frmAddServer},
+  fRPCBErrMsg in 'XE5\fRPCBErrMsg.pas' {frmErrMsg},
+  fDebugInfo in 'XE5\fDebugInfo.pas' {frmDebugInfo},
+  fSgnonDlg in 'XE5\fSgnonDlg.pas' {frmSignonDialog},
+  VERGENCECONTEXTORLib_TLB in 'XE5\VERGENCECONTEXTORLib_TLB.pas',
+  fPlinkpw in 'XE5\fPlinkpw.pas' {fPlinkPassword},
+  fSSHUsername in 'XE5\fSSHUsername.pas' {SSHUsername},
+  CCOW_const in 'XE5\CCOW_const.pas',
+  uNetPlace in 'XE5\uNetPlace.pas',
+  uTokenTools in 'XE5\uTokenTools.pas';
+
+end.

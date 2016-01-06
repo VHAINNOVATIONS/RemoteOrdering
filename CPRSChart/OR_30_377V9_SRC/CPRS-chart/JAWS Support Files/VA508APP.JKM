@@ -1,0 +1,26 @@
+[Common Keys]
+F2=f2editTreeNode
+Control+Alt+NumPadSlash=ltLeftClickCell
+Control+Alt+NumPadStar=ltRightClickCell
+Control+Shift+Alt+NumPadSlash=ltLeftClickHeader
+Control+Shift+Alt+NumPadStar=ltRightClickHeader
+Control+Tab=VA508SendCustomCommand(1)
+Control+Shift+Tab=VA508SendCustomCommand(2)
+Control+Shift+T=VA508SendCustomCommand(3)
+Enter=EnterKey
+[Classic Laptop Keys]
+Control+Alt+8=ltLeftClickCell
+Control+Alt+9=ltRightClickCell
+Control+Shift+Alt+8=ltLeftClickHeader
+Control+Shift+Alt+9=ltRightClickHeader
+[Laptop Keys]
+Control+Alt+8=ltLeftClickCell
+Control+Alt+9=ltRightClickCell
+Control+Shift+Alt+8=ltLeftClickHeader
+Control+Shift+Alt+9=ltRightClickHeader
+Control+T=dischargeTest
+[Kinesis keys]
+Control+Alt+I=ltLeftClickCell
+Control+Alt+O=ltRightClickCell
+Control+Shift+Alt+I=ltLeftClickHeader
+Control+Shift+Alt+O=ltRightClickHeader
