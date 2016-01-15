@@ -1,45 +1,83 @@
 ﻿[Closed Files]
-File_0=TSourceModule,'D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\uFormMonitor.pas',0,1,347,1,368,0,0,,
-File_1=TSourceModule,'D:\CPRS 31\OR_30_377V9_SRC\Packages\508\Source\VA508AccessibilityManager.pas',0,1,1203,1,1219,0,0,,
-File_2=TSourceModule,'D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODBBank.pas',0,1,225,37,242,0,0,,
-File_3=TSourceModule,'D:\CPRS 31\OR_30_377V9_SRC\Packages\OR\Source\ORFn.pas',0,1,237,1,250,0,0,,
-File_4=TSourceModule,'D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\rODLab.pas',0,1,87,49,88,0,0,,
-File_5=TSourceModule,'D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODRTC.pas',0,1,95,29,107,0,0,,
-File_6=TSourceModule,'D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fDeferDialog.pas',0,1,134,3,151,0,0,,
-File_7=TSourceModule,'D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fLabs.pas',0,1,1,1,1,0,0,,
-File_8=TSourceModule,'D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fLabTest.pas',0,1,1,1,1,0,0,,
-File_9=TSourceModule,'D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fOrderVw.pas',0,1,1,26,21,0,0,,
-File_10=TSourceModule,'D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fOrdersPrint.pas',0,1,1,1,1,0,0,,
-File_11=TSourceModule,'D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fOrdersTS.pas',0,1,1,1,1,0,0,,
-File_12=TSourceModule,'D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fOrdersVerify.pas',0,1,1,1,1,0,0,,
-File_13=TSourceModule,'D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fOrdersRenew.pas',0,1,1,1,1,0,0,,
+File_0=TSourceModule,'D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODChangeUnreleasedRenew.pas',0,1,1,1,1,0,0,,
+File_1=TSourceModule,'D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fOtherSchedule.pas',0,1,1,1,1,0,0,,
+File_2=TSourceModule,'D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\uFormMonitor.pas',0,1,347,1,360,0,0,,
+File_3=TSourceModule,'D:\CPRS 31\OR_30_377V9_SRC\Packages\OR\Source\OR2006Compatibility.pas',0,1,1,1,1,0,0,,
+File_4=TSourceModule,'D:\CPRS 31\OR_30_377V9_SRC\Packages\508\Source\VA508AccessibilityManager.pas',0,1,1203,1,1219,0,0,,
+File_5=TSourceModule,'D:\CPRS 31\OR_30_377V9_SRC\Packages\OR\Source\ORFn.pas',0,1,237,1,250,0,0,,
+File_6=TSourceModule,'D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\rODLab.pas',0,1,87,49,88,0,0,,
+File_7=TSourceModule,'D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODRTC.pas',0,1,95,29,107,0,0,,
+File_8=TSourceModule,'D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fDeferDialog.pas',0,1,134,3,151,0,0,,
+File_9=TSourceModule,'D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fLabs.pas',0,1,1,1,1,0,0,,
+File_10=TSourceModule,'D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fLabTest.pas',0,1,1,1,1,0,0,,
+File_11=TSourceModule,'D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fOrderVw.pas',0,1,1,26,21,0,0,,
+File_12=TSourceModule,'D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fOrdersPrint.pas',0,1,1,1,1,0,0,,
+File_13=TSourceModule,'D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fOrdersTS.pas',0,1,1,1,1,0,0,,
 
 [Modules]
-Module0=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fRemoteLocations.pas
-Module1=default.htm
-Module2=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\CPRSChart.dproj
-Module3=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fBase508Form.pas
-Module4=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODLab.pas
-Module5=D:\CPRS 31\OR_30_377V9_SRC\Broker\Source\Trpcb.pas
-Module6=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fFrame.pas
-Module7=D:\CPRS 31\OR_30_377V9_SRC\Packages\OR\Source\ORNet.pas
-Module8=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODRad.pas
-Module9=D:\CPRS 31\OR_30_377V9_SRC\Broker\Source\Rpcconf1.pas
-Module10=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\BA\UBACore.pas
-Module11=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\rMisc.pas
-Module12=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODDiet.pas
-Module13=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\rODBase.pas
-Module14=D:\CPRS 31\OR_30_377V9_SRC\Broker\Source\uNetPlace.pas
-Count=15
+Module0=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODLab.pas
+Module1=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\rODBase.pas
+Module2=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODBase.pas
+Module3=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODActive.pas
+Module4=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fOrders.pas
+Module5=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\uCore.pas
+Module6=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\CPRSChart.dproj
+Module7=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fBase508Form.pas
+Module8=D:\CPRS 31\OR_30_377V9_SRC\Broker\Source\Trpcb.pas
+Module9=D:\CPRS 31\OR_30_377V9_SRC\Broker\Source\wsockc.pas
+Module10=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fRemoteLocations.pas
+Module11=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\uODBase.pas
+Module12=D:\CPRS 31\OR_30_377V9_SRC\Packages\OR\Source\ORNet.pas
+Module13=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODBBank.pas
+Module14=D:\CPRS 31\OR_30_377V9_SRC\Packages\OR\Source\ORCtrls.pas
+Module15=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\rOrders.pas
+Module16=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODRad.pas
+Module17=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODReleaseEvent.pas
+Module18=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fLabCollTimes.pas
+Module19=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODLabImmedColl.pas
+Module20=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODLabOthSpec.pas
+Module21=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODLabOthCollSamp.pas
+Module22=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fFrame.pas
+Module23=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\uOrders.pas
+Module24=D:\CPRS 31\OR_30_377V9_SRC\Broker\Source\uNetPlace.pas
+Module25=D:\CPRS 31\OR_30_377V9_SRC\Broker\Source\Rpcconf1.pas
+Module26=D:\CPRS 31\OR_30_377V9_SRC\Packages\OR\Source\ORDtTm.pas
+Module27=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODDiet.pas
+Module28=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\BA\UBACore.pas
+Module29=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\rMisc.pas
+Module30=default.htm
+Count=31
 EditWindowCount=1
 
-[D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fRemoteLocations.pas]
+[D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODLab.pas]
 ModuleType=TSourceModule
 FormState=1
 FormOnTop=0
 
-[default.htm]
-ModuleType=TURLModule
+[D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\rODBase.pas]
+ModuleType=TSourceModule
+FormState=0
+FormOnTop=0
+
+[D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODBase.pas]
+ModuleType=TSourceModule
+FormState=1
+FormOnTop=0
+
+[D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODActive.pas]
+ModuleType=TSourceModule
+FormState=1
+FormOnTop=1
+
+[D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fOrders.pas]
+ModuleType=TSourceModule
+FormState=1
+FormOnTop=0
+
+[D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\uCore.pas]
+ModuleType=TSourceModule
+FormState=0
+FormOnTop=0
 
 [D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\CPRSChart.dproj]
 ModuleType=TBaseProject
@@ -49,22 +87,42 @@ ModuleType=TSourceModule
 FormState=1
 FormOnTop=0
 
-[D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODLab.pas]
-ModuleType=TSourceModule
-FormState=1
-FormOnTop=0
-
 [D:\CPRS 31\OR_30_377V9_SRC\Broker\Source\Trpcb.pas]
 ModuleType=TSourceModule
 FormState=0
 FormOnTop=0
 
-[D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fFrame.pas]
+[D:\CPRS 31\OR_30_377V9_SRC\Broker\Source\wsockc.pas]
+ModuleType=TSourceModule
+FormState=0
+FormOnTop=0
+
+[D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fRemoteLocations.pas]
 ModuleType=TSourceModule
 FormState=1
 FormOnTop=0
 
+[D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\uODBase.pas]
+ModuleType=TSourceModule
+FormState=0
+FormOnTop=0
+
 [D:\CPRS 31\OR_30_377V9_SRC\Packages\OR\Source\ORNet.pas]
+ModuleType=TSourceModule
+FormState=0
+FormOnTop=0
+
+[D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODBBank.pas]
+ModuleType=TSourceModule
+FormState=1
+FormOnTop=0
+
+[D:\CPRS 31\OR_30_377V9_SRC\Packages\OR\Source\ORCtrls.pas]
+ModuleType=TSourceModule
+FormState=0
+FormOnTop=0
+
+[D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\rOrders.pas]
 ModuleType=TSourceModule
 FormState=0
 FormOnTop=0
@@ -74,7 +132,57 @@ ModuleType=TSourceModule
 FormState=1
 FormOnTop=0
 
+[D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODReleaseEvent.pas]
+ModuleType=TSourceModule
+FormState=1
+FormOnTop=0
+
+[D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fLabCollTimes.pas]
+ModuleType=TSourceModule
+FormState=1
+FormOnTop=0
+
+[D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODLabImmedColl.pas]
+ModuleType=TSourceModule
+FormState=1
+FormOnTop=0
+
+[D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODLabOthSpec.pas]
+ModuleType=TSourceModule
+FormState=1
+FormOnTop=0
+
+[D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODLabOthCollSamp.pas]
+ModuleType=TSourceModule
+FormState=1
+FormOnTop=0
+
+[D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fFrame.pas]
+ModuleType=TSourceModule
+FormState=1
+FormOnTop=0
+
+[D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\uOrders.pas]
+ModuleType=TSourceModule
+FormState=0
+FormOnTop=0
+
+[D:\CPRS 31\OR_30_377V9_SRC\Broker\Source\uNetPlace.pas]
+ModuleType=TSourceModule
+FormState=0
+FormOnTop=0
+
 [D:\CPRS 31\OR_30_377V9_SRC\Broker\Source\Rpcconf1.pas]
+ModuleType=TSourceModule
+FormState=1
+FormOnTop=0
+
+[D:\CPRS 31\OR_30_377V9_SRC\Packages\OR\Source\ORDtTm.pas]
+ModuleType=TSourceModule
+FormState=1
+FormOnTop=0
+
+[D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODDiet.pas]
 ModuleType=TSourceModule
 FormState=1
 FormOnTop=0
@@ -89,32 +197,24 @@ ModuleType=TSourceModule
 FormState=0
 FormOnTop=0
 
-[D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODDiet.pas]
-ModuleType=TSourceModule
-FormState=1
-FormOnTop=0
-
-[D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\rODBase.pas]
-ModuleType=TSourceModule
-FormState=0
-FormOnTop=0
-
-[D:\CPRS 31\OR_30_377V9_SRC\Broker\Source\uNetPlace.pas]
-ModuleType=TSourceModule
-FormState=0
-FormOnTop=0
-
-[D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODBase.pas]
-FormState=1
-FormOnTop=0
+[default.htm]
+ModuleType=TURLModule
 
 [D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fAutoSz.pas]
 FormState=1
 FormOnTop=0
 
+[D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fHSplit.pas]
+FormState=1
+FormOnTop=0
+
+[D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fPage.pas]
+FormState=1
+FormOnTop=0
+
 [EditWindow0]
-ViewCount=15
-CurrentEditView=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fRemoteLocations.pas
+ViewCount=31
+CurrentEditView=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODLab.pas
 View0=0
 View1=1
 View2=2
@@ -130,6 +230,22 @@ View11=11
 View12=12
 View13=13
 View14=14
+View15=15
+View16=16
+View17=17
+View18=18
+View19=19
+View20=20
+View21=21
+View22=22
+View23=23
+View24=24
+View25=25
+View26=26
+View27=27
+View28=28
+View29=29
+View30=30
 PercentageSizes=1
 Create=1
 Visible=1
@@ -146,15 +262,15 @@ ClientHeight=8942
 DockedToMainForm=1
 BorlandEditorCodeExplorer=BorlandEditorCodeExplorer@EditWindow0
 TopPanelSize=0
-LeftPanelSize=1896
+LeftPanelSize=1676
 LeftPanelClients=PropertyInspector,DockSite3
-LeftPanelData=00000800010100000000210F0000000000000168070000000000000100000000580E000009000000446F636B53697465330100000000E81A00001100000050726F7065727479496E73706563746F72FFFFFFFF
+LeftPanelData=000008000101000000004510000000000000018C060000000000000100000000580E000009000000446F636B53697465330100000000F11C00001100000050726F7065727479496E73706563746F72FFFFFFFF
 RightPanelSize=1999
 RightPanelClients=DockSite2,DockSite4
-RightPanelData=00000800010100000000210F00000000000001CF0700000000000001000000004212000009000000446F636B53697465320100000000E81A000009000000446F636B5369746534FFFFFFFF
-BottomPanelSize=1549
+RightPanelData=00000800010100000000451000000000000001CF0700000000000001000000004212000009000000446F636B53697465320100000000F11C000009000000446F636B5369746534FFFFFFFF
+BottomPanelSize=1029
 BottomPanelClients=DockSite1,MessageView
-BottomPanelData=0000080001020100000009000000446F636B53697465317A45000000000000020D0600000000000001000000007A4500000F0000004D65737361676556696577466F726DFFFFFFFF
+BottomPanelData=0000080001020100000009000000446F636B53697465317A4500000000000002050400000000000001000000007A4500000F0000004D65737361676556696577466F726DFFFFFFFF
 BottomMiddlePanelSize=0
 BottomMiddlePanelClients=DockSite0,GraphDrawingModel
 BottomMiddelPanelData=0000080001020200000009000000446F636B536974653010000000477261706844726177696E67566965779A1D00000000000002EB06000000000000FFFFFFFF
@@ -166,15 +282,26 @@ WelcomePageURL=bds:/default.htm
 [View1]
 CustomEditViewType=TEditView
 Module=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fFrame.pas
-CursorX=3
-CursorY=378
-TopLine=378
+CursorX=18
+CursorY=4036
+TopLine=4019
 LeftCol=1
 Elisions=
 Bookmarks=
 EditViewName=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fFrame.pas
 
 [View2]
+CustomEditViewType=TEditView
+Module=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODBBank.pas
+CursorX=37
+CursorY=246
+TopLine=225
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODBBank.pas
+
+[View3]
 CustomEditViewType=TEditView
 Module=D:\CPRS 31\OR_30_377V9_SRC\Packages\OR\Source\ORNet.pas
 CursorX=1
@@ -185,62 +312,194 @@ Elisions=
 Bookmarks=
 EditViewName=D:\CPRS 31\OR_30_377V9_SRC\Packages\OR\Source\ORNet.pas
 
-[View3]
-CustomEditViewType=TEditView
-Module=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODLab.pas
-CursorX=23
-CursorY=2070
-TopLine=2053
-LeftCol=1
-Elisions=
-Bookmarks={0,1734,8}{1,192,1}{2,113,14}{3,192,1}
-EditViewName=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODLab.pas
-
 [View4]
 CustomEditViewType=TEditView
+Module=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODLab.pas
+CursorX=95
+CursorY=1569
+TopLine=1555
+LeftCol=1
+Elisions=
+Bookmarks={0,1577,1}{1,219,1}{2,118,14}{3,219,1}{4,1557,9}{5,1866,9}
+EditViewName=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODLab.pas
+
+[View5]
+CustomEditViewType=TEditView
+Module=D:\CPRS 31\OR_30_377V9_SRC\Packages\OR\Source\ORCtrls.pas
+CursorX=14
+CursorY=490
+TopLine=476
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=D:\CPRS 31\OR_30_377V9_SRC\Packages\OR\Source\ORCtrls.pas
+
+[View6]
+CustomEditViewType=TEditView
+Module=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODBase.pas
+CursorX=1
+CursorY=595
+TopLine=582
+LeftCol=1
+Elisions=
+Bookmarks={7,1017,3}
+EditViewName=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODBase.pas
+
+[View7]
+CustomEditViewType=TEditView
+Module=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODActive.pas
+CursorX=1
+CursorY=124
+TopLine=122
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=Borland.FormDesignerView
+
+[View8]
+CustomEditViewType=TEditView
+Module=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fOrders.pas
+CursorX=3
+CursorY=3463
+TopLine=3449
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fOrders.pas
+
+[View9]
+CustomEditViewType=TEditView
+Module=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\uCore.pas
+CursorX=3
+CursorY=1773
+TopLine=1
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\uCore.pas
+
+[View10]
+CustomEditViewType=TEditView
+Module=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\uODBase.pas
+CursorX=3
+CursorY=46
+TopLine=32
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\uODBase.pas
+
+[View11]
+CustomEditViewType=TEditView
+Module=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fRemoteLocations.pas
+CursorX=1
+CursorY=43
+TopLine=49
+LeftCol=1
+Elisions=
+Bookmarks={1,44,3}
+EditViewName=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fRemoteLocations.pas
+
+[View12]
+CustomEditViewType=TEditView
+Module=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\rOrders.pas
+CursorX=11
+CursorY=1379
+TopLine=1363
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\rOrders.pas
+
+[View13]
+CustomEditViewType=TEditView
+Module=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODReleaseEvent.pas
+CursorX=29
+CursorY=79
+TopLine=66
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODReleaseEvent.pas
+
+[View14]
+CustomEditViewType=TEditView
+Module=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fLabCollTimes.pas
+CursorX=1
+CursorY=1
+TopLine=1
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fLabCollTimes.pas
+
+[View15]
+CustomEditViewType=TEditView
+Module=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODLabImmedColl.pas
+CursorX=1
+CursorY=1
+TopLine=1
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODLabImmedColl.pas
+
+[View16]
+CustomEditViewType=TEditView
+Module=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODLabOthSpec.pas
+CursorX=1
+CursorY=1
+TopLine=1
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=Borland.FormDesignerView
+
+[View17]
+CustomEditViewType=TEditView
+Module=D:\CPRS 31\OR_30_377V9_SRC\Packages\OR\Source\ORDtTm.pas
+CursorX=1
+CursorY=1
+TopLine=1
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=D:\CPRS 31\OR_30_377V9_SRC\Packages\OR\Source\ORDtTm.pas
+
+[View18]
+CustomEditViewType=TEditView
 Module=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\CPRSChart.dpr
-CursorX=53
-CursorY=315
+CursorX=1
+CursorY=321
 TopLine=297
 LeftCol=1
 Elisions=
 Bookmarks=
 EditViewName=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\CPRSChart.dpr
 
-[View5]
-CustomEditViewType=TEditView
-Module=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fRemoteLocations.pas
-CursorX=39
-CursorY=8
-TopLine=1
-LeftCol=1
-Elisions=
-Bookmarks=
-EditViewName=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fRemoteLocations.pas
-
-[View6]
+[View19]
 CustomEditViewType=TEditView
 Module=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODRad.pas
-CursorX=42
-CursorY=11
-TopLine=1
+CursorX=54
+CursorY=358
+TopLine=341
 LeftCol=1
 Elisions=
 Bookmarks=
 EditViewName=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODRad.pas
 
-[View7]
+[View20]
 CustomEditViewType=TEditView
 Module=D:\CPRS 31\OR_30_377V9_SRC\Broker\Source\Rpcconf1.pas
 CursorX=1
 CursorY=167
-TopLine=1
+TopLine=60
 LeftCol=1
 Elisions=
 Bookmarks=
 EditViewName=D:\CPRS 31\OR_30_377V9_SRC\Broker\Source\Rpcconf1.pas
 
-[View8]
+[View21]
 CustomEditViewType=TEditView
 Module=D:\CPRS 31\OR_30_377V9_SRC\Broker\Source\uNetPlace.pas
 CursorX=1
@@ -251,29 +510,62 @@ Elisions=
 Bookmarks=
 EditViewName=D:\CPRS 31\OR_30_377V9_SRC\Broker\Source\uNetPlace.pas
 
-[View9]
+[View22]
 CustomEditViewType=TEditView
 Module=D:\CPRS 31\OR_30_377V9_SRC\Broker\Source\Trpcb.pas
-CursorX=35
-CursorY=991
-TopLine=974
+CursorX=1
+CursorY=730
+TopLine=717
 LeftCol=1
 Elisions=
 Bookmarks=
 EditViewName=D:\CPRS 31\OR_30_377V9_SRC\Broker\Source\Trpcb.pas
 
-[View10]
+[View23]
 CustomEditViewType=TEditView
 Module=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\rODBase.pas
-CursorX=40
-CursorY=543
-TopLine=532
+CursorX=1
+CursorY=515
+TopLine=502
+LeftCol=1
+Elisions=
+Bookmarks={6,513,1}
+EditViewName=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\rODBase.pas
+
+[View24]
+CustomEditViewType=TEditView
+Module=D:\CPRS 31\OR_30_377V9_SRC\Broker\Source\wsockc.pas
+CursorX=1
+CursorY=1480
+TopLine=1467
 LeftCol=1
 Elisions=
 Bookmarks=
-EditViewName=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\rODBase.pas
+EditViewName=D:\CPRS 31\OR_30_377V9_SRC\Broker\Source\wsockc.pas
 
-[View11]
+[View25]
+CustomEditViewType=TEditView
+Module=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODLabOthCollSamp.pas
+CursorX=1
+CursorY=1
+TopLine=1
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODLabOthCollSamp.pas
+
+[View26]
+CustomEditViewType=TEditView
+Module=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\uOrders.pas
+CursorX=22
+CursorY=507
+TopLine=496
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\uOrders.pas
+
+[View27]
 CustomEditViewType=TEditView
 Module=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODDiet.pas
 CursorX=21
@@ -284,7 +576,7 @@ Elisions=
 Bookmarks=
 EditViewName=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODDiet.pas
 
-[View12]
+[View28]
 CustomEditViewType=TEditView
 Module=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\rMisc.pas
 CursorX=1
@@ -295,7 +587,7 @@ Elisions=
 Bookmarks=
 EditViewName=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\rMisc.pas
 
-[View13]
+[View29]
 CustomEditViewType=TEditView
 Module=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\BA\UBACore.pas
 CursorX=81
@@ -306,19 +598,20 @@ Elisions=
 Bookmarks=
 EditViewName=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\BA\UBACore.pas
 
-[View14]
+[View30]
 CustomEditViewType=TEditView
 Module=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fBase508Form.pas
 CursorX=1
-CursorY=117
-TopLine=98
+CursorY=232
+TopLine=219
 LeftCol=1
 Elisions=
 Bookmarks=
 EditViewName=D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fBase508Form.pas
 
 [Watches]
-Count=0
+Count=1
+Watch0='Subs',256,0,18,1,0,'Watches',1
 
 [WatchWindow]
 WatchColumnWidth=120
@@ -331,37 +624,48 @@ State=0
 Left=0
 Top=0
 Width=3821
-Height=1071
+Height=426
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=3821
-ClientHeight=1071
+ClientHeight=426
 TBDockHeight=220
 LRDockWidth=13602
 Dockable=1
 StayOnTop=0
 
 [Breakpoints]
-Count=19
+Count=30
 Breakpoint0='D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\fFrame.pas',931,'',0,1,'',1,0,0,'',1,'','','',0,''
 Breakpoint1='D:\CPRS 31\OR_30_377V9_SRC\Broker\Source\Trpcb.pas',1385,'',0,1,'',1,0,0,'',1,'','','',0,''
-Breakpoint2='D:\CPRS 31\OR_30_377V9_SRC\Broker\Source\Trpcb.pas',996,'',0,1,'',1,0,0,'',1,'','','',0,''
-Breakpoint3='D:\CPRS 31\OR_30_377V9_SRC\Packages\OR\Source\ORNet.pas',345,'',0,1,'',1,0,0,'',1,'','','',0,''
-Breakpoint4='D:\CPRS 31\OR_30_377V9_SRC\Broker\Source\Rpcconf1.pas',213,'',0,1,'',1,0,0,'',1,'','','',0,''
-Breakpoint5='D:\CPRS 31\OR_30_377V9_SRC\Broker\Source\uNetPlace.pas',407,'',0,1,'',1,0,0,'',1,'','','',0,''
-Breakpoint6='D:\CPRS 31\OR_30_377V9_SRC\Broker\Source\uNetPlace.pas',384,'',0,1,'',1,0,0,'',1,'','','',0,''
-Breakpoint7='D:\CPRS 31\OR_30_377V9_SRC\Broker\Source\uNetPlace.pas',100,'',0,1,'',1,0,0,'',1,'','','',0,''
-Breakpoint8='D:\CPRS 31\OR_30_377V9_SRC\Broker\Source\uNetPlace.pas',390,'',0,1,'',1,0,0,'',1,'','','',0,''
-Breakpoint9='D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODLab.pas',1748,'',0,1,'',1,0,0,'',1,'','','',0,''
-Breakpoint10='D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\rODBase.pas',457,'',0,1,'',1,0,0,'',1,'','','',0,''
-Breakpoint11='D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODLab.pas',1742,'',0,1,'',1,0,0,'',1,'','','',0,''
-Breakpoint12='D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODLab.pas',2007,'',0,1,'',1,0,0,'',1,'','','',0,''
-Breakpoint13='D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fRemoteLocations.pas',40,'',0,1,'',1,0,0,'',1,'','','',0,''
-Breakpoint14='D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fRemoteLocations.pas',44,'',0,1,'',1,0,0,'',1,'','','',0,''
-Breakpoint15='D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODLab.pas',1758,'',0,1,'',1,0,0,'',1,'','','',0,''
-Breakpoint16='D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODLab.pas',1759,'',0,1,'',1,0,0,'',1,'','','',0,''
-Breakpoint17='D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fRemoteLocations.pas',42,'',0,1,'',1,0,0,'',1,'','','',0,''
-Breakpoint18='D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODLab.pas',2066,'',0,1,'',1,0,0,'',1,'','','',0,''
+Breakpoint2='D:\CPRS 31\OR_30_377V9_SRC\Packages\OR\Source\ORNet.pas',345,'',0,1,'',1,0,0,'',1,'','','',0,''
+Breakpoint3='D:\CPRS 31\OR_30_377V9_SRC\Broker\Source\Rpcconf1.pas',213,'',0,1,'',1,0,0,'',1,'','','',0,''
+Breakpoint4='D:\CPRS 31\OR_30_377V9_SRC\Broker\Source\uNetPlace.pas',407,'',0,1,'',1,0,0,'',1,'','','',0,''
+Breakpoint5='D:\CPRS 31\OR_30_377V9_SRC\Broker\Source\uNetPlace.pas',384,'',0,1,'',1,0,0,'',1,'','','',0,''
+Breakpoint6='D:\CPRS 31\OR_30_377V9_SRC\Broker\Source\uNetPlace.pas',100,'',0,1,'',1,0,0,'',1,'','','',0,''
+Breakpoint7='D:\CPRS 31\OR_30_377V9_SRC\Broker\Source\uNetPlace.pas',390,'',0,1,'',1,0,0,'',1,'','','',0,''
+Breakpoint8='D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\rODBase.pas',458,'',0,1,'',1,0,0,'',1,'','','',0,''
+Breakpoint9='D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODLab.pas',2117,'',0,1,'',1,0,0,'',1,'','','',0,''
+Breakpoint10='D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODLab.pas',2312,'',0,1,'',1,0,0,'',1,'','','',0,''
+Breakpoint11='D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODLab.pas',2297,'',0,1,'',1,0,0,'',1,'','','',0,''
+Breakpoint12='D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fRemoteLocations.pas',62,'',0,1,'',1,0,0,'',1,'','','',0,''
+Breakpoint13='D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODLab.pas',1869,'',0,1,'',1,0,0,'',1,'','','',0,''
+Breakpoint14='D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODLab.pas',2321,'',0,1,'',1,0,0,'',1,'','','',0,''
+Breakpoint15='D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODLab.pas',2323,'',0,1,'',1,0,0,'',1,'','','',0,''
+Breakpoint16='D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\rODBase.pas',515,'',0,1,'',1,0,0,'',1,'','','',0,''
+Breakpoint17='D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\rODBase.pas',371,'',0,1,'',1,0,0,'',1,'','','',0,''
+Breakpoint18='D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\rODBase.pas',256,'',0,1,'',1,0,0,'',1,'','','',0,''
+Breakpoint19='D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\rODBase.pas',217,'',0,1,'',1,0,0,'',1,'','','',0,''
+Breakpoint20='D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\rODBase.pas',228,'',0,1,'',1,0,0,'',1,'','','',0,''
+Breakpoint21='D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODReleaseEvent.pas',118,'',0,1,'',1,0,0,'',1,'','','',0,''
+Breakpoint22='D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\rODBase.pas',332,'',0,1,'',1,0,0,'',1,'','','',0,''
+Breakpoint23='D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODBase.pas',595,'',0,1,'',1,0,0,'',1,'','','',0,''
+Breakpoint24='D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODLab.pas',1554,'',0,1,'',1,0,0,'',1,'','','',0,''
+Breakpoint25='D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODLab.pas',1545,'',0,1,'',1,0,0,'',1,'','','',0,''
+Breakpoint26='D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODLab.pas',2292,'',0,1,'',1,0,0,'',1,'','','',0,''
+Breakpoint27='D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODLab.pas',2302,'',0,1,'',1,0,0,'',1,'','','',0,''
+Breakpoint28='D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODLab.pas',2152,'',0,1,'',1,0,0,'',1,'','','',0,''
+Breakpoint29='D:\CPRS 31\OR_30_377V9_SRC\CPRS-chart\Orders\fODLab.pas',1568,'',0,1,'',1,0,0,'',1,'','','',0,''
 
 [EmbarcaderoWin32Debugger_AddressBreakpoints]
 Count=0
@@ -420,12 +724,12 @@ State=0
 Left=0
 Top=23
 Width=10000
-Height=1319
+Height=769
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=10000
-ClientHeight=1319
-TBDockHeight=1319
+ClientHeight=769
+TBDockHeight=769
 LRDockWidth=2767
 Dockable=1
 StayOnTop=0
@@ -439,11 +743,11 @@ State=0
 Left=0
 Top=0
 Width=1999
-Height=2019
+Height=2569
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=1999
-ClientHeight=2019
+ClientHeight=2569
 TBDockHeight=7157
 LRDockWidth=1999
 Dockable=1
@@ -457,17 +761,22 @@ Docked=1
 State=0
 Left=0
 Top=305
-Width=1896
-Height=3077
+Width=1676
+Height=3626
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=1896
-ClientHeight=3077
-TBDockHeight=8599
-LRDockWidth=1896
+ClientWidth=1676
+ClientHeight=3626
+TBDockHeight=6566
+LRDockWidth=1676
 Dockable=1
 StayOnTop=0
-SplitPos=111
+SplitPos=98
+
+[PropInspDesignerSelection]
+ArrangeBy=Name
+SelectedItem=Align,Action
+ExpandedItems=Anchors=0,Constraints=0,LiveBindings=0,BevelEdges=0,Font=0,Hint=0,"LiveBindings Designer=0",Margins=0
 
 [TFileExplorerForm]
 PercentageSizes=1
@@ -475,8 +784,8 @@ Create=1
 Visible=0
 Docked=1
 State=0
-Left=-1093
-Top=-102
+Left=-1009
+Top=-38
 Width=2840
 Height=6209
 MaxLeft=-1
@@ -495,7 +804,7 @@ Visible=0
 Docked=1
 State=0
 Left=-1229
-Top=-102
+Top=158
 Width=278
 Height=357
 MaxLeft=-1
@@ -519,11 +828,11 @@ State=0
 Left=0
 Top=0
 Width=3821
-Height=1071
+Height=426
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=3821
-ClientHeight=1071
+ClientHeight=426
 TBDockHeight=412
 LRDockWidth=4949
 Dockable=1
@@ -538,11 +847,11 @@ State=0
 Left=0
 Top=0
 Width=3821
-Height=1071
+Height=426
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=3821
-ClientHeight=1071
+ClientHeight=426
 TBDockHeight=220
 LRDockWidth=7408
 Dockable=1
@@ -561,11 +870,11 @@ State=0
 Left=0
 Top=0
 Width=3821
-Height=1071
+Height=426
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=3821
-ClientHeight=1071
+ClientHeight=426
 TBDockHeight=1538
 LRDockWidth=3485
 Dockable=1
@@ -580,11 +889,11 @@ State=0
 Left=0
 Top=0
 Width=3821
-Height=1071
+Height=426
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=3821
-ClientHeight=1071
+ClientHeight=426
 TBDockHeight=2060
 LRDockWidth=3485
 Dockable=1
@@ -599,11 +908,11 @@ State=0
 Left=0
 Top=0
 Width=2335
-Height=1140
+Height=893
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=2335
-ClientHeight=1140
+ClientHeight=893
 TBDockHeight=2321
 LRDockWidth=2826
 Dockable=1
@@ -637,11 +946,11 @@ State=0
 Left=0
 Top=0
 Width=2335
-Height=907
+Height=1140
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=2335
-ClientHeight=907
+ClientHeight=1140
 TBDockHeight=1154
 LRDockWidth=3675
 Dockable=1
@@ -664,11 +973,11 @@ State=0
 Left=0
 Top=0
 Width=1999
-Height=8255
+Height=6223
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=1999
-ClientHeight=8255
+ClientHeight=6223
 TBDockHeight=4876
 LRDockWidth=7152
 Dockable=1
@@ -680,8 +989,8 @@ Create=1
 Visible=0
 Docked=1
 State=0
-Left=0
-Top=0
+Left=262
+Top=578
 Width=2862
 Height=3214
 MaxLeft=-1
@@ -702,11 +1011,11 @@ State=0
 Left=0
 Top=0
 Width=1999
-Height=8255
+Height=6223
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=1999
-ClientHeight=8255
+ClientHeight=6223
 TBDockHeight=4876
 LRDockWidth=5307
 Dockable=1
@@ -718,8 +1027,8 @@ Create=1
 Visible=0
 Docked=1
 State=0
-Left=-129
-Top=-102
+Left=-114
+Top=-100
 Width=1845
 Height=3146
 MaxLeft=-1
@@ -778,11 +1087,11 @@ State=0
 Left=0
 Top=0
 Width=3821
-Height=1071
+Height=426
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=3821
-ClientHeight=1071
+ClientHeight=426
 TBDockHeight=1552
 LRDockWidth=8741
 Dockable=1
@@ -803,11 +1112,11 @@ Docked=1
 State=0
 Left=0
 Top=0
-Width=1896
+Width=1676
 Height=3503
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=1896
+ClientWidth=1676
 ClientHeight=3503
 TBDockHeight=3681
 LRDockWidth=1896
@@ -1040,14 +1349,14 @@ Visible=0
 Docked=1
 State=0
 Left=0
-Top=0
+Top=23
 Width=3821
-Height=1415
+Height=769
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=3821
-ClientHeight=1415
-TBDockHeight=1415
+ClientHeight=769
+TBDockHeight=769
 LRDockWidth=3821
 Dockable=1
 StayOnTop=0
@@ -1071,7 +1380,7 @@ MaxLeft=-1
 MaxTop=-1
 ClientWidth=1999
 ClientHeight=4560
-TBDockHeight=8599
+TBDockHeight=6566
 LRDockWidth=1999
 Dockable=1
 StayOnTop=0
@@ -1089,14 +1398,14 @@ Docked=1
 State=0
 Left=0
 Top=23
-Width=1896
+Width=1676
 Height=3503
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=1896
+ClientWidth=1676
 ClientHeight=3503
-TBDockHeight=8599
-LRDockWidth=1896
+TBDockHeight=6566
+LRDockWidth=1676
 Dockable=1
 StayOnTop=0
 TabPosition=1
@@ -1114,12 +1423,12 @@ State=0
 Left=0
 Top=382
 Width=1999
-Height=2019
+Height=2569
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=1999
-ClientHeight=2019
-TBDockHeight=8599
+ClientHeight=2569
+TBDockHeight=6566
 LRDockWidth=1999
 Dockable=1
 StayOnTop=0

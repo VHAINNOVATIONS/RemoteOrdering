@@ -512,7 +512,7 @@ begin
     if ConstructOrder.LogTime > 0
       then Param[7].Mult['"ORSLOG"'] := FloatToStr(ConstructOrder.LogTime);
     Param[7].Mult['"ORTS"'] := IntToStr(Patient.Specialty);  // pass in treating specialty for ORTS
-    Param[7].Mult['16035,1'] :=intToStr(RmteName.SiteID); //Pass the Labortory Site Location -MNJ
+    Param[7].Mult['16035,1'] := intToStr(RmteName.InfoRMSiteID); //Pass the Labortory Site Location -MNJ
     Param[8].PType := literal;
     Param[8].Value := ConstructOrder.DigSig;
     if (Constructorder.IsIMODialog) or (ConstructOrder.DGroup = ClinDisp) or (ConstructOrder.DGroup = ClinIVDisp) then

@@ -61,8 +61,8 @@ type
     HowManyDayslbl508: TVA508StaticText;
     specimenlbl508: TVA508StaticText;
     CollSamplbl508: TVA508StaticText;
-    grpBxLocalRemote: TRadioGroup;
     ORLabLocation: TOROffsetLabel;
+    CBXLocalRemoteSites: TComboBox;
     procedure FormCreate(Sender: TObject);
     procedure ControlChange(Sender: TObject);
     procedure cboAvailTestNeedData(Sender: TObject;
@@ -95,6 +95,8 @@ type
     procedure ViewinReportWindow1Click(Sender: TObject);
     procedure grpBxLocalRemoteClick(Sender: TObject);
     procedure Frequencylbl508Click(Sender: TObject);
+    procedure CBXLocalRemoteSitesSelect(Sender: TObject);
+    procedure CBXLocalRemoteSitesDropDown(Sender: TObject);
     procedure cmdAcceptClick(Sender: TObject);
   protected
     FCmtTypes: TStringList ;
@@ -106,6 +108,8 @@ type
     procedure GetAllSpecimens(AComboBox: TORComboBox);
     procedure SetupCollTimes(CollType: string);
     procedure LoadCollType(AComboBox:TORComboBox);
+    procedure ComboBox_AutoWidth(const theComboBox: TCombobox);
+    procedure AddSitestoDropdown(aRmteName: String);
    private
     FLastCollType: string;
     FLastCollTime: string;
@@ -191,14 +195,24 @@ type
   end;
 
   TRMInfo = class(TObject)
-    SiteID: Integer;                  { Remote site location ID}
-    RemoteSiteName: string;           { Name of RemoteSite }
+   protected
+    //add protected here
+   private
     RmteSelected : boolean;
+    RmteLastIndex : integer;
+    SiteID: Integer;                  { Remote site location ID}
+    RemoteSiteName: string;
+    function GetRMInfoSiteID: Integer;
+    procedure SetRMInfoSiteID(const aSiteID: Integer);           { Name of RemoteSite }
+   public
+    property LastIndex : integer read RmteLastIndex;
     property SiteName : string read RemoteSiteName;
-    procedure SetSiteName(aSiteNM : String);
     property IsRmteNameSet : boolean read RmteSelected;
+    property  InfoRMSiteID: Integer      read GetRMInfoSiteID    write SetRMInfoSiteID;
+    procedure SetSiteName(aSiteNM : String);
     procedure SetIsRmteNameSet(isSet : boolean);
     procedure SetStationID(SiteInfo: String);
+    procedure SetLastIndex(aSiteIndex: integer);
   end;
 
 
@@ -244,7 +258,7 @@ var
   i, n, HMD508: integer;
   AList: TStringList;
 begin
-  strOrigCaption:=Caption;
+  strOrigCaption :=Caption;
   RmteName:= TRMInfo.Create();
   RmteName.SetSiteName('Local');
   RmteName.SetIsRmteNameSet(false);
@@ -331,6 +345,8 @@ begin
         lblFrequency.Enabled := False;
         setup508Label(Text, Frequencylbl508, cboFrequency, lblFrequency.Caption);
       end;
+
+    AddSitestoDropdown('Local');
     PreserveControl(cboAvailTest);
     PreserveControl(cboCollType);
     PreserveControl(cboCollTime);
@@ -908,6 +924,33 @@ end;
 
 { end of TLabTest object }
 
+procedure TfrmODLab.ComboBox_AutoWidth(const theComboBox: TCombobox);
+const HORIZONTAL_PADDING = 10;
+var itemsFullWidth: integer;
+    idx: integer; itemWidth: integer;
+begin
+
+ itemsFullWidth := 0;  // get the max needed with of the items in dropdown state
+
+ for idx := 0 to -1 + theComboBox.Items.Count do
+  begin
+   itemWidth := theComboBox.Canvas.TextWidth(theComboBox.Items[idx]);
+   Inc(itemWidth, round(2 * (itemWidth /3)));
+   if (itemWidth > itemsFullWidth) then
+     itemsFullWidth := itemWidth;
+  end;  // set the width of drop down if needed
+
+ if (itemsFullWidth > theComboBox.Width) then
+  begin //check if there would be a scroll bar
+
+   if theComboBox.DropDownCount < theComboBox.Items.Count then
+     itemsFullWidth := itemsFullWidth + GetSystemMetrics(SM_CXVSCROLL);
+
+   SendMessage(theComboBox.Handle, CB_SETDROPPEDWIDTH, itemsFullWidth, 0);
+   application.ProcessMessages;
+  end;
+end;
+
 procedure TfrmODLab.ControlChange(Sender: TObject);
 var
   AResponse: TResponse;
@@ -1270,6 +1313,19 @@ begin
   cboAvailTest.ForDataUse(SubsetOfOrderItems(StartFrom, Direction, 'S.LAB', Responses.QuickOrder));
 end;
 
+procedure TfrmODLab.AddSitestoDropdown(aRmteName: String);
+begin
+
+  with CBXLocalRemoteSites do
+     begin
+       Items.Clear;
+       AddItem('Local', nil);
+       AddItem('Fayetteville VA Medical Center (565)', nil);
+       AddItem('Salisbury - W.G. Hefner VA Medical Center (659)', nil);
+       ItemIndex := Items.IndexOf(aRmteName);
+     end;
+end;
+
 procedure TfrmODLab.cboAvailTestExit(Sender: TObject);
 begin
   inherited;
@@ -1483,6 +1539,40 @@ begin
     ChangeUrgency(cboUrgency.ItemID);
   ControlChange(Self);
 end;
+
+procedure TfrmODLab.CBXLocalRemoteSitesDropDown(Sender: TObject);
+begin
+ ComboBox_AutoWidth(CBXLocalRemoteSites);
+end;
+
+procedure TfrmODLab.CBXLocalRemoteSitesSelect(Sender: TObject);
+var
+ strRmtMssage: String;
+ begin
+inherited;
+caption:=strOrigCaption;
+ RmteName.SetIsRmteNameSet(false);
+ RmteName.SetLastIndex(CBXLocalRemoteSites.ItemIndex);
+ if CBXLocalRemoteSites.ItemIndex <> -1 then
+   begin
+    if CBXLocalRemoteSites.Items.Strings[CBXLocalRemoteSites.ItemIndex] <> 'Local' then
+      begin
+       Caption:=strOrigCaption +'-'+'Remote';
+       RmteName.SetSiteName(CBXLocalRemoteSites.Items.Strings[CBXLocalRemoteSites.ItemIndex]);
+       RmteName.SetIsRmteNameSet(true);
+       Caption:=strOrigCaption+'-'+RmteName.SiteName;
+       RmteName.SetStationID(RmteName.SiteName);
+      end
+    else
+      begin
+       Caption:=strOrigCaption +'-'+'Local';
+       RmteName.SetSiteName(CBXLocalRemoteSites.Items.Strings[CBXLocalRemoteSites.ItemIndex]);
+
+      end;
+   end;
+
+end;
+
 
 procedure TfrmODLab.cboSpecimenChange(Sender: TObject);
 begin
@@ -1757,11 +1847,11 @@ begin
 end;
 
 procedure TfrmODLab.grpBxLocalRemoteClick(Sender: TObject);
-var
+{var
  strRmtMssage: String;
- SelectLocalRemote: TfrmSelectLocalRemote;
+ SelectLocalRemote: TfrmSelectLocalRemote;}
 begin
- caption:=strOrigCaption;
+ {caption:=strOrigCaption;
   if grpBxLocalRemote.ItemIndex = 1 then
    begin
       //Caption:=Caption+'Local';
@@ -1784,7 +1874,7 @@ begin
      end
    end
   else
-   Caption:=strOrigCaption +'-'+'Local';
+   Caption:=strOrigCaption +'-'+'Local';}
 end;
 
 procedure TfrmODLab.grpPeakTroughClick(Sender: TObject);
@@ -2058,13 +2148,8 @@ end;
 
 procedure TfrmODLab.cmdAcceptClick(Sender: TObject);
 begin
-if (RmteName.IsRmteNameSet = false) and (grpBxLocalRemote.ItemIndex = 1)  then
-     MessageDlg('You selected Remote Lab Location order; However,'+#10#13+
-     'no site location is selected. Please select Remote option'+#10+#13+
-     'and then choose Lab Site.',  mtError, [mbOK], 0)
-else
   inherited;
-
+  AddSitestoDropdown(RmteName.SiteName);
 end;
 
 procedure TfrmODLab.cmdImmedCollClick(Sender: TObject);
@@ -2083,6 +2168,7 @@ begin
       txtImmedColl.Clear;
       calCollTime.Clear;
     end;
+
 end;
 
 procedure  TfrmODLab.ReadServerVariables;
@@ -2201,9 +2287,24 @@ end;
 
 { TRMInfo }
 
+function TRMInfo.GetRMInfoSiteID: Integer;
+begin
+   result:=SiteID;
+end;
+
 procedure TRMInfo.SetIsRmteNameSet(isSet: boolean);
 begin
   RmteSelected:=isSet;
+end;
+
+procedure TRMInfo.SetLastIndex(aSiteIndex: integer);
+begin
+       RmteLastIndex:=aSiteIndex;
+end;
+
+procedure TRMInfo.SetRMInfoSiteID(const aSiteID: Integer);
+begin
+     SiteID:=aSiteID;
 end;
 
 procedure TRMInfo.SetSiteName(aSiteNM: String);

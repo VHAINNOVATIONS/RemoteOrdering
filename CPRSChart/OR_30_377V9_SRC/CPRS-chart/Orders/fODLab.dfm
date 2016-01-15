@@ -99,9 +99,9 @@ inherited frmODLab: TfrmODLab
   end
   object ORLabLocation: TOROffsetLabel [12]
     Left = 8
-    Top = 124
+    Top = 109
     Width = 113
-    Height = 14
+    Height = 12
     Caption = 'Lab Location:'
     HorzOffset = 0
     Transparent = False
@@ -113,20 +113,20 @@ inherited frmODLab: TfrmODLab
     Top = 197
     Width = 425
     Height = 61
-    TabOrder = 22
+    TabOrder = 23
     ExplicitLeft = 7
     ExplicitTop = 197
     ExplicitWidth = 425
     ExplicitHeight = 61
   end
   object txtImmedColl: TCaptionEdit [14]
-    Left = 148
-    Top = 169
+    Left = 147
+    Top = 170
     Width = 141
     Height = 21
     Color = clBtnFace
     ReadOnly = True
-    TabOrder = 16
+    TabOrder = 17
     Text = 'txtImmedColl'
     Caption = ''
   end
@@ -135,7 +135,7 @@ inherited frmODLab: TfrmODLab
     Top = 170
     Width = 165
     Height = 21
-    TabOrder = 15
+    TabOrder = 16
     OnChange = ControlChange
     DateOnly = False
     RequireTime = False
@@ -148,7 +148,7 @@ inherited frmODLab: TfrmODLab
     Height = 118
     BevelInner = bvLowered
     BevelOuter = bvNone
-    TabOrder = 10
+    TabOrder = 11
     object lblUrineVolume: TOROffsetLabel
       Left = 6
       Top = 29
@@ -177,7 +177,7 @@ inherited frmODLab: TfrmODLab
     Height = 118
     BevelInner = bvLowered
     BevelOuter = bvNone
-    TabOrder = 9
+    TabOrder = 10
     object lblAntiCoagulant: TOROffsetLabel
       Left = 6
       Top = 8
@@ -206,7 +206,7 @@ inherited frmODLab: TfrmODLab
     Height = 118
     BevelInner = bvLowered
     BevelOuter = bvNone
-    TabOrder = 8
+    TabOrder = 9
     Visible = False
     object lblOrderComment: TOROffsetLabel
       Left = 6
@@ -235,7 +235,7 @@ inherited frmODLab: TfrmODLab
     Width = 133
     Height = 118
     BevelOuter = bvNone
-    TabOrder = 7
+    TabOrder = 8
   end
   object pnlDoseDraw: TORAutoPanel [20]
     Left = 378
@@ -244,7 +244,7 @@ inherited frmODLab: TfrmODLab
     Height = 118
     BevelInner = bvLowered
     BevelOuter = bvNone
-    TabOrder = 12
+    TabOrder = 13
     object lblDose: TOROffsetLabel
       Left = 10
       Top = 15
@@ -293,7 +293,7 @@ inherited frmODLab: TfrmODLab
     Height = 118
     BevelInner = bvLowered
     BevelOuter = bvNone
-    TabOrder = 11
+    TabOrder = 12
     object lblPeakTrough: TOROffsetLabel
       Left = 6
       Top = 7
@@ -326,7 +326,7 @@ inherited frmODLab: TfrmODLab
     Height = 19
     BevelOuter = bvNone
     Caption = 'Select collection time'
-    TabOrder = 17
+    TabOrder = 18
     TabStop = True
     OnClick = cmdImmedCollClick
     OnEnter = pnlCollTimeButtonEnter
@@ -402,7 +402,7 @@ inherited frmODLab: TfrmODLab
     Pieces = '2'
     Sorted = False
     SynonymChars = '<>'
-    TabOrder = 18
+    TabOrder = 19
     Text = ''
     OnChange = cboFrequencyChange
     CharsNeedMatch = 1
@@ -495,7 +495,7 @@ inherited frmODLab: TfrmODLab
     Top = 122
     Width = 180
     Height = 21
-    TabOrder = 6
+    TabOrder = 7
     Visible = False
     OnExit = txtAddlCommentExit
     Caption = 'Additional Comment'
@@ -507,7 +507,7 @@ inherited frmODLab: TfrmODLab
     Height = 21
     Hint = 'Enter a number of days, or an "X" followed by a number of times.'
     Enabled = False
-    TabOrder = 20
+    TabOrder = 21
     OnChange = ControlChange
     Caption = 'How Long?'
   end
@@ -520,7 +520,7 @@ inherited frmODLab: TfrmODLab
     ItemHeight = 13
     ParentShowHint = False
     ShowHint = True
-    TabOrder = 26
+    TabOrder = 27
     Visible = False
     Caption = ''
     ItemTipColor = clWindow
@@ -546,14 +546,67 @@ inherited frmODLab: TfrmODLab
     Pieces = '2'
     Sorted = False
     SynonymChars = '<>'
-    TabOrder = 14
+    TabOrder = 15
     Text = ''
     OnChange = cboCollTimeChange
     OnExit = cboCollTimeExit
     CharsNeedMatch = 1
   end
-  object cboCollType: TORComboBox [32]
-    Left = 8
+  object Frequencylbl508: TVA508StaticText [32]
+    Name = 'Frequencylbl508'
+    Left = 322
+    Top = 154
+    Width = 59
+    Height = 15
+    Alignment = taLeftJustify
+    Caption = 'How Often?'
+    Enabled = False
+    TabOrder = 20
+    Visible = False
+    OnClick = Frequencylbl508Click
+    ShowAccelChar = True
+  end
+  object HowManyDayslbl508: TVA508StaticText [33]
+    Name = 'HowManyDayslbl508'
+    Left = 428
+    Top = 157
+    Width = 57
+    Height = 15
+    Alignment = taLeftJustify
+    Caption = 'How Long?'
+    Enabled = False
+    TabOrder = 22
+    Visible = False
+    ShowAccelChar = True
+  end
+  object specimenlbl508: TVA508StaticText [34]
+    Name = 'specimenlbl508'
+    Left = 210
+    Top = 56
+    Width = 49
+    Height = 15
+    Alignment = taLeftJustify
+    Caption = 'Specimen'
+    Enabled = False
+    TabOrder = 4
+    Visible = False
+    ShowAccelChar = True
+  end
+  object CollSamplbl508: TVA508StaticText [35]
+    Name = 'CollSamplbl508'
+    Left = 187
+    Top = 31
+    Width = 72
+    Height = 15
+    Alignment = taLeftJustify
+    Caption = 'Collect Sample'
+    Enabled = False
+    TabOrder = 2
+    Visible = False
+    ShowAccelChar = True
+  end
+  object cboCollType: TORComboBox [36]
+    Left = 7
     Top = 170
     Width = 136
     Height = 21
@@ -572,97 +625,45 @@ inherited frmODLab: TfrmODLab
     Pieces = '2'
     Sorted = False
     SynonymChars = '<>'
-    TabOrder = 13
+    TabOrder = 14
     Text = ''
     OnChange = cboCollTypeChange
     CharsNeedMatch = 1
   end
-  object Frequencylbl508: TVA508StaticText [33]
-    Name = 'Frequencylbl508'
-    Left = 322
-    Top = 154
-    Width = 59
-    Height = 15
-    Alignment = taLeftJustify
-    Caption = 'How Often?'
-    Enabled = False
-    TabOrder = 19
-    Visible = False
-    OnClick = Frequencylbl508Click
-    ShowAccelChar = True
+  inherited cmdAccept: TButton
+    Left = 438
+    Top = 199
+    TabOrder = 24
+    ExplicitLeft = 438
+    ExplicitTop = 199
   end
-  object HowManyDayslbl508: TVA508StaticText [34]
-    Name = 'HowManyDayslbl508'
-    Left = 428
-    Top = 157
-    Width = 57
-    Height = 15
-    Alignment = taLeftJustify
-    Caption = 'How Long?'
-    Enabled = False
-    TabOrder = 21
-    Visible = False
-    ShowAccelChar = True
-  end
-  object specimenlbl508: TVA508StaticText [35]
-    Name = 'specimenlbl508'
-    Left = 210
-    Top = 56
-    Width = 49
-    Height = 15
-    Alignment = taLeftJustify
-    Caption = 'Specimen'
-    Enabled = False
-    TabOrder = 4
-    Visible = False
-    ShowAccelChar = True
-  end
-  object CollSamplbl508: TVA508StaticText [36]
-    Name = 'CollSamplbl508'
-    Left = 187
-    Top = 31
-    Width = 72
-    Height = 15
-    Alignment = taLeftJustify
-    Caption = 'Collect Sample'
-    Enabled = False
-    TabOrder = 2
-    Visible = False
-    ShowAccelChar = True
-  end
-  object grpBxLocalRemote: TRadioGroup [37]
-    Left = 74
-    Top = 107
-    Width = 100
-    Height = 43
-    Caption = ' '
-    Ctl3D = True
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -11
-    Font.Name = 'MS Sans Serif'
-    Font.Style = []
+  object CBXLocalRemoteSites: TComboBox [38]
+    Left = 8
+    Top = 127
+    Width = 166
+    Height = 21
+    BevelInner = bvNone
+    Style = csDropDownList
+    Ctl3D = False
+    DoubleBuffered = True
+    DropDownCount = 20
     ItemIndex = 0
+    ParentCtl3D = False
+    ParentDoubleBuffered = False
+    TabOrder = 6
+    Text = 'Local'
+    OnDropDown = CBXLocalRemoteSitesDropDown
+    OnSelect = CBXLocalRemoteSitesSelect
     Items.Strings = (
       'Local'
-      'Remote')
-    ParentCtl3D = False
-    ParentFont = False
-    TabOrder = 33
-    OnClick = grpBxLocalRemoteClick
-  end
-  inherited cmdAccept: TButton
-    Left = 441
-    Top = 199
-    TabOrder = 23
-    ExplicitLeft = 441
-    ExplicitTop = 199
+      'Fayetteville VA Medical Center (565)'
+      'Salisbury - W.G. Hefner VA Medical Center (659)')
   end
   inherited cmdQuit: TButton
     Left = 441
     Top = 237
     Width = 73
-    TabOrder = 24
+    TabOrder = 25
     ExplicitLeft = 441
     ExplicitTop = 237
     ExplicitWidth = 73
@@ -671,7 +672,7 @@ inherited frmODLab: TfrmODLab
     Left = 6
     Top = 197
     Height = 59
-    TabOrder = 25
+    TabOrder = 26
     ExplicitLeft = 6
     ExplicitTop = 197
     ExplicitHeight = 59
@@ -798,7 +799,7 @@ inherited frmODLab: TfrmODLab
         'Component = CollSamplbl508'
         'Status = stsDefault')
       (
-        'Component = grpBxLocalRemote'
+        'Component = CBXLocalRemoteSites'
         'Status = stsDefault'))
   end
   object dlgLabCollTime: TORDateTimeDlg

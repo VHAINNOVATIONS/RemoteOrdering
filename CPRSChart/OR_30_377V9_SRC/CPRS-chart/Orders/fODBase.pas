@@ -142,6 +142,7 @@ type
       Shift: TShiftState; X, Y: Integer);
     procedure pnlMessageMouseMove(Sender: TObject; Shift: TShiftState; X,
       Y: Integer);
+    procedure FormResize(Sender: TObject);
   private
     FIsSupply:  Boolean;
     FAbortOrder:   Boolean;
@@ -1484,6 +1485,12 @@ begin
     Key := #0;
     Perform(WM_NEXTDLGCTL, 0, 0);
   end;
+end;
+
+procedure TfrmODBase.FormResize(Sender: TObject);
+begin
+  inherited;
+
 end;
 
 { Accept & Quit Buttons }

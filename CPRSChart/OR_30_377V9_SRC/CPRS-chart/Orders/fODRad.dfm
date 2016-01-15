@@ -85,7 +85,7 @@ inherited frmODRad: TfrmODRad
       Caption = 'Imaging Type'
       Color = clWindow
       DropDownCount = 8
-      ItemHeight = 16
+      ItemHeight = 13
       ItemTipColor = clWindow
       ItemTipEnable = True
       ListItemsOnly = True
@@ -127,7 +127,7 @@ inherited frmODRad: TfrmODRad
       Caption = 'Imaging Procedure'
       Color = clWindow
       DropDownCount = 8
-      ItemHeight = 16
+      ItemHeight = 13
       ItemTipColor = clWindow
       ItemTipEnable = True
       ListItemsOnly = True
@@ -302,7 +302,7 @@ inherited frmODRad: TfrmODRad
         Caption = 'Urgency'
         Color = clWindow
         DropDownCount = 8
-        ItemHeight = 16
+        ItemHeight = 13
         ItemTipColor = clWindow
         ItemTipEnable = True
         ListItemsOnly = True
@@ -327,7 +327,7 @@ inherited frmODRad: TfrmODRad
         Caption = 'Transport'
         Color = clWindow
         DropDownCount = 8
-        ItemHeight = 16
+        ItemHeight = 13
         ItemTipColor = clWindow
         ItemTipEnable = True
         ListItemsOnly = True
@@ -352,7 +352,7 @@ inherited frmODRad: TfrmODRad
         Caption = 'Category'
         Color = clWindow
         DropDownCount = 8
-        ItemHeight = 16
+        ItemHeight = 13
         ItemTipColor = clWindow
         ItemTipEnable = True
         ListItemsOnly = True
@@ -387,7 +387,7 @@ inherited frmODRad: TfrmODRad
         Caption = 'Submit To'
         Color = clWindow
         DropDownCount = 8
-        ItemHeight = 16
+        ItemHeight = 13
         ItemTipColor = clWindow
         ItemTipEnable = True
         ListItemsOnly = True
@@ -458,8 +458,8 @@ inherited frmODRad: TfrmODRad
         Name = 'Submitlbl508'
         Left = 154
         Top = 43
-        Width = 98
-        Height = 12
+        Width = 120
+        Height = 15
         Alignment = taLeftJustify
         Caption = 'Submit To (for screen R.)'
         Enabled = False
@@ -479,18 +479,20 @@ inherited frmODRad: TfrmODRad
       object lblHistory: TLabel
         Left = 0
         Top = 34
-        Width = 116
+        Width = 362
         Height = 13
         Align = alTop
         Caption = 'Clinical History (Optional)'
+        ExplicitWidth = 116
       end
       object lblReason: TLabel
         Left = 0
         Top = 0
-        Width = 268
+        Width = 362
         Height = 13
         Align = alTop
         Caption = 'Reason for Study (REQUIRED - 64 characters maximum)'
+        ExplicitWidth = 268
       end
       object memHistory: TCaptionMemo
         Left = 0
