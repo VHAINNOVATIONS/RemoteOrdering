@@ -593,6 +593,7 @@ begin
   FPrompts.Clear;
   FDialog := Value;
   LoadDialogDefinition(FPrompts, FDialog);
+  setRemoteIEN(FPrompts);
   FPrompts.Sort(SortPromptsBySequence);
 end;
 

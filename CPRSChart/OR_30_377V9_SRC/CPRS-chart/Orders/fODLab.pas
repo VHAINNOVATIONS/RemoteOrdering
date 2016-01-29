@@ -4,7 +4,7 @@ interface
 
 uses
   SysUtils, WinTypes, WinProcs, Messages, Classes, Graphics, Controls,
-  Forms, Dialogs, StdCtrls, ORCtrls, ORfn, fODBase, ExtCtrls, ComCtrls, uConst,
+  Forms, Dialogs, StdCtrls,ORNet, ORCtrls, ORfn, fODBase, ExtCtrls, ComCtrls, uConst,
   ORDtTm, Buttons, Menus, VA508AccessibilityManager, VA508AccessibilityRouter;
 
 
@@ -197,22 +197,40 @@ type
   TRMInfo = class(TObject)
    protected
     //add protected here
+
    private
     RmteSelected : boolean;
     RmteLastIndex : integer;
+    RmteIEN: integer;
     SiteID: Integer;                  { Remote site location ID}
     RemoteSiteName: string;
+    RemoteLabSiteLocations: TList;
     function GetRMInfoSiteID: Integer;
-    procedure SetRMInfoSiteID(const aSiteID: Integer);           { Name of RemoteSite }
+    procedure SetRMInfoSiteID(const aSiteID: Integer);
+    function GetRmteSiteIEN: Integer;
+    procedure SetRmteSiteIEN(const aSiteIEN: Integer);           { Name of RemoteSite }
    public
     property LastIndex : integer read RmteLastIndex;
     property SiteName : string read RemoteSiteName;
     property IsRmteNameSet : boolean read RmteSelected;
     property  InfoRMSiteID: Integer      read GetRMInfoSiteID    write SetRMInfoSiteID;
+    property  RmteSiteIEN: Integer      read GetRmteSiteIEN    write SetRmteSiteIEN;
     procedure SetSiteName(aSiteNM : String);
     procedure SetIsRmteNameSet(isSet : boolean);
-    procedure SetStationID(SiteInfo: String);
+    procedure SetStationID(SiteInfoIndex: integer);
     procedure SetLastIndex(aSiteIndex: integer);
+    procedure InitLabSiteLocationComboList;
+    procedure PopulateSiteLocComboList;
+  end;
+
+  TSiteInfo = class(TObject)
+  protected
+    //add protected here
+  private
+   //add private here
+  public
+   SiteNumber: String;
+   SiteName:   String;
   end;
 
 
@@ -262,6 +280,8 @@ begin
   RmteName:= TRMInfo.Create();
   RmteName.SetSiteName('Local');
   RmteName.SetIsRmteNameSet(false);
+  RmteName.RemoteLabSiteLocations:= TList.Create();
+  RmteName.InitLabSiteLocationComboList; //mnj- Reads RPC to load site location
   frmFrame.pnlVisit.Enabled := false;
   AutoSizeDisabled := True;
   inherited;
@@ -346,7 +366,8 @@ begin
         setup508Label(Text, Frequencylbl508, cboFrequency, lblFrequency.Caption);
       end;
 
-    AddSitestoDropdown('Local');
+    AddSitestoDropdown('Local');  //MNJ- adds site location description to Lab Location
+
     PreserveControl(cboAvailTest);
     PreserveControl(cboCollType);
     PreserveControl(cboCollTime);
@@ -356,6 +377,7 @@ begin
     StatusText('');
   finally
     AList.Free;
+
   end;
 
 
@@ -497,8 +519,9 @@ var
   DfltCollSamp: Integer;
   x: string;
   tmpResp: TResponse;
+
 begin
-  LoadData := TStringList.Create;
+   LoadData := TStringList.Create;
   try
     LoadLabTestData(LoadData, LabTestIEN) ;
     with LoadData do
@@ -1313,18 +1336,27 @@ begin
   cboAvailTest.ForDataUse(SubsetOfOrderItems(StartFrom, Direction, 'S.LAB', Responses.QuickOrder));
 end;
 
+//mnj
 procedure TfrmODLab.AddSitestoDropdown(aRmteName: String);
+var
+ i: integer;
 begin
 
   with CBXLocalRemoteSites do
      begin
        Items.Clear;
-       AddItem('Local', nil);
-       AddItem('Fayetteville VA Medical Center (565)', nil);
-       AddItem('Salisbury - W.G. Hefner VA Medical Center (659)', nil);
-       ItemIndex := Items.IndexOf(aRmteName);
+       AddItem('Local', nil);//mnj - Local is always to be the first in the list as the Default.
+       RmteName.RemoteLabSiteLocations.First;
+       for i := 0 to RmteName.RemoteLabSiteLocations.Count - 1 do
+        begin
+          //showmessage('Site Num: '+TSiteInfo(RmteName.RemoteLabSiteLocations.Items[i]).SiteNumber);
+          //showmessage('Site Namde: '+TSiteInfo(RmteName.RemoteLabSiteLocations.Items[i]).SiteName);
+          AddItem(TSiteInfo(RmteName.RemoteLabSiteLocations.Items[i]).SiteName,nil);
+
+        end;
+       CBXLocalRemoteSites.ItemIndex := CBXLocalRemoteSites.Items.IndexOf(aRmteName);
      end;
-end;
+ end;
 
 procedure TfrmODLab.cboAvailTestExit(Sender: TObject);
 begin
@@ -1561,9 +1593,9 @@ caption:=strOrigCaption;
        RmteName.SetSiteName(CBXLocalRemoteSites.Items.Strings[CBXLocalRemoteSites.ItemIndex]);
        RmteName.SetIsRmteNameSet(true);
        Caption:=strOrigCaption+'-'+RmteName.SiteName;
-       RmteName.SetStationID(RmteName.SiteName);
-      end
-    else
+       RmteName.SetStationID(CBXLocalRemoteSites.ItemIndex -1); //mnj- must subtract one because "Local" is added to CBXLocalRemoteSites
+      end                                                      //as first entry in list before loading additional items to the TList
+     else                                                       //if CBXLocalRemoteSites item 1 is selected then the TList index is 0.
       begin
        Caption:=strOrigCaption +'-'+'Local';
        RmteName.SetSiteName(CBXLocalRemoteSites.Items.Strings[CBXLocalRemoteSites.ItemIndex]);
@@ -1777,6 +1809,7 @@ begin
   inherited;
   if FCmtTypes <> nil then FCmtTypes.Free;
   frmFrame.pnlVisit.Enabled := true;
+  RmteName.Free;
 end;
 
 procedure TfrmODLab.LoadRequiredComment(CmtType: integer);
@@ -2149,7 +2182,7 @@ end;
 procedure TfrmODLab.cmdAcceptClick(Sender: TObject);
 begin
   inherited;
-  AddSitestoDropdown(RmteName.SiteName);
+   AddSitestoDropdown(RmteName.SiteName);
 end;
 
 procedure TfrmODLab.cmdImmedCollClick(Sender: TObject);
@@ -2292,6 +2325,41 @@ begin
    result:=SiteID;
 end;
 
+function TRMInfo.GetRmteSiteIEN: Integer;
+begin
+   result:=RmteIEN;
+end;
+
+procedure TRMInfo.InitLabSiteLocationComboList;
+var
+ i: integer;
+ SteInfo: TSiteInfo;
+begin
+ //mnj- This procedure calls RPC "LRREM GTDOM"
+ // and will return an array with SiteID and Description
+
+ try
+  CallV('LRREM GTDOM',[]);
+  with RPCBrokerV do for i := 0 to Results.Count - 1 do
+  begin
+      SteInfo := TSiteInfo.Create;
+   with SteInfo do
+    begin
+      SiteNumber  := Piece(Results[i], U, 1);
+      SiteName    := Piece(Results[i], U, 2);
+      RemoteLabSiteLocations.Add(SteInfo);
+    end;//End of - with RPCBrokerV
+  end; // End of - with SteInfo do
+ finally
+ // SteInfo.Free;
+ end;
+
+end;
+
+procedure TRMInfo.PopulateSiteLocComboList;
+begin
+end;
+
 procedure TRMInfo.SetIsRmteNameSet(isSet: boolean);
 begin
   RmteSelected:=isSet;
@@ -2307,21 +2375,28 @@ begin
      SiteID:=aSiteID;
 end;
 
+procedure TRMInfo.SetRmteSiteIEN(const aSiteIEN: Integer);
+begin
+    RmteIEN:=aSiteIEN;
+end;
+
 procedure TRMInfo.SetSiteName(aSiteNM: String);
 begin
   RemoteSiteName:=aSiteNM;
 end;
 
-procedure TRMInfo.SetStationID(SiteInfo: String);
+procedure TRMInfo.SetStationID(SiteInfoIndex: integer);
 var
 RMsite: integer;
 pos1: integer;
 pos2: integer;
+aSiteLoc: TSiteInfo;
 begin
-    pos1:= pos('(',RmteName.RemoteSiteName);
-    pos2:= Pos(')',RmteName.RemoteSiteName);
-    RMsite:=Strtoint(Copy(RmteName.RemoteSiteName,pos1+1,(pos2-1)-(pos1)));
-    RmteName.SiteID:=RMsite;
+
+  RmteName.RemoteLabSiteLocations.First;
+  //showmessage('set station id '+ TSiteInfo(RmteName.RemoteLabSiteLocations.Items[SiteInfoIndex]).SiteNumber);
+  RmteName.SiteID:= StrToInt(TSiteInfo(RmteName.RemoteLabSiteLocations.Items[SiteInfoIndex]).SiteNumber);
+
 end;
 
 end.

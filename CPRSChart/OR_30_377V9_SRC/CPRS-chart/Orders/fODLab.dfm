@@ -630,14 +630,7 @@ inherited frmODLab: TfrmODLab
     OnChange = cboCollTypeChange
     CharsNeedMatch = 1
   end
-  inherited cmdAccept: TButton
-    Left = 438
-    Top = 199
-    TabOrder = 24
-    ExplicitLeft = 438
-    ExplicitTop = 199
-  end
-  object CBXLocalRemoteSites: TComboBox [38]
+  object CBXLocalRemoteSites: TComboBox [37]
     Left = 8
     Top = 127
     Width = 166
@@ -658,6 +651,13 @@ inherited frmODLab: TfrmODLab
       'Local'
       'Fayetteville VA Medical Center (565)'
       'Salisbury - W.G. Hefner VA Medical Center (659)')
+  end
+  inherited cmdAccept: TButton
+    Left = 438
+    Top = 199
+    TabOrder = 24
+    ExplicitLeft = 438
+    ExplicitTop = 199
   end
   inherited cmdQuit: TButton
     Left = 441

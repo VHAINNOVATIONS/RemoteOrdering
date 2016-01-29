@@ -96,6 +96,9 @@ procedure SetDefaultCoPayToNewOrder(AnOrderID, CoPayInfo:string);
 procedure ValidateNumericStr(const x, Dom: string; var ErrMsg: string);
 function IsPFSSActive: boolean;
 
+{Set Remote IEN}
+procedure setRemoteIEN(aList: TList);
+
 { Quick Order Calls }
 //function DisplayNameForOD(const InternalName: string): string;
 function GetQuickName(const CRC: string): string;
@@ -239,6 +242,27 @@ begin
       else Mult[Subs] := IValue;
     end; {with TResponse}
   end; {with AParam}
+end;
+
+{Remote IEN}
+procedure setRemoteIEN(aList: TList);
+var
+ RmteIEN:  integer;
+ RmteID: String;
+ i: integer;
+begin
+
+    for i := 0 to aList.Count -1 do
+    begin
+      RmteID:=TPrompt(aList.Items[i]).ID;
+      if RmteID = 'REMOTE' then
+        begin
+          RmteIEN:=TPrompt(aList.Items[i]).IEN;
+          RmteName.RmteSiteIEN:=RmteIEN;
+        end;
+
+    end;
+
 end;
 
 { Quick Order Calls }
@@ -450,7 +474,7 @@ end;
 procedure PutNewOrder(var AnOrder: TOrder; ConstructOrder: TConstructOrder; OrderSource: string);
 var
   i, inc, len, numLoop, remain: Integer;
-  ocStr, tmpStr, x, y, z: string;
+  ocStr, tmpStr, x, y, z, remoteIEN: string;
 begin
   with RPCBrokerV do
   begin
@@ -512,7 +536,8 @@ begin
     if ConstructOrder.LogTime > 0
       then Param[7].Mult['"ORSLOG"'] := FloatToStr(ConstructOrder.LogTime);
     Param[7].Mult['"ORTS"'] := IntToStr(Patient.Specialty);  // pass in treating specialty for ORTS
-    Param[7].Mult['16035,1'] := intToStr(RmteName.InfoRMSiteID); //Pass the Labortory Site Location -MNJ
+    remoteIEN:=intToStr(RmteName.RmteSiteIEN)+',1';
+    Param[7].Mult[remoteIEN] := intToStr(RmteName.InfoRMSiteID); //Pass the Labortory Site Location -MNJ
     Param[8].PType := literal;
     Param[8].Value := ConstructOrder.DigSig;
     if (Constructorder.IsIMODialog) or (ConstructOrder.DGroup = ClinDisp) or (ConstructOrder.DGroup = ClinIVDisp) then
