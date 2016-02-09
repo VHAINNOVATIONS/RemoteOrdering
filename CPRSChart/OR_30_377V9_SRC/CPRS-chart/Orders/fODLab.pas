@@ -218,6 +218,7 @@ type
     procedure SetSiteName(aSiteNM : String);
     procedure SetIsRmteNameSet(isSet : boolean);
     procedure SetStationID(SiteInfoIndex: integer);
+    function  FindLabLocationIndex(aRemoteSiteID: integer):integer;
     procedure SetLastIndex(aSiteIndex: integer);
     procedure InitLabSiteLocationComboList;
     procedure PopulateSiteLocComboList;
@@ -431,7 +432,7 @@ end;
 procedure TfrmODLab.SetupDialog(OrderAction: Integer; const ID: string);
 var
   tmpResp: TResponse;
-  i: integer;
+  i, fndLBLocIndx: integer;
 begin
   inherited;
   ReadServerVariables;
@@ -453,6 +454,16 @@ begin
       Changing := True;
       SetControl(cboFrequency,       'SCHEDULE', 1);
       SetControl(txtDays,            'DAYS', 1);
+
+      tmpResp := FindResponseByName('REMOTE'  ,1);  //mnj- Lab Location retrived from save
+                                                   //and is resulted from RPC 'ORWDX LOADRSP'
+      if (tmpResp <> nil) and (tmpResp.IValue <> '') then //with CBXLocalRemoteSites do
+        begin
+         fndLBLocIndx:=RmteName.FindLabLocationIndex(StrToInt(tmpResp.IValue));
+         RmteName.SetStationID(fndLBLocIndx);   //mnj - MUST add one to the index found because CBXLocalRemoteSites is has a default value of "Local"
+         CBXLocalRemoteSites.ItemIndex:=fndLBLocIndx+1;          // add to the list before remote sites are added from VISTA
+        end;
+
       tmpResp := FindResponseByName('SAMPLE'  ,1);
       if (tmpResp <> nil) and (tmpResp.IValue <> '') then with cboCollSamp do
         begin
@@ -2360,6 +2371,24 @@ procedure TRMInfo.PopulateSiteLocComboList;
 begin
 end;
 
+function TRMInfo.FindLabLocationIndex(aRemoteSiteID: integer):integer;
+var
+ i: integer;
+ tmpRmteSite: integer;
+begin
+  Result:=0; //mnj-if not found set result to the index of "Local"
+  RmteName.RemoteLabSiteLocations.First;
+  for i := 0 to RmteName.RemoteLabSiteLocations.Count - 1  do
+   begin
+     tmpRmteSite:= StrToInt(TSiteInfo(RmteName.RemoteLabSiteLocations.Items[i]).SiteNumber);
+     if aRemoteSiteID = tmpRmteSite then
+      begin
+       Result:=i;
+      end;
+
+   end;
+end;
+
 procedure TRMInfo.SetIsRmteNameSet(isSet: boolean);
 begin
   RmteSelected:=isSet;
@@ -2386,14 +2415,8 @@ begin
 end;
 
 procedure TRMInfo.SetStationID(SiteInfoIndex: integer);
-var
-RMsite: integer;
-pos1: integer;
-pos2: integer;
-aSiteLoc: TSiteInfo;
 begin
 
-  RmteName.RemoteLabSiteLocations.First;
   //showmessage('set station id '+ TSiteInfo(RmteName.RemoteLabSiteLocations.Items[SiteInfoIndex]).SiteNumber);
   RmteName.SiteID:= StrToInt(TSiteInfo(RmteName.RemoteLabSiteLocations.Items[SiteInfoIndex]).SiteNumber);
 
