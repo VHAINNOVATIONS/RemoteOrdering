@@ -1291,7 +1291,7 @@ var
   i: Integer;
   OrderTitle: String;
 begin
-  CallV('ORWDXM MENU', [AMenuIEN]);
+   CallV('ORWDXM MENU', [AMenuIEN]);
   with RPCBrokerV do if Results.Count > 0 then
   begin
     // Results[0] = Name^Cols^PathSwitch^^^LRFZX^LRFSAMP^LRFSPEC^LRFDATE^LRFURG^LRFSCH^PSJNPOC^

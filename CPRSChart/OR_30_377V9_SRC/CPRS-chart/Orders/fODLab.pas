@@ -218,7 +218,7 @@ type
     procedure SetSiteName(aSiteNM : String);
     procedure SetIsRmteNameSet(isSet : boolean);
     procedure SetStationID(SiteInfoIndex: integer);
-    function  FindLabLocationIndex(aRemoteSiteID: integer):integer;
+    function  FindLabLocationIndex(aRemoteSiteName: string):integer;
     procedure SetLastIndex(aSiteIndex: integer);
     procedure InitLabSiteLocationComboList;
     procedure PopulateSiteLocComboList;
@@ -279,7 +279,7 @@ var
 begin
   strOrigCaption :=Caption;
   RmteName:= TRMInfo.Create();
-  RmteName.SetSiteName('Local');
+  RmteName.SetSiteName('LOCAL');
   RmteName.SetIsRmteNameSet(false);
   RmteName.RemoteLabSiteLocations:= TList.Create();
   RmteName.InitLabSiteLocationComboList; //mnj- Reads RPC to load site location
@@ -367,7 +367,7 @@ begin
         setup508Label(Text, Frequencylbl508, cboFrequency, lblFrequency.Caption);
       end;
 
-    AddSitestoDropdown('Local');  //MNJ- adds site location description to Lab Location
+    AddSitestoDropdown(RmteName.SiteName);  //MNJ- adds site location description to Lab Location
 
     PreserveControl(cboAvailTest);
     PreserveControl(cboCollType);
@@ -455,13 +455,22 @@ begin
       SetControl(cboFrequency,       'SCHEDULE', 1);
       SetControl(txtDays,            'DAYS', 1);
 
-      tmpResp := FindResponseByName('REMOTE'  ,1);  //mnj- Lab Location retrived from save
+      tmpResp := FindResponseByName('Location'  ,1);  //mnj- Lab Location retrived from save
                                                    //and is resulted from RPC 'ORWDX LOADRSP'
       if (tmpResp <> nil) and (tmpResp.IValue <> '') then //with CBXLocalRemoteSites do
         begin
-         fndLBLocIndx:=RmteName.FindLabLocationIndex(StrToInt(tmpResp.IValue));
+         fndLBLocIndx:=RmteName.FindLabLocationIndex(tmpResp.IValue);
          RmteName.SetStationID(fndLBLocIndx);   //mnj - MUST add one to the index found because CBXLocalRemoteSites is has a default value of "Local"
-         CBXLocalRemoteSites.ItemIndex:=fndLBLocIndx+1;          // add to the list before remote sites are added from VISTA
+         CBXLocalRemoteSites.ItemIndex:=fndLBLocIndx; // + 1;          // add to the list before remote sites are added from VISTA
+         if CBXLocalRemoteSites.Items.Strings[CBXLocalRemoteSites.ItemIndex] <> 'LOCAL' then
+           begin
+            Caption:=strOrigCaption +'-'+'Remote';
+            Caption:=strOrigCaption+'-'+CBXLocalRemoteSites.Items.Strings[CBXLocalRemoteSites.ItemIndex];
+           end
+          else
+            begin
+              Caption:=strOrigCaption +'-'+'Local';
+            end;
         end;
 
       tmpResp := FindResponseByName('SAMPLE'  ,1);
@@ -1352,16 +1361,18 @@ procedure TfrmODLab.AddSitestoDropdown(aRmteName: String);
 var
  i: integer;
 begin
+  if aRmteName = '' then  aRmteName:='Local';
+
 
   with CBXLocalRemoteSites do
      begin
        Items.Clear;
-       AddItem('Local', nil);//mnj - Local is always to be the first in the list as the Default.
+       //AddItem('Local', nil);//mnj - Local is always to be the first in the list as the Default.
        RmteName.RemoteLabSiteLocations.First;
        for i := 0 to RmteName.RemoteLabSiteLocations.Count - 1 do
         begin
-          //showmessage('Site Num: '+TSiteInfo(RmteName.RemoteLabSiteLocations.Items[i]).SiteNumber);
-          //showmessage('Site Namde: '+TSiteInfo(RmteName.RemoteLabSiteLocations.Items[i]).SiteName);
+        //  showmessage('Site Num: '+TSiteInfo(RmteName.RemoteLabSiteLocations.Items[i]).SiteNumber);
+        //  showmessage('Site Namde: '+TSiteInfo(RmteName.RemoteLabSiteLocations.Items[i]).SiteName);
           AddItem(TSiteInfo(RmteName.RemoteLabSiteLocations.Items[i]).SiteName,nil);
 
         end;
@@ -1598,19 +1609,19 @@ caption:=strOrigCaption;
  RmteName.SetLastIndex(CBXLocalRemoteSites.ItemIndex);
  if CBXLocalRemoteSites.ItemIndex <> -1 then
    begin
-    if CBXLocalRemoteSites.Items.Strings[CBXLocalRemoteSites.ItemIndex] <> 'Local' then
+    if CBXLocalRemoteSites.Items.Strings[CBXLocalRemoteSites.ItemIndex] <> 'LOCAL' then
       begin
        Caption:=strOrigCaption +'-'+'Remote';
        RmteName.SetSiteName(CBXLocalRemoteSites.Items.Strings[CBXLocalRemoteSites.ItemIndex]);
        RmteName.SetIsRmteNameSet(true);
        Caption:=strOrigCaption+'-'+RmteName.SiteName;
-       RmteName.SetStationID(CBXLocalRemoteSites.ItemIndex -1); //mnj- must subtract one because "Local" is added to CBXLocalRemoteSites
+       RmteName.SetStationID(CBXLocalRemoteSites.ItemIndex); //was -1  //mnj- must subtract one because "Local" is added to CBXLocalRemoteSites
       end                                                      //as first entry in list before loading additional items to the TList
      else                                                       //if CBXLocalRemoteSites item 1 is selected then the TList index is 0.
       begin
        Caption:=strOrigCaption +'-'+'Local';
-       RmteName.SetSiteName(CBXLocalRemoteSites.Items.Strings[CBXLocalRemoteSites.ItemIndex]);
-
+       RmteName.SetSiteName(CBXLocalRemoteSites.Items.Strings[CBXLocalRemoteSites.ItemIndex]);  //was -1
+       RmteName.SetStationID(CBXLocalRemoteSites.ItemIndex);
       end;
    end;
 
@@ -2350,6 +2361,15 @@ begin
  // and will return an array with SiteID and Description
 
  try
+  //mnj- add default SiteID and Description of "Local"
+  SteInfo := TSiteInfo.Create;
+   with SteInfo do
+    begin
+      SiteNumber  := '0';
+      SiteName    := 'LOCAL';
+      RemoteLabSiteLocations.Add(SteInfo);
+     end;
+
   CallV('LRREM GTDOM',[]);
   with RPCBrokerV do for i := 0 to Results.Count - 1 do
   begin
@@ -2359,8 +2379,16 @@ begin
       SiteNumber  := Piece(Results[i], U, 1);
       SiteName    := Piece(Results[i], U, 2);
       RemoteLabSiteLocations.Add(SteInfo);
+
     end;//End of - with RPCBrokerV
   end; // End of - with SteInfo do
+
+  for i := 0 to RemoteLabSiteLocations.Count - 1 do
+   begin
+     // Showmessage('Site Num: '+ TSiteInfo(RemoteLabSiteLocations.Items[i]).SiteNumber +' Site Name: '+ TSiteInfo(RemoteLabSiteLocations.Items[i]).SiteName);
+   end;
+
+
  finally
  // SteInfo.Free;
  end;
@@ -2371,17 +2399,17 @@ procedure TRMInfo.PopulateSiteLocComboList;
 begin
 end;
 
-function TRMInfo.FindLabLocationIndex(aRemoteSiteID: integer):integer;
+function TRMInfo.FindLabLocationIndex(aRemoteSiteName: string):integer;
 var
  i: integer;
- tmpRmteSite: integer;
+ tmpRmteSite: string;
 begin
   Result:=0; //mnj-if not found set result to the index of "Local"
   RmteName.RemoteLabSiteLocations.First;
   for i := 0 to RmteName.RemoteLabSiteLocations.Count - 1  do
    begin
-     tmpRmteSite:= StrToInt(TSiteInfo(RmteName.RemoteLabSiteLocations.Items[i]).SiteNumber);
-     if aRemoteSiteID = tmpRmteSite then
+     tmpRmteSite:= TSiteInfo(RmteName.RemoteLabSiteLocations.Items[i]).SiteName;
+     if aRemoteSiteName = tmpRmteSite then
       begin
        Result:=i;
       end;
@@ -2417,9 +2445,9 @@ end;
 procedure TRMInfo.SetStationID(SiteInfoIndex: integer);
 begin
 
-  //showmessage('set station id '+ TSiteInfo(RmteName.RemoteLabSiteLocations.Items[SiteInfoIndex]).SiteNumber);
-  RmteName.SiteID:= StrToInt(TSiteInfo(RmteName.RemoteLabSiteLocations.Items[SiteInfoIndex]).SiteNumber);
-
+ // showmessage('set station id '+ TSiteInfo(RmteName.RemoteLabSiteLocations.Items[SiteInfoIndex]).SiteNumber);
+  //RmteName.SiteID:= StrToInt(TSiteInfo(RmteName.RemoteLabSiteLocations.Items[SiteInfoIndex]).SiteNumber);
+  RmteName.SiteID:=StrToInt(TSiteInfo(RmteName.RemoteLabSiteLocations.Items[SiteInfoIndex]).SiteNumber);
 end;
 
 end.

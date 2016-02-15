@@ -728,11 +728,17 @@ var
 begin
   Result := nil;
   with FResponseList do for i := 0 to Count - 1 do with TResponse(Items[i]) do
-    if (PromptID = APromptID) and (Instance = AnInstance) then
+   if (PromptID = APromptID) and (Instance = AnInstance) then
     begin
       Result := TResponse(Items[i]);
       break;
     end;
+  (* else if APromptID = 'Local' then
+    begin
+      Result := TResponse(Items[i]);
+      break;
+    end;
+    *)
 end;
 
 function TResponses.IENForPrompt(const APromptID: string): Integer;
