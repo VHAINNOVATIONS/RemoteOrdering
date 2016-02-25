@@ -1,0 +1,74 @@
+#!/bin/bash
+# chkconfig: 2345 80 20
+# description: Start and stop the message queue and broker node for SOAFTLD
+
+# Source function library.
+. /etc/init.d/functions
+
+MQ_NAME='SOAFTLD1'
+BROKER_NODE_NAME="${MQ_NAME}_BKR"
+
+status() {
+
+  su - mqm -c "/opt/mqm/bin/dspmq -m $MQ_NAME"
+  /opt/IBM/iib-10.0.0.3/iib mqsilist | grep $BROKER_NODE_NAME
+
+}
+
+start() {
+
+  STATE=$(status)
+
+  STATUS=$(echo $STATE | grep STATUS | grep Running)
+  if [[ -z "$STATUS" ]] ; then
+    # Start message queue
+    su - mqm -c "/opt/mqm/bin/strmqm $MQ_NAME"
+  else
+    echo "$MQ_NAME is already Running"
+  fi
+
+  STATUS=$(echo $STATE | grep STATUS | grep running)
+  if [[ -z "$STATUS" ]] ; then
+    # Start the node
+    /opt/IBM/iib-10.0.0.3/iib mqsistart $BROKER_NODE_NAME
+  else
+    echo "$BROKER_NODE_NAME is already Running"
+  fi
+
+}
+
+stop() {
+
+  STATE=$(status)
+
+  # Stop the node
+  /opt/IBM/iib-10.0.0.3/iib mqsistop $BROKER_NODE_NAME
+
+
+  STATUS=$(echo $STATE | grep STATUS | grep Ended)
+  if [[ -z "$STATUS" ]] ; then
+    # Stop message queue
+    su - mqm -c "/opt/mqm/bin/endmqm $MQ_NAME"
+  else
+    echo "$MQ_NAME is already Stopped"
+  fi
+
+}
+
+case "$1" in 
+    start)
+       start
+       ;;
+    stop)
+       stop
+       ;;
+    restart)
+       stop
+       start
+       ;;
+    status)
+       status      
+       ;;
+    *)
+       echo "Usage: $0 {start|stop|status|restart}"
+esac

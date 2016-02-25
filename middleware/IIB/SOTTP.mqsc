@@ -1,0 +1,22 @@
+
+************************************************************************************
+* This script should be run against the broker's queue manager using the command:
+*       runmqsc <broker queue manager name> < SOTTP.mqsc
+************************************************************************************
+
+* This script defines the queues required on the queue manager for pattern instance Hospital
+* If the Receiver writes a copy of the source message it will use this queue:
+DEF QL('SOTTP.SRC') REPLACE
+
+* If the Receiver writes a standard journal message it will use this queue:
+DEF QL('SOTTP.JRNL') REPLACE
+
+* The queue for canonical messages:
+DEF QL('SOTTP.CAN') REPLACE
+
+* The queue for messages which cannot be processed correctly:
+DEF QL('SOTTP.ERR') REPLACE
+
+* The Receiver writes messages for the transform and route flow to these queues
+* There is one queue for each transform and route flow in the pattern instance:
+DEF QL('SOTTP.RXF1') REPLACE
