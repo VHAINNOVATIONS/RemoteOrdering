@@ -4,13 +4,17 @@
 
 1. [Description](#description)
 1. [Requirements](#requirements)
-1. [Installation](#install)
+1. [Installation](#installation)
     * [MQ Install](#mq-install)
     * [IIB Install](#iib-install)
     * [Hapi Install](#hapi-install)
     * [HL7Comm Install](#hl7comm-install)
 1. [Setup](#setup)
-1. [Usage](#usage)
+1. [Basic Usage](#basic-usage)
+    * [Access](#access)
+    * [Start & Stop](#start-&-stop)
+    * [Configuration](#configuration)
+
 
 
 ## Description
@@ -81,7 +85,40 @@ when system is stopped.
     ./SOAFTLD_setup.sh
 ```
 
-## Usage
+## Basic Usage
+
+### Access
+
+To get access to the middleware a helpdesk ticket request for an account on the
+server will need to be submitted.
+
+### Start & Stop
+
+To be able to control the middleware your user will need to be part of the mqbrkrs
+and mqm groups. To add your user to the groups run cmd below.
+
+```bash
+    sudo usermod -a -G mqbrkrs,mqm <username>
+```
+
+The middleware is setup as a service on the system. The linux service command can be
+used to control the application.  If restarting the service check to make sure it has completely
+stopped ``` STATUS(Ended normally) ``` before starting the service. If you start the service before 
+it has completely stopped some parts of the service will be running were others could be stopped.
+
+```bash
+    sudo service soaftld start
+```
+
+```bash
+    sudo service soaftld stop
+```
+
+```bash
+    sudo service soaftld status
+```
+
+### Configuration
 
 The hub to spoke mapping is done with a CSV file.  The format of the 
 file is facility, ip, and port. To update the hub and spoke information
