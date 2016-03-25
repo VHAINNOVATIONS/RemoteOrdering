@@ -1,0 +1,476 @@
+Cache for UNIX^INT^HUBIN^~Format=Cache.S~^RAW
+%RO on 25 Mar 2016  12:31 PM
+LRHBIN2^INT^1^^0
+LRHBIN2 ;SAIC/TCK- Orders Portability - Laboratory Results - main driver ; 3/22/16 12:29pm
+ ;;1.0;Orders Portability;;March 1, 2010;Build 114
+ ;
+ Q
+ ;
+EN(JVOROUT,REC) ;
+ K JVOROUT
+ S D1="|",D2="^"
+ S U=$G(D1)
+ ;D DBG
+ ;I '$D(REC) S JVOROUT(1)="-1^Error: No Results Array Received" Q
+ ;
+ N HLARY,ORC1,ORC5,XMT,XME
+ N JVNCNT S JVNCNT=1 ; counter for JVOROUT
+ D PARSE
+ ;
+MAIN ;  main driver for laboratory results
+ ;
+ N X,Y,Z
+ ; Cancellation
+ ; Accession
+ I ORC1="SC",ORC5="SC" D
+ . D ACC ; Tom's Stuff
+ ; Results
+ I ORC1="RE",ORC5="CM" D
+ . N OK S OK=1
+ . D RSLT^JVHLLR1 Q:'OK  ; parse HL7 message and set variable file results
+ ;
+ I $G(DBKIND)["O" D DBGOUT ; capture JVOROUT
+ D END
+ QUIT
+ K JVOROUT
+ ;
+PARSE ;
+ N JVCNT,FLG,XT,XC,OBRCT,OBXCT
+ ;
+ S JVCNT="",FLG=0
+ B
+ F  S JVCNT=$O(REC(JVCNT)) Q:JVCNT=""  D  Q:FLG=2
+ . S XT=$P(REC(JVCNT),D1,1) Q:XT=""
+ . S XC=$G(HLARY(XT))+1,HLARY(XT)=XC
+ . S HLARY(XT,XC)=$P(REC(JVCNT),D1,2,999)
+ ;   set some basic variables:
+ ; Next line looks like dead code.
+ S X=HLARY("MSH",1),X=$P(X,D1,8),XMT=$P(X,D1,1),XME=$P(X,D1,2)
+ S MSHSEG=HLARY("MSH",1),PIDSEG=$G(HLARY("PID",1)),ORCSEG=$G(HLARY("ORC",1))
+ S ORC1=$P(HLARY("ORC",1),D1,1),ORC5=$P(HLARY("ORC",1),D1,5)
+ ;  create array HLOBX of ordered OBR and OBX segments.
+ S JVCNT="",FLG=0,OBRCT=0,OBXCT=0
+ F  S JVCNT=$O(REC(JVCNT)) Q:JVCNT=""  D  ;
+ . S XT=$P(REC(JVCNT),D1,1) Q:XT=""
+ . S XC=$G(HLARY(XT))+1,HLARY(XT)=XC
+ . I XT="OBR" S OBRCT=OBRCT+1,OBXCT=0
+ . I XT="OBR" S HLOBX(OBRCT)=$P(REC(JVCNT),D1,2,999)
+ . I XT="OBX" S OBXCT=OBXCT+1,HLOBX(OBRCT,OBXCT)=$P(REC(JVCNT),D1,2,999)
+ Q
+ ;
+CHKORID(ID) ;Checks to see if order number sent exists in VistA.
+ I '$D(ID) S ID=0 Q ID
+ S LRFILE=100,LRIEN=ID_","
+ S ID=$$GET1^DIQ(LRFILE,LRIEN,.01,"I") I ID="" S ID=0
+ Q ID
+ ;
+ACC ;
+ N LRADD,ORNM,ID
+ S PNLTST=0
+ S (LRADD,ORNM,LRURG,IFN,I,ACCN)=""
+ K DIR,JVOROUT,LRACC
+ S LRPARAM="^^^",(ST,LRACC)=0
+ I $D(LROESTAT) D:$P(LRPARAM,D1,14) ^LRCAPV I $G(LREND) K LRLONG,LRPANEL Q
+ S (LRODT,X,DT)=$$DT^XLFDT(),LRODT0=$$FMTE^XLFDT(DT,5)
+ I '$D(^LRO(69,DT,1,0)) S ^LRO(69,DT,0)=DT,^LRO(69,DT,1,0)="^69.01PA^^",^LRO(69,"B",DT,DT)=""
+ S X="T-7",%DT="" D ^%DT S LRTM7=+Y
+ K DIC,LRSNDD,LRSN,LRODT,DA
+ ; Capture DMIS number from HL7 message
+ B
+ ;S ID=$P($G(HLARY("OBR",1)),D1,34)
+ ;S DMIS=$P(ID,D2,4)
+ ;S LBTECH=$P(ID,D2,1),LBTECH=+LBTECH
+ ; Clinical order number ORDNM from ORC-2
+ S ORDPROV=$P($G(HLARY("ORC",1)),D1,12),ORDPROV=+ORDPROV
+ S ORDNM=""
+ S ORDNM=$P(HLARY("ORC",1),D1,2),ORDNM=+ORDNM
+ ;D CHKDUP(ORDNM)
+ ; Remote site RSITE from ORC-13
+ S X=HLARY("ORC",1),RSITE=$P($G(X),D1,13) K X
+ I RSITE="" S RSITE=0
+ I RSITE S SITE=$$GET1^DIQ(4,RSITE,.01,"E")
+ ; Local site SITE taken from current user
+ ;S SITE=DUZ(2)
+ I ORDNM="" S JVOROUT(1)="-1^Error: No Lab order number not found in HL7 message" Q
+ S LRFILE=100,LRIEN=ORDNM_","
+ ;S ORDNM=$$GET1^DIQ(LRFILE,LRIEN,.01,"I"),ORDNM=+ORDNM
+ I ORDNM="" S JVOROUT(1)="-1^Error: No Lab order number not found in HL7 message" Q
+ ; Get location and provider for discontinue if needed
+ S REAS=5
+ S ORVP=+$$GET1^DIQ(LRFILE,LRIEN,.02,"I")
+ S ORL=+$$GET1^DIQ(LRFILE,LRIEN,6,"I")
+ S ORNP=$$GET1^DIQ(LRFILE,LRIEN,1,"I")
+ ; Node 4 of record in Order file (100) has three pieces:
+ ; Lab Order number LRORD, Order date LRODT, Accession send number LRSND
+ ; LRODT and LRSND access entry in Lab Order file (69)
+ S LRFILE=100,LRIEN=ORDNM_",",FOUND=0
+ S LRDATA=$$GET1^DIQ(LRFILE,LRIEN,33,"I")
+ I LRDATA'[";" S JVOROUT(1)="-1^Error: Node 4 of ^OR(100,ORDNM) does not exist" Q
+ S LRORD=$P(LRDATA,";"),LRODT=$P(LRDATA,";",2),LRSND=$P(LRDATA,";",3)
+ S D="C",DIC="^LRO(69,",DIC(0)="D",X=LRORD D IX^DIC
+ I Y<0 S JVOROUT(1)="-1^Error: Order number not found in VistA" Q
+ S X=HLARY("OBR",1) D
+ .S LRTST=$P($P(X,D1,4),D2)
+ .I LRTST["."!(LRTST="") S LRTST=$P($P(X,D1,4),D2,4)
+ .S LRSD("RUID")=$P(X,D1,20)
+ .S JVTST=LRTST
+ I $E(LRSD("RUID"),1,2)?.A S ACCN=LRSD("RUID"),LRSD("RUID")=$P(X,D1,21)
+ I LRADD="A",ACCN'="" S UID=$TR(LRSD("RUID")," ","")
+ I $P(X,D1,46)'="" S JVTST=$P($P(X,D1,46),D2),PNLTST=LRTST
+ ; Lab test number LRTST from OBR.4.1
+ ; Accesses entry in Lab Test file (60)
+ S %DT="EP",X=$E(DT,2,3) D ^%DT S LRAD=Y
+ K %DT
+ S P2="L"
+ S LRSTATUS="C",%DT("B")=""
+ ; Collection date/time LRCDT from OBR-7
+ S LRCDT="",LRCDT=$P(HLARY("OBR",1),D1,7)
+ S LRNT="",LRNT=$$NOW^XLFDT
+ I LRCDT="" S JVOROUT(1)="-1^Error: Collection DATE/TIME is not in HL7 message" Q
+ I LRCDT["-" D
+ .I $E(LRCDT,9,12)="0000" S LRCDT=$E(LRCDT,1,8)
+ S P3="",LRCDT=$$HL7TFM^XLFDT(LRCDT,P2,P3)
+ I $G(LRCDT)<1 S JVOROUT(1)="-1^Error: Collection Date/Time missing or invalid" Q
+ ; Update Collection Date and Time in the Order file, (#100)
+ S JVCDT=LRCDT
+ S LRFILE=100,LRIEN=ORDNM_",",LRFDA(1,LRFILE,LRIEN,21)=LRCDT
+ D UPDATE^DIE("","LRFDA(1)","LRIENS","LRMSG")
+ S LRTIM=$P($P(HLARY("ORC",1),D1,7),D2,4),LRUN=$P($G(LRCDT),D1,2)
+ S P2="L",P3="",LRTIM=$$HL7TFM^XLFDT(LRTIM,P2,P3)
+ S LRSN(LRSND)=LRSND,LRSN=LRSND
+ I '$D(^LRO(69,LRODT,1,LRSN,1)) S ^LRO(69,LRODT,1,LRSN,1)="^^^^^^^^^^"
+ ; GETACC entry point finds matching Accession
+ S LRFILE=69.01,LRIEN=LRSND_","_LRODT_","
+ S COLST=$$GET1^DIQ(LRFILE,LRIEN,13,"I")
+ ; Check if this is an ATA
+ S JVODT=LRODT
+ ;IF DIFFERENT LAB ORDER #, SET LRADD TO "A"
+ ;I $G(LRADD)'="A" D CHKATA(LRSD("RUID"),LRORD,.LRADD)
+ ;I $G(LRADD)="A" D  Q
+ .;I $G(UID)'>0 S UID=$G(LRSD("RUID"))
+ .;I '$D(^LRO(68,"C",UID)),ACCN'="" D
+ ..;D GTVAUID^LRBHIN3(ACCN,.UID)
+ .I LRSD("RUID")'=UID S LRSD("RUID")=UID
+ .;D CHKATA(UID,LRORD,.LRFLG)
+ .I $G(LRFLG)="A" D
+ ..S JVOD=1,XQY0="JV VISTALINK USER",(DCORIG,ISNEWORD)=0
+ ..S ORDNM=ORDNM_";1",REAS="OTHER CANCEL REASON"
+ ..D DC^JVORD(.REC,ORDNM,ORVP,ORNP,ORL,REAS,DCORIG,ISNEWORD)
+ .;S JVOD=1,(JVAA,JVAD,JVAN)=""
+ .;D EN^JVHLLR3(LRSD("RUID"),LRTST,.JVAA,.JVAD,.JVAN,.ORNM)
+ .;S LRACC=^LRO(68,JVAA,1,JVAD,1,JVAN,.2)
+ .;S JVSN=$P(^LRO(68,JVAA,1,JVAD,1,JVAN,0),U,5)
+ .;S LIEN=JVAN_","_JVAD_","_JVAA_","
+ .;S JVODT=$$GET1^DIQ(68.02,LIEN,3,"I")
+ .;S JVSND="",JVSND=$O(^LRO(69,JVODT,1,JVSN,2,"B",JVTST,JVSND))
+ .;S ORNM=$P(^LRO(69,JVODT,1,JVSN,2,JVSND,0),U,7)
+ .;S JVOROUT(1)=ORNM_";1^"_LRACC_"^"_LRSD("RUID")_"^RS"
+ .;K LRSND,DA,JVAA,JVAD,JVAN,JVSN,JVSND,JVODT,LRDATA,HLARY,REC
+ ; Accession the order on the VA side
+ I $G(LRADD)'="A" D
+ .S DA=LRSND D LROE2
+ .K LRAA D Q15 S LRSND=LRSN K LRSN
+ S LRACC=0,LRSEND=""
+ B
+ I JVTST S LRTST=JVTST
+ S LRACC=$$GETACC(ORDNM,LRODT,LRORD,.LRSND,LRTST) I LRACC=0 S JVOROUT(1)="1^Error: This order did not accession properly" Q
+ ; DODUID entry point will update Files 68 (Accession), 69 (Lab Orders)to record the CHCS Accession number.
+ ;I $D(LRSD) D DODUID(RSITE,LRODT,LRSND,.LRSEND,.LRUID)
+ ;add code to stop overwriting the UID with the Vista accession #
+ I $D(LRSD) D DODUID(RSITE,LRODT,LRSND,.LRSEND,.LRUID)
+ .;I $E(LRSD("RUID"),1,2)?.A D
+ ..;if the Vista acc # is the same as the UID, do not file but get the correct UID to return in the JVOROUT reference variable.
+ ..;S LRFIL=69.03,LRIEN=LRSEND_","_LRSND_","_LRODT_","
+ ..;S LRSD("RUID")=$$GET1^DIQ(LRFIL,LRIEN,13,"I")
+ ;I ST S DUZ(2)=TMPDUZ
+ ;FILE THE LAB TECH
+ B
+ I $G(LBTECH)>0,$G(LRORD)>0 D
+ .S LRFILE=69.03,LRIEN=LRSEND_","_LRSND_","_LRODT_","
+ .S LRAD=$$GET1^DIQ(LRFILE,LRIEN,2,"I")
+ .S LRAA=$$GET1^DIQ(LRFILE,LRIEN,3,"I")
+ .S LRAN=$$GET1^DIQ(LRFILE,LRIEN,4,"I")
+ .S LRFILE=68.04,LRIEN=LRTST_","_LRAN_","_LRAD_","_LRAA_","
+ .S LRFDA(4,LRFILE,LRIEN,3)=$G(LBTECH)
+ .D UPDATE^DIE("","LRFDA(4)","LRIENS","LRMSG")
+ S JVOROUT(1)=ORDNM_";1^"_LRACC_"^"_LRSD("RUID")_"^RS"
+ S JVOROUT(2)=""
+ ;D RSORST(LRORD)
+ K LRSND,DA,LRODT,LRORD,LRDATA,HLARY,REC
+ Q
+ ;
+CHKATA(DODID,LBORD,LRADD) ;
+ N LRAA,LRAD,LRAN,LRIEN,LRORD
+ S (LRAA,LRAD,LRAN,LRADD)=""
+ I '$D(^LRO(68,"C",DODID)) Q
+ S LRAA=$O(^LRO(68,"C",DODID,LRAA)) I LRAA="" Q
+ S LRAD=$O(^LRO(68,"C",DODID,LRAA,LRAD)) I LRAD="" Q
+ S LRAN=$O(^LRO(68,"C",DODID,LRAA,LRAD,LRAN)) I LRAN="" Q
+ S LRIEN=LRAN_","_LRAD_","_LRAA_","
+ S LRORD=$$GET1^DIQ(68.02,LRIEN,14,"I")
+ I LRORD'=LBORD S LRADD="A"
+ Q
+ ;
+DODUID(RSITE,LRODT,LRSND,LRSEND,LRUID) ;STORE CHCS ACCESSION NUMBER
+ S FLAG=0
+ ; Type of test LRSS from Lab Test file (60).  Expect SP, CY, AP, or AU.
+ S LRFILE=60,LRIEN=LRTST_",",LRSS=$$GET1^DIQ(LRFILE,LRIEN,4,"I")
+ S SITE=DUZ(2)
+ I SITE="" S JVOROUT="-1^Error: Could not find accession number." Q
+ ; Accession area LRAA taken from Lab Test file (60)
+ I LRAA="" S LRFILE=60.11,LRIEN=SITE_","_LRTST_",",LRAA=$$GET1^DIQ(LRFILE,LRIEN,1,"I")
+ ;GET LRAD, LRAN FROM ACCESSION FILE (68) entry matching Lab Test
+ I $G(LRSEND)="" D
+ .S LRSEND=0 F  S LRSEND=$O(^LRO(69,LRODT,1,LRSND,2,LRSEND)) Q:LRSEND'?.N  D  Q:FLAG
+ ..S LRFILE=69.03,LRIEN=LRSEND_","_LRSND_","_LRODT_","
+ ..S LT=$$GET1^DIQ(LRFILE,LRIEN,.01,"I") I LT=LRTST D
+ ...S X=$$GET1^DIQ(LRFILE,LRIEN,14)
+ ...I X="" S LRUID=$$GET1^DIQ(LRFILE,LRIEN,13)
+ ...S LRAD=$$GET1^DIQ(LRFILE,LRIEN,2,"I")
+ ...S LRAN=$$GET1^DIQ(LRFILE,LRIEN,4,"I"),FLAG=1
+ ; Update Accession file (68)
+ I $G(LRUID)="" D
+ .S X=$$GET1^DIQ(69.03,LRSEND_","_LRSND_","_LRODT_",",14)
+ .I X="" S X=$$GET1^DIQ(69.03,LRSEND_","_LRSND_","_LRODT_",",13)
+ .I X'="" S LRUID=X
+ S LRRSITE("RSITE")=RSITE,LRRSITE("RPSITE")=500
+ S DR="16////"_LRSD("RUID")_";16.1////"_+$G(LRRSITE("RSITE"))_";16.2////"_+$G(LRRSITE("RPSITE"))_";16.3////"_$G(LRUID)_";16.4////"_LRSD("RUID")
+ S DA=LRAN,DA(1)=LRAD,DA(2)=LRAA,DIE="^LRO(68,"_DA(2)_",1,"_DA(1)_",1,",DLAYGO=68
+ D ^DIE
+ ; Update Lab Order file (69)
+ S DLAYGO=69
+ S DA=LRSEND,DA(1)=LRSND,DA(2)=LRODT,DIC="^LRO(69,"_DA(2)_",1,"_DA(1)_",2,"
+ S DIE=DIC,DR="13////"_$G(LRSD("RUID"))_";14////"_$G(LRRSITE("RSITE"))_";15////"_$G(LRRSITE("RPSITE"))_";16////"_$G(LRUID)_";17////"_$G(LRSD("RUID"))
+ D ^DIE
+ ; Update Lab data file (63)
+ S LRFILE=69.01,LRIEN=LRSND_","_LRODT_","
+ S LRDFN=$$GET1^DIQ(LRFILE,LRIEN,.01,"I")
+ S LRFILE=68.02,LRIEN=LRAN_","_LRAD_","_LRAA_","
+ S LRIDT=$$GET1^DIQ(LRFILE,LRIEN,13.5,"I")
+ S LRFILE=63.04
+ I LRSS="MI" S LRFILE=63.05
+ S LRIEN=LRIDT_","_LRDFN_","
+ S LRFDA(LRFILE,LRIEN,.31)=$G(LRSD("RUID"))
+ S LRFDA(LRFILE,LRIEN,.32)=$G(LRRSITE("RSITE"))
+ S LRFDA(LRFILE,LRIEN,.33)=$G(LRRSITE("RPSITE"))
+ S LRFDA(LRFILE,LRIEN,.34)=$G(LRUID)
+ S LRFDA(LRFILE,LRIEN,.342)=$G(LRSD("LRUID"))
+ D FILE^DIE("","LRFDA") K LRFDA,LRFILE,LRIEN
+ Q
+ ;
+GETACC(ORDNM,LRODT,LRORD,LRSND,LRTST) ; Get Accession
+ N FLG
+ S (FLG,LRACC)=0
+ S LRFILE=69.01,LRIEN=LRSND_","_LRODT_","
+ I $$GET1^DIQ(LRFILE,LRIEN,.001,"I")'=LRSND S JVOROUT(1)="-1^Error: Laborder does not exist." Q LRACC
+ S COMB=$$GET1^DIQ(LRFILE,LRIEN,22,"I")
+ ; If this order was merged into another Lab Order, get new LRSND and LRSEND
+ S COMB=$P(COMB,"/",1)
+ I COMB D GETLRSND(ORDNM,LRODT,COMB,.LRSND,.LRSEND,.FLG)
+ ; Loop over Lab Order entries to match Clinical Order number
+ I '$G(LRSEND) D
+ .S LRFILE=69.03
+ .S LRSEND="",LRSEND=$O(^LRO(69,LRODT,1,LRSND,2,"B",JVTST,LRSEND))
+ .Q:$D(LRSEND)
+ .S LRSEND=0 F  S LRSEND=$O(^LRO(69,LRODT,1,LRSND,2,LRSEND)) Q:'LRSEND  D  Q:FLG
+ ..S LRIEN=LRSEND_","_LRSND_","_LRODT_","
+ ..S ORN=$$GET1^DIQ(LRFILE,LRIEN,6,"I") I ORN=ORDNM S FLG=1 Q
+ I COMB="" S FLG=1
+ I 'FLG S JVOROUT(1)="-1^Error: Lab test could not be found for this order." Q
+ ; Accession area LRAA taken from matching entry if test has been accessioned
+ S LRFILE=69.03,LRIEN=LRSEND_","_LRSND_","_LRODT_","
+ S LRURG=$$GET1^DIQ(LRFILE,LRIEN,1,"I")
+ S LRAD=$$GET1^DIQ(LRFILE,LRIEN,2,"I")
+ S LRAN=$$GET1^DIQ(LRFILE,LRIEN,4,"I")
+ S LRAA=$$GET1^DIQ(LRFILE,LRIEN,3,"I")
+ I LRAA="" D
+ .S SITE=DUZ(2)
+ .I SITE="" S JVOROUT="-1^Error: Could not find accession number." Q
+ . ; If  Accession Area not in File 69 entry, take from File 60
+ .S LRFILE=60.11,LRIEN=SITE_","_LRTST_",",LRAA=$$GET1^DIQ(LRFILE,LRIEN,1,"I")
+ ; Get Accession date LRAD from File 69 entry, subnode 0 or 2
+ I LRAD="" D
+ .S LRFILE=69.03,LRIEN=LRSEND_","_LRSND_","_LRODT_",",LRAD=$$GET1^DIQ(LRFILE,LRIEN,2,"I")
+ ; Get Accession number LRAN
+ ; First try from File 69 entry, subnode 0
+ I LRAD="" Q LRACC
+ I LRAN="" D
+ .S LRORD=$P(LRDATA,";"),LRFILE=68.02,LRIEN=LRAN_","_LRAD_","_LRAA_","
+ . ; Second try:  Search File 68 for entry matching Lab Order
+ .S LRAN=0 F  S LRAN=$O(^LRO(68,LRAA,1,LRAD,1,LRAN)) Q:LRAN'?.N  D  Q:$P(LRACC," ",3)>0
+ ..S LRORN=$$GET1^DIQ(LRFILE,LRIEN,14,"I") I LRORN=LRORD S LRACC=$$GET1^DIQ(LRFILE,LRIEN,15,"I")
+ I $P(LRACC," ",3)>0 Q LRACC
+ ; Get Accession from Accession file (68)
+ S LRFILE=68.02,LRIEN=LRAN_","_LRAD_","_LRAA_","
+ S LRACC=$$GET1^DIQ(LRFILE,LRIEN,15,"I") I LRACC="" S LRACC=0
+ Q LRACC
+ ;
+GETLRSND(ORDNM,LRODT,COMB,LRSND,LRSEND,FLG) ;
+ S LRSND="" F  S LRSND=$O(^LRO(69,"C",+COMB,LRODT,LRSND)) Q:LRSND=""  D  Q:FLG
+ .S LRFILE=69.01,LRIEN=LRSND_","_LRODT_",",COMB=$$GET1^DIQ(LRFILE,LRIEN,22,"I")
+ .Q:COMB
+ .S LRSEND=0 F  S LRSEND=$O(^LRO(69,LRODT,1,LRSND,2,LRSEND)) Q:LRSEND=""  D  Q:FLG
+ ..S LRFILE=69.03,LRIEN=LRSEND_","_LRSND_","_LRODT_",",ORN=$$GET1^DIQ(LRFILE,LRIEN,6,"I")
+ ..I ORN=ORDNM S FLG=1
+ Q
+ ;
+Q15 ;from LROE1
+ N X,Y
+ S LRFILE=69.01,LRIEN=LRSND_","_LRODT_","
+ I '$$GET1^DIQ(LRFILE,LRIEN,.01,"I") Q
+ I M9>1 D
+ .D LRSPEC^LROE1
+ .S LRFILE=61,S1=$$GET1^DIQ(LRFILE,+LRSPEC,.01,"I")
+ .S LRFILE=62,S2=$$GET1^DIQ(LRFILE,LRSAMP,.01,"I"),S4=$$GET1^DIQ(LRFILE,LRSAMP,3,"I")
+ .S S3=S1_$S(S1'=S2:"  "_S2,1:"")
+ ; LRDPF is the Parent file that the .03 field of the Lab data file (#63) is a pointer to
+ S LRFILE=69.01,LRIEN=LRSND_","_LRODT_",",LRDFN=$$GET1^DIQ(LRFILE,LRIEN,.01,"I")
+ S LRFILE=63,LRDPF=$$GET1^DIQ(LRFILE,LRDFN,.02,"I")
+ S LRFILE=69.01,LRIEN=LRSND_","_LRODT_","
+ I '$$GET1^DIQ(LRFILE,LRIEN,10,"I") S LRSTATUS="C",DA=LRODT I '$D(LRSND) D P15^LROE1 Q:LRCDT<1
+ ; Checks to see if collection method is a scheduled Lab Collect
+ ; LRLLOC = Report Routing Location, LROLLOC = Ordering Location
+ I $D(LRSND),$$GET1^DIQ(LRFILE,LRIEN,4,"I")="LC",$$GET1^DIQ(LRFILE,LRIEN,10,"I") D
+ .S LRLLOC=$$GET1^DIQ(LRFILE,LRIEN,8,"I"),LROLLOC=$$GET1^DIQ(LRFILE,LRIEN,23,"I"),LRNT=$S($D(LRNT):LRNT,$D(LRTIM):LRTIM,$D(LRCDT):+LRCDT,1:"") D P15^LRPHITEM G Q16
+ ; If COMB is defined, this order was combined with other tests on a different Lab Order entry in file (#69)
+ ; Add parameter to the GTSPACC call and pass DMIS number.
+ ;D GTSPACC(LRTST,.ST,DMIS)
+ ;I ST D
+ .;S TMPDUZ=DUZ(2)
+ .;S DUZ(2)=ST
+ I $D(LRSND) D
+ .N COMB
+ .S COMB=$$GET1^DIQ(LRFILE,LRIEN,22,"I")
+ .S LRFDA(LRFILE,LRIEN,10)=$G(LRCDT)
+ .S LRFDA(LRFILE,LRIEN,11)=$G(LRUN)
+ .S LRFDA(LRFILE,LRIEN,12)=$G(ORDPROV)
+ .S LRFDA(LRFILE,LRIEN,13)=$G(LRSTATUS)
+ .S LRFDA(LRFILE,LRIEN,15)=""
+ .S LRFDA(LRFILE,LRIEN,22)=$G(COMB)
+ .S LRFDA(LRFILE,LRIEN,25)=$G(DUZ(2))
+ .D FILE^DIE("","LRFDA")
+ .S:LRSTATUS="C" ^LRO(69,"AA",+$$GET1^DIQ(LRFILE,LRIEN,9.5,"I"),LRODT_"|"_LRSND)=""
+ ;
+Q16 ;
+ ; Checks to see if LRDFN matches the LRDFN found when going through "C" cross reference in file (#69)
+ S J=0 D CHECK^LROW2 I J D BAD^LROW2
+ ;
+Q16A ;
+ I $D(LRLONG),$D(LRSND) S LRSN=LRSND,^TMP("LROE",$J,"LRORD")=LRORD_U_LRODT_U_LRTIM_U_PNM_U_SSN
+ K DR S LRTSTS=0
+ S LRSND=0 F  S LRSND=$O(LRSN(LRSND)) Q:'LRSND  D Q17
+ ; I LRLONG, this will set the performing lab when requirements are released
+ I $D(LRLONG),$D(LRSND) S LRSN=LRSND D LROE^LRFAST S X=^TMP("LROE",$J,"LRORD"),LRORD=+X,LRODT=$P(X,D1,2),LRTIM=$P(X,D1,3),LRLONG="",PNM=$P(X,D1,4),SSN=$P(X,D1,5)
+ Q
+ ;
+Q17 ;
+ ; Checks for Ward comments on specimen and will never be found on orders coming from CHCS.
+ S I=$O(^LRO(69,LRODT,1,LRSND,6,0)),J=$O(^(1)) S:'$D(IOM) IOM=80 K LRSPCDSC S:J LRSPCDSC=^(J,0) S:I DA=LRSND,DA(1)=LRODT,DR=6,DIC="^LRO(69,"_LRODT_",1," D EN^DIQ:I D LRSPEC^LROE1
+ ; Accessions the Lab order
+ D OLD(LRSD("RUID")) K ^TMP("LR",$J,"TMP")
+ S LRFILE=69.01,LRIEN=LRSND_","_LRODT_","
+ ; Sets the Lab order collection status to "collected"
+ S LRFDA(1,LRFILE,LRIEN,13)="C"
+ S LRFDA(1,LRFILE,LRIEN,12)=$G(LBTECH)
+ ; Sets the site number in piece 8 of the Lab order file (#69)
+ S LRFDA(1,LRFILE,LRIEN,25)=$G(DUZ(2))
+ D FILE^DIE("","LRFDA(1)")
+ ; Gets the Lab order Number
+ S ORNUM=$$GET1^DIQ(LRFILE,LRIEN,9.5,"I")
+ ; Builds the "AA" cross reference and sets it to the Urgency of the test ordered
+ S ^LRO(69,"AA",+ORNUM,LRODT_"|"_LRSND)=$G(LRURG)
+ Q
+ ;
+LROE2 ;
+ ; Initialize Collection info in Node 1 under Order date and accession send number in File 69
+ S LRFILE=69.01,LRIEN=DA_","_LRODT_","
+ I '$$GET1^DIQ(LRFILE,LRIEN,.01,"I") S ^LRO(69,LRODT,1,DA,1)="^^^^^^^^^^^^^^^^"
+ K LRSND
+ S (LRSND,LRSND(DA))=+DA
+ ; LRDFN points into Lab Results file (63).
+ ; LRDPF identifies parent file; DFN points to patient in this file.
+ S M9=$G(M9)+1
+ S LRIEN=LRSND_","_LRODT_",",LRDFN=$$GET1^DIQ(LRFILE,LRIEN,.01,"I")
+ S LRFILE=63,LRIEN=LRDFN_","
+ S LRDPF=$$GET1^DIQ(LRFILE,LRIEN,.02,"I"),DFN=$$GET1^DIQ(LRFILE,LRIEN,.03,"I")
+ S LRSVSN=LRSND D ORDER S LRSND=LRSVSN
+ Q
+ ;
+ORDER ;call with LRSND, from LROE, LROE1, LRORD1, LROW2, LROR1
+ K D,LRTT S LREND=0
+ S LRFILE=69.01,LRIEN=LRSND_","_LRODT_","
+ S X=$$GET1^DIQ(LRFILE,LRIEN,3,"I")
+ S LRFILE=62,LRIEN=X,X=$$GET1^DIQ(LRFILE,LRIEN,.01,"I") I X="" S X4=""
+ S LRSEND=1,LRFILE=69.02,LRIEN=LRSEND_","_LRSND_","_LRODT_","
+ S X=$$GET1^DIQ(LRFILE,LRIEN,.01,"I") I X="" S X4=""
+ I X'="" S LRFILE=61,LRIEN=X,X4=$$GET1^DIQ(LRFILE,LRIEN,.01,"I")
+ S LRACN=0 F  S LRACN=$O(^LRO(69,LRODT,1,LRSND,2,LRACN)) Q:LRACN<1!($G(LREND))  I $D(^(LRACN,0))#2 S LRACN0=^(0)
+ Q
+ ;
+GTSPACC(LRTEST,ST,DMIS) ;
+ ;Add third parameter to GTSPACC line tag for DMIS number passed in.
+ S ST=0,(AREA,TDMIS,DIV,ENT)=""
+ I '$D(^LAB(60,LRTEST,8)) Q
+ S DIV=0 F  S DIV=$O(^LAB(60,LRTEST,8,DIV)) Q:DIV=""  D
+ .I DIV="" Q
+ .S ENT=DIV_";DIC(4,"
+ .S TDMIS=$$GET^XPAR(ENT,"JV SPECIAL ACCESSION AREA",1,"E")
+ .I TDMIS="" Q
+ .I DMIS="" Q
+ .I DMIS'=TDMIS Q
+ .S AREA=$P($G(^LAB(60,LRTEST,8,DIV,0)),D1,2)
+ .I AREA="" Q
+ .I '$D(^LRO(68,AREA)) Q
+ .S ST=DIV
+ Q
+ ;
+OLD(LRID) ;
+ I LRNT="" D
+ .N LRNT
+ .S DT=$$DT^XLFDT()
+ .D NOW^%DTC
+ .S LRNT=%
+ I $P(LRPARAM,U,4),'$D(LRNOLABL),'$D(LRTJ) D ^LRLABLIO
+ D EN^LRHBIN4(LRID,JVTST,JVCDT)
+ Q
+ ;
+RSORST(LRORD) ;
+ N JVSN,JVSND,FLG
+ S JVSN="",(FLG,JVSND)=0
+ S JVSN=$O(^LRO(69,"C",LRORD,LRODT,JVSN)) Q:JVSN=""  D
+ .S JVSND=0
+ .F  S JVSND=$O(^LRO(69,LRODT,1,JVSN,2,JVSND)) Q:JVSND<1  D
+ ..S JVX=^LRO(69,LRODT,1,JVSN,2,JVSND,0)
+ ..I $P(JVX,U,4)="" D  Q:FLG
+ ...;CHECK IF THIS TEST IS A PANEL TEST
+ ...S JVT=$P(JVX,U)
+ ...I $P($G(^LAB(60,JVT,2,0)),"^",3)>1 S FLG=1
+ ..I $P(JVX,U,4)'="" Q
+ ..S JVORN=$P(JVX,U,7)
+ ..I $P(^OR(100,JVORN,3),U,3)=6 S $P(^OR(100,JVORN,3),U,3)=5
+ K JVORN,JVSN,JVSND,JVX
+ Q
+ ;
+END ;
+ K AREA,CNT,COLST,D1,D2,DFN,DIC,DIE,DIV,DMIS,DLAYGO,DIR,DIRUT,ENT,FLAG,GOT,HLOBX,I,INST,J,LRACC,LRACN,LRACN0,LRAD,ARIV
+ K LRAN,LRCDT,LRDA1,LRDFN,LRDPF,LRDT,LREND,LRLABLIO,LRLLOC,LRNT,LRCNT,LRIDT,LRNT,LRORN,LROD0,%,LRNOLABL,LRTJ
+ K LROD1,LROD3,LROESTAT,LRORU3,LRPARAM,LRRSITE,LRSAMP,LRSD,LRSND,LRSEND,LRSPED,LRSS,LRSTATUS,LRODT0,LROLLOC
+ K DMIS,LRSPEC,LRSVSN,LRTIM,LRTM7,LRTS,LRTST,LRTSTS,LRUID,LRUN,LRURG,LRX,LRZX,LT,M9,MSHSEG,ORCSEG,ORN,ORNUM
+ K ORDNM,P2,P3,PIDSEG,PNM,RSITE,S1,S2,S3,S4,SITE,ST,STE,SUB,SSN,TDMIS,TMPDUZ,X4,ZTDESC,ZTDTH,ZTIO,ZTRTN,ZTSAVE
+ K DCORIG,IFN,ISNEWORD,JVTST,ORL,ORVP,ORNP,REAS,JVT,JVCDT,PNLTST,UID
+ K COM,ORDATA,R,SIEN,TEST,TST
+ Q
+ ;
+DBG ;
+ K DBKIND,DBCNT
+ D INT^JVHLDBG("JVLR",.DBKIND,.DBCNT)
+ I DBKIND["I" D JVIN^JVHLDBG("JVLR",DBCNT,.REC)
+ Q
+ ;
+DBGOUT ;
+ I $D(JVOROUT),$G(DBCNT) D JVOUT^JVHLDBG("JVLR",DBCNT,.JVOROUT)
+ Q
+ ;
+
+
+

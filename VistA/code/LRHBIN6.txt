@@ -1,0 +1,257 @@
+Cache for UNIX^INT^RESULT IN^~Format=Cache.S~^RAW
+%RO on 25 Mar 2016  12:33 PM
+LRHBIN6^INT^1^^0
+LRHBIN6 ;SAIC/JMC/TK/GN- Orders Portability - Laboratory Results - parser & checker ; 3/22/16 9:05am
+ ;;1.0;Orders Portability;;March 1, 2010;Build 114
+ ;
+ ;2809 - check NTE.3 comments for HL7 encoded esc sequences and decode
+ Q
+ ;
+RSLT ; parse results message
+ ; Check user keys, site definition, etc...
+ N LTS,LTST
+ D ^LRPARAM
+ S (LRAA,LRAD,LRAN)=0
+ S X=HLARY("OBR",1)
+ ; GET PROVIDER AND LAB TEST FROM OBR segment.  LRTS points to Lab Test file (60).
+ S LRPRV=$P($P(X,D1,16),D2)
+ S LRTSPN=$P($P(X,D1,46),D2)
+ I LRTSPN'="" S LRTS=LRTSPN
+ I LRTSPN="" S LRTS=$P($P(X,D1,4),D2)
+ ; Get VERIFYING PERSON from OBX segment. 11/8/2012 DWA to resolve NCH00002638.
+ ;IF THE TEST IS A PANEL, LOOK FOR THE COMPONENT TEST IN OBX.
+ I $D(HLARY("OBX")) D
+ .S I="" F  S I=$O(HLARY("OBX",I)) Q:I=""  D
+ ..S X=HLARY("OBX",I)
+ ..S LTST=+$P(X,D1,3)
+ ..Q:$D(ARY(LTST))
+ ..S JVTECH=$P($P(X,D1,16),D2)
+ ..Q:X["C4"
+ ..S ARY(LTST)=""
+ ..S LTS(I)=+LTST
+ K LTST,ARY
+ ;
+ ; Get order number from ORC-2.  ORDNM points to Orders file (100).
+ S X=HLARY("ORC",1),ORDNM=$P(X,D1,2)
+ ; Get performing site number from ORC-13 and check if it is in the Institution file ^(DIC(4)
+ S RSITE=$P($G(X),D1,13) K X I RSITE="" S RSITE=0
+ I RSITE D
+ .S LRFILE=4,LRIEN=RSITE_",",SITE=$$GET1^DIQ(LRFILE,LRIEN,.01,"I")
+ .I SITE="" S RSITE=0
+ S X=HLARY("OBR",1)
+ ; Get accession number in OBR-20 and parse the segments
+ S LRX=$P(X,D1,20) I LRX="" S JVOROUT(1)="-1^Error: Accession number not found" Q
+ ; Pieces: Lab type (e.g. CH), date, accession for date
+ S (X1,X2,X3)="",X1=$P(LRX," ",1),X2=$P(LRX," ",2),X3=$P(LRX," ",3)
+ S:X3=""&(+X2=X2) X3=X2,X2=""
+ ; LRAD (Accession date) formatted from X2
+ S %DT="EP",X=X2 D ^%DT S LRAD=Y
+ ; Build comments array from NTE segments (NTE-3)
+ I $D(HLARY("NTE")) D
+ .S N="" F  S N=$O(HLARY("NTE",N)) Q:N=""  D
+ ..S X=HLARY("NTE",N)
+ ..S LCMMT(N)=$$ESCDECOD^JVHLUTL($P(X,D1,3))    ;2809 decode esc seq
+ S LRRDT=$$NOW^XLFDT,LRNOW=LRRDT,LRDCMP=LRRDT
+ ; Accession number relative to date
+ S LRAN=+X3
+ ; LRAA = internal value of accession area ^LRO(68,
+ S D="B",DIC="^LRO(68,",DIC(0)="D",X=X1 D IX^DIC
+ S LRAA=+Y
+ ; Lab type
+ S LRFILE=68,LRIEN=LRAA_","
+ S LRSS=$$GET1^DIQ(LRFILE,LRIEN,.02,"I")
+ ; LRDFN = Internal entry in LR( that is being worked on.
+ S LRFILE=68.02,LRIEN=LRAN_","_LRAD_","_LRAA_","
+ S LRDFN=$$GET1^DIQ(LRFILE,LRIEN,.01,"I")
+ ; Get collection Date/Time
+ S LRCDT=$$GET1^DIQ(LRFILE,LRIEN,9,"I")
+ ; Get UID number
+ S LRUID=$$GET1^DIQ(LRFILE,LRIEN,16,"I")
+ ; LRIDT = Inverse date/time that data is stored at. ^LR(LRDFN,"CH",
+ S LRIDT=$$GET1^DIQ(LRFILE,LRIEN,13.5,"I")
+ I LRIDT<1 S JVOROUT(1)="-1^Error: No Collection Date/Time found" Q
+ ; LRORD points to Orders file (100)
+ ; LRSN is specimen number, points to TOPOGRAPHY file (61)
+ S LRORD=$$GET1^DIQ(LRFILE,LRIEN,14,"I")
+ S:LRORD="" LRORD=0
+ ; LRODT = IEN of file (#
+ S LRODT=$$GET1^DIQ(LRFILE,LRIEN,3,"I")
+ S:'LRODT LRODT=$$GET1^DIQ(LRFILE,LRIEN,2,"I")
+ S LRSN=$$GET1^DIQ(LRFILE,LRIEN,4,"I")
+ ; Add technologist and date to Accession file now, index both. 11/8/2012 DWA changed out LRPRV for JVTECH since file calls for TECHNOLOGIST.  Part of resolution for NCH00002638
+ I $G(LRTS)>0,$D(^LRO(68,LRAA,1,LRAD,1,LRAN,4,"B",LRTS)) D
+ .S LRFILE=68.04,LRIEN=LRTS_","_LRAN_","_LRAD_","_LRAA_","
+ .S LRFDA(4,LRFILE,LRIEN,3)=$G(JVTECH)
+ .S LRFDA(4,LRFILE,LRIEN,4)=$G(LRAD)
+ .D UPDATE^DIE("","LRFDA(4)","LRIENS","LRMSG")
+ I $D(LTS(1)) S I="" F  S I=$O(LTS(I)) Q:I=""  D
+ .S LRTS=LTS(I)
+ .Q:'$D(^LRO(68,LRAA,1,LRAD,1,LRAN,4,"B",LRTS))
+ .S LRFILE=68.04,LRIEN=LRTS_","_LRAN_","_LRAD_","_LRAA_","
+ .S LRFDA(4,LRFILE,LRIEN,3)=$G(JVTECH)
+ .S LRFDA(4,LRFILE,LRIEN,4)=$G(LRAD)
+ .D UPDATE^DIE("","LRFDA(4)","LRIENS","LRMSG")
+ S ^LRO(68,LRAA,1,LRAD,1,"AD",LRAD,+LRAN)="",^LRO(68,LRAA,1,LRAD,1,"AC",LRAD,+LRAN)=""
+ S LRVAL=LRTS
+ ; I test type is not Chemistry quit
+ I LRSS'="CH" D RSLT^JVHLLR2(LRSS,LRAA,LRAD,LRAN) Q
+ ; Special case for Chem/Hem.
+ ; Get results from OBX segments
+ S N="" F  S N=$O(HLARY("OBX",N)) Q:N=""  D
+ .S X=HLARY("OBX",N)
+ .; LRTS is pointer to ^LAB(60), LRRSLT is the result, LRSB is subscript needed to file results.
+ .S LRTS(N)=$P($P(X,D1,3),D2),LRRSLT(N)=$P(X,D1,5)
+ .; Get DATA NAME from field 400 of file (#60)
+ .S LRFILE=60,LRIEN=LRTS(N)_","
+ .S LRSB(N)=$$GET1^DIQ(LRFILE,LRIEN,400,"I")
+ .; Get High or Low flag
+ .S LRHL(N)=($P(X,D1,8))
+ .; Get units of measurement and result range from message
+ .S LRUNTS(N)=$P(X,D1,6),LRRNGE(N)=$P(X,D1,7)
+ .; Set location from RSITE variable
+ .S LRLOC=$G(RSITE)
+ .; Get result status
+ .S LRSTS=$P(X,D1,11)
+ ; Check for entry in Lab Data file (#63) using reverse date.
+ S LRFILE=63.04,LRIEN=LRIDT_","_LRDFN_","
+ I '$$GET1^DIQ(LRFILE,LRIEN,.01,"I") S JVOROUT(1)="-1^Error: No Data file found" Q
+ ; Get specimen type from file Lab Data file, (#63)
+ S LRSPT(1)=$$GET1^DIQ(LRFILE,LRIEN,.05,"I")
+ S LRFILE=69.01,LRIEN=LRSN_","_LRODT_","
+ I $$GET1^DIQ(LRFILE,LRIEN,.01,"I"),'$$GET1^DIQ(LRFILE,LRIEN,10,"I") S JVOROUT(1)="This order has not been collected." Q
+ S COLST=$$GET1^DIQ(LRFILE,LRIEN,13,"I")
+ I COLST'="C" S JVOROUT(1)="-1^Error^You cannot verify an accession which has not been collected." Q
+ Q:$D(JVOROUT)
+ ;
+CH ;
+ N N,XDATA,X5
+ S LRFILE=63.04,LRIEN=LRIDT_","_LRDFN_","
+ S LRFDA(LRFILE,LRIEN,.03)=$G(LRRDT)
+ S LRFDA(LRFILE,LRIEN,.04)=$G(JVTECH)
+ ; File Lab result in Chemistry file (63.04), using info in XDATA.
+ D FILE^DIE("","LRFDA") K LRFDA,LRIEN,LRFILE,LRMSG,LRIENS
+ S N="" F  S N=$O(LRTS(N)) Q:N=""  D
+ .S $P(XDATA,"^",1)=LRRSLT(N)
+ .S $P(XDATA,"^",2)=LRHL(N)
+ . ; Need to pull Workload code from Lab Results file, since CHCS doesn't provide.
+ . ;Code fix for DJE-NCHICAGO-2790
+ .S $P(XDATA,"^",3)=$P($G(^LR(LRDFN,LRSS,LRIDT,"ORUT",1,0)),D1,1)_"!!!!!!"_LRTS(N)
+ .; Old code S $P(XDATA,"^",3)=$G(^LR(LRDFN,LRSS,LRIDT,"ORUT",1,0))_"!"_LRTS(N)
+ .S $P(XDATA,"^",4)=$G(JVTECH)
+ .S $P(XDATA,"^",9)=LRLOC
+ .S $P(XDATA,"^",10)=1
+ .S $P(XDATA,"^",13)=1
+ .S X5=$G(LRSPT(1)),LRSPEC=X5
+ .S LRFILE=60.01,LRIEN=LRSPEC_","_LRTS(N)_","
+ .S S=$$GET1^DIQ(LRFILE,LRIEN,.01,"I")
+ .S S1=$$GET1^DIQ(LRFILE,LRIEN,1,"I")
+ .S S2=$$GET1^DIQ(LRFILE,LRIEN,2,"I")
+ .S S3=$$GET1^DIQ(LRFILE,LRIEN,3,"I")
+ .S S4=$$GET1^DIQ(LRFILE,LRIEN,4,"I")
+ .S S5="",S6=$$GET1^DIQ(LRFILE,LRIEN,6,"I")
+ .S $P(X5,D1)=S_"^"_S1_"^"_S2_"^"_S3_"^"_S4_"^"_S5_"^"_S6
+ .S $P(X5,D1,2)=$P(LRRNGE(N),"-"),$P(X5,D1,3)=$P(LRRNGE(N),"-",2),$P(X5,D1,7)=LRUNTS(N)
+ .I $P($G(X5),D1,8)="" S X5=X5_"^"
+ .S X5=$TR(X5,"^","!")
+ .S $P(XDATA,"^",5)=X5
+ .; Stuff data into Lab data file
+ .S ^LR(LRDFN,LRSS,LRIDT,LRSB(N))=XDATA
+ .K XDATA ;Kill XDATA to be ready for component tests. DWA-NCHICAGO-2790
+ N CHECK S CHECK=0
+ D CHKRSLT(LRDFN,LRSS,LRIDT,.CHECK)
+ I $D(LCMMT) D
+ .K LRFDA
+ .I CHECK D CMARY(.LCMMT)
+ .N LRFILE,LRFDA,LRIEN
+ .S N="" F  S N=$O(LCMMT(N)) Q:N=""  D
+ ..K LRFDA
+ ..S LRFILE=63.041,LRIEN="+"_N_","_LRIDT_","_LRDFN_","
+ ..S LRFDA(1,LRFILE,LRIEN,.01)=$G(LCMMT(N))
+ ..D UPDATE^DIE("","LRFDA(1)","LRIENS","LRERR(2)")
+ S STA=2
+ S LRNOW=$$NOW^XLFDT
+ ; Get Date/Time ordered from field 5 of Lab order entry file, (#69).
+ S LRFILE=69.01,LRIEN=LRSN_","_LRODT_","
+ S LRDTO=$$GET1^DIQ(LRFILE,LRIEN,5,"I")
+ S LRFDA(3,LRFILE,LRIEN,20)=LRDTO
+ S LRFDA(3,LRFILE,LRIEN,21)=LRNOW
+ D UPDATE^DIE("","LRFDA(3)","LRIENS","LRMSG")
+ S LRFILE=68.02,LRIEN=LRAN_","_LRAD_","_LRAA_","
+ I '$$GET1^DIQ(LRFILE,LRIEN,12,"I") D
+ .S LRFDA(3,LRFILE,LRIEN,12)=$G(LRNOW)
+ S LRFDA(3,LRFILE,LRIEN,13)=$$NOW^XLFDT
+ D UPDATE^DIE("","LRFDA(3)","LRIENS","LRMSG")
+ S LRFILE=68.02,LRIEN=LRAN_","_LRAD_","_LRAA_","
+ S LRDFN=$$GET1^DIQ(LRFILE,LRIEN,.01,"I")
+ ; This node does not exist on .237 but does on Silver
+ S ^LR(LRDFN,"CH",LRIDT,"RF")=$P(^LRO(68,LRAA,1,LRAD,1,LRAN,.3),D1,2)
+ S ^LR(LRDFN,"CH",LRIDT,"ORU")=^LRO(68,LRAA,1,LRAD,1,LRAN,.3)
+ S LRFILE=100,LRIEN=ORDNM_","
+ S DATA=$$GET1^DIQ(LRFILE,LRIEN,33,"I")
+ B
+ I DATA'[LRSS D
+ .S LRFDA(4,LRFILE,LRIEN,33)=DATA_";"_LRSS_";"_LRIDT
+ .D UPDATE^DIE("","LRFDA(4)","LRIENS","LRMSG")
+ ; Set Order file (#100), field (#22) to LRNOW and field (#5) to "COMPLETED" 
+ S DIE="^OR(100,",DA=ORDNM,ST=2,DR="22////"_LRNOW_";5////"_ST_";" D ^DIE K DIE,DA
+ S JVOROUT(1)=ORDNM_"^RS"
+ D END
+ Q
+ ;
+CMARY(ARY) ;
+ N Y,X
+ ;"AMENDED COMMENT" not required for the RESULT COMMENT(S) section.
+ S AFLG=0
+ ;
+ S X="" F  S X=$O(ARY(X)) Q:X=""  D
+ .;check for Result Comment in current array
+ .Q:AFLG=1
+ .I ARY(X)["RESULT COMMENT(S)" S AFLG=1 Q
+ .S Y=X+1,NARY(Y)=ARY(X)
+ .K ARY(X)
+ ;for results - amended comment not required.
+ I AFLG K NARY Q
+ ;for other amended comments
+ S NARY(1)="AMENDED COMMENT"
+ ;
+ M ARY=NARY K NARY
+ Q
+ ;
+CHKRSLT(LRDFN,LRSS,LRIDT,ANS) ;
+ S ANS=0
+ S L="" F  S L=$O(^LR(LRDFN,LRSS,LRIDT,L)) Q:L=""  D
+ .M XX=^LR(LRDFN,LRSS,LRIDT,L) I XX["!" S ANS=1
+ Q ANS
+ ;
+ ;
+GETIEN(R,ORD,JVWRKLD) ;
+ N JVDATA,JVDT,JVRN,TST,JVTST
+ S (JVDATA,JVDT,JVRN,TST,JVTST)="",R=0
+ I '$D(^OR(100,ORD)) S R="" Q
+ S JVDATA=^OR(100,ORD,4)
+ S JVDT=$P(JVDATA,";",2)
+ S JVRN=$P(JVDATA,";",3)
+ I '$D(^LRO(69,JVDT,1,JVRN)) S R="" Q
+ S TST="" F  S TST=$O(^LRO(69,JVDT,1,JVRN,2,"B",TST)) Q:TST=""  D  Q:R=""
+ .S JVTARY(TST)=TST
+ I '$D(JVTARY) S R="" Q
+ I '$D(^LAM("E",JVWRKLD)) S R="" Q
+ S JVWRKIEN="",JVWRKIEN=$O(^LAM("E",JVWRKLD,JVWRKIEN))
+ I JVWRKIEN="" S R="" Q
+ F  S JVTST=$O(JVTARY(JVTST)) Q:JVTST=""  D  Q:R=""
+ .S TEST=JVTST_";LAB(60,"
+ .I $D(^LAM(JVWRKIEN,7,"B",TEST)) S R=JVTST Q
+ Q
+ ;
+END ;
+ K %DT,ANS,CHECK,AGE,COLST,CTR,D1,D2,D,DATA,DIC,DFN,DOB,DR,FLAG,HLARY,L,LRAA,LRAD,LRAN,LRBGO,JVTECH
+ K LRCCMT,LCMMT,LRDPF,LRDTOLREND,LRFIND,LRCW,LRBGO,LRBG0,LRCCMT,LRCDT,LRDCMP,LRDFN
+ K LRDTO,LREN,LRNOW,LRFINO,LRFINO,LRHL,LRI,LRIDT,LRLOC,LRNDISP,LRNG2,LRNG3,LRNG4,LRNG5
+ K LRNOW,LRODT,LRORD,LRPANEL,LRRDT,LRRNGE,LRPANEL,LRPRV,LRRSLT,LRSB,LRS,LRSN,LRSPEC
+ K LRSPT,LRTM60,LRSS,LRTS,LRSTS,LRUNDO,LRUID,LRUNTS,LRVAL,LRX,MSH,NUM,NTE
+ K ORDNM,OBR,OBX,REC,RSITE,S,S1,S2,S3,S4,S5,S6,SEX,SITE,ST,STA,TOT,TYPE,VA,XX,X1,X2,X3,XDATA,Y
+ Q
+ ;
+
+
+
