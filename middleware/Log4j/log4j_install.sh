@@ -14,6 +14,7 @@ IIB_PATH="$INSTALL_PATH/IBM"
 IIB_DIR='iib-10.0.0.3'
 L4J_DIR='log4j'
 L4J_TAR_NAME='iam3.zip'
+SOTTP_LOG_DIR='/var/log/sottp'
 
 if [ "$EUID" -ne "0" ]; then
   echo "This script must be run as root."
@@ -39,14 +40,22 @@ fi
 # Create install directory
 if [ ! -d "$INSTALL_PATH/$L4J_DIR" ]; then
   echo "Creating install directory...."
-  mkdir -p $INSTALL_PATH/L4J_DIR
+  mkdir -p $INSTALL_PATH/$L4J_DIR
 fi
 
 # Extract zip file
 if [ ! -d "$INSTALL_PATH/$IIB_DIR" ]; then
   echo "Extractinr files from zip to install directory...."
-  unzip $SCRIPT_DIR/$L4J_TAR_NAME -d $INSTALL_PATH/L4J_DIR
+  unzip $SCRIPT_DIR/$L4J_TAR_NAME -d $INSTALL_PATH/$L4J_DIR
 fi
+
+# make sottp log directory
+mkdir -p $SOTTP_LOG_DIR
+chmod 775 $SOTTP_LOG_DIR
+chown :mqbrkrs $SOTTP_LOG_DIR
+
+# Copy log4j configuration to specified directory
+cp log4j.xml $INSTALL_PATH/$L4J_DIR/.
 
 # Copy jar files to specified directories
 echo "Copy jar files to specified directories...."
