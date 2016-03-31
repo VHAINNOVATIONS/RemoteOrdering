@@ -20,7 +20,7 @@ if [ "$EUID" -ne "0" ]; then
   exit 1
 fi
 
-if [ -f "$IIB_PATH/$IIB_DIR/iib" ]; then
+if [ ! -f "$IIB_PATH/$IIB_DIR/iib" ]; then
   echo "IIB is required for log4j...."
   exit 1
 fi
