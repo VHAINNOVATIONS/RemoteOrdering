@@ -7,12 +7,13 @@
 1. [Installation](#installation)
     * [MQ Install](#mq-install)
     * [IIB Install](#iib-install)
+    * [Log4j Install](#log4j-install)
     * [Hapi Install](#hapi-install)
     * [HL7Comm Install](#hl7comm-install)
 1. [Setup](#setup)
 1. [Basic Usage](#basic-usage)
     * [Access](#access)
-    * [Start & Stop](#start-&-stop)
+    * [Start & Stop](#start--stop)
     * [Configuration](#configuration)
 
 
@@ -34,6 +35,7 @@ the pieces needed to broker messages from a Vista hub to Vista spoke.
 * Port 5000 open
 * IBMs IIB software 10.0.0.3-IIB-LINUX64-DEVELOPER.tar.gz saved to /path/to/middleware/IIB
 * IBMs MQ software mqadv_dev80_linux_x86-64.tar.gz saved to /path/to/middleware/MQ
+* Log4j software iam3.zip saved to /path/to/middleware/log4j
 
 ## Installation
 
@@ -57,6 +59,21 @@ environment PATH variable._**
     cd /path/to/middleware/IIB
     ./iib_install.sh
 ```
+
+#### Log4j Install
+
+```bash
+    cd /path/to/middleware/log4j
+    ./log4j_install.sh
+```
+
+To add log4j to the toolkit you will want to follow the instructions on how 
+to install features or user-defined nodes using an update site:
+* Click on Help -> Install New Software...
+* Click Add to choose the update site, 
+* click on Local... navigate to /opt/log4j/log4jloggingplugin.package.site and click OK
+* Select Log4jLoggingPlugin, click on Next
+* Select Log4jLoggingPlugin, click on Finish
 
 #### Hapi Install **Optional**
 
