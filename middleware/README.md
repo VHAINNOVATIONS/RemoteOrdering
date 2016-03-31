@@ -15,6 +15,7 @@
     * [Access](#access)
     * [Start & Stop](#start--stop)
     * [Configuration](#configuration)
+    * [Logs](#logs)
 
 
 
@@ -152,4 +153,12 @@ to just LF values. To correct the CRLF values to LF run command below.
     dos2unix /app/sottp/rec_facility_ids.txt
 ```
 
+### Logs
 
+The log you will want to watch or check on to see the flow of messages through the 
+middleware is the sottp.log.  The log is located in /var/log/sottp directory.  The command 
+below will allow you to watch the log from a terminal.
+
+```bash
+    sudo tailf /var/log/sottp/sottp.log
+```
