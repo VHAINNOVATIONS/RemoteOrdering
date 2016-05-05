@@ -4,7 +4,7 @@ interface
 
 uses
   SysUtils, WinTypes, WinProcs, Messages, Classes, Graphics, Controls,
-  Forms, Dialogs, StdCtrls, ORCtrls, fODBase, ORFn, ExtCtrls,
+  Forms, Dialogs, StdCtrls,ORNet, ORCtrls, fODBase, ORFn, ExtCtrls,
   ComCtrls, uConst, ORDtTm, fODLab, VA508AccessibilityManager, VA508AccessibilityRouter;
 
 type
@@ -51,6 +51,8 @@ type
     Submitlbl508: TVA508StaticText;
     VA508ComponentAccessibility1: TVA508ComponentAccessibility;
     VA508ComponentAccessibility2: TVA508ComponentAccessibility;
+    CBXImageRemoteSites: TComboBox;
+    ORImageLocation: TOROffsetLabel;
     procedure cboProcedureNeedData(Sender: TObject;
               const StartFrom: string; Direction, InsertAt: Integer);
     procedure cboAvailModMouseClick(Sender: TObject);
@@ -78,6 +80,8 @@ type
       var Text: string);
     procedure pnlMessageMouseUp(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
+    procedure CBXImageRemoteSitesDropDown(Sender: TObject);
+    procedure CBXImageRemoteSitesSelect(Sender: TObject);
   private
     FLastRadID: string;
     FEditCopy: boolean;
@@ -90,13 +94,54 @@ type
     procedure ImageTypeChange;
     procedure FormFirstOpened(Sender: TObject);
     procedure setup508Label(text: string; lbl: TVA508StaticText; ctrl: TControl);
+    function GetLocationNM: string;
+    function GetRMSiteID: Integer;
+    procedure SetLocationNM(const Value: string);
+    procedure SetRMSiteID(const Value: Integer);
   protected
     procedure InitDialog; override;
     procedure Validate(var AnErrMsg: string); override;
     procedure SetDefaultPregant;
+    procedure ImgComboBox_AutoWidth(const theComboBox: TCombobox);
+    procedure AddSitestoDropdown(aRmteName: String);
   public
+    strImgOrigCaption: string;
     procedure SetupDialog(OrderAction: Integer; const ID: string); override;
+    property  RMLocationName: string   read GetLocationNM  write SetLocationNM;
+    property  RMSiteID: Integer      read GetRMSiteID    write SetRMSiteID;
   end;
+
+  TImgRMInfo = class(TRMInfo)
+   protected
+    //add protected here
+    RemoteLabSiteLocations: TList;
+   private
+     //Declair privates
+     SiteID: Integer;
+     RemoteSiteName: string;
+     RmteLastIndex : integer;
+   public
+    property SiteName : string read RemoteSiteName;
+    procedure InitImageLabSiteLocationComboList;
+    procedure SetStationID(SiteInfoIndex: integer);
+    procedure SetSiteName(aSiteNM : String);
+    function  FindLabLocationIndex(aRemoteSiteName: string):integer;
+
+  end;
+
+  TImgSiteInfo = class(TObject)
+  protected
+    //add protected here
+  private
+   //add private here
+
+  public
+   SiteNumber: String;
+   SiteName:   String;
+  end;
+
+var
+ ImgRmteName  : TImgRMInfo;
 
 implementation
 
@@ -135,7 +180,7 @@ var
 procedure TfrmODRad.SetupDialog(OrderAction: Integer; const ID: string);
 var
   tmpResp: TResponse;
-  i: integer;
+  i, fndLBLocIndx: integer;
 begin
   inherited;
   if OrderAction in [ORDER_COPY, ORDER_EDIT, ORDER_QUICK] then with Responses do
@@ -216,6 +261,28 @@ begin
           if IsPregnant = 'UNKNOWN' then
              radPregnantUnknown.Checked := True;
        end;
+
+    //mnj- RemoteSite added to
+    tmpResp := FindResponseByName('Location'  ,1);  //mnj- Lab Location retrived from save
+                                                   //and is resulted from RPC 'ORWDX LOADRSP'
+      if (tmpResp <> nil) and (tmpResp.IValue <> '') then //with CBXLocalRemoteSites do
+        begin
+         fndLBLocIndx:=ImgRmteName.FindLabLocationIndex(tmpResp.IValue);
+         ImgRmteName.SetStationID(fndLBLocIndx);   //mnj - MUST add one to the index found because CBXLocalRemoteSites is has a default value of "Local"
+         CBXImageRemoteSites.ItemIndex:=fndLBLocIndx; // + 1;          // add to the list before remote sites are added from VISTA
+         if CBXImageRemoteSites.Items.Strings[CBXImageRemoteSites.ItemIndex] <> 'LOCAL' then
+           begin
+            ImgRmteName.SetSiteName(CBXImageRemoteSites.Items.Strings[CBXImageRemoteSites.ItemIndex]); //mnj - 04042016 Fixed Lab Location resets to Local in Edit Orders & Order Details #87
+            Caption:=strImgOrigCaption +'-'+'Remote';
+            Caption:=strImgOrigCaption+'-'+CBXImageRemoteSites.Items.Strings[CBXImageRemoteSites.ItemIndex];
+           end
+          else
+            begin
+              Caption:=strImgOrigCaption +'-'+'Local';
+            end;
+        end;
+
+
     //hds00007460
     Changing := False;
     FEditCopy := False;
@@ -598,6 +665,40 @@ begin
   ControlChange(Self);
 end;
 
+procedure TfrmODRad.CBXImageRemoteSitesDropDown(Sender: TObject);
+begin
+  ImgComboBox_AutoWidth(CBXImageRemoteSites);
+
+end;
+
+procedure TfrmODRad.CBXImageRemoteSitesSelect(Sender: TObject);
+var
+ strRmtMssage: String;
+ begin
+inherited;
+caption:=strImgOrigCaption;
+ ImgRmteName.SetIsRmteNameSet(false);
+ ImgRmteName.SetLastIndex(CBXImageRemoteSites.ItemIndex);
+ if CBXImageRemoteSites.ItemIndex <> -1 then
+   begin
+    if CBXImageRemoteSites.Items.Strings[CBXImageRemoteSites.ItemIndex] <> 'LOCAL' then
+      begin
+       Caption:=strImgOrigCaption +'-'+'Remote';
+       ImgRmteName.SetSiteName(CBXImageRemoteSites.Items.Strings[CBXImageRemoteSites.ItemIndex]);
+       ImgRmteName.SetIsRmteNameSet(true);
+       Caption:=strImgOrigCaption+'-'+ ImgRmteName.SiteName;
+       ImgRmteName.SetStationID(CBXImageRemoteSites.ItemIndex); //was -1  //mnj- must subtract one because "Local" is added to CBXLocalRemoteSites
+      end                                                      //as first entry in list before loading additional items to the TList
+     else                                                       //if CBXImageRemoteSites item 1 is selected then the TList index is 0.
+      begin
+       Caption:=strImgOrigCaption +'-'+'Local';
+       ImgRmteName.SetSiteName(CBXImageRemoteSites.Items.Strings[CBXImageRemoteSites.ItemIndex]);  //was -1
+       ImgRmteName.SetStationID(CBXImageRemoteSites.ItemIndex);
+      end;
+   end;
+
+end;
+
 procedure TfrmODRad.SetModifierList;
 var
   i: integer;
@@ -613,6 +714,11 @@ begin
       Inc(i);
       tmpResp := Responses.FindResponseByName('MODIFIER',i);
     end ;
+end;
+
+procedure TfrmODRad.SetRMSiteID(const Value: Integer);
+begin
+
 end;
 
 procedure TfrmODRad.cboCategoryChange(Sender: TObject);
@@ -647,7 +753,18 @@ begin
   ImageTypeChanged := false;
   frmFrame.pnlVisit.Enabled := false;
   AutoSizeDisabled := True;
+
+  strImgOrigCaption :=Caption;
+  ImgRmteName:= TImgRMInfo.Create();
+  ImgRmteName.SetSiteName('LOCAL');
+  ImgRmteName.SetIsRmteNameSet(false);
+  ImgRmteName.RemoteLabSiteLocations:= TList.Create();
+  ImgRmteName.InitImageLabSiteLocationComboList; //mnj- Reads RPC to load site location
+
+
   inherited;
+
+
   memHistory.Width := pnlHandR.ClientWidth;
   memHistory.Height := pnlHandR.ClientHeight - memHistory.Top;
   FillerID := 'RA';                     // does 'on Display' order check **KCM**
@@ -660,6 +777,9 @@ begin
   FastAssign(SubsetOfImagingTypes, cboImType.Items);
   if Self.EvtID>0 then
     FEvtDelayDiv := GetEventDiv1(IntToStr(Self.EvtID));
+
+  AddSitestoDropdown(ImgRmteName.SiteName);  //MNJ- adds site location description to Lab Location
+
   PreserveControl(cboImType);
   PreserveControl(calRequestDate);
   PreserveControl(cboUrgency);
@@ -669,6 +789,10 @@ begin
   PreserveControl(calPreOp);
   PreserveControl(txtReason);
   PreserveControl(memHistory);      {WPB-1298-30758}
+
+
+
+
   if (Patient.Sex <> 'F') then
   begin
     //TDP - CQ#19393 change to allow grpPregnant to be tabbed to if screen reader active
@@ -712,12 +836,45 @@ begin
   memHistory.Height := pnlHandR.ClientHeight - memHistory.Top;
 end;
 
+function TfrmODRad.GetLocationNM: string;
+begin
+Result:=Caption;
+end;
+
+function TfrmODRad.GetRMSiteID: Integer;
+begin
+
+end;
+
 procedure TfrmODRad.cboAvailModKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
   inherited;
   if Key = VK_RETURN then cboAvailModMouseClick(Self);
 end;
+
+//mnj
+procedure TfrmODRad.AddSitestoDropdown(aRmteName: String);
+var
+ i: integer;
+begin
+  if aRmteName = '' then  aRmteName:='Local';
+
+
+  with CBXImageRemoteSites do
+     begin
+       Items.Clear;
+       ImgRmteName.RemoteLabSiteLocations.First;
+       for i := 0 to ImgRmteName.RemoteLabSiteLocations.Count - 1 do
+        begin
+        //  showmessage('Site Num: '+TSiteInfo(RmteName.RemoteLabSiteLocations.Items[i]).SiteNumber);
+        //  showmessage('Site Namde: '+TSiteInfo(RmteName.RemoteLabSiteLocations.Items[i]).SiteName);
+          AddItem(TImgSiteInfo(ImgRmteName.RemoteLabSiteLocations.Items[i]).SiteName,nil);
+
+        end;
+       CBXImageRemoteSites.ItemIndex := CBXImageRemoteSites.Items.IndexOf(aRmteName);
+     end;
+ end;
 
 procedure TfrmODRad.calPreOpChange(Sender: TObject);
 begin
@@ -733,6 +890,14 @@ begin
     radPregnantNo.Checked := True;
     grpPregnant.TabStop := False;
   end;
+end;
+
+procedure TfrmODRad.SetLocationNM(const Value: string);
+var
+ NewCaption: string;
+begin
+ NewCaption:= strImgOrigCaption + Value;
+ Caption:= NewCaption;
 end;
 
 procedure TfrmODRad.cmdAcceptClick(Sender: TObject);
@@ -869,6 +1034,33 @@ begin
   InitDialog;
 end;
 
+procedure TfrmODRad.ImgComboBox_AutoWidth(const theComboBox: TCombobox);
+const HORIZONTAL_PADDING = 10;
+var itemsFullWidth: integer;
+    idx: integer; itemWidth: integer;
+begin
+
+ itemsFullWidth := 0;  // get the max needed with of the items in dropdown state
+
+ for idx := 0 to -1 + theComboBox.Items.Count do
+  begin
+   itemWidth := theComboBox.Canvas.TextWidth(theComboBox.Items[idx]);
+   Inc(itemWidth, round(2 * (itemWidth /3)));
+   if (itemWidth > itemsFullWidth) then
+     itemsFullWidth := itemWidth;
+  end;  // set the width of drop down if needed
+
+ if (itemsFullWidth > theComboBox.Width) then
+  begin //check if there would be a scroll bar
+
+   if theComboBox.DropDownCount < theComboBox.Items.Count then
+     itemsFullWidth := itemsFullWidth + GetSystemMetrics(SM_CXVSCROLL);
+
+   SendMessage(theComboBox.Handle, CB_SETDROPPEDWIDTH, itemsFullWidth, 0);
+   application.ProcessMessages;
+  end;
+end;
+
 procedure TfrmODRad.FormFirstOpened(Sender: TObject);
 begin
   if(FFormFirstOpened) then
@@ -880,6 +1072,85 @@ begin
         cboImType.DroppedDown := TRUE;
       end;
   end;
+end;
+
+{ TImgRMInfo }
+
+function TImgRMInfo.FindLabLocationIndex(aRemoteSiteName: string): integer;
+var
+ i: integer;
+ tmpRmteSite: string;
+begin
+  Result:=0; //mnj-if not found set result to the index of "Local"
+   ImgRmteName.RemoteLabSiteLocations.First;
+  for i := 0 to ImgRmteName.RemoteLabSiteLocations.Count - 1  do
+   begin
+     tmpRmteSite:= TImgSiteInfo(ImgRmteName.RemoteLabSiteLocations.Items[i]).SiteName;
+     if aRemoteSiteName = tmpRmteSite then
+      begin
+       Result:=i;
+      end;
+
+   end;
+end;
+
+procedure TImgRMInfo.InitImageLabSiteLocationComboList;
+var
+ i: integer;
+ ImgSteInfo: TImgSiteInfo;
+begin
+ //mnj- This procedure calls RPC "LRREM GTDOM"
+ // and will return an array with SiteID and Description
+
+ try
+  //mnj- add default SiteID and Description of "Local"
+  ImgSteInfo := TImgSiteInfo.Create;
+   with ImgSteInfo do
+    begin
+      SiteNumber  := '0';
+      SiteName    := 'LOCAL';
+      RemoteLabSiteLocations.Add(ImgSteInfo);
+     end;
+
+  CallV('LRREM GTDOM',[]);
+  with RPCBrokerV do for i := 0 to Results.Count - 1 do
+  begin
+      ImgSteInfo := TImgSiteInfo.Create;
+   with ImgSteInfo do
+    begin
+      SiteNumber  := Piece(Results[i], U, 1);
+      SiteName    := Piece(Results[i], U, 2);
+      RemoteLabSiteLocations.Add(ImgSteInfo);
+
+    end;//End of - with RPCBrokerV
+  end; // End of - with SteInfo do
+
+  //for i := 0 to RemoteLabSiteLocations.Count - 1 do
+  // begin
+     // Showmessage('Site Num: '+ TSiteInfo(RemoteLabSiteLocations.Items[i]).SiteNumber +' Site Name: '+ TSiteInfo(RemoteLabSiteLocations.Items[i]).SiteName);
+   //end;
+
+
+ finally
+ // SteInfo.Free;
+ end;
+
+end;
+
+
+
+
+procedure TImgRMInfo.SetSiteName(aSiteNM: String);
+begin
+  RemoteSiteName:=aSiteNM;
+end;
+
+procedure TImgRMInfo.SetStationID(SiteInfoIndex: integer);
+begin
+
+ // showmessage('set station id '+ TSiteInfo(RmteName.RemoteLabSiteLocations.Items[SiteInfoIndex]).SiteNumber);
+  //RmteName.SiteID:= StrToInt(TSiteInfo(RmteName.RemoteLabSiteLocations.Items[SiteInfoIndex]).SiteNumber);
+  ImgRmteName.SiteID:=StrToInt(TImgSiteInfo(ImgRmteName.RemoteLabSiteLocations.Items[SiteInfoIndex]).SiteNumber);
 end;
 
 end.

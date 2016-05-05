@@ -138,7 +138,7 @@ function ODForVitals: TStrings;
 
 implementation
 
-uses TRPCB, uOrders, uODBase, fODBase, fODLab;
+uses TRPCB, uOrders, uODBase, fODBase, fODLab, fODRad;
 
 var
   uLastDispenseIEN: Integer;
@@ -258,7 +258,13 @@ begin
       if RmteID = 'Location' then
         begin
           RmteIEN:=TPrompt(aList.Items[i]).IEN;
-          RmteName.RmteSiteIEN:=RmteIEN;
+
+          if assigned(RmteName) then
+            RmteName.RmteSiteIEN:=RmteIEN
+          else
+            ImgRmteName.RmteSiteIEN:=RmteIEN;
+
+
         end;
 
     end;
@@ -536,9 +542,15 @@ begin
     if ConstructOrder.LogTime > 0
       then Param[7].Mult['"ORSLOG"'] := FloatToStr(ConstructOrder.LogTime);
     Param[7].Mult['"ORTS"'] := IntToStr(Patient.Specialty);  // pass in treating specialty for ORTS
-    remoteIEN:=intToStr(RmteName.RmteSiteIEN)+',1';
+    if assigned(RmteName) then
+       remoteIEN:=intToStr(RmteName.RmteSiteIEN)+',1'  //mnj
+    else if assigned(ImgRmteName) then
+       remoteIEN:=intToStr(ImgRmteName.RmteSiteIEN)+',1';
     //Param[7].Mult[remoteIEN] := intToStr(RmteName.InfoRMSiteID); //mnj-Pass the Labortory Site Location
-    Param[7].Mult[remoteIEN] := RmteName.SiteName; //mnj-Pass the Labortory Site Location
+    if assigned(RmteName) then
+    Param[7].Mult[remoteIEN] := RmteName.SiteName //mnj-Pass the Labortory Site Location'
+    else if assigned(ImgRmteName) then
+    Param[7].Mult[remoteIEN] := ImgRmteName.SiteName; //mnj-Pass the Labortory Site Location
     Param[8].PType := literal;
     Param[8].Value := ConstructOrder.DigSig;
     if (Constructorder.IsIMODialog) or (ConstructOrder.DGroup = ClinDisp) or (ConstructOrder.DGroup = ClinIVDisp) then

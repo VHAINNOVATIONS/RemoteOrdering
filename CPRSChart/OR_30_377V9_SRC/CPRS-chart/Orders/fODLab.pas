@@ -197,14 +197,13 @@ type
   TRMInfo = class(TObject)
    protected
     //add protected here
-
+    RemoteLabSiteLocations: TList;
    private
     RmteSelected : boolean;
     RmteLastIndex : integer;
     RmteIEN: integer;
     SiteID: Integer;                  { Remote site location ID}
     RemoteSiteName: string;
-    RemoteLabSiteLocations: TList;
     function GetRMInfoSiteID: Integer;
     procedure SetRMInfoSiteID(const aSiteID: Integer);
     function GetRmteSiteIEN: Integer;
@@ -464,6 +463,7 @@ begin
          CBXLocalRemoteSites.ItemIndex:=fndLBLocIndx; // + 1;          // add to the list before remote sites are added from VISTA
          if CBXLocalRemoteSites.Items.Strings[CBXLocalRemoteSites.ItemIndex] <> 'LOCAL' then
            begin
+            RmteName.SetSiteName(CBXLocalRemoteSites.Items.Strings[CBXLocalRemoteSites.ItemIndex]); //mnj - 04042016 Fixed Lab Location resets to Local in Edit Orders & Order Details #87
             Caption:=strOrigCaption +'-'+'Remote';
             Caption:=strOrigCaption+'-'+CBXLocalRemoteSites.Items.Strings[CBXLocalRemoteSites.ItemIndex];
            end
@@ -1367,7 +1367,6 @@ begin
   with CBXLocalRemoteSites do
      begin
        Items.Clear;
-       //AddItem('Local', nil);//mnj - Local is always to be the first in the list as the Default.
        RmteName.RemoteLabSiteLocations.First;
        for i := 0 to RmteName.RemoteLabSiteLocations.Count - 1 do
         begin
@@ -2405,7 +2404,7 @@ var
  tmpRmteSite: string;
 begin
   Result:=0; //mnj-if not found set result to the index of "Local"
-  RmteName.RemoteLabSiteLocations.First;
+   RmteName.RemoteLabSiteLocations.First;
   for i := 0 to RmteName.RemoteLabSiteLocations.Count - 1  do
    begin
      tmpRmteSite:= TSiteInfo(RmteName.RemoteLabSiteLocations.Items[i]).SiteName;
@@ -2434,7 +2433,7 @@ end;
 
 procedure TRMInfo.SetRmteSiteIEN(const aSiteIEN: Integer);
 begin
-    RmteIEN:=aSiteIEN;
+           RmteIEN:=aSiteIEN;
 end;
 
 procedure TRMInfo.SetSiteName(aSiteNM: String);
