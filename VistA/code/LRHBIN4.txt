@@ -1,7 +1,7 @@
-Cache for UNIX^INT^HUBIN^~Format=Cache.S~^RAW
-%RO on 25 Mar 2016  12:32 PM
+Cache for UNIX^INT^hub^~Format=Cache.S~^RAW
+%RO on 15 Jun 2016   5:41 PM
 LRHBIN4^INT^1^^0
-LRHBIN4 ;SAIC/TCK- Orders Portability - Laboratory Accessioning process - main driver ; 3/21/16 3:53pm
+LRHBIN4 ;LEIDOS/TCK- REMOTE ORDERING- Laboratory Accessioning process - main driver ; 6/15/16 5:32pm
  ;;1.0;Orders Portability;;March 1, 2010;Build 114
  ;
  Q
@@ -29,7 +29,6 @@ EN(LRID,JVTST,LRCDT) ;
  ..S LRSEND="",LRSEND=$O(^LRO(69,LRODT,1,LRTSN,2,"B",JVTST,LRSEND))
  ..S LRBACK=$P(^LRO(69,LRODT,1,LRTSN,2,LRSEND,0),U,14) I LRBACK="" Q
  ..S LRSN=LRTSN,FLG=1
- B
  I $P(^LRO(69,LRODT,1,LRSN,2,0),U,3)>1 D
  .S FLG=0,LRSEND=0
  .F  S LRSEND=$O(^LRO(69,LRODT,1,LRSN,2,LRSEND)) Q:LRSEND<1  D  Q:FLG
@@ -88,7 +87,6 @@ WL1 ;
  Q
  ;
 WL2 ;
- B
  I 'PNLTST,LRAA="" D GTLRAA(JVTST,.LRAA)
  D FWL:$G(LRAA)="" Q:LRAA=""
  S LRWL0=^LRO(68,LRAA,0),LRSS=$P(LRWL0,U,2),LRIDIV=$S($L($P(LRWL0,U,19)):$P(LRWL0,U,19),1:"CP")

@@ -1,7 +1,7 @@
-Cache for UNIX^INT^RESULT IN^~Format=Cache.S~^RAW
-%RO on 25 Mar 2016  12:33 PM
+Cache for UNIX^INT^^~Format=Cache.S~^RAW
+%RO on 16 Jun 2016   9:21 AM
 LRHBIN6^INT^1^^0
-LRHBIN6 ;SAIC/JMC/TK/GN- Orders Portability - Laboratory Results - parser & checker ; 3/22/16 9:05am
+LRHBIN6 ;SAIC/JMC/TK/GN- Orders Portability - Laboratory Results - parser & checker ; 6/16/16 9:19am
  ;;1.0;Orders Portability;;March 1, 2010;Build 114
  ;
  ;2809 - check NTE.3 comments for HL7 encoded esc sequences and decode
@@ -9,30 +9,37 @@ LRHBIN6 ;SAIC/JMC/TK/GN- Orders Portability - Laboratory Results - parser & chec
  ;
 RSLT ; parse results message
  ; Check user keys, site definition, etc...
- N LTS,LTST
+ K REC
+ N TSTARY,LRTST
  D ^LRPARAM
- S (LRAA,LRAD,LRAN)=0
- S X=HLARY("OBR",1)
+ S (LRAA,LRAD,LRAN,PNL)=0
+ S X=HLARY("ORC",1)
  ; GET PROVIDER AND LAB TEST FROM OBR segment.  LRTS points to Lab Test file (60).
- S LRPRV=$P($P(X,D1,16),D2)
- S LRTSPN=$P($P(X,D1,46),D2)
- I LRTSPN'="" S LRTS=LRTSPN
- I LRTSPN="" S LRTS=$P($P(X,D1,4),D2)
+ S LRPRV=$P($P(X,D1,12),D2)
+ S X=HLARY("OBR",1)
+ ;S LRTSPN=$P($P(X,D1,46),D2)
+ ;I LRTSPN'="" S LRTS=LRTSPN
+ S LRTST=$P(X,D1,4)
+ I LRTST["."!(LRTST'?.N) S LRTST=$P($P(X,D1,4),D2,4)
  ; Get VERIFYING PERSON from OBX segment. 11/8/2012 DWA to resolve NCH00002638.
  ;IF THE TEST IS A PANEL, LOOK FOR THE COMPONENT TEST IN OBX.
- I $D(HLARY("OBX")) D
+ I $D(^LAB(60,LRTST,2,0)) S PNL=1
+ I PNL,$D(HLARY("OBX")) D
  .S I="" F  S I=$O(HLARY("OBX",I)) Q:I=""  D
  ..S X=HLARY("OBX",I)
- ..S LTST=+$P(X,D1,3)
- ..Q:$D(ARY(LTST))
- ..S JVTECH=$P($P(X,D1,16),D2)
+ ..S CMPTST=$P(X,D1,3)
+ ..I CMPTST["." S CMPTST=$P($P(X,D1,3),D2,4)
+ ..Q:$D(ARY(CMPTST))
+ ..S JVTECH=+$P($P(X,D1,15),D2)
  ..Q:X["C4"
- ..S ARY(LTST)=""
- ..S LTS(I)=+LTST
+ ..S ARY(CMPTST)=""
+ ..S TSTARY(I)=+CMPTST
  K LTST,ARY
  ;
  ; Get order number from ORC-2.  ORDNM points to Orders file (100).
- S X=HLARY("ORC",1),ORDNM=$P(X,D1,2)
+ S X=HLARY("ORC",1),ORDNM=$P(X,D1,2),ORNUM=+ORDNM,LIEN=ORNUM_","
+ S LRDATA=$$GET1^DIQ(100,LIEN,33,"I")
+ S LRORD=$P(LRDATA,";"),LRODT=$P(LRDATA,";",2),LRSND=$P(LRDATA,";",3)
  ; Get performing site number from ORC-13 and check if it is in the Institution file ^(DIC(4)
  S RSITE=$P($G(X),D1,13) K X I RSITE="" S RSITE=0
  I RSITE D
@@ -40,7 +47,10 @@ RSLT ; parse results message
  .I SITE="" S RSITE=0
  S X=HLARY("OBR",1)
  ; Get accession number in OBR-20 and parse the segments
- S LRX=$P(X,D1,20) I LRX="" S JVOROUT(1)="-1^Error: Accession number not found" Q
+ ;S JVTST=LTST
+ S LRACC=$$GETACC^LRHBIN2(ORNUM,LRODT,LRORD,LRSND,LRTST)
+ I LRACC="" S JVOROUT(1)="-1^Error: Accession number not found" Q
+ S LRX=LRACC
  ; Pieces: Lab type (e.g. CH), date, accession for date
  S (X1,X2,X3)="",X1=$P(LRX," ",1),X2=$P(LRX," ",2),X3=$P(LRX," ",3)
  S:X3=""&(+X2=X2) X3=X2,X2=""
@@ -49,8 +59,8 @@ RSLT ; parse results message
  ; Build comments array from NTE segments (NTE-3)
  I $D(HLARY("NTE")) D
  .S N="" F  S N=$O(HLARY("NTE",N)) Q:N=""  D
- ..S X=HLARY("NTE",N)
- ..S LCMMT(N)=$$ESCDECOD^JVHLUTL($P(X,D1,3))    ;2809 decode esc seq
+ ..S X=$P(HLARY("NTE",N),"|",3)
+ ..S LCMMT(N)=X    ;2809 decode esc seq
  S LRRDT=$$NOW^XLFDT,LRNOW=LRRDT,LRDCMP=LRRDT
  ; Accession number relative to date
  S LRAN=+X3
@@ -79,33 +89,35 @@ RSLT ; parse results message
  S:'LRODT LRODT=$$GET1^DIQ(LRFILE,LRIEN,2,"I")
  S LRSN=$$GET1^DIQ(LRFILE,LRIEN,4,"I")
  ; Add technologist and date to Accession file now, index both. 11/8/2012 DWA changed out LRPRV for JVTECH since file calls for TECHNOLOGIST.  Part of resolution for NCH00002638
- I $G(LRTS)>0,$D(^LRO(68,LRAA,1,LRAD,1,LRAN,4,"B",LRTS)) D
- .S LRFILE=68.04,LRIEN=LRTS_","_LRAN_","_LRAD_","_LRAA_","
+ I $G(LRTST)>0,$D(^LRO(68,LRAA,1,LRAD,1,LRAN,4,"B",LRTST)) D
+ .S LRFILE=68.04,LRIEN=LRTST_","_LRAN_","_LRAD_","_LRAA_","
  .S LRFDA(4,LRFILE,LRIEN,3)=$G(JVTECH)
  .S LRFDA(4,LRFILE,LRIEN,4)=$G(LRAD)
- .D UPDATE^DIE("","LRFDA(4)","LRIENS","LRMSG")
- I $D(LTS(1)) S I="" F  S I=$O(LTS(I)) Q:I=""  D
- .S LRTS=LTS(I)
- .Q:'$D(^LRO(68,LRAA,1,LRAD,1,LRAN,4,"B",LRTS))
- .S LRFILE=68.04,LRIEN=LRTS_","_LRAN_","_LRAD_","_LRAA_","
- .S LRFDA(4,LRFILE,LRIEN,3)=$G(JVTECH)
- .S LRFDA(4,LRFILE,LRIEN,4)=$G(LRAD)
+ .D UPDATE^DIE("","LRFDA(4)","LRIEN","LRMSG")
+ .;I $D(TSTARY(1)) S I="" F  S I=$O(TSTARY(I)) Q:I=""  D
+ .;S TEST=TSTARY(I)
+ .Q:'$D(^LRO(68,LRAA,1,LRAD,1,LRAN,4,"B",LRTST))
+ .;S LRFILE=68.04,LRIEN=LRTS_","_LRAN_","_LRAD_","_LRAA_","
+ .;S LRFDA(4,LRFILE,LRIEN,3)=$G(JVTECH)
+ .;S LRFDA(4,LRFILE,LRIEN,4)=$G(LRAD)
  .D UPDATE^DIE("","LRFDA(4)","LRIENS","LRMSG")
  S ^LRO(68,LRAA,1,LRAD,1,"AD",LRAD,+LRAN)="",^LRO(68,LRAA,1,LRAD,1,"AC",LRAD,+LRAN)=""
- S LRVAL=LRTS
+ S LRVAL=LRTST
  ; I test type is not Chemistry quit
- I LRSS'="CH" D RSLT^JVHLLR2(LRSS,LRAA,LRAD,LRAN) Q
+ I LRSS'="CH" D RSLT^LRHBIN7(LRSS,LRAA,LRAD,LRAN) Q
  ; Special case for Chem/Hem.
  ; Get results from OBX segments
  S N="" F  S N=$O(HLARY("OBX",N)) Q:N=""  D
  .S X=HLARY("OBX",N)
  .; LRTS is pointer to ^LAB(60), LRRSLT is the result, LRSB is subscript needed to file results.
- .S LRTS(N)=$P($P(X,D1,3),D2),LRRSLT(N)=$P(X,D1,5)
+ .S TST=$P(X,D1,3)
+ .I TST["."!(TST'?.N) S TST=$P($P(X,D1,3),D2,4)
+ .S TARY(N)=TST,LRRSLT(N)=$P(X,D1,5)
  .; Get DATA NAME from field 400 of file (#60)
- .S LRFILE=60,LRIEN=LRTS(N)_","
+ .S LRFILE=60,LRIEN=TARY(N)_","
  .S LRSB(N)=$$GET1^DIQ(LRFILE,LRIEN,400,"I")
  .; Get High or Low flag
- .S LRHL(N)=($P(X,D1,8))
+ .S LRHL(N)=$P(X,D1,8)
  .; Get units of measurement and result range from message
  .S LRUNTS(N)=$P(X,D1,6),LRRNGE(N)=$P(X,D1,7)
  .; Set location from RSITE variable
@@ -130,28 +142,28 @@ CH ;
  S LRFDA(LRFILE,LRIEN,.04)=$G(JVTECH)
  ; File Lab result in Chemistry file (63.04), using info in XDATA.
  D FILE^DIE("","LRFDA") K LRFDA,LRIEN,LRFILE,LRMSG,LRIENS
- S N="" F  S N=$O(LRTS(N)) Q:N=""  D
+ S N="" F  S N=$O(TARY(N)) Q:N=""  D
  .S $P(XDATA,"^",1)=LRRSLT(N)
  .S $P(XDATA,"^",2)=LRHL(N)
  . ; Need to pull Workload code from Lab Results file, since CHCS doesn't provide.
  . ;Code fix for DJE-NCHICAGO-2790
- .S $P(XDATA,"^",3)=$P($G(^LR(LRDFN,LRSS,LRIDT,"ORUT",1,0)),D1,1)_"!!!!!!"_LRTS(N)
- .; Old code S $P(XDATA,"^",3)=$G(^LR(LRDFN,LRSS,LRIDT,"ORUT",1,0))_"!"_LRTS(N)
+ .S $P(XDATA,"^",3)=$P($G(^LR(LRDFN,LRSS,LRIDT,"ORUT",1,0)),D2,1)_"!!!!!!"_TARY(N)
+ .; Old code S $P(XDATA,"^",3)=$G(^LR(LRDFN,LRSS,LRIDT,"ORUT",1,0))_"!"_TSTARY(N)
  .S $P(XDATA,"^",4)=$G(JVTECH)
  .S $P(XDATA,"^",9)=LRLOC
  .S $P(XDATA,"^",10)=1
  .S $P(XDATA,"^",13)=1
  .S X5=$G(LRSPT(1)),LRSPEC=X5
- .S LRFILE=60.01,LRIEN=LRSPEC_","_LRTS(N)_","
+ .S LRFILE=60.01,LRIEN=LRSPEC_","_TARY(N)_","
  .S S=$$GET1^DIQ(LRFILE,LRIEN,.01,"I")
  .S S1=$$GET1^DIQ(LRFILE,LRIEN,1,"I")
  .S S2=$$GET1^DIQ(LRFILE,LRIEN,2,"I")
  .S S3=$$GET1^DIQ(LRFILE,LRIEN,3,"I")
  .S S4=$$GET1^DIQ(LRFILE,LRIEN,4,"I")
  .S S5="",S6=$$GET1^DIQ(LRFILE,LRIEN,6,"I")
- .S $P(X5,D1)=S_"^"_S1_"^"_S2_"^"_S3_"^"_S4_"^"_S5_"^"_S6
- .S $P(X5,D1,2)=$P(LRRNGE(N),"-"),$P(X5,D1,3)=$P(LRRNGE(N),"-",2),$P(X5,D1,7)=LRUNTS(N)
- .I $P($G(X5),D1,8)="" S X5=X5_"^"
+ .S $P(X5,D2)=S_"^"_S1_"^"_S2_"^"_S3_"^"_S4_"^"_S5_"^"_S6
+ .S $P(X5,D2,2)=$P(LRRNGE(N),"-"),$P(X5,D2,3)=$P(LRRNGE(N),"-",2),$P(X5,D2,7)=LRUNTS(N)
+ .I $P($G(X5),D2,8)="" S X5=X5_"^"
  .S X5=$TR(X5,"^","!")
  .S $P(XDATA,"^",5)=X5
  .; Stuff data into Lab data file
@@ -161,9 +173,13 @@ CH ;
  D CHKRSLT(LRDFN,LRSS,LRIDT,.CHECK)
  I $D(LCMMT) D
  .K LRFDA
- .I CHECK D CMARY(.LCMMT)
+ .I 'CHECK D CMARY(.LCMMT)
  .N LRFILE,LRFDA,LRIEN
  .S N="" F  S N=$O(LCMMT(N)) Q:N=""  D
+ ..S TXT=LCMMT(N)
+ ..S LRIENS=N_","_LRIDT_","_LRDFN_","
+ ..S TX=$$GET1^DIQ(63.041,LRIENS,.01,"E")
+ ..Q:TX=TXT
  ..K LRFDA
  ..S LRFILE=63.041,LRIEN="+"_N_","_LRIDT_","_LRDFN_","
  ..S LRFDA(1,LRFILE,LRIEN,.01)=$G(LCMMT(N))
@@ -184,17 +200,16 @@ CH ;
  S LRFILE=68.02,LRIEN=LRAN_","_LRAD_","_LRAA_","
  S LRDFN=$$GET1^DIQ(LRFILE,LRIEN,.01,"I")
  ; This node does not exist on .237 but does on Silver
- S ^LR(LRDFN,"CH",LRIDT,"RF")=$P(^LRO(68,LRAA,1,LRAD,1,LRAN,.3),D1,2)
+ S ^LR(LRDFN,"CH",LRIDT,"RF")=$P(^LRO(68,LRAA,1,LRAD,1,LRAN,.3),D2,2)
  S ^LR(LRDFN,"CH",LRIDT,"ORU")=^LRO(68,LRAA,1,LRAD,1,LRAN,.3)
- S LRFILE=100,LRIEN=ORDNM_","
- S DATA=$$GET1^DIQ(LRFILE,LRIEN,33,"I")
- B
- I DATA'[LRSS D
- .S LRFDA(4,LRFILE,LRIEN,33)=DATA_";"_LRSS_";"_LRIDT
+ S LRFILE=100,LRIEN=ORNUM_","
+ ;S DATA=$$GET1^DIQ(LRFILE,LRIEN,33,"I")
+ I LRDATA'[LRSS D
+ .S LRFDA(4,LRFILE,LRIEN,33)=LRDATA_";"_LRSS_";"_LRIDT
  .D UPDATE^DIE("","LRFDA(4)","LRIENS","LRMSG")
  ; Set Order file (#100), field (#22) to LRNOW and field (#5) to "COMPLETED" 
- S DIE="^OR(100,",DA=ORDNM,ST=2,DR="22////"_LRNOW_";5////"_ST_";" D ^DIE K DIE,DA
- S JVOROUT(1)=ORDNM_"^RS"
+ S DIE="^OR(100,",DA=ORNUM,ST=2,DR="22////"_LRNOW_";5////"_ST_";" D ^DIE K DIE,DA
+ S JVOROUT(1)=ORNUM_"^RS"
  D END
  Q
  ;
@@ -212,7 +227,7 @@ CMARY(ARY) ;
  ;for results - amended comment not required.
  I AFLG K NARY Q
  ;for other amended comments
- S NARY(1)="AMENDED COMMENT"
+ ;S NARY(1)="AMENDED COMMENT"
  ;
  M ARY=NARY K NARY
  Q
@@ -244,12 +259,13 @@ GETIEN(R,ORD,JVWRKLD) ;
  Q
  ;
 END ;
+ K ARY,TARY,LRTST,TSTARY,LRTST,REC,HLARY
  K %DT,ANS,CHECK,AGE,COLST,CTR,D1,D2,D,DATA,DIC,DFN,DOB,DR,FLAG,HLARY,L,LRAA,LRAD,LRAN,LRBGO,JVTECH
  K LRCCMT,LCMMT,LRDPF,LRDTOLREND,LRFIND,LRCW,LRBGO,LRBG0,LRCCMT,LRCDT,LRDCMP,LRDFN
  K LRDTO,LREN,LRNOW,LRFINO,LRFINO,LRHL,LRI,LRIDT,LRLOC,LRNDISP,LRNG2,LRNG3,LRNG4,LRNG5
  K LRNOW,LRODT,LRORD,LRPANEL,LRRDT,LRRNGE,LRPANEL,LRPRV,LRRSLT,LRSB,LRS,LRSN,LRSPEC
- K LRSPT,LRTM60,LRSS,LRTS,LRSTS,LRUNDO,LRUID,LRUNTS,LRVAL,LRX,MSH,NUM,NTE
- K ORDNM,OBR,OBX,REC,RSITE,S,S1,S2,S3,S4,S5,S6,SEX,SITE,ST,STA,TOT,TYPE,VA,XX,X1,X2,X3,XDATA,Y
+ K LRSPT,LRTM60,LRSS,LRTS,LRSTS,LRUNDO,LRUID,LRUNTS,LRVAL,LRX,MSH,NUM
+ K ORDNM,ORNUM,OBR,OBX,REC,RSITE,S,S1,S2,S3,S4,S5,S6,SEX,SITE,ST,STA,TOT,TYPE,VA,XX,X1,X2,X3,XDATA,Y
  Q
  ;
 

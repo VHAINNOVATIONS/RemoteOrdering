@@ -1,7 +1,7 @@
-Cache for UNIX^INT^HUBIN^~Format=Cache.S~^RAW
-%RO on 25 Mar 2016  12:33 PM
+Cache for UNIX^INT^LAB HB IN^~Format=Cache.S~^RAW
+%RO on 31 May 2016   9:00 AM
 LRHBIN5^INT^1^^0
-LRHBIN5 ;SAIC/TCK- Orders Portability - Laboratory Accessioning Process ; 3/21/16 1:58pm
+LRHBIN5 ;SAIC/TCK- Orders Portability - Laboratory Accessioning Process ; 4/19/16 8:34am
  ;;1.0;Orders Portability;;March 1, 2010;Build 114
  ;
  Q
@@ -10,7 +10,7 @@ EN(LRID) ;
  S (DTIME,LRWLC)=0
  F  S LRWLC=$O(LRTSTS(LRWLC)) Q:LRWLC<1  S LRAD=DT D SPLIT
  ;
- ; If LEDI and comments came with order then copy to order in #69
+ ;If LEDI and comments came with order then copy to order in #69
  I $G(LRORDRR)="R",$G(LR696),$D(^LRO(69.6,LR696,99)) D
  . N LRDIE
  . D WP^DIE(69.01,LRSN_","_LRODT_",",16,"A","^LRO(69.6,LR696,99)","LRDIE(16)")

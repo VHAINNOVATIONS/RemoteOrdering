@@ -1,7 +1,7 @@
-Cache for UNIX^INT^HUBIN^~Format=Cache.S~^RAW
-%RO on 25 Mar 2016  12:31 PM
+Cache for UNIX^INT^hub in lab^~Format=Cache.S~^RAW
+%RO on 15 Jun 2016   5:35 PM
 LRHBIN2^INT^1^^0
-LRHBIN2 ;SAIC/TCK- Orders Portability - Laboratory Results - main driver ; 3/22/16 12:29pm
+LRHBIN2 ;SAIC/TCK- Orders Portability - Laboratory Results - main driver ; 6/14/16 1:12pm
  ;;1.0;Orders Portability;;March 1, 2010;Build 114
  ;
  Q
@@ -27,7 +27,7 @@ MAIN ;  main driver for laboratory results
  ; Results
  I ORC1="RE",ORC5="CM" D
  . N OK S OK=1
- . D RSLT^JVHLLR1 Q:'OK  ; parse HL7 message and set variable file results
+ . D RSLT^LRHBIN6 Q:'OK  ; parse HL7 message and set variable file results
  ;
  I $G(DBKIND)["O" D DBGOUT ; capture JVOROUT
  D END
@@ -38,7 +38,6 @@ PARSE ;
  N JVCNT,FLG,XT,XC,OBRCT,OBXCT
  ;
  S JVCNT="",FLG=0
- B
  F  S JVCNT=$O(REC(JVCNT)) Q:JVCNT=""  D  Q:FLG=2
  . S XT=$P(REC(JVCNT),D1,1) Q:XT=""
  . S XC=$G(HLARY(XT))+1,HLARY(XT)=XC
@@ -65,6 +64,7 @@ CHKORID(ID) ;Checks to see if order number sent exists in VistA.
  Q ID
  ;
 ACC ;
+ M ^XTMP("REC")=REC
  N LRADD,ORNM,ID
  S PNLTST=0
  S (LRADD,ORNM,LRURG,IFN,I,ACCN)=""
@@ -76,12 +76,12 @@ ACC ;
  S X="T-7",%DT="" D ^%DT S LRTM7=+Y
  K DIC,LRSNDD,LRSN,LRODT,DA
  ; Capture DMIS number from HL7 message
- B
  ;S ID=$P($G(HLARY("OBR",1)),D1,34)
  ;S DMIS=$P(ID,D2,4)
  ;S LBTECH=$P(ID,D2,1),LBTECH=+LBTECH
  ; Clinical order number ORDNM from ORC-2
- S ORDPROV=$P($G(HLARY("ORC",1)),D1,12),ORDPROV=+ORDPROV
+ ;S ORDPROV=$P($G(HLARY("ORC",1)),D1,12),ORDPROV=+ORDPROV
+ S ORNP="" D PROXY^RAHBIN2(.ORNP,.ORNPNME)
  S ORDNM=""
  S ORDNM=$P(HLARY("ORC",1),D1,2),ORDNM=+ORDNM
  ;D CHKDUP(ORDNM)
@@ -100,6 +100,7 @@ ACC ;
  S ORVP=+$$GET1^DIQ(LRFILE,LRIEN,.02,"I")
  S ORL=+$$GET1^DIQ(LRFILE,LRIEN,6,"I")
  S ORNP=$$GET1^DIQ(LRFILE,LRIEN,1,"I")
+ D PROXY^RAHBIN2(.ORNP,.ORNPNME)
  ; Node 4 of record in Order file (100) has three pieces:
  ; Lab Order number LRORD, Order date LRODT, Accession send number LRSND
  ; LRODT and LRSND access entry in Lab Order file (69)
@@ -171,7 +172,6 @@ ACC ;
  .S DA=LRSND D LROE2
  .K LRAA D Q15 S LRSND=LRSN K LRSN
  S LRACC=0,LRSEND=""
- B
  I JVTST S LRTST=JVTST
  S LRACC=$$GETACC(ORDNM,LRODT,LRORD,.LRSND,LRTST) I LRACC=0 S JVOROUT(1)="1^Error: This order did not accession properly" Q
  ; DODUID entry point will update Files 68 (Accession), 69 (Lab Orders)to record the CHCS Accession number.
@@ -184,7 +184,6 @@ ACC ;
  ..;S LRSD("RUID")=$$GET1^DIQ(LRFIL,LRIEN,13,"I")
  ;I ST S DUZ(2)=TMPDUZ
  ;FILE THE LAB TECH
- B
  I $G(LBTECH)>0,$G(LRORD)>0 D
  .S LRFILE=69.03,LRIEN=LRSEND_","_LRSND_","_LRODT_","
  .S LRAD=$$GET1^DIQ(LRFILE,LRIEN,2,"I")
@@ -270,7 +269,7 @@ GETACC(ORDNM,LRODT,LRORD,LRSND,LRTST) ; Get Accession
  ; Loop over Lab Order entries to match Clinical Order number
  I '$G(LRSEND) D
  .S LRFILE=69.03
- .S LRSEND="",LRSEND=$O(^LRO(69,LRODT,1,LRSND,2,"B",JVTST,LRSEND))
+ .S LRSEND="",LRSEND=$O(^LRO(69,LRODT,1,LRSND,2,"B",LRTST,LRSEND))
  .Q:$D(LRSEND)
  .S LRSEND=0 F  S LRSEND=$O(^LRO(69,LRODT,1,LRSND,2,LRSEND)) Q:'LRSEND  D  Q:FLG
  ..S LRIEN=LRSEND_","_LRSND_","_LRODT_","
@@ -286,7 +285,7 @@ GETACC(ORDNM,LRODT,LRORD,LRSND,LRTST) ; Get Accession
  I LRAA="" D
  .S SITE=DUZ(2)
  .I SITE="" S JVOROUT="-1^Error: Could not find accession number." Q
- . ; If  Accession Area not in File 69 entry, take from File 60
+ .; If  Accession Area not in File 69 entry, take from File 60
  .S LRFILE=60.11,LRIEN=SITE_","_LRTST_",",LRAA=$$GET1^DIQ(LRFILE,LRIEN,1,"I")
  ; Get Accession date LRAD from File 69 entry, subnode 0 or 2
  I LRAD="" D
@@ -343,7 +342,7 @@ Q15 ;from LROE1
  .S COMB=$$GET1^DIQ(LRFILE,LRIEN,22,"I")
  .S LRFDA(LRFILE,LRIEN,10)=$G(LRCDT)
  .S LRFDA(LRFILE,LRIEN,11)=$G(LRUN)
- .S LRFDA(LRFILE,LRIEN,12)=$G(ORDPROV)
+ .S LRFDA(LRFILE,LRIEN,12)=$G(ORNP)
  .S LRFDA(LRFILE,LRIEN,13)=$G(LRSTATUS)
  .S LRFDA(LRFILE,LRIEN,15)=""
  .S LRFDA(LRFILE,LRIEN,22)=$G(COMB)
@@ -431,7 +430,7 @@ OLD(LRID) ;
  .D NOW^%DTC
  .S LRNT=%
  I $P(LRPARAM,U,4),'$D(LRNOLABL),'$D(LRTJ) D ^LRLABLIO
- D EN^LRHBIN4(LRID,JVTST,JVCDT)
+ D EN^LRHBIN4(LRID,LRTST,JVCDT)
  Q
  ;
 RSORST(LRORD) ;

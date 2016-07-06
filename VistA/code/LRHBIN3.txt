@@ -1,7 +1,7 @@
-Cache for UNIX^INT^HUBIN^~Format=Cache.S~^RAW
-%RO on 25 Mar 2016  12:31 PM
+Cache for UNIX^INT^LAB HUB IN^~Format=Cache.S~^RAW
+%RO on 31 May 2016   8:56 AM
 LRHBIN3^INT^1^^0
-LRHBIN3 ;SAIC/TCK- Orders Portability - Delete a test ; 3/19/16 10:03am
+LRHBIN3 ;SAIC/TCK- Orders Portability - Delete a test ; 4/19/16 8:33am
  ;;1.0;Orders Portability;;March 1, 2010;Build 114
  Q
 ADD ;
@@ -131,7 +131,6 @@ CHKUID(ACCN,UID) ;
  Q
  ;
 GTVAUID(ACCN,UID) ;
- B
  N SUB,JVDT,JVN
  S (UID,SUB,JVDT,JVN)=0
  Q:ACCN=""
