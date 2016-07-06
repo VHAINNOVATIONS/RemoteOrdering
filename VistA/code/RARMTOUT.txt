@@ -1,0 +1,271 @@
+Cache for UNIX^INT^RAD SPOKE OUT^~Format=Cache.S~^RAW
+%RO on 30 Jun 2016   8:59 AM
+RARMTOUT^INT^1^^0
+RARMTOUT ;;LEIDOS/TCK - RQEMOTE ORDER - OUTGOING ; 6/22/16 12:09pm
+ ;;1.0;REMOTE ORDERS;;OCT 1,2016;
+ ; Reference to UNESC^ORHLESC supported by IA #4922
+ ;; TEST
+ ;
+ Q
+ ;
+ ; Order#  (ien for #100) to be set in ORC-2 & ORB-2
+ ; add pregnancy segment if needed.
+ ;
+ ; 2752 - cancel exam & order and send back cancel reason in ORC16
+ ; 4954 - insure OBR7 has timezone
+ ; 4453/2722 - cancel exam but put order on HOLD, ORC/OBR fix
+ ; 5204 - Parent/Child events, add B to OBR.25 for Cancels of some
+ ;        child exams, also when results go out for a cancelled case 
+EN1(MSG1,MSG2) ;
+ ;
+ K ^TMP("RMTE")
+ M ^TMP("RMTE")=MSG1
+ Q
+ N HLA,PROT,PR,REC,FLG S (CHK,FLG)=0
+ Q:$G(REMOTE)=1
+ I $D(MSG1)>1 M HLA("HLS")=MSG1
+ I $G(MSG2)'="",$G(XQORMSG)'="" M HLA=@XQORMSG
+ I $G(MSG1)["TMP" M HLA=@XQORMSG
+ K MSG,MSG1,REC,CHK,FLG,ODC,AP,VFGL,STOP,CHG,MSGTYP,MSGNDE
+ ;
+EN ;
+ Q:'$D(HLA)
+ N QQ,RAIEN,ORST
+ N HLFS S HLFS="|"
+ N HLCS S HLCS="^"
+ N RAOIEN,RPTIEN S RAOIEN=0,RPTIEN=""
+ ;
+ N ORDNB S ORDNB="" ; Order#; ien of ^OR(100
+ N SEGARY D GETSEG
+ N XCASE S XCASE=""
+ ;
+ D ORC
+ I $G(ORC1)="DC" D  Q
+ .D FIX,MSG Q
+ Q:$G(ORC1)="DC"
+ I ORDNB'="" D FIX G PREG ; Case 1
+ D OBR I XCASE'="" D
+ . S ORDNB=$$GETORD(XCASE) Q:'ORDNB
+ . D FIX G EXIT ; Case 2&3
+ ;
+PREG ;  add preg obx segment if needed
+ I RAOIEN D OBXPRG
+ ;
+EXIT ;
+ D DBG1("END")
+ Q
+ ;
+MSG ;
+ S PROT="RA REMOTE DC EVENT"
+ K HLA("HLS",1) 
+ D GENERATE^HLMA($O(^ORD(101,"B",PROT,0)),"LM",1,.HLREST,"",.HLP)
+ Q
+ ;
+GETSEG ;
+ N XI S XI=""
+ N XSEG
+ ;THERE IS A POSSIBLE ISSUE WITH DELIMETERS HERE
+ ;THIS CODE IS NOT ABLE TO SEE THE XSEG PROPERLY
+ ;FOR REG PATIENTS ESB MAY BE PULLING THE XCASE AND REPLACING
+ ;
+ FOR  S XI=$O(HLA("HLS",XI)) Q:'XI  S XSEG=$P(HLA("HLS",XI),HLFS,1) D
+ . I XSEG="ORC" S SEGARY("ORC")=XI_"^"_$D(HLA("HLS",XI))
+ . I XSEG="OBR" S SEGARY("OBR")=XI_"^"_$D(HLA("HLS",XI))
+ Q
+ ;
+GETORD(XCASE) ; get Order# from Case#
+ ;  XCASE= big Case#,
+ N XEXAM ; exam line
+ N XDFN  ; dfn
+ N XDT   ; order date
+ N XD2   ; 70.03 ien
+ N X11   ; 11 piece of exam line;  ien of RAO(75.1
+ ;
+ ;S:$D(HLA("HLS",XI))=1 XCASE=$P(HLA("HLS",XI),"|",3)
+ ;S:$D(HLA("HLS",XI))=11 XCASE=$P(HLA("HLS",XI,1),"|",2)
+ S ORDNB=""
+ ;
+ S XDFN=$O(^RADPT("ADC",XCASE,"")) Q:'XDFN  D
+ . S XDT=$O(^RADPT("ADC",XCASE,XDFN,"")) Q:XDT=""  D
+ . . S XD2=$O(^RADPT("ADC",XCASE,XDFN,XDT,"")) Q:XD2=""
+ . . S XEXAM=$G(^RADPT(XDFN,"DT",XDT,"P",XD2,0)) Q:XEXAM=""
+ . . S EXMSTA=$P(XEXAM,"^",3)
+ . . S CATEG=$P(XEXAM,"^",4)
+ . . S WARD=$P(XEXAM,"^",6)
+ . . S SERVICE=$P(XEXAM,"^",7)
+ . . S RPTIEN=$P(XEXAM,"^",17)
+ . . I +XEXAM=$P(XCASE,"-",2) S X11=$P(XEXAM,"^",11) S:X11'="" ORDNB=$P(^RAO(75.1,X11,0),"^",7),RAOIEN=X11
+ I ORDNB["-" S ORDNB=0 Q
+ I $G(RPTIEN)>0 D
+ .Q:'$D(^RARPT(RPTIEN,"H"))
+ .S STOP=$P(^RARPT(RPTIEN,"H",0),"^",3)
+ .S INDX=0 F  S INDX=$O(^RARPT(RPTIEN,"H",INDX)) Q:INDX=""  D
+ ..S HIST("TXT",INDX)=^RARPT(RPTIEN,"H",INDX,0)
+ Q ORDNB
+ ;
+ ;====================================================================
+ S:$D(HLA("HLS",XI))=1 $P(HLA("HLS",XI),"|",3)=XCASE_"^"_ORDNB
+ S:$D(HLA("HLS",XI))=11 $P(HLA("HLS",XI,1),"|",2)=XCASE_"^"_ORDNB
+ Q ORDNB
+ ;
+ORC ;
+ Q:$G(SEGARY("ORC"))=""
+ N XI,XD
+ S XI=$P(SEGARY("ORC"),"^",1),XD=$P(SEGARY("ORC"),"^",2)
+ I XD=1,$P(HLA("HLS",XI),HLFS,3)'="" S ORDNB=$P($P(HLA("HLS",XI),HLFS,3),";",1)
+ I ORDNB'="" D
+ .I '$D(^OR(100,ORDNB)) S $P(HLA("HLS",XI),HLFS,3)="",ORDNB=""
+ S ORC1=$P(HLA("HLS",XI),HLFS,2)
+ I $G(DUZ)'="" D
+ .S USNM=$$GET1^DIQ(200,DUZ,.01,"E")
+ .S USNM=$TR(USNM,",","^")
+ .S $P(HLA("HLS",XI),HLFS,11)=DUZ_"^"_$G(USNM)
+ .S PRVID=$P(HLA("HLS",XI),HLFS,13)
+ .I PRVID'="" S PRVNME=$$GET1^DIQ(200,PRVID,.01,"E")
+ .I $G(PRVNME)'="" S $P(HLA("HLS",XI),HLFS,13)=PRVID_"^"_$G(PRVNME)
+ Q
+ ;
+OBR ;
+ Q:'$D(SEGARY("OBR"))
+ N XI,XD,XSEG
+ N OBR2,OBR3
+ S XI=$P($G(SEGARY("OBR")),"^",1),XD=$P(SEGARY("OBR"),"^",2)
+ I XD=1 S XSEG=HLA("HLS",XI),OBR2=$P(XSEG,HLFS,3),OBR3=$P(XSEG,HLFS,4) S:OBR2'="" XCASE=OBR2 S:OBR2="" XCASE=$P(OBR3,HLCS,2)
+ I XD=11 S XSEG=HLA("HLS",XI,1),OBR2=$P(XSEG,HLFS,2),OBR3=$P(XSEG,HLFS,3) S:OBR2'="" XCASE=OBR2 S:OBR2="" XCASE=$P(OBR3,HLCS,2)
+ Q
+ ;
+FIX ; put ORDNB into ORC-2, OBR-2 and add Adittional clinical history
+ N XI,XD,XSEG,TP,CNTR,ORST,SCNTR,OBRSEG,RAIEN,REAIEN,REASON,ORB7,OBRTZ
+ N REQST,ORCTR,ORC
+ ;
+ S TYP="RAD"
+ S CNTR="",DONE=0
+ I $G(ORDNB)>0,$D(^XTMP(TYP,"B")),$D(^XTMP(TYP,"B",ORDNB)) S ORIFN=^XTMP(TYP,"B",ORDNB)
+ F  S CNTR=$O(HLA("HLS",CNTR)) Q:CNTR=""  D
+ .S TP=$P(HLA("HLS",CNTR),HLFS) D
+ ..I TP="ORC" D    ;ORC segment mods
+ ...M ORC=HLA("HLS",CNTR)
+ ...S ORCTR=$P(HLA("HLS",CNTR),HLFS,2)
+ ...;Get hub order number from cross ref
+ ...I $G(ORIFN)>0 S $P(HLA("HLS",CNTR),HLFS,3)=ORIFN
+ ...;  Check Cancel/Hold and get reason - 2752
+ ...; get ien that points to file RAD/NUC MED ORDERS file #75.1
+ ...S RAIEN=+$$GET1^DIQ(100,ORDNB,"PACKAGE REFERENCE","I")
+ ...D:RAIEN ;Cancel/Hold Reason exists
+ ....S REAIEN=$$GET1^DIQ(75.1,RAIEN,"REASON","I")
+ ....S REASON=$$GET1^DIQ(75.1,RAIEN,"REASON")
+ ....S REQST=$$GET1^DIQ(75.1,RAIEN,"REQUEST STATUS")   ;Sts, Hold?
+ ....I $G(ORC1)'="DC" S $P(HLA("HLS",CNTR),HLFS,17)="X"_HLCS_HLCS_"99OR"_HLCS_REAIEN_HLCS_REASON
+ ....;S $P(HLA("HLS",CNTR),HLFS,18)=$G(EXMSTA)_HLCS_$G(CATEG)_HLCS_$G(WARD)_HLCS_$G(SERVICE)
+ ....D:REQST="HOLD"    ;4453 Sts=Hold
+ .....S $P(HLA("HLS",CNTR),HLFS,2)="SC"        ;orc.1
+ .....S $P(HLA("HLS",CNTR),HLFS,6)="IP"        ;orc.5
+ ..I TP="OBR" D ;OBR segment mods
+ ...S SCNTR=""
+ ...F  S SCNTR=$O(HLA("HLS",CNTR,SCNTR)) Q:SCNTR=""  D
+ ....S OBRSEG=HLA("HLS",CNTR),STRNG=HLA("HLS",CNTR,SCNTR)
+ ....S OBRSEG=OBRSEG_STRNG,HLA("HLS",CNTR)=OBRSEG
+ ....K HLA("HLS",CNTR,SCNTR)
+ ...S $P(HLA("HLS",CNTR),HLFS,3)=ORIFN
+ ...;CCR 5331 PUT TECHNOLOGIST ID IN OBR.34
+ ...I $G(RADTI)'="" D
+ ....I $O(^RADPT($G(RADFN),"DT",$G(RADTI),"P",$G(RACNI),"TC",0)) D
+ .....S INDX=$P(^RADPT(RADFN,"DT",RADTI,"P",RACNI,"TC",0),"^",3)
+ .....Q:INDX'>0
+ .....S RAIEN=INDX_","_RACNI_","_RADTI_","_RADFN_","
+ .....S TECHID=$$GET1^DIQ(70.12,RAIEN,.01,"I")
+ .....I $G(TECHID)>0 S $P(HLA("HLS",CNTR),HLFS,35)=TECHID
+ ...I $G(TECHID)'>0 S $P(HLA("HLS",CNTR),HLFS,35)=DUZ
+ ...S OBR7=$P(HLA("HLS",CNTR),HLFS,8)
+ ...S OBR25=$P(HLA("HLS",CNTR),HLFS,26)
+ ...I OBR25="" S $P(HLA("HLS",CNTR),HLFS,26)="I"
+ ...S OBR25=$P(HLA("HLS",CNTR),HLFS,26)
+ ...;
+ ...; Timezone missing, add it  4954
+ ...D:$P(OBR7,"-",2)=""
+ ....S OBRTZ=$P($$HLDATE^HLFNC($$NOW^XLFDT,"TS"),"-",2)
+ ....S $P(OBR7,"-",2)=OBRTZ
+ ....S $P(HLA("HLS",CNTR),HLFS,8)=OBR7
+ ...;
+ ...; Hold Order event, set obr.25 = X  4453
+ ...S:$G(REQST)="HOLD" $P(HLA("HLS",CNTR),HLFS,26)="X"
+ ...;
+ ...; Set obr.25 = B to block transmissison to DoD, when cancel of
+ ...; child and order still Active.     5204
+ ...I $G(ORCTR)="CA",$G(REQST)="ACTIVE" S $P(HLA("HLS",CNTR),HLFS,26)="B"
+ ...;
+ ...; Check IF report/result type HL7 and is a cancelled case.  5204
+ ...; If so, then this is a bad case, so ESB will need to block this.
+ ...; Legacy RA code creates this message erroneously as they only
+ ...; check for if the exam case belongs to a Printset (parent/child).
+ ...;
+ ...I '$D(ORC),OBR25="F" D
+ ....S RDIENS=RACNI_","_RADTI_","_RADFN_","
+ ....I $$GET1^DIQ(70.03,RDIENS,3)="CANCELLED" D
+ .....S $P(HLA("HLS",CNTR),HLFS,26)="B"
+ ..I TP="OBX",'DONE D
+ ...Q:'$D(HIST)
+ ...S XH=$O(HLA("HLS",999999999),-1)
+ ...S I="" F  S I=$O(HIST("TXT",I)) Q:I=""  D
+ ....S TXT=HIST("TXT",I)
+ ....Q:$G(TXT)=""
+ ....S XH=$G(XH)+1
+ ....S HLA("HLS",XH)="OBX"_"|"_XH_"|"_"TX"_"|"_"H^HISTORY^L"_"||"_TXT
+ ....S DONE=1
+ S DONE=""
+ ;
+ Q
+ ;
+DBG1(X) ;
+ ;N FIXCNT S FIXCNT=$G(^XXRHL("FIX"))+1,^XXRHL("FIX")=FIXCNT
+ ;M ^XXRHL("FIX",FIXCNT)=HLA("HLS")
+ ;S ^XXRHL("FIX",FIXCNT)=X
+ Q
+ ;
+OBXPRG ;
+ N X,X13
+ N XN S XN=0
+ N PRGSEG S PRGSEG=0
+ S X13=$P(^RAO(75.1,RAOIEN,0),"^",13)
+ Q:X13=""
+ ;
+ S:X13="y" X13="YES" S:X13="n" X13="NO" S:X13="u" X13="UNKNOWN"
+ FOR  S XN=$O(HLA("HLS",XN)) Q:XN=""  D  Q:PRGSEG
+ . S X=HLA("HLS",XN) Q:$P(X,HLFS,1)'="OBX"
+ . I $P(X,HLFS,4)["PREGNANT" S PRGSEG=1 Q  ; already a OBX preg seg
+ Q:PRGSEG  ; already a OBX preg seg
+ S XN=$O(HLA("HLS",999999999999999),-1),XN=XN+1
+ S HLA("HLS",XN)="OBX"_HLFS_HLFS_"TX"_HLFS_"2000.33"_HLCS_"PREGNANT"_HLCS_"AS4"_HLFS_HLFS_X13
+ ;
+ Q
+ ;=====================================================================================================================
+ ; NOTES:
+ ;   The purpose of this routine is to adjust the HL7 message stored in HLA("HLS" before it is stored in ^HL(772
+ ;     the MSH segment can't be altered her ( Not in HLA("HLS"
+ ;
+ ;
+ ;    The Order# (ien for OR(100)  is to be stored in ORC-2 & ORB-2  ( except for ORU messages which do not have a ORC)
+ ;       3 cases of finding Order#
+ ;  1.  order generated by CPRS:  case# in ORC-2  e.g. ORC|NW|29080;1^OR ; take $P(ORC-2),";",1)
+ ;  2.  for ORM messages generated by Vista Registration, Cancellation, or Examined.
+ ;      Order# not is in message so must use case# in OBR-2 to find Order#  (Order#=$$GETORD(Case#))
+ ;      OBR||031710-72|...  where case# is '031710-72'
+ ;  3.  for ORU messages, no ORC segment, Case# in OBR-3 as  OBR|||6899682.8165-1^031710-72^L
+ ;       Case#=$P($P(OBR-3),"^",2) AND Order#=$$GETORD(Case#)
+ ;
+ ;   HLA("HLS" structure for ORM-messages:
+ ;
+ ;     HLA("HLS",1)=PID segment
+ ;     HLA("HLS",2)=ORC segment
+ ;        if $L(OBR) < 245  :
+ ;     HLA("HLS",3)=OBR segment  
+ ;        if $L(OBR)> 245
+ ;     HLA("HLS",3)="OBR|"
+ ;     HLA("HLS",3,1)=$P(OBR,"|",2,99)
+ ;     HLA("HLS",3,2)=$P(OBR,"|",100,9999)
+ ;     HLA("HLS",4-n)=OBX segments
+ ;
+ ;   HLA("HLS" structure for ORM-messas:
+
+
+

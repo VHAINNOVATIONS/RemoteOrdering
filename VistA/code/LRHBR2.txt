@@ -1,0 +1,403 @@
+Cache for UNIX^INT^REPORTS^~Format=Cache.S~^RAW
+%RO on 01 Jul 2016  10:37 AM
+LRHBR2^INT^1^^
+LRHBR2 ;LEIDOS/TCK - REMOTE ORDERING - REMOTE LAB/RAD ORDERS BY TEST/IMAGE ; 5/20/16 7:35am
+ ;;1.0;REMOTE ORDERS;;OCT 1,2016;
+ ;
+ Q
+ ;---------------------------------------------------------------------
+LAB ; Entry point for Remote Laboratory Orders by Test Name.
+ ;
+ S LRT=2,XREF="AF"
+ ;
+ D INIT,GDT:'LREND,TEST:'LREND,LOC:'LREND,DETAIL:'LREND
+ D GDV:'LREND,RUN:'LREND,STOP
+ ;
+ Q
+ ;---------------------------------------------------------------------
+RAD ; Entry point for Remote Radiology Orders by Image Type.
+ ;
+ S LRT=1,XREF="AF"
+ ;
+ D INIT,GDT:'LREND,IMAGE:'LREND,LOC:'LREND,DETAIL:'LREND
+ D GDV:'LREND,RUN:'LREND,STOP
+ ;
+ Q
+ ;---------------------------------------------------------------------
+RADC ; Entry point for Remote Radiology Orders by CPT Code.
+ ;
+ S LRT="1A",XREF="AF"
+ ;
+ D INIT,GDT:'LREND,CPT:'LREND,LOC:'LREND,DETAIL:'LREND
+ D GDV:'LREND,RUN:'LREND,STOP
+ ;
+ Q
+ ;---------------------------------------------------------------------
+RADCR ; Entry point for Remote Radiology Orders by CPT Code and RVU.
+ ;
+ S LRT="1B",XREF="AF",LRTEST="*"
+ ;
+ D INIT,GDT:'LREND,LOC:'LREND,DETAIL:'LREND,GDV:'LREND,RUN:'LREND,STOP
+ ;
+ Q
+ ;---------------------------------------------------------------------
+INIT ; Initialize common variables.
+ ;
+ S U="^",B="|",S=";"
+ S LREND=0,LRSDT="TODAY",LREDT="T-7"
+ W !,"REMOTE ORDERS - Remote ",$S(LRT=1:"Radiology",1:"Lab")
+ W " Orders by "_$S(LRT=2:"Test Name",LRT=1:"Imaging Type",1:"CPT Code")
+ I LRT="1B" W " and wRVU"
+ ;
+ Q
+ ;---------------------------------------------------------------------
+RUN ; Run the report either queued or in person.
+ ;
+ K ^TMP("LR",$J)
+ S:$D(ZTQUEUED) ZTREQ="@" U IO
+ S (LRPAG,LREND)=0
+ D:'LREND START
+ D:$D(ZTQUEUED) STOP
+ ;
+ Q
+ ;---------------------------------------------------------------------
+STOP ; End and cleanup.
+ ;
+ I ($E(IOST,1,2)="C-") D WAIT
+ I '$D(ZTQUEUED) D ^%ZISC
+ K ^TMP("LR",$J),^TMP("LRTEST",$J),^TMP("LRX",$J),^TMP("LRCPT",$J)
+ K %DT,B,DATA1,DD,DM,DSTR,DTOUT,DUOUT,DY
+ K LRDET,LREDT,LREND,LRLOC,LRPAG,LRSDT,LRTEST
+ K OR,PLOC,POP,S,X,XREF,Y,ZTDESC,ZTQUEUED,ZTREQ,ZTRTN,ZTSAVE
+ ;
+ Q
+ ;---------------------------------------------------------------------
+GDT ; Get dates (start and end).
+ ;
+ I LRSDT?1.7N S Y=LRSDT D DD^LRX S LRSDT=Y
+ I LREDT?1.7N S Y=LREDT D DD^LRX S LREDT=Y
+ S %DT("A")="Enter START date: ",%DT("B")=LRSDT,%DT="AET"
+ D ^%DT S LREND=Y<1 Q:LREND
+ S LRSDT=Y
+ S %DT("A")="Enter END date: ",%DT("B")=LREDT
+ D ^%DT S LREND=Y<1 Q:LREND
+ S LREDT=Y
+ S:LREDT>LRSDT X=LREDT,LREDT=LRSDT,LRSDT=X
+ ;
+ Q
+ ;---------------------------------------------------------------------
+GDV ; Get output device.
+ ;
+ S %ZIS="Q" D ^%ZIS K %ZIS I POP S LREND=1 Q
+ I $D(IO("Q")) D
+ .K IO("Q")
+ .S LREND=1,ZTRTN="RUN^LRHBR2",ZTDESC="Lab Special Report"
+ .S ZTSAVE("LR*")=""
+ .D ^%ZTLOAD
+ ;
+ Q
+ ;---------------------------------------------------------------------
+LOC	; Get the locations to run report for.  Default "ALL".
+ ;
+ N I,J,LOC
+ ;
+ I '$D(^DIC(4,"E")) D  Q
+ .S LRLOC=B_$$NAME^XUAF4($$KSP^XUPARAM("INST"))_B
+ .S LRLOC=B_^ZTMP("LRHBR1_LOCATION")_B   ;[temp until configuration complete then remove]
+ ;
+ K DIR
+ S DIR("B")="ALL",DIR("A")="Location",DIR(0)="S^1:ALL;",I=""
+ S LOC(1)="ALL",DIR("?")="Select Location"
+ ;
+ F J=2:1 S I=$O(^DIC(4,"E",I)) Q:I=""  D
+ .S LOC=$$GET1^DIQ(4,I,.01),LOC(J)=LOC
+ .S DIR(0)=DIR(0)_J_":"_$$GET1^DIQ(4,I,.01)_";",LOC(J)=LOC
+ ;
+ D ^DIR
+ S:($D(DUOUT))!($D(DTOUT)) LREND=1
+ I 'LREND D
+ .I LOC(Y)'="ALL" D  Q
+ ..S LRLOC=B_LOC(Y)_B
+ .S I="",LRLOC=B
+ .F  S I=$O(^DIC(4,"E",I)) Q:I=""  S LRLOC=LRLOC_$$GET1^DIQ(4,I,.01)_B
+ ;
+ Q
+ ;---------------------------------------------------------------------
+TEST ; Prompt for lab test(s) to be included (<Return> for all).
+ ;
+ N STOP
+ ;
+ K DIC,^TMP("LRTEST",$J)
+ W !!,"Press <Enter> at LABORATORY TEST NAME Prompt to select All Tests",!
+ S DIC="^LAB(60,",DIC(0)="AEMOQ",STOP=0
+ S DIC("S")="I $P(^(0),U,4)[""CH"",""BO""[$P(^(0),U,3)"
+ ;
+ F  D  Q:STOP!(LREND)
+ .D ^DIC
+ .I X["^" S LREND=1 Q
+ .I Y>0 S ^TMP("LRTEST",$J,$P(Y,U,2))=""
+ .I Y<0 S STOP=1 Q
+ ;
+ I '$D(^TMP("LRTEST",$J)) S LRTEST="*" W "ALL Tests Selected"
+ E  S LRTEST=""
+ ;
+ Q
+ ;---------------------------------------------------------------------
+IMAGE ; Prompt for rad image type(s) to be included (<Return> for all).
+ ;
+ N STOP
+ ;
+ K DIC,^TMP("LRTEST",$J)
+ W !!,"Press <Enter> at IMAGE TYPE Prompt to select All Tests",!
+ S DIC="^RA(79.2,",DIC(0)="AEMOQ",STOP=0,DIC("A")="IMAGE TYPE: "
+ ;
+ F  D  Q:STOP!(LREND)
+ .D ^DIC
+ .I X["^" S LREND=1 Q
+ .I Y>0 S ^TMP("LRTEST",$J,$P(Y,U,2))=""
+ .I Y<0 S STOP=1 Q
+ ;
+ I '$D(^TMP("LRTEST",$J)) S LRTEST="*" W "ALL Image Types Selected"
+ E  S LRTEST=""
+ ;
+ Q
+ ;---------------------------------------------------------------------
+CPT ; Prompt for CPT Code(s) to be included (<Return> for all).
+ ;
+ N STOP
+ ;
+ K DIC,^TMP("LRCPT",$J)
+ W !!,"Press <Enter> at CPT CODE Prompt to select All Tests",!
+ S DIC="^ICPT(",DIC(0)="AEMOQ",STOP=0,DIC("A")="CPT CODE: "
+ ;
+ F  D  Q:STOP!(LREND)
+ .D ^DIC
+ .I X["^" S LREND=1 Q
+ .I Y>0 S ^TMP("LRCPT",$J,$P(Y,U,2))=""
+ .I Y<0 S STOP=1 Q
+ ;
+ I '$D(^TMP("LRCPT",$J)) S LRTEST="*" W "ALL CPT Codes Selected"
+ E  S LRTEST=""
+ ;
+ Q
+ ;---------------------------------------------------------------------
+DETAIL ; Include detail?  (1=yes, 0=no).  Default "NO".
+ ;
+ K DIR
+ S DIR("B")="NO",DIR("A")="Include a Detailed Report?",DIR(0)="S^1:NO;2:YES"
+ ;
+ D ^DIR
+ S:($D(DUOUT))!($D(DTOUT)) LREND=1 S:'LREND LRDET=Y-1 Q
+ ;
+ Q
+ ;---------------------------------------------------------------------
+START ; Produce report looping through OR(100 data.
+ ;
+ ;   Input: LRSDT - Start date
+ ;          LREDT - End date
+ ;          LRLOC - Location(s) [|loc1|loc2|...]
+ ;          LRDET - Detail      [0=No, 1=Yes]
+ ;
+ ;  Output: Report.
+ ;
+ N ABREV,CDATE,CPT,D0,DATA,IPROC,ITYPE,LOC,LRDT,LRDT1,ODATE,OR,OR1
+ N PNAME,PROV,RDATE,STATUS,TEST,TMP,TNAME
+ ;
+ S LRDT=(LREDT-1)+.999999,LRDT1=LRSDT+.999999
+ ;
+ F  S LRDT=$O(^OR(100,XREF,LRDT)) Q:LRDT=""!(LRDT>LRDT1)  D
+ .S OR="" F  S OR=$O(^OR(100,XREF,LRDT,OR)) Q:OR=""  D
+ ..I +$P($G(^OR(100,OR,0)),U,5)'=+LRT Q           ;not a lab/rad test
+ ..I '$D(^OR(100,OR,4.5)) Q
+ ..S OR1="" F  S OR1=$O(^OR(100,OR,4.5,OR1)) Q:OR1=""  D
+ ...S DATA=$G(^OR(100,OR,4.5,OR1,0))
+ ...I $P(DATA,U,4)'="Location" Q
+ ...S LOC=$G(^OR(100,OR,4.5,OR1,1)) Q:LOC=""
+ ...I LRLOC'[(B_LOC_B) Q
+ ...I $D(^TMP("LR",$J,LOC,OR)) Q
+ ...S TEST=$G(^OR(100,OR,4.5,1,1))                ;test
+ ...S ODATE=$$DATE($$FMTE^XLFDT(LRDT))            ;order date/time
+ ...S PROV=$$GET1^DIQ(100,OR,1)                   ;provider
+ ...S PNAME=$$GET1^DIQ(100,OR,.02)                ;patient name
+ ...S TNAME=$$GET1^DIQ(101.43,TEST,.01)           ;test/procedure name
+ ...S D0=+$$GET1^DIQ(101.43,TEST,2,"I")           ;D0 rad/nuc #71 file
+ ...S (ABREV,CPT,ITYPE,IPROC,TMP)=""
+ ...I D0]"" D
+ ....S CPT=$$GET1^DIQ(71,D0,9)                    ;CPT code
+ ....S ITYPE=$$GET1^DIQ(71,D0,12)                 ;Imaging type
+ ....I ITYPE]"" S TMP=$O(^RA(79.2,"B",ITYPE,""))
+ ....I TMP]"" S ABREV=$$GET1^DIQ(79.2,TMP,3)      ;Imaging type abbrev
+ ....S IPROC=$$GET1^DIQ(71,D0,.01)                ;Imaging procedure
+ ...S STATUS=$$GET1^DIQ(100,OR,5)                 ;status
+ ...I STATUS="UNRELEASED" Q                       ;no unreleased
+ ...S CDATE=$P($$GET1^DIQ(100,OR,33),S,2,3)       ;collect date/time
+ ...I CDATE]"",$P(CDATE,S)]"",$P(CDATE,S,2)]"" D
+ ....S CDATE=$P($G(^LRO(69,$P(CDATE,S),1,$P(CDATE,S,2),1)),U)
+ ....S CDATE=$$DATE($$FMTE^XLFDT(CDATE))
+ ...S RDATE=$$DATE($$GET1^DIQ(100,OR,22,"E"))     ;report date/time
+ ...I LRT="1B",RDATE="" Q                         ;CPT wRVU only reported
+ ...I LRT="1B",$E(STATUS,1)="D" Q                 ;         and no deleted
+ ...I +LRT=1 D
+ ....S TMP=$S(LRT="1B":RDATE,1:ODATE)_B_PROV      ;rad order detail
+ ....S TMP=TMP_B_PNAME_B_CPT_B_ITYPE
+ ....S TMP=TMP_B_IPROC_B_$E(STATUS,1)
+ ....S TNAME=ITYPE
+ ...I LRT=2 D
+ ....S TMP=ODATE_B_PROV_B_PNAME_B_TNAME           ;lab report detail
+ ....S TMP=TMP_B_$E(STATUS,1)_B_CDATE_B_RDATE
+ ...I LRT'="1A",LRT'="1B",TNAME]"",$D(^TMP("LRTEST",$J,TNAME))!(LRTEST="*") D
+ ....S ^TMP("LRTEST",$J)=$I(^TMP("LRTEST",$J))              ;total
+ ....S ^TMP("LRTEST",$J,TNAME)=$I(^TMP("LRTEST",$J,TNAME))  ;total by test
+ ...I +LRT=1,TNAME]"",ABREV]"" D
+ ....S ^TMP("LRX",$J,TNAME)=ABREV                           ;Image type abrev
+ ...I LRT'="1A",LRT'="1B",TNAME]"",'$D(^TMP("LRTEST",$J,TNAME)),LRTEST'="*" Q   ;test not selected
+ ...I (LRT="1A"!(LRT="1B")),IPROC]"" S:CPT="" CPT="NONE" D
+ ....I LRTEST'="*",'$D(^TMP("LRCPT",$J,CPT)) Q
+ ....S ^TMP("LRTEST",$J)=$I(^TMP("LRTEST",$J))                      ;Total
+ ....S ^TMP("LRTEST",$J,CPT,IPROC)=$I(^TMP("LRTEST",$J,CPT,IPROC))  ;total by CPT
+ ...I LRT="1A",LRTEST'="*",CPT]"",'$D(^TMP("LRCPT",$J,CPT)) Q       ;not a CPT to total
+ ...I LRT="1A",CPT="",LRTEST'="*" Q
+ ...S ^TMP("LR",$J)=$G(^TMP("LR",$J))+1                     ;grand total
+ ...S ^TMP("LR",$J,LOC)=$G(^TMP("LR",$J,LOC))+1             ;location total
+ ...S ^TMP("LR",$J,LOC,OR)=TMP                              ;order detail
+ ;
+ I '$D(^TMP("LR",$J)) D  Q                                  ;nothing matching criteria
+ .W !!,"No data found matching prescribed criteria.",!
+ D HDR
+ I 'LRDET Q
+ ;
+ S (LOC,OR,PLOC)=""
+ F  S LOC=$O(^TMP("LR",$J,LOC)) Q:LOC=""  D  Q:LREND
+ .I LOC'=PLOC S PLOC=LOC D SHDR
+ .F  S OR=$O(^TMP("LR",$J,LOC,OR)) Q:OR=""  D  Q:LREND
+ ..S DATA=^TMP("LR",$J,LOC,OR)
+ ..I DATA="" Q
+ ..I $Y+2>IOSL D WAIT Q:LREND  D:$E(IOST,1,2)'="C-" HDR D SHDR
+ ..I +LRT=1 D
+ ...S TMP=$P(DATA,B,5)
+ ...I TMP]"",$G(^TMP("LRX",$J,TMP))]"" S TMP=^TMP("LRX",$J,TMP)
+ ...W !,$P($P(DATA,B),"@")
+ ...W ?10,$E($P(DATA,B,2),1,14),?26,$E($P(DATA,B,3),1,14)
+ ...W ?42,$E($P(DATA,B,4),1,14),?49,$E(TMP,1,11)
+ ...W ?55,$E($P(DATA,B,6),1,21),?77,$P(DATA,B,7)
+ ...W ! I $P(DATA,B)]"" W " @",$P($P(DATA,B),"@",2)
+ ...W ?10,$E($P(DATA,B,2),15,28),?26,$E($P(DATA,B,3),15,28)
+ ...W ?42,$E($P(DATA,B,4),15,28),?49,$E(TMP,12,22)
+ ...W ?55,$E($P(DATA,B,6),22,42)
+ ..I LRT=2 D
+ ...W !,$P($P(DATA,B),"@"),?10,$E($P(DATA,B,2),1,14)
+ ...W ?26,$E($P(DATA,B,3),1,14),?42,$E($P(DATA,B,4),1,14)
+ ...W ?58,$P(DATA,B,5),?62,$P($P(DATA,B,6),"@")
+ ...W ?72 I $P(DATA,B,5)'="D" W $P($P(DATA,B,7),"@")
+ ...W ! I $P(DATA,B)]"" W " @",$P($P(DATA,B),"@",2)
+ ...W ?10,$E($P(DATA,B,2),15,28),?26,$E($P(DATA,B,3),15,28)
+ ...W ?42,$E($P(DATA,B,4),15,28)
+ ...W ?62 I $P(DATA,B,6)]"" W " @",$P($P(DATA,B,6),"@",2)
+ ...W ?72 I $P(DATA,B,5)'="D",$P(DATA,B,7)]"" D
+ ....W " @",$P($P(DATA,B,7),"@",2)
+ ;
+ Q
+ ;---------------------------------------------------------------------
+HDR ; Print header and totals by location.
+ ;
+ N EXAM,GTWRVU,L,NAME,TEXAM,TWRVU,WRVU
+ ;
+ S LRPAG=LRPAG+1
+ ;
+ W ?$S(LRT=2:24,LRT=1:20,LRT="1B":18,1:22),"Remote "
+ W $S(LRT=2:"Lab",1:"Radiology")," Orders by "
+ W $S(LRT=2:"Test Name",LRT=1:"Imaging Type",1:"CPT Code")
+ I LRT="1B" W " and wRVU"
+ W ?73,"Page ",LRPAG
+ W !?23,"From ",$$FMTE^XLFDT(LREDT)," to ",$$FMTE^XLFDT(LRSDT)
+ W !?22,"Date Printed: ",$$FMTE^XLFDT($$NOW^XLFDT),!
+ ;
+ I LRT="1A" D  Q
+ .W !?5,"CPT",?12,"Procedure",?50,"Total"
+ .W !?5,$TR($J("",65)," ","-")
+ .S (L,NAME)=""
+ .F  S L=$O(^TMP("LRTEST",$J,L)) Q:L=""  D  Q:LREND
+ ..F  S NAME=$O(^TMP("LRTEST",$J,L,NAME)) Q:NAME=""  D  Q:LREND
+ ...W !?5,L,?12,$E(NAME,1,37),?50,^TMP("LRTEST",$J,L,NAME)
+ .W !?5,$TR($J("",50)," ","-")
+ .W !?5,$J("Total",38),$TR($J(^TMP("LRTEST",$J),10)," ","."),!
+ ;
+ I LRT="1B" D  Q
+ .S (WRVU,TWRVU,GTWRVU,EXAM,GTEXAM)=0
+ .W !?58,"Total",?70,"Total"
+ .W !?5,"CPT",?12,"Procedure",?50,"wRVU",?58,"Exams",?70,"wRVU"
+ .W !?5,$TR($J("",70)," ","-")
+ .S (L,NAME)=""
+ .F  S L=$O(^TMP("LRTEST",$J,L)) Q:L=""  D  Q:LREND
+ ..F  S NAME=$O(^TMP("LRTEST",$J,L,NAME)) Q:NAME=""  D  Q:LREND
+ ...S WRVU=+$$RVU^FBRVU(L),EXAM=^TMP("LRTEST",$J,L,NAME)
+ ...S TWRVU=WRVU*EXAM,GTWRVU=GTWRVU+TWRVU,GTEXAM=GTEXAM+EXAM
+ ...W !?5,L,?12,$E(NAME,1,37),?50,WRVU,?58,EXAM,?70,TWRVU
+ .W !?5,$TR($J("",70)," ","-")
+ .W !?5,$J("Totals",40),?58,GTEXAM,?70,GTWRVU,!
+ ;
+ S L=""
+ F  S L=$O(^TMP("LRTEST",$J,L)) Q:L=""  D  Q:LREND
+ .I $G(^TMP("LRX",$J,L))]"" S NAME=^TMP("LRX",$J,L)
+ .E  S NAME=L
+ .W !?5,$J(NAME,$S(+LRT=1:15,1:35))
+ .W $TR($J(^TMP("LRTEST",$J,L),10)," ",".")
+ W !?5,$TR($J("",$S(+LRT=1:26,1:46))," ","-")
+ W !?5,$J("Total",$S(+LRT=1:15,1:35))
+ W $TR($J(+$G(^TMP("LRTEST",$J)),10)," ","."),!
+ ;
+ Q
+ ;---------------------------------------------------------------------
+SHDR ; Print sub header.
+ ;
+ I $Y+6>IOSL D WAIT Q:LREND  D:$E(IOST,1,2)'="C-" HDR W !
+ ;
+ W !!,"==> Performing Location: ",LOC,!
+ I +LRT=1 D                                       ;rad sub header
+ .W !,$S(LRT="1B":"Report",1:"Order")
+ .W ?10,"Provider",?26,"Patient",?42,"CPT",?49,"Type"
+ .W ?55,"Image Procedure",?77,"St"
+ .W !,$TR($J("",8)," ","-"),?10,$TR($J("",14)," ","-")
+ .W ?26,$TR($J("",14)," ","-"),?42,$TR($J("",5)," ","-")
+ .W ?49,$TR($J("",4)," ","-"),?55,$TR($J("",20)," ","-")
+ .W ?77,$TR($J("",3)," ","-")
+ ;
+ I LRT=2 D                                       ;lab sub header
+ .W !,"Order",?10,"Provider",?26,"Patient",?42
+ .W "Test",?58,"St",?62,"Collect",?72,"Report"
+ .W !,$TR($J("",8)," ","-"),?10,$TR($J("",14)," ","-")
+ .W ?26,$TR($J("",14)," ","-"),?42,$TR($J("",14)," ","-")
+ .W ?58,$TR($J("",3)," ","-"),?62,$TR($J("",8)," ","-")
+ .W ?72,$TR($J("",8)," ","-")
+ ;
+ Q
+ ;---------------------------------------------------------------------
+DATE(DATE) ; Convert mmm dd, yyyy@hh:mm to mm/dd/yyyy@hh:mm
+ ;
+ N DD,DM,DSTR,DY,LOWER,TM,UPPER
+ ;
+ I $G(DATE)="" Q ""
+ ;
+ S LOWER="abcdefghijklmnopqrstuvwxyz"
+ S UPPER="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+ S DSTR("JAN")="01",DSTR("FEB")="02",DSTR("MAR")="03",DSTR("APR")="04"
+ S DSTR("MAY")="05",DSTR("JUN")="06",DSTR("JUL")="07",DSTR("AUG")="08"
+ S DSTR("SEP")="09",DSTR("OCT")=10,DSTR("NOV")=11,DSTR("DEC")=12
+ ;
+ S DM=$TR($P(DATE," "),LOWER,UPPER),DD=$P($P(DATE," ",2),",")
+ S DY=$E($P($P(DATE," ",3),"@"),3,4),TM=$P($P(DATE,"@",2),":",1,2)
+ ;
+ Q DSTR(DM)_"/"_DD_"/"_DY_"@"_TM
+ ;---------------------------------------------------------------------
+WAIT ; Pause for page breaks.
+ ;
+ K DIR
+ S DIR(0)="E"
+ D ^DIR
+ S:($D(DUOUT))!($D(DTOUT)) LREND=1
+ S $Y=1
+ ;
+ Q
+
+
+

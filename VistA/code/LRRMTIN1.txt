@@ -1,0 +1,391 @@
+Cache for UNIX^INT^SPOKE LAB IN^~Format=Cache.S~^RAW
+%RO on 04 Jul 2016  11:00 AM
+LRRMTIN1^INT^1^^0
+LRRMTIN1 ;LEIDOS/TCK; REMOTE ORDERING; 12/14/15 6:09pm ; 7/1/16 8:47am
+ ;;1.0;Remote orders;;JAN 1, 2016;Build 115
+ ;
+ ;-----------------------------------------------------------------------
+EN(REC,TYPE,LOC) ; Continuation of EN^LRRMTIN
+ ;
+ ;    Input:  REC - ^HL(772 data                     [required]
+ ;           TYPE - Order type (Lab, Imaging,...)    [required]
+ ;            LOC - Sending Facility                 [required]
+ ;
+ ;   Output: None.
+ ;
+ K ORD,OR,OLDOR,ORNUM
+ ;
+ Q:'$D(REC)
+ ;
+ S ACT=""
+ D ACTION(.REC,.ACT,.ORN)   ; get the Order Action and Ordering Lab Number
+ ;
+ I TYPE="LAB" D GTLDATA(.REC,.ORVP,.ORNP,.ORL,.DLG,.ORDG,.ORIT,.ORIFN,.OLDOR,TYPE,.REAS)
+ I ACKERR Q
+ ;
+ B
+ I TYPE="RAD" D GTRDATA(.REC,.ORVP,.ORNP,.ORL,.DLG,.ORDG,.ORIT,.ORIFN,.OLDOR,TYPE,.REAS)
+ I ACKERR Q
+ ;
+ I ACT="NW" D
+ .S PKG=$S(DLG="RA OERR EXAM":"RAD",DLG="LR OTHER LAB TESTS":"LAB")
+ .Q:'$D(REC)
+ .D @PKG
+ .I ACKERR Q
+ .;I $D(REC) D GTDATA(.REC,.ORVP,.ORNP,.ORL,.DLG,.ORDG,.ORIT,.ORIFN,TYPE)
+ .S (STS,REAS,ORUSR,ORTYP)=""
+ .I $D(REC) D SAVE^ORWDX(.REC,ORVP,ORNP,ORL,DLG,ORDG,ORIT,ORIFN,.ORDIALOG,STS,REAS,ORUSR,ORTYP)
+ .Q:'$D(REC)
+ .D BLDSND(.REC,.ORWREC,.ORNUM)
+ .Q:ERR
+ .S ES="AA"
+ .K REC
+ .D SEND^ORWDX(.ORWLST,ORVP,ORNP,ORL,ES,.ORWREC)
+ .M REC=ORWLST K ORWLST
+ .D UPDTOR(ORNUM,ORNP),BLDXRF(OLDOR,ORNUM)
+ .D CLNOR(ORNUM)
+ I ACKERR Q
+ I (ACT["OC")!(ACT["CA")!(ACT["DC") D
+ .Q:'$D(^XTMP(TYPE))
+ .I $D(^XTMP(TYPE,ORN)) S ORIFN=^XTMP(TYPE,ORN)
+ .Q:$G(ORIFN)'>0
+ .S ORID=$G(ORIFN),STAT=$G(STS),(DCORIG,ISNEWORD)=0
+ .I ORID'="" D
+ ..; GET ORDER LOCATION
+ ..S ORL=+$$GET1^DIQ(100,ORID,6,"I")
+ ..I ORID'[";" S ORID=ORID_";1"
+ ..D DC^LRRMTIN(.REC,ORID,ORVP,ORNP,ORL,REAS,DCORIG,ISNEWORD)
+ ;
+ Q
+ ;-----------------------------------------------------------------------
+CLNOR(ORNUM) ;
+ Q:$G(ORNUM)'>0
+ S ORNUM=+ORNUM,ORIFN=ORNUM
+ I $D(^OR(100,ORIFN,8,1,.1)) S N=$P(^OR(100,ORIFN,8,1,.1,0),"^",3)
+ Q:$G(N)'>1
+ S ST=^OR(100,ORIFN,8,1,.1,2,0),ST=$TR(ST," ","")
+ I ST[":" S ST=$P(ST,":",2)
+ I ST?.A D
+ .S $P(^OR(100,ORIFN,8,1,.1,0),"^",3)=N-1,$P(^OR(100,ORIFN,8,1,.1,0),"^",4)=N-1
+ .K ^OR(100,ORIFN,8,1,.1,2,0)
+ ;
+ Q
+ ;-----------------------------------------------------------------------
+UPDTOR(ORNUM,ORNP) ;
+ Q:$G(OR)'>0
+ S ORNUM=+ORNUM
+ S LRIENS=1_","_ORNUM_","
+ S LRFDA(1,100.008,LRIENS,13)=ORNP
+ D UPDATE^DIE("","LRFDA(1)","LRMSG")
+ ;S LRIEN="+1,"_+OR_","
+ ;S LRFDA(2,100.002,LRIEN,.01)=$G(OLDOR)
+ ;D UPDATE^DIE("","LRFDA(2)","LRMSG")
+ ;
+ Q
+ ;-----------------------------------------------------------------------
+BLDXRF(OLDOR,ORNUM) ;
+ I '$D(^XTMP(TYPE)) D SETZERO(TYPE)
+ Q:'$D(^XTMP(TYPE))
+ I $D(^XTMP(TYPE)) D
+ .S ^XTMP(TYPE,+OLDOR)=+ORNUM
+ .S ^XTMP(TYPE,"B",+ORNUM)=+OLDOR
+ .S ^XTMP(TYPE,"CNT")=$G(^XTMP(TYPE,"CNT"))+1
+ I '$D(^XTMP(TYPE)) D SETZERO(TYPE)
+ ;
+ Q
+ ;-----------------------------------------------------------------------
+SETZERO(TYPE) ;
+ D NOW^%DTC S X1=$P(%,".",1),X2=365,Y=X1 D C^%DTC
+ S ^XTMP(TYPE,0)=X_"^"_Y_" OR XREF FOR REMOTE ORDER"
+ S ^XTMP(TYPE,0,"CNT")=0
+ ;
+ Q
+ ;-----------------------------------------------------------------------
+ACTION(REC,ACT,ORN) ; Search for order segment, return ordering lab
+ ;                    number, and order action.
+ ;
+ ;    Input: REC - ^HL(772 data                     [required]
+ ;
+ ;   Output: ACT - Order Control (NW=New, CA=Cancel, DC=Discontinue,
+ ;                                HD=Hold, RL=Release/cancel previous
+ ;                                hold, XO=Change/Update)
+ ;           ORN - Ordering Lab Number
+ ;
+ N I,STOP
+ ;
+ S (ACT,I)="",STOP=0
+ ;
+ F  S I=$O(REC(I)) Q:I=""  D  Q:STOP
+  .I $P(REC(I),"|")="ORC" D            ; order segment
+   ..S ORN=+$P(REC(I),"|",3)           ; Ordering Lab Number
+   ..S ACT=$P(REC(I),"|",2)            ; Order Action
+   ..S STOP=1
+ ;
+ Q
+ ;-----------------------------------------------------------------------
+BLDSND(REC,ORWREC,ORNUM) ;
+ Q:'$D(REC(1))
+ S ORNUM=$P(REC(1),"^")
+ S ORNUM=$E(ORNUM,2,99)
+ S ORWREC(1)=ORNUM_"^"_1_"^"_1_"^"_"E"
+ ;
+ Q
+ ;-----------------------------------------------------------------------
+GTRDATA(REC,ORVP,ORNP,ORL,DLG,ORDG,ORIT,ORIFN,OLDOR,TYPE,REAS) ;
+ ;
+ ;    Input: REC - ^HL(772 data                      [required]
+ ;           TYPE - Order type = RAD                 [required]
+ ;
+ ;    Output: None.
+ ;
+ N I,CNT
+ ;
+ S (ORVP,ORNP,ORL,DLG,ORDG,ORIT,ORIFN)=""
+ ;
+ S DLG="RA OERR EXAM"
+ S ORIT=$O(^ORD(101.41,"AB",DLG,0))
+ S ORDG=$O(^ORD(100.98,"B",TYPE,0))
+ B
+ S I="" F  S I=$O(REC(I)) Q:I=""  D
+ .S MSGNDE=REC(I),MSGTYP=$P($G(MSGNDE),"|")
+ .Q:MSGTYP=""
+ .Q:MSGTYP["BHS"
+ .I MSGTYP["MSH",$P(MSGNDE,"|",9)="ORR" Q
+ .I MSGTYP["PID" D
+ ..S ORVP=$P(MSGNDE,"|",4),ORVPNME=$P(MSGNDE,"|",6)
+ ..I $D(^DPT("B",ORVPNME)) D
+ ...S ORVP="",ORVP=$O(^DPT("B",ORVPNME,ORVP))
+ .I MSGTYP["PV1" D
+ ..S ORL=$P(REC(I),"|",4)
+ ..S CAT=$P(REC(I),"|",3)
+ .I MSGTYP["ORC" D
+ ..S OLDOR=+$P(MSGNDE,"|",3)
+ ..S ORNPNME=$P($P(MSGNDE,"|",13),"^",2)
+ ..I $D(^VA(200,"B",ORNPNME)) D
+ ...S ORNP="",ORNP=$O(^VA(200,"B",ORNPNME,ORNP)),ORUSR=ORNP,DUZ=ORNP
+ ..S DTDSIRED=$P(MSGNDE,"|",16)
+ ..S URG=$P($P(MSGNDE,"|",8),"^",6)
+ ..I $G(URG)'="" S URIEN="",URIEN=$O(^ORD(101.42,"C",URG,URIEN))
+ ..I $G(URIEN)'="" S URG=URIEN
+ ..S REAS=$P($P(MSGNDE,"|",17),"^",5)
+ .I MSGTYP["OBR" D  Q:ACKERR
+ ..S OBRNDE=REC(I)
+ ..S PROC=$P($P(OBRNDE,"|",5),"^",4),PROCNME=$P($P(OBRNDE,"|",5),"^",5)
+ ..I PROCNME="" D  S ACKERR=1 Q
+ ...D ACK^LRRMTIN(HLMA,HLMTIEN,"AE","RAD PROCEDURE NOT FOUND")
+ ..S ISOL=$P(OBRNDE,"|",13) I ISOL'="" S ISOL=1
+ ..S PMOD=$P(OBRNDE,"|",19)
+ ..I $G(PMOD)'["~" D
+ ...S X=PMOD
+ ...Q:X=""
+ ...S PTR="",PTR=$O(^RAMIS(71.2,"B",X,PTR))
+ ...I PTR'="" S PMOD(1)=PTR
+ ..I $G(PMOD)["~" D
+ ...F III=1:1 S X=$P(PMOD,"~",III)  D  Q:X=""
+ ....Q:X=""
+ ....S PTR="",PTR=$O(^RAMIS(71.2,"B",X,PTR))
+ ....I PTR'="" S PMOD(III)=PTR
+ ..S MDE=$P(OBRNDE,"|",31),MDE=$E(MDE,1)
+ ..I REAS="" S REAS=$P($P(OBRNDE,"|",32),"^",2)
+ ..S LOC=565,LOCNME=$$GET1^DIQ(4,LOC,.01,"E")
+ ..S SBRQ=+$P(OBRNDE,"|",20)
+ .I MSGTYP["OBX" D  Q:ACKERR
+ ..S OBXNDE=REC(I)
+ ..S FLD=$P($P(OBXNDE,"|",4),"^",2)
+ ..I FLD["PRE-OP" D
+ ...S PREOP=$P(OBXNDE,"|",6),PREOP=$$HL7TFM^XLFDT(PREOP)
+ ..I FLD["PREG" D
+ ...S PREG=$P(OBXNDE,"|",6),PREG=$E(PREG,1)
+ ..I FLD["CLINICAL" D
+ ...I '$D(BCH) S CNT=1,BCH(CNT)=$P(OBXNDE,"|",6)
+ ...I $D(BCH) S CNT=$O(BCH(99),-1),CNT=$G(CNT)+1,BCH(CNT)=$P(OBXNDE,"|",6)
+ W !,"END OF GETRDATA"
+ B
+ ;
+ Q
+ ;-----------------------------------------------------------------------
+GTLDATA(REC,ORVP,ORNP,ORL,DLG,ORDG,ORIT,ORIFN,OLDOR,TYPE,REAS) ;
+ ;
+ ;    Function: get lab data in HL7 MESSAGE
+ ;       Input:  REC - ^HL(772 data                     [required]
+ ;              TYPE - Order type = LAB                 [required]
+ ;
+ ;   Output: None.
+ ;
+ N I,CNT
+ ;
+ S (ORVP,ORNP,ORL,DLG,ORDG,ORIT,ORIFN)=""
+ ;
+ S DLG="LR OTHER LAB TESTS"
+ ;I TYPE="RAD" S DLG="RA OERR EXAM"
+ S ORIT=$O(^ORD(101.41,"AB",DLG,0))
+ S ORDG=$O(^ORD(100.98,"B",TYPE,0))
+ S I="" F  S I=$O(REC(I)) Q:I=""  D
+ .S MSGNDE=REC(I),MSGTYP=$P($G(MSGNDE),"|")
+ .Q:MSGTYP=""
+ .Q:MSGTYP["BHS"
+ .I MSGTYP["MSH",$P(MSGNDE,"|",9)="ORR" Q
+ .I MSGTYP["PID" D
+ ..S ORVP=$P(MSGNDE,"|",4),ORVPNME=$P(MSGNDE,"|",6)
+ ..I $D(^DPT("B",ORVPNME)) D
+ ...S ORVP="",ORVP=$O(^DPT("B",ORVPNME,ORVP))
+ .I MSGTYP["PV1" D
+ ..S ORL=$P(REC(I),"|",4)
+ .I MSGTYP["ORC" D
+ ..S OLDOR=+$P(MSGNDE,"|",3)
+ ..S ORNPNME=$P($P(MSGNDE,"|",13),"^",2)
+ ..I $D(^VA(200,"B",ORNPNME)) D
+ ...S ORNP="",ORNP=$O(^VA(200,"B",ORNPNME,ORNP)),DUZ=ORNP,ORUSR=ORNP
+ ..S COL=$P($P(MSGNDE,"|",8),"^",4)
+ ..S COL=$$HL7TFM^XLFDT(COL,"L")
+ ..I $P(COL,".",2)="" S COL="TODAY"
+ ..S COLLECTIONDATETIME=COL
+ ..S START=COLLECTIONDATETIME
+ ..S REAS=$P($P(MSGNDE,"|",17),"^",4)
+ .I MSGTYP["OBR" D  Q:ACKERR
+ ..S OBRNDE=REC(I)
+ ..S TSTNDE=$P(OBRNDE,"|",5)
+ ..I TSTNDE'="" S TSTNME=$P(TSTNDE,"^",5)
+ ..I TSTNME="" D  S ACKERR=1 Q
+ ...D ACK^LRRMTIN(HLMA,HLMTIEN,"AE","LAB TEST NOT FOUND")
+ ..I '$D(^LAB(60,"B",TSTNME)) D  S ACKERR=1 Q
+ ...D ACK^LRRMTIN(HLMA,HLMTIEN,"AE","LAB TEST NOT FOUND")
+ ..S LABTEST="",LABTEST=$O(^LAB(60,"B",TSTNME,LABTEST))
+ ..I LABTEST="" D  S ACKERR=1 Q
+ ...D ACK^LRRMTIN(HLMA,HLMTIEN,"AE","LAB TEST NOT FOUND")
+ ..S SAMPLE=$P(OBRNDE,"|",16),SAMPLE=+$P(SAMPLE,"^",4)
+ ..S SPECIMEN=$P(OBRNDE,"|",16),SPECIMEN=$P(SPECIMEN,";",4)
+ ..S COLLECTEDBY="SP",HOWOFTEN=28
+ ..S URG=$P($P(OBRNDE,"|",28),"^",6),URGENCY=$P(URG,";",2)
+ ..S LOC=565
+ ..S LOCNME=$$GET1^DIQ(4,LOC,.01,"E")
+ K OR,ORDT,ORD
+ ;
+ Q
+ ;--------------------------------------------------------------------
+RAD ;
+ N DA,NDE,TMP,CTYP,CTYPE,OI,JVORD,D,UR,HL,HO
+ S ERR=0,(OI,OR)=""
+ Q:$G(ORIT)'>0
+ K ORDIALOG D BLDARY(ORIT,.OR,.ORT)
+ K ORDIALOG
+ B
+ S VAL="" F  S VAL=$O(ORT(VAL)) Q:VAL=""!(ERR)  D  Q:ACKERR
+ .S (CTYP,CTYPE)=""
+ .S STRG=VAL
+ .I $TR(STRG," ")="PROCEDURE" S NN="",NN=$O(ORT(STRG,"")),ORDIALOG(NN,1)="" D  Q:ACKERR
+ ..Q:$G(PROC)'>0
+ ..S TEST=PROC_";99RAP"
+ ..D GETOINUM^ORWDCN32(.OI,TEST)
+ ..I $G(OI)="" D  S ACKERR=1 Q
+ ...D ACK^LRRMTIN(HLMA,HLMTIEN,"AE","Radiology order number is missing or invalid.")
+ ..;I $G(OI)="" S ERR=1,LSTN=LSTN+1,REC(LSTN)="Error: Radiology order number is missing or invalid." Q
+ ..S ORDIALOG(NN,1)=$G(OI)      D
+ ..K ORT(STRG)
+ .I $TR(STRG," ")="MODEOFTRANSPORT" S NN="",NN=$O(ORT(STRG,"")),ORDIALOG(NN,1)="" D
+ ..S ORDIALOG(NN,1)=$G(MDE)
+ ..K ORT(STRG)
+ .I $TR(STRG," ")="DATEDESIRED" S NN="",NN=$O(ORT(STRG,"")),ORDIALOG(NN,1)="" D
+ ..S DTDSIRED=$$HL7TFM^XLFDT(DTDSIRED)
+ ..S ORDIALOG(NN,1)=$G(DTDSIRED)
+ .I $TR(STRG," ")="REASONFORSTUDY" S NN="",NN=$O(ORT(STRG,"")),ORDIALOG(NN,1)="" D
+ ..S ORDIALOG(NN,1)=$G(REAS)
+ .I $TR(STRG," ")="PREGNANT" S NN="",NN=$O(ORT(STRG,"")),ORDIALOG(NN,1)="" D
+ ..S ORDIALOG(NN,1)=$G(PREG)
+ ..K ORT(STRG)
+ .I $TR(STRG," ")="PRE-OPSCHEDULEDDATE/TIME" S NN="",NN=$O(ORT(STRG,"")),ORDIALOG(NN,1)="" D
+ ..S ORDIALOG(NN,1)=$G(PREOP)
+ .I $TR(STRG," ")="CLINICALHISTORY" S NN="",NN=$O(ORT(STRG,"")) D
+ ..Q:'$D(BCH)
+ ..D BLDWP(NN,.BCH)
+ ..;S ORDIALOG(NN,1)=$G(BCH) D BLDWP(NN,BCH)
+ .I $TR(STRG," ")="SUBMITREQUESTTO" S NN="",NN=$O(ORT(STRG,"")),ORDIALOG(NN,1)="" D
+ ..S ORDIALOG(NN,1)=$G(SBRQ)
+ ..K ORT(STRG)
+ .I $TR(STRG," ")="PROCEDUREMODIFIER" S NN="",NN=$O(ORT(STRG,"")),ORDIALOG(NN,1)="" D
+ ..Q:'$D(PMOD(1))
+ ..S CNT="" F  S CNT=$O(PMOD(CNT)) Q:CNT=""  D
+ ...Q:$G(CNT)'>0
+ ...S ORDIALOG(NN,CNT)=$G(PMOD(CNT))
+ ..K ORT(STRG)
+ .I $TR(STRG," ")="CATEGORY" S NN="",NN=$O(ORT(STRG,"")),ORDIALOG(NN,1)="" D
+ ..S ORDIALOG(NN,1)=$G(CAT)
+ .I $TR(STRG," ")="URGENCY" S NN="",NN=$O(ORT(STRG,"")),ORDIALOG(NN,1)="" D
+ ..S ORDIALOG(NN,1)=$G(URG)
+ ..K ORT(STRG)
+ .I $TR(STRG," ")="ORDERINGLOCATION" S NN="",NN=$O(ORT(STRG,"")),ORDIALOG(NN,1)="" D
+ ..S ORDIALOG(NN,1)=$G(ORL)
+ .I $TR(STRG," ")="APPROVINGRAD/NUCMEDPHYS" S NN="",NN=$O(ORT(STRG,"")),ORDIALOG(NN,1)="" D
+ ..S ORDIALOG(NN,1)=$G(ORNP)
+  .I $TR(STRG," ")="ISPATIENTONISOLATIONPROCEDURES?" S NN="",NN=$O(ORT(STRG,"")),ORDIALOG(NN,1)="" D
+ ..S ORDIALOG(NN,1)=$G(ISOL)
+ .I $TR(STRG," ")="LOCATION" S NN="",NN=$O(ORT(STRG,"")),ORDIALOG(NN,1)="" D
+ ..S ORDIALOG(NN,1)=$G(LOCNME)
+ Q
+ ;
+LAB ;
+ N DA,NDE,TMP,CTYP,CTYPE,OI,JVORD,D,UR,HL,HO
+ S ERR=0,(OI,OR)=""
+ Q:$G(ORIT)'>0
+ K ORDIALOG D BLDARY(ORIT,.OR,.ORT)
+ K ORDIALOG ;M ORDIALOG=ORD K ORD
+ S VAL="" F  S VAL=$O(ORT(VAL)) Q:VAL=""!(ERR)  D  Q:ACKERR
+ .S (CTYP,CTYPE)=""
+ .S STRG=VAL
+ .I $TR(STRG," ")="LABTEST" S NN="",NN=$O(ORT(STRG,"")),ORDIALOG(NN,1)="" D  Q:ACKERR
+ ..Q:$G(LABTEST)'>0
+ ..S TST=LABTEST_";99LRT"
+ ..D GETOINUM^ORWDCN32(.OI,TST)
+ ..I $G(OI)="" D  S ACKERR=1 Q
+ ...D ACK^LRRMTIN(HLMA,HLMTIEN,"AE","Laboratory order number is missing or invalid.")
+ ..S ORDIALOG(NN,1)=$G(OI)
+ ..K ORT(STRG)
+ .I $TR(STRG," ")="COLLECTIONDATE/TIME" S NN="",NN=$O(ORT(STRG,"")),ORDIALOG(NN,1)="" D
+ ..S ORDIALOG(NN,1)=$G(START)
+ ..K ORT(STRG)
+ .;I $TR(STRG," ")="COMMENTS" S NN="",NN=$O(ORT(STRG,"")),ORDIALOG(NN,1)="" D
+ ..;S ORDIALOG(NN,1)=COMMENT I COMMENT'="" D BLDWP(NN,COMMENT)
+ .I $TR(STRG," ")="COLLECTEDBY" S NN="",NN=$O(ORT(STRG,"")),ORDIALOG(NN,1)="" D
+ ..S ORDIALOG(NN,1)="SP"
+ .I $TR(STRG," ")="HOWOFTEN" S NN="",NN=$O(ORT(STRG,"")),ORDIALOG(NN,1)="" D
+ ..S ORDIALOG(NN,1)=28
+ ..K ORT(STRG)
+ .I $TR(STRG," ")="SPECIMEN" S NN="",NN=$O(ORT(STRG,"")),ORDIALOG(NN,1)="" D
+ ..S ORDIALOG(NN,1)=SAMPLE
+ ..K ORT(STRG)
+ .I $TR(STRG," ")="COLLECTIONSAMPLE" S NN="",NN=$O(ORT(STRG,"")),ORDIALOG(NN,1)="" D
+ ..S ORDIALOG(NN,1)=SPECIMEN
+ ..K ORT(STRG)
+ .I $TR(STRG," ")="URGENCY" S NN="",NN=$O(ORT(STRG,"")),ORDIALOG(NN,1)="" D
+ ..S ORDIALOG(NN,1)=$G(URGENCY)
+ ..K ORT(STRG)
+ .I $TR(STRG," ")="LOCATION" S NN="",NN=$O(ORT(STRG,"")),ORDIALOG(NN,1)="" D
+ ..S ORDIALOG(NN,1)=$G(LOCNME)
+ ;
+ Q
+ ;-----------------------------------------------------------------------
+BLDWP(NN,BCH) ;
+ B
+ N I
+ ;S ORDIALOG(NN,1)="ORDIALOG(""WP"","_NN_",1)"
+ S CNT=99,CNT=$O(BCH(CNT),-1)
+ F I=1:1:CNT D
+ .S ORDIALOG("WP",NN,1,I,0)=$G(BCH(I))
+ S ORDIALOG(NN,1)="ORDIALOG(""WP"","_NN_",1)"
+ ;
+ Q
+ ;-----------------------------------------------------------------------
+BLDARY(ORIT,OR,ORT) ;
+ Q:$G(ORIT)'>0
+ N TXT,TMP,NM
+ ;S (ORDT("B"))="",ORD=""
+ D GETDLG^ORCD(ORIT)
+ S TXT="" F  S TXT=$O(ORDIALOG("B",TXT)) Q:TXT=""  D
+ .S TMP=$TR(TXT," "),ORDT("B",TMP)=ORDIALOG("B",TXT)
+ S TXT="" F  S TXT=$O(ORDT("B",TXT)) Q:TXT=""  D
+ .I $D(ORDT("B",$TR(TXT," "))) S NM=$P($G(ORDT("B",$TR(TXT," "))),U,2)
+ .S ORD(NM,1)="" S ORD(NM,1)=ORDT("B",TXT) S ORT(TXT,NM)="" S ORT(TXT,NM)=ORD(NM,1)
+ Q
+
+
+

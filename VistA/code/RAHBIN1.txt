@@ -1,0 +1,415 @@
+Cache for UNIX^INT^^~Format=Cache.S~^RAW
+%RO on 16 Jun 2016   9:20 AM
+RAHBIN1^INT^1^^0
+RAHBIN1 ;LEIDOS/TCK- REMOTE ORDERING - Radiology - filing driver ; 6/15/16 5:46pm
+ ;;1.0;Radiology Orders Portability;;April 1, 2016;Build 46
+ ; Reference to ^OR(100 supported by IA #5196
+ ; Reference to ^RAO(75.1 supported by IA #5604
+ ; Reference to ^RADPT( supported by IA #5602
+ ; Reference to ^RA(78.4 supported by IA #5662
+ ; Reference to ^RA(78.6 supported by IA #5663
+ ; Reference to X7005^RADD3 supported by IA #5661
+ ; Reference to A7007^RADD3 supported by IA #5661
+ ; Reference to ^DPT( supported by IA #10035
+ ; Reference to ^RAMIS(71.2 supported by IA #5664
+ ; Reference to ^DIC(81.3 supported by IA #2816
+ ; Reference to NOW^%DTC supported by IA #10000
+ ; Reference to GETDLG^ORCD supported by IA #5493
+ ;
+ ; updated:  20100908
+ ; updated 20110510 dje: Code cleanup, documentation of IAs.
+ ;
+ ; gsn - converted over to using RD1 delimiters for JVRA* code
+ ;4833 - Verifier and Esig not sent, define as doctor.
+ ;5161 - CKREG not checking for Case sts needed for re-arrivals.
+ ;5265 - Kill temp "AE xref used to prevent dupe case numbers assigned
+ ;       in SCASE^RAHBIN2
+ ;
+ Q
+ ;
+RSLT ; file a RE message ( Rad Results )
+ ;
+ K LROK
+ S LROK=0
+ ;BL;fix to address unverified results being sent
+ I $P(HLARY("OBR",1),"^",25)="R" S LROK=1,RAOROUT(1)=RADARRY("ORIEN")_"^UNVERIFIED RESULTS NOT FILED" Q
+ S NWSTATUS="COMPLETE"
+ D EN^RAHBIN2 ; set local variables from HLARY
+ D CHK1^RAHBIN2 I 'LROK G RSLTQ ; check validity of local variables.
+ ;
+ D CKREG I 'FOUND D REG
+ D VARS^RAHBIN2 ; set derived local variables.
+ ;BL;Pass an Array to JVHLRA2
+ D BLDA
+ D RPT^RAHBIN3(.RADARRY) I 'LROK G RSLTQ ; file results
+ ;
+RSLTQ ;
+ K RAOROUT(1)
+ S:LROK RAOROUT(1)=RADARRY("ORIEN")_"^RS" ; success
+ I 'LROK,'$D(RAOROUT(1)) S RAOROUT(1)="-1^RESULT ERROR MESSAGE"
+ Q
+ ;============================================================================
+REG ; file a SC message ( Rad Registration )
+ ;
+ ;
+ S (DUZ,DUZNME)=""
+ D PROXY^RAHBIN2(.DUZ,DUZNME)
+ S LROK=0
+ N DIE,DA,ST,DR,SETRA
+ S NWSTATUS="WAITING FOR EXAM" ;rhl 20100929
+ D EN^RAHBIN2 ; set local variables from HLARY
+ S SETRA=0
+ ;BL;SETTING SC TO ACTIVE AND EXAMINED  
+ I $P(HLARY("ORC",1),"|",5)="IP" D
+ . Q:$P(HLARY("OBR",1),"|",25)'="I"
+ . S DIE="^OR(100,",DA=ORIEN,ST=6,DR="5////"_ST_";" D ^DIE K DIE,DA
+ . S SETRA=1 ; success
+ S STOP=0
+ D CKREG  ;BSL;For setting update variables need to know if registered
+ I FOUND,SEX="F" D  ;BSL;SET VARIABLES TO CHECK FOR PREGNANCY UPDATE
+ . K X13
+ . ;BL;IA compliance change
+ . S RAOIEN=$$GET1^DIQ(100,ORIEN,33,"I")
+ . S X13=$$GET1^DIQ(75.1,RAOIEN,13,"I")
+ . Q:PRGFLG=X13  ;If preg flag is same as preg status quit
+ . Q:PRGFLG=""  ;If there is no preg status quit
+ . D PRGSET  ;update pregnancy status
+ . S SETRA=1  ;This was an update so do not error, but quit when done
+ I FOUND&(SETRA=0) S LROK=0,RAOROUT(1)="-1^ALREADY REGISTERED" G REGQ
+ ;I FOUND S LROK=1 G REGQ
+ K RADTI,CASE,FOUND
+ D CHK2^RAHBIN2 I 'LROK G REGQ ; check validity of local variables.
+ D SRADTI^RAHBIN2 I 'LROK G REGQ ; get RADTE & RADTI
+ D SCASE^RAHBIN2 I 'LROK G REGQ ; get case#
+ D VARS^RAHBIN2 I 'LROK G REGQ ; set derived local variables.
+ ;
+ ;BL;Pass an array to JVHLRA2
+ S EXMST=9
+ D BLDA
+ I '$D(^RADPT(RADFN)) D PAT^RAHBIN3(.RADARRY) ; stub record in ^RADPT
+ D REG^RAHBIN3(.RADARRY)         ; register exam
+ ;
+REGQ ;Report back registration success or fail
+ ;
+ S:LROK RAOROUT(1)=ORIEN_"^RS" ; success
+ I 'LROK,'$D(RAOROUT(1)) S RAOROUT(1)="-1^REG ERROR MESSAGE"
+ S CASE=$P(LCASE,"-",2)
+ K ^RADPT("AE",CASE,$J)         ;kill temp xref used by JVHLRA2   5265
+ Q
+ ;===================================================================
+MOD ;MODIFY EXAM STATUS TO EXAMINED
+ N RADFN,PROC,ORIEN,RAOIEN,EXSTAT
+ K RADTI,DA2,CONTMEDIA,FILMA,CPTMOD,FILMAMT,FILMSIZE,OBXCNT,PROCMOD,X,TECH,PRICAM,SIZE
+ Q:$P(HLARY("ORC",1),"^",5)'="CM"
+ S ORIEN=$P($G(HLARY("OBR",1)),"^",2)
+ ;BL;IA compliance change
+ S RAOIEN=$$GET1^DIQ(100,ORIEN,33,"I")
+ S PROC=$$GET1^DIQ(75.1,RAOIEN,2,"I")
+ S RADFN=$$GET1^DIQ(75.1,RAOIEN,.01,"I")
+ I RADFN="" S RAOROUT(1)="-1^NO RADIOLOGY PATIENT ON FILE" Q
+ S DFN=RADFN
+ ;Setup OBX values associated with modification of exam status 
+ ;if there are multiple films used there will need to be a film array
+ N FCNT
+ S FCNT=0,OBXCNT=0
+ FOR  S OBXCNT=$O(HLARY("OBX",OBXCNT)) Q:'OBXCNT  D
+ . S X=HLARY("OBX",OBXCNT)
+ . I $P(X,RD1,3)["IVCON" S CONTMEDIA=$P(X,RD1,5)     ;contmedia Y OR N
+ . I $P(X,RD1,3)["99FLM" D
+ . . S FCNT=FCNT+1
+ . . ;S FILMA(FCNT,"SIZE")=$P($P(X,RD1,3),RD2,1)      ;FILMSIZE CQ 3229 DEFAULT TO "PACS"
+ . . S SIZE=""
+ . . S SIZE=$$FIND1^DIC(78.4,,,"PACS")
+ . . S FILMA(FCNT,"SIZE")=SIZE
+ . . S FILMA(FCNT,"AMT")=$P(X,RD1,5)   ;FILMAMT
+ ;S X=HLARY("OBR",1),TECH=+$P($P(X,RD1,34),RD2,1)  ;TECHNOLOGIST
+ S PRICAM=""
+ S PRICAM=$$FIND1^DIC(78.6,,,"CHCS")  ;DEFAULT TO CHCS CQ 3229 MUST BE A "CHCS" ENTRY
+ I PRICAM="" S RAOROUT(1)="-1^NO MATCHING CAMERA/EQUIP/RM ENTRY IN 78.6" Q
+ D BLDA
+ I PROC="" S RAOROUT(1)="-1^ERROR MESSAGE-NO PROCEDURE" Q
+ S EXSTAT=$$GETSTA^RAHNIN2(PROC,"EXAMINED")  ;GET CODE FOR EXAMINED STATUS FOR PROCEDURE
+ I EXSTAT="" S RAOROUT(1)="-1^ERROR MESSAGE-NO EXAMINED STATUS FOR PROCEDURE" Q
+ S RADFDA(75.1,RAOIEN_",",5)=EXSTAT     ; Examined Status bsl 20101220
+ D UPDATE^DIE("S","RADFDA","","ERRMSG")
+ K RADFDA
+ ;NEED TO UPDATE 70 FILE
+ ;SET DA2 AND RADTI FOR 70 FILE
+ S RADTI=0,DA2="",FOUND=0
+ FOR  S RADTI=$O(^RADPT(RADFN,"DT",RADTI)) Q:'RADTI  D  Q:FOUND
+ . S DA2=0,DA2=$O(^RADPT(RADFN,"DT",RADTI,"P",DA2)) Q:DA2'=+DA2  D  Q:FOUND
+ . I $P(^RADPT(RADFN,"DT",RADTI,"P",DA2,0),"^",11)=RAOIEN S FOUND=1
+ ;If not found quit out with no case rad order found
+ I 'FOUND S RAOROUT(1)="-1^NO RADIOLOGY ORDER FOUND" Q
+ ;
+ S RADFDA(70.03,DA2_","_RADTI_","_RADFN_",",3)=EXSTAT  ;EXAM STATUS
+ S RADFDA(70.03,DA2_","_RADTI_","_RADFN_",",10)=RADARRY("CONTMEDIA")
+ S RADFDA(70.03,DA2_","_RADTI_","_RADFN_",",18)=RADARRY("PRICAM")
+ D UPDATE^DIE("S","RADFDA","","ERRMSG")
+ ;
+ ;store film size and amt <multiple>
+ K RADFDA
+ S FCNT=0
+ I $D(FILMA) D
+ . F  S FCNT=$O(FILMA(FCNT)) Q:FCNT=""  D
+ . . S RADFDA(70.04,"+1"_","_DA2_","_RADTI_","_RADFN_",",.01)=FILMA(FCNT,"SIZE")
+ . . S RADFDA(70.04,"+1"_","_DA2_","_RADTI_","_RADFN_",",2)=FILMA(FCNT,"AMT")
+ . . D UPDATE^DIE("S","RADFDA","","ERRMSG")
+ ;
+ ;Need to update 70.05 exam status change history
+ K RADFDA
+ ;
+ ;BL;MAKE CALL TO UTILITY TO SET 70.05 INSTEAD OF DOING IT OURSELVES
+ ;
+ D X7005^RADD3(RADFN,RADTI,DA2,"","",EXSTAT,RADARRY("DUZ"))
+ K RADFDA
+ ;
+ ;NEED TO ADD 70.07  - Tech comments are not part of the interface yet
+ D A7007^RADD3(RADFN,RADTI,DA2,RADARRY("DUZ"),RADARRY("TECH"))
+ ;
+ K RADFDA
+ ;IF THERE IS NO RADIOLOGY TECH RESULTS WILL NOT FILE PROPERLY (REVERSION ERROR)
+ I '$D(RADARRY("TECH")) S LROK=0,RAOROUT(1)="-1^NO RADIOLOGY TECHNICIAN" Q
+ ;S RADFDA(70.12,"+1,"_DA2_","_RADTI_","_RADFN_",",.01)=RADARRY("DUZ")
+ D UPDATE^DIE("S","RADFDA","","ERRMSG")
+ I '$D(RAOROUT(1)) S LROK=1
+ S RADFDA(70.07,"+1,"_DA2_","_RADTI_","_RADFN_",",4)=$G(TCM)
+ D UPDATE^DIE("S","RADFDA","","ERRMSG")
+ ;
+ ;Set "M" and "CMOD" nodes in 70 file to prevent reversion
+ ;procedure modifiers and CPT modifiers are not coming over in the interface, set to NULL
+ K RADFDA
+ S RADFDA(70.1,"+1,"_DA2_","_RADTI_","_RADFN_",",.01)=RADARRY("PROCMOD")
+ D UPDATE^DIE("S","RADFDA","","ERRMSG")
+ K RADFDA
+ ;
+ D UPDATE^DIE("S","RADFDA","","ERRMSG")
+ K RADFDA
+ ;
+MODQ ;Report back exam status updated successfully
+ S:LROK RAOROUT(1)=ORIEN_"^RS" ; success
+ I 'LROK,'$D(RAOROUT(1)) S RAOROUT(1)="-1^EXAM STATUS ERROR MESSAGE"
+ Q
+ ;
+UNARR ;Unarrive an order that has been moved to "EXAMINED" status back to Waiting for Exam"
+ N RADFN,PROC,ORIEN,RAOIEN,EXSTAT
+ K RADTI,DA2,CONTMEDIA,FILMA,CPTMOD,FILMAMT,FILMSIZE,OBXCNT,PROCMOD,X,TECH,PRICAM,SIZE
+ Q:$P(HLARY("ORC",1),"^",5)'="CM"   ;Expecting CA:?? in 5th piece
+ S ORIEN=$P($G(HLARY("OBR",1)),"^",2)
+ ;BL;IA compliance change
+ S RAOIEN=$$GET1^DIQ(100,ORIEN,33,"I")
+ S PROC=$$GET1^DIQ(75.1,RAOIEN,2,"I")
+ S RADFN=$$GET1^DIQ(75.1,RAOIEN,.01,"I")
+ I RADFN="" S RAOROUT(1)="-1^NO RADIOLOGY PATIENT ON FILE" Q
+ S DFN=RADFN
+ D BLDA
+ I PROC="" S RAOROUT(1)="-1^ERROR MESSAGE-NO PROCEDURE" Q
+ S EXSTAT=$$GETSTA^RAHBIN2(PROC,"WAITING FOR EXAM")  ;GET CODE FOR "WAITING FOR EXAM"
+ I EXSTAT="" S RAOROUT(1)="-1^ERROR MESSAGE-NO WAITING STATUS FOR PROCEDURE" Q
+ S RADFDA(75.1,RAOIEN_",",5)=EXSTAT     ; WAITING STATUS
+ D UPDATE^DIE("S","RADFDA","","ERRMSG")
+ K RADFDA
+ ;NEED TO UPDATE 70 FILE
+ ;SET DA2 AND RADTI FOR 70 FILE
+ S RADTI=0,DA2="",FOUND=0
+ FOR  S RADTI=$O(^RADPT(RADFN,"DT",RADTI)) Q:'RADTI  D  Q:FOUND
+ . S DA2=0 FOR  S DA2=$O(^RADPT(RADFN,"DT",RADTI,"P",DA2)) Q:DA2'=+DA2  D  Q:FOUND
+ .. I $P(^RADPT(RADFN,"DT",RADTI,"P",DA2,0),"^",11)=RAOIEN S FOUND=1
+ ;If not found quit out with no case rad order found
+ I 'FOUND S RAOROUT(1)="-1^NO RADIOLOGY ORDER FOUND" Q
+ ;
+ S RADFDA(70.03,DA2_","_RADTI_","_RADFN_",",3)=EXSTAT  ;EXAM STATUS
+ D UPDATE^DIE("S","RADFDA","","ERRMSG")
+ K RADFDA
+ ;
+ ;BL;MAKE CALL TO UTILITY TO SET 70.05 (EXAM STATUS CHANGE HISTORY)
+ D X7005^RADD3(RADFN,RADTI,DA2,"","",EXSTAT,RADARRY("DUZ"))
+ ;
+UNARRQ ;Report back exam status updated successfully
+ S:LROK RAOROUT(1)=ORIEN_"^RS" ; success
+ I 'LROK,'$D(RAOROUT(1)) S RAOROUT(1)="-1^UNARRIVE EXAM STATUS ERROR MESSAGE"
+ Q
+ ;
+CKREG ;  check if this exam has been registered:
+ ; input:   ORIEN
+ ; returns: RADTI,DA2,CASE,FOUND
+ N RAOIEN,RADFN,DA2,EXMST
+ S FOUND=0,CASE=""
+ ;
+ ;BL;IA compliance change
+ S RAOIEN=$$GET1^DIQ(100,ORIEN,33,"I")
+ S RADFN=$$GET1^DIQ(75.1,RAOIEN,.01,"I")
+ I 'RAOIEN S LROK=0,RAOROUT(1)="-1^ NO RAOIEN IN OR(100" Q
+ I 'RADFN S LROK=0,RAOROUT(1)="-1^ NO DFN IN ORDER FILE" Q
+ I $$GET1^DIQ(2,RADFN_",",.01,"I")="" S LROK=0,RAOROUT(1)="-1^"_RADFN_" NOT IN PATIENT FILE" Q 
+ I '$D(^RAO(75.1,RAOIEN)) S LROK=0,RAOROUT(1)="-1^ COULD NOT FIND RAOIEN ENTRY IN RAO(75.1" Q
+ ;
+ S RADTI=0,DA2=""
+CASE ;
+ F  S RADTI=$O(^RADPT(RADFN,"DT",RADTI)) Q:'RADTI  D  Q:FOUND
+ .S DA2=0,DA2=$O(^RADPT(DFN,"DT",RADTI,"P",DA2))
+ .; 5161 - ignore find of case number if it has been cancelled
+ .Q:'DA2
+ .I $P(^RADPT(DFN,"DT",RADTI,"P",DA2,0),"^",11)=RAOIEN D
+ ..S EXMST=$$GET1^DIQ(70.03,DA2_","_RADTI_","_DFN_",","EXAM STATUS")
+ ..Q:EXMST="CANCELLED"
+ ..S FOUND=1,CASE=$P(^RADPT(DFN,"DT",RADTI,"P",DA2,0),"^")
+ ;
+ Q
+ ;
+BLDA ;Build an array to pass to RAHBIN2
+ S RADARRY("DBKIND")=$G(DBKIND)
+ S RADARRY("DBCNT")=$G(DBCNT)
+ S RADARRY("ORIEN")=$G(ORIEN)
+ I $D(RADARRY("ORIEN"))="" S RADARRY("ORIEN")=$P($G(HLARY("OBR",1)),"^",2)
+ S RADARRY("IMGTYP")=$G(IMGTYP)        ;type of image=>79.2
+ S RADARRY("HOSDIV")=500  ;BL;TEMPORARY FIX FOR CRASHING DAILY REPORTS ;$G(HOSDIV)   ; hospital division=>79
+ S RADARRY("IMGLOC")=$G(IMGLOC)        ;imaging location=>79.1
+ S RADARRY("CASE")=$G(CASE)            ;case#
+ S RADARRY("PROC")=$G(PROC)            ;procedure=>71
+ S RADARRY("EXSTAT")=$G(EXMSTA)        ;exam status=>72
+ S RADARRY("EXCAT")=$G(CATEG)          ;category of exam:codes
+ S RADARRY("WARD")=$G(WARD)            ;ward=>42
+ S RADARRY("SERVC")=$G(SERVICE)          ;service=>49
+ S RADARRY("RAOIEN")=$G(RAOIEN)        ;imaging order=>75.1
+ S RADARRY("REQPRV")=$G(REQPRV)        ;requesting provider
+ S RADARRY("BED")=$G(BED)              ;bedsection=>42.4
+ S RADARRY("REQDT")=$G(REQDT)          ;request date
+ S RADARRY("REQLOC")=$G(REQLOC)        ;request location=>44
+ S RADARRY("CRDMTH")=$G(CRDMTH)        ;credit method: codes
+ S RADARRY("REQSTA")=$G(REQSTA)        ;request status:codes
+ D NOW^%DTC S NOW=% K %
+ S RADARRY("NOW")=NOW                  ;activity d/t
+ S RADARRY("RAONWSTA")=$G(RAONWSTA)    ;new status:codes
+ S RADARRY("DUZ")=$G(DUZ)              ;computer user
+ S RADARRY("DFN")=DFN                  ;patient=>2
+ S RADARRY("EXMDT")=$G(EXMDT)          ;exam dt
+ S RADARRY("RPTSTA")=$G(RPTSTA)        ;report status:codes
+ S RADARRY("RPTENTDT")=$G(RPTENTDT)    ;date report entered
+ S RADARRY("VRFDT")=$G(VRFDT)          ;verified date
+ S RADARRY("RPTDT")=$G(RPTDT)          ;reported date
+ S RADARRY("VRFPHY")=+$G(VRFPHY)       ;verifying physician
+ ;4833 Esig can't be updated here must wait until RPTIEN^JVHLRA2
+ S RADARRY("ESCD")=$G(ESCD)            ;electronic signature code
+ S RADARRY("TRNSCP")=$G(TRNSCP)        ;transcriptionist
+ ;4833 verfied by phy
+ S SCVBY=$G(VRFPHY)                    ;verifying phy also used here
+ S RADARRY("SCVBY")=$G(SCVBY)          ;status changed to verified by
+ S RADARRY("ITRLOC")=$G(ITRLOC)        ;interpreting imaging loc=>79.1
+ S RADARRY("ACTION")=$G(ACTION)        ;type of action
+ S RADARRY("PRIDGC")=$G(PRIDGC)        ;primary diagnosis code=>74
+ S RADARRY("SECDGC")=$G(SECDGC)
+ S RADARRY("PRISTF")=$G(PRISTF)        ;primary interpreting staff
+ S RADARRY("RPTIEN")=$G(RPTIEN)        ;report text=>74
+ S RADARRY("PRGFLG")=$G(PRGFLG)        ; pregnancy flag  ;rhl 20100927
+ ;BL;Examined status fields added CQ 3229
+ S RADARRY("CONTMEDIA")=$G(CONTMEDIA)  ;Contrast Media Used 
+ S RADARRY("FILMSIZE")=$G(FILMSIZE)    ;Film Size 
+ S RADARRY("FILMAMT")=$G(FILMAMT)      ;Amount (# films) 
+ S RADARRY("PRICAM")=$G(PRICAM)        ;Primary Camera/Equip/Rm ***
+ ;Must have a default PROCMOD & CPTMOD to prevent reversion of status
+ ;Using NO MODIFIER for default
+ I '$D(PMOD) S PMOD(1)="NO MODIFIER"
+ I $D(PMOD) D
+ . S I="" F  S I=$O(PMOD(I)) Q:I=""  D
+ . . Q:PMOD(I)=""
+ . . S X=PMOD(I),PROCMOD="",PROCMOD=$O(^RAMIS(71.2,"B",X,PROCMOD))
+ . . S PMOD(I)=$G(PROCMOD)
+ I PMOD(1)="" K PMOD(1)
+ S CPTMOD=""
+ S RADARRY("CPTMOD")=$G(CPTMOD)
+ ;Using normal healthy patient as defautl CPTMOD
+ ;CHCS does not send cpt modifiers.
+ ;
+ ;Kill off hanging variables from other routines
+ K RPTIEN,PRISTF,ACTION,ITRLOC,SCVBY,TRNSCP,ESCD,VRFPHY,RPTDT,VRFDT,RPTENTDT,RPTSTA,CASE,EXMDT,DFN,ACTION,BED,CRDMTH,ESCD
+ K EXCAT,EXSTAT,HLARY,HOSDIV,IMGLOC,IMGTYP,NOW,ORIEN,PROC,RAONWSTA
+ K REQLOC,REQPRV,REQSTA,SERVC,WARD,RAOROUT,PRGFLG
+ K DBKIND,DBCNT
+ Q
+ ;
+HLD ; Put Rad orders on Hold
+ N CSN,DA,DIE,HLDTE,RAPROV,STS,ORID
+ S ORID=$P(HLARY("ORC",1),"|",2)
+ I '$D(^OR(100,ORID)) S RAOROUT(1)="-1^Error: Order number is not a valid VA order number." Q
+ ;BL;IA compliance change
+ S CSN=$$GET1^DIQ(100,ORID,33,"I")
+ S STS=3
+ S DIE="^OR(100,",DA=ORID,DR="5////"_STS_";" D ^DIE K DIE,DA,DR
+ I '$D(^RAO(75.1,CSN)) Q
+ ;BL;IA compliance change
+ S RAPROV=$$GET1^DIQ(100,ORID,1,"I")
+ D PROXY^RAHBIN2(.RAPROV,.RAPRVNME)
+ S HLDTE=$$GET1^DIQ(100,ORID,31,"I")
+ I '$D(^RAO(75.1,CSN,"T")) S ^RAO(75.1,CSN,"T",0)="^75.12DA^^"
+ S DA=$P(^RAO(75.1,CSN,"T",0),"^",3),DA=DA+1
+ S $P(^RAO(75.1,CSN,"T",0),"^",3)=DA,$P(^RAO(75.1,CSN,"T",0),"^",4)=DA
+ S ^RAO(75.1,CSN,"T",DA,0)=HLDTE_"^"_STS_"^"_RAPROV
+ S DIE="^RAO(75.1,",DA=CSN,DR="5////"_STS_";" D ^DIE K DIE,STS,DR,DA
+ ; GET RADTI AND RACNI
+ S RAOIEN=CSN,RADFN=$$GET1^DIQ(75.1,RAOIEN,.01,"I")
+ S (FOUND,RADTI)=0,RACNI="",NOW=$$NOW^XLFDT
+ F  S RADTI=$O(^RADPT(RADFN,"DT",RADTI)) Q:'RADTI  D  Q:FOUND
+ .S RACNI=0 F  S RACNI=$O(^RADPT(RADFN,"DT",RADTI,"P",RACNI)) Q:'RACNI  D  Q:FOUND
+ ..I $P(^RADPT(RADFN,"DT",RADTI,"P",RACNI,0),"^",11)=RAOIEN D
+ ...S FOUND=1
+ ...S CASE=$P(^RADPT(RADFN,"DT",RADTI,"P",RACNI,0),"^")
+ I FOUND D
+ .S RAIENS=""_RACNI_","_RADTI_","_RADFN_","
+ .S RAFDA(70.03,RAIENS,3)="CANCELLED"
+ .D FILE^DIE("KSE","RAFDA","RAERR")
+ .K RAIENS,RAFDA
+ .S RAIENS="+1,"_RACNI_","_RADTI_","_RADFN_","
+ .S RAFDA(70.05,RAIENS,.01)=NOW
+ .D UPDATE^DIE(,"RAFDA","RAIEN","RAERR")
+ .K RAIENS,RAFDA
+ .S RAIENS=RAIEN(1)_","_RACNI_","_RADTI_","_RADFN_","
+ .S RAFDA(70.05,RAIENS,2)=3
+ .S RAFDA(70.05,RAIENS,3)=RAPROV
+ .D FILE^DIE(,"RAFDA","RAERR")
+ .K RAFDA,RAIENS,RAIEN
+ .S RAIENS="+1,"_RACNI_","_RADTI_","_RADFN_","
+ .S RAFDA(70.07,RAIENS,.01)=NOW
+ .D UPDATE^DIE("E","RAFDA","RAIEN","RAMSG")
+ .K RAIENS,RAFDA
+ .S RAIENS=RAIEN(1)_","_RACNI_","_RADTI_","_RADFN_","
+ .S RAFDA(70.07,RAIENS,2)="X"
+ .S RAFDA(70.07,RAIENS,3)=RAPROV
+ .D FILE^DIE(,"RAFDA","RAERR")
+ S RAOROUT(1)=ORID_"^RS"
+ Q
+ ;
+PRGSET ;Set pregnancy flag in RAO(75.1 and OR(100
+ ;This is only done on an update, changing an existing pregnancy status
+ K PRGDONE,PRGSEQ,LSTSEQ,PRGTEXT,PRGTEXT1,PRGTEXT2,RADFDA
+ S PRGSEQ=0,PRGDONE=0  ;pregnancy sequence
+ F  S PRGSEQ=$O(^OR(100,ORIEN,4.5,PRGSEQ)) Q:PRGSEQ'=+PRGSEQ  D  Q:PRGDONE
+ . I ^OR(100,ORIEN,4.5,PRGSEQ,0)["PREGNANT" S PRGDONE=1
+ . S LSTSEQ=PRGSEQ
+ N ORDIALOG
+ S PRGFLG=$TR(PRGFLG,"nyu","NYU")
+ D GETDLG^ORCD(1)
+ S PRGTEXT1=$P(ORDIALOG("B","PREGNANT"),"^",2)
+ S PRGTEXT2=$P(ORDIALOG(PRGTEXT1),"^")
+ S PRGTEXT=PRGTEXT2_"^"_PRGTEXT1_"^1^PREGNANT"
+ K ORDIALOG
+ I PRGDONE=0 D  ;IF NO PREGNANCY STATUS HAS BEEN STORED
+ . N RAIEN,RADFDA,RADFILE
+ . S RADFILE=100.045,RAIEN=ORIEN_","
+ . S RADFDA(1,RADFILE,"+1,"_RAIEN,.01)=PRGTEXT2
+ . S RADFDA(1,RADFILE,"+1,"_RAIEN,.02)=PRGTEXT1
+ . S RADFDA(1,RADFILE,"+1,"_RAIEN,.03)="1"
+ . S RADFDA(1,RADFILE,"+1,"_RAIEN,.04)="PREGNANT"
+ . S RADFDA(1,RADFILE,"+1,"_RAIEN,1)=PRGFLG
+ . D UPDATE^DIE("","RADFDA(1)","","ERRMSG") K RADFDA,RADFILE,RAIEN
+ I PRGDONE=1 D  ;IF MODIFYING A PREGNANCY STATUS
+ . N RAIEN,RADFDA,RADFILE
+ . S RADFILE=100.045,RAIEN=LSTSEQ_","_ORIEN_","
+ . S RADFDA(RADFILE,RAIEN,1)=PRGFLG
+ . D FILE^DIE("","RADFDA","ERRMSG") K RADFDA,RADFILE,RAIEN
+ S RAOIEN=+$G(^OR(100,ORIEN,4)) ; pointer to RAO(75.1
+ S RADFDA(75.1,RAOIEN_",",13)=RADARRY("PRGFLG")     ; preg flag ; rhl 20100927
+ D UPDATE^DIE("S","RADFDA","","ERRMSG")
+
+
+

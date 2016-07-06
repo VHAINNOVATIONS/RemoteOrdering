@@ -1,0 +1,356 @@
+Cache for UNIX^INT^RAD HUB IN^~Format=Cache.S~^RAW
+%RO on 28 Jun 2016   4:58 PM
+RAHBIN2^INT^1^^0
+RAHBIN2 ;LEIDOS/TCK- REMOTE ORDERING - Radiology - PARSER ; 6/28/16 3:30pm
+ ;;1.0;Radiology Orders Portability;** GSN TEST VERSION ***;April 1, 2016;Build 46
+ ; Reference to NOW^%DTC supported by IA #10000
+ ; Reference to ^OR(100 supported by IA #5196
+ ; Reference to ^RAMIS(71 supported by IA #5607
+ ; Reference to ^RADPT( supported by IA #5602
+ ; Reference to ^RAO(75.1 supported by IA #5604
+ ; Reference to ^DPT( supported by IA #10035
+ ; Reference to ^VA(200 supported by IA #10060
+ ; Reference to ^RA(79.1 supported by IA #5610
+ ; Reference to CN^RAREG1 supported by IA #5479
+ ; Reference to HL7TFM^XLFDT supported by IA #10103
+ ; Reference to ^RA(72 supported by IA #5606
+ ;
+ ; updated 20100908
+ ; updated 20110509 dje: document IAs, code cleanup
+ ;
+ ; gsn  - convert to RD1 type delimiters.
+ ; 4839 - add Impression txt for filing seperately from report txt
+ ;        also had to rework amendment text logic here and in rtn
+ ;        RAHBIN2.
+ ; 5265 - Add the "AE xref after we get case number so other processes
+ ;        also calling CN^RARE1, will see the case number is in use.
+ ;
+ Q
+ ;
+EN ;
+ N X,OBXCNT,RCNT,STOP
+ K PRGFLG S PRGFLG=""
+ ;
+ ;   process HL7 segments:
+PID ;
+ K DFN
+ S DFN=""
+ S X=HLARY("PID",1),DFN=$P(X,RD1,2)
+ I DFN["-" S DFN=+$P(DFN,"-",2)
+ ;I $G(NAME)'="" S DFN="",DFN=$O(^DPT("B",NAME,DFN))
+ S SEX=$$GET1^DIQ(2,DFN,.02,"I")
+ ;
+PV1 ;
+ S X=$G(HLARY("PV1",1)) D  ; rhl 20100927
+ . S X="NO"
+ . S PRGFLG=$P(X,RD1,15),PRGFLG=$E(PRGFLG,1),PRGFLG=$TR(PRGFLG,"YNU","ynu")
+ . I PRGFLG'="y",PRGFLG'="n",PRGFLG'="u" S PRGFLG=""
+ ;
+ORC ;
+ I $D(HLARY("ORC")) D
+ .S X=HLARY("ORC",1),EXMDT=$P(X,RD1,9)
+ .S:'EXMDT EXMDT=$P(X,"^",14) I 'EXMDT D NOW^%DTC S EXMDT=%
+ .S EXMDT=$$HLD(EXMDT),REQDT=EXMDT
+ .S EXMSTA=$P($P(X,"|",17),"^")
+ .S CATEG=$P($P(X,"|",17),"^",2)
+ .S WARD=$P($P(X,"|",17),"^",3)
+ .S SERVICE=$P($P(X,"|",17),"^",4)
+ .S OR=$P(X,2),ST=$$GET1^DIQ(100,OR,5,"I")
+ .I ST=5 S RAONWSTA=6
+ .I ST=6 S RAONWSTA=2
+OBR ;
+ K ORIEN,IMGLOC,PRISTF,PROC,REQPRV,RPTSTA,RPTDT,TRNSCP,VRFDT,ITRLOC,VRFPHY
+ ;K RADARRY("RPTSTA")
+ S ORIEN="",IMGLOC="",ITRLOC="",VRFPHYN=""
+ N %
+ S X=HLARY("OBR",1),IMGLOC=+$P($P(X,RD1,21),"`",2),PROC=+$P($P(X,RD1,4),"^",4),REQPRV=$P(X,RD1,16),PRISTF=0,VRFPHY=$P(X,RD1,32)
+ S PRVNM=$P(REQPRV,"^",2,3) I PRVNM["^" S PRVNM=$TR(PRVNM,"^",",")
+ I PRVNM'="",$D(^VA(200,"B",PRVNM)) D
+ .S REQPRV="",REQPRV=$O(^VA(200,"B",PRVNM,REQPRV))
+ I PRVNM=""!('$D(^VA(200,"B",PRVNM))) D PROXY(.REQPRV,.PRVNM)
+ ;S PRVNM=$P(PRISTF,"^",2,3) I PRVNM["^" S PRVNM=$TR(PRVNM,"^",",")
+ ;I PRVNM'="",$D(^VA(200,"B",PRVNM)) D
+ .;S PRISTF="",PRISTF=$O(^VA(200,"B",PRVNM,PRISTF))
+ ;I 'PRISTF S PRISTF=REQPRV
+ I VRFPHY="" S VRFPHY=0
+ ;I VRFPHY D
+ .;S VRFPHYN=$P(VRFPHY,"^",2,3) I VRFPHYN["^" S VRFPHYN=$TR(VRFPHYN,"^",",")
+ .;I VRFPHYN'="",$D(^VA(200,"B",VRFPHYN)) D
+ ..;S VRFPHY="",VRFPHY=$O(^VA(200,"B",VRFPHYN,VRFPHY))
+ .;I VRFPHYN="" D PROXY(.VRFPHY,.VRFPHYN)
+ ;I 'VRFPHY D PROXY(.VRFPHY,.VRFPHYN)
+ D PROXY(.VRFPHY,.VRFPHYN)
+ S USER=$P(X,"|",35),USER=$P(USER,"^",2,3),USER=$TR(USER,"^",",")
+ S ITRLOC=+$P($P(X,RD1,21),"`",2)
+ I $G(EXMDT)'>0 D
+ .S EXMDT=$P(X,RD1,7)
+ .S:'EXMDT EXMDT=$P(X,"^",14)
+ .I 'EXMDT D NOW^%DTC S EXMDT=%
+ .S EXMDT=$$HLD(EXMDT),REQDT=EXMDT
+ S RPTSTA=$P(X,RD1,25),RPTDT=$$HLD($P(X,RD1,22)),TRNSCP=+$P(X,RD1,35)
+ S VRFDT=$P(X,RD1,22),VRFDT=$$HLD($P(X,RD1,22)),ORIEN=+$P(X,RD1,2)
+ I RPTSTA="F" S RPTSTA="V"  ;BSL;Fix to allow results viewing
+ S RADARRY("RPTSTA")=RPTSTA
+ S RADARRY("USER")=$G(USER)
+ ;
+ I $G(NWSTATUS)'="",$G(PROC) S EXSTAT=$$GETSTA(PROC,NWSTATUS) ; rhl 20100929
+ S RADARRY("EXSTAT")=$G(EXSTAT)
+ ;
+OBX ; 
+ N HCNT,ICNT,RCNT,IMPBEG,RAAM,AMENDED,DELIM,RATMP,SKIP,TXT
+ S (IMPBEG,RAAM)=0
+ ;
+ ;4839:
+ S (RCNT,HCNT,ICNT)=1 ;init these counters when first OBX happens
+ ;
+ ;Loop thru HLARY and convert Report nodes, which qaulify, to
+ ;Impression nodes.
+ ;
+ F OBXCNT=0:0 S OBXCNT=$O(HLARY("OBX",OBXCNT)) Q:'OBXCNT  D
+ . S X=HLARY("OBX",OBXCNT)
+ . Q:($P(X,RD1,3)'["REPORT")&($P(X,RD1,3)'["RESCODE")
+ . ;check for beginning of IMP txt
+ . S:$$UP^XLFSTR($P(X,RD1,5))["IMPRESSION:" IMPBEG=1
+ . I $P(X,RD1,3)["RESCODE" S IMPBEG=0   ;reset impbeg at Rescode line
+ . I IMPBEG D
+ .. S $P(X,RD1,3)="I\IMPRESSION\L",HLARY("OBX",OBXCNT)=X
+ ;
+ ;Now loop thru HLARY & determine type of text and call correct tag
+ ;
+ K OCXCNT,PRIDGC
+ S (PRIDGC,PRIFLG)=0
+ F OBXCNT=0:0 S OBXCNT=$O(HLARY("OBX",OBXCNT)) Q:'OBXCNT  D
+ . S X=HLARY("OBX",OBXCNT)
+ . I $P(X,RD1,3)["TECH" S RADARRY("TECH")=$P(X,RD1,5) Q
+ . I $P(X,RD1,3)["MODIFIERS" D OBXMOD Q
+ . I $P(X,RD1,3)["DIAGNOSTIC" D OBXDGN Q
+ . I $P(X,RD1,3)["REPORT" D OBXRPT Q
+ . I $P(X,RD1,3)["HISTORY" D OBXHST Q
+ . I $P(X,RD1,3)["IMPRESSION" D OBXIMP Q
+ ;
+ ;4839:
+ ;determine the last update sent (RAAM) just sent via DOD HL7 msg
+ ;as DOD sends ALL text, the orig text + all amendments to date.
+ ;  RAAM=1 is an orig final report, 2 or more are amendments
+ ;
+ I $D(WPRT) S RATMP=$O(WPRT(999),-1) S:RATMP>RAAM RAAM=RATMP
+ I $D(WPIT) S RATMP=$O(WPIT(999),-1) S:RATMP>RAAM RAAM=RATMP
+ I $D(WPACH) S RATMP=$O(WPACH(999),-1) S:RATMP>RAAM RAAM=RATMP
+ ;
+ ;now init report & imp text arrays only if they had amended text
+ ;that was just sent, else kill that specific array to stop its update
+ I $D(WPRT(RAAM)) M TMP=WPRT(RAAM) K WPRT M WPRT=TMP K TMP
+ E  K WPRT
+ I $D(WPIT(RAAM)) M TMP=WPIT(RAAM) K WPIT M WPIT=TMP K TMP
+ E  K WPIT
+ I $D(WPACH(RAAM)) M TMP=WPACH(RAAM) K WPACH M WPACH=TMP K TMP
+ E  K WPACH
+ Q
+ ;====================================================================
+ ;
+PROXY(VAL,VAL1) ;
+ S VAL1="PROXY,PROVIDER"
+ I $D(^VA(200,"B",VAL1)) S VAL="",VAL=$O(^VA(200,"B",VAL1,VAL))
+ I '$D(^VA(200,"B",VAL1)) S VAL=0
+ Q
+ ;
+OBXMOD ; PROCEDURE MODIFIERS
+ B
+ S CNT=1
+ I $D(PMOD) S CNT=999,CNT=$O(PMOD(CNT),-1),CNT=CNT+1
+ S PMOD(CNT)=$P(X,RD1,5)
+ S RAAM=$G(RAAM)+1
+ S (RCNT,HCNT,ICNT)=1
+ Q
+ ;
+OBXDGN ; DIAGNOSIC CODE always Precedes the Report text. also contains diagnosis
+ ;
+ S AMENDED=$S($P(X,RD1,11)="C":1,1:0)
+ I PRIFLG D
+ .I $D(SECDGC) S CNT=99,CNT=$O(SECDGC(CNT),-1),CNT=CNT+1,SECDGC(CNT)=+$P(X,RD1,5)
+ .I '$D(SECDGC) S CNT=1,SECDGC(CNT)=+$P(X,RD1,5)
+ I 'PRIFLG S PRIDGC=+$P(X,RD1,5),PRIFLG=1
+ ;increment Amendments,1 = ORIG, 2 - n = Amendments
+ S RAAM=RAAM+1
+ ;re-init when RESCODE happens, covers each OBX result so orig result
+ ;and multiple amendment results kept separate.
+ S (RCNT,HCNT,ICNT)=1
+ Q
+ ;
+OBXRPT ; report text
+ I $P(X,RD1,3)'["REPORT" Q
+ I '$D(WPRT) S RAAM=1
+ I $D(WPRT) S RAAM=99999,RAAM=$O(WPRT(RAAM),-1)
+ ;I $G(VRFPHY)="" S VRFPHY=REQPRV
+ S WPRT(RAAM,"WP",RCNT)=$P(X,RD1,5)
+ S RCNT=RCNT+1 
+ Q
+ ;
+OBXIMP ; impression text
+ I $P(X,RD1,3)'["IMPRESSION" Q
+ S TXT=$P(X,RD1,5)
+ S SKIP=0
+ I ICNT=1 D
+ . S DELIM=$S(TXT["IMPRESSION:":"IMPRESSION:",TXT["Impression:":"Impression:",1:"")
+ . I DELIM]"" S TXT=$P(TXT,DELIM,2) I $E(TXT,1)=" " S TXT=$E(TXT,2,999)
+ . S:TXT="" SKIP=1    ;skip hdr only line
+ Q:SKIP
+ I '$D(WPIT) S RAAM=1
+ I $D(WPIT) S RAAM=99999,RAAM=$O(WPIT(RAAM),-1)
+ S WPIT(RAAM,"WP",ICNT)=TXT
+ S ICNT=ICNT+1
+ Q 
+ ;
+OBXHST ; additional clinical history text
+ I $P(X,RD1,3)'["HISTORY" Q
+ I '$D(WPACH) S RAAM=1
+ I $D(WPACH) S RAAM=99999,RAAM=$O(WPACH(RAAM),-1)
+ S WPACH(RAAM,"WP",HCNT)=$P(X,RD1,5)
+ S HCNT=HCNT+1
+ Q
+ ;
+ ;=======================================================
+VARS ; check variables for HL7 -- generate varibles
+ N X13
+ K IMGTYP,RADFN,RAOIEN
+ S IMGTYP=""
+ ;S RAOIEN=+$G(^OR(100,ORIEN,4)) ; pointer to RAO(75.1 
+ ;BL;IA compliance change
+ S RAOIEN=$$GET1^DIQ(100,ORIEN,33,"I")
+ I $G(RAOIEN)'>0 S LROK=0,RAOROUT(1)="-1^NO RADIOLOGY ORDER NUMBER FOUND",MSG="ERR^NO RADIOLOGY ORDER NUMBER FOUND" D ERR Q
+ S IMGTYP=$P($G(^RAMIS(71,PROC,0)),"^",12)
+ ;BL;IA compliance change
+ S RADFN=DFN
+ I '$G(RADTE) S RADTE=$P(^RADPT(DFN,"DT",RADTI,0),"^")
+ I '$G(CASE) D SCASE
+ I '$G(LCASE) S LCASE=$E(RADTE,4,5)_$E(RADTE,6,7)_$E(RADTE,2,3)_"-"_CASE
+ ;  check pregnancy flag precedence: Y>U>N>"" ; rhl 20100927
+ ;BL;IA compliance change
+ I SEX="F" D
+ .S X13=$$GET1^DIQ(75.1,RAOIEN,13,"I")
+ .I PRGFLG="",X13="" S PRGFLG="u"
+ .I PRGFLG="",X13'="" S PRGFLG=X13
+ ;
+ Q
+ ;=========================================================
+CHK1 ; check for result variables
+ ; check patient DFN & SSN
+ ; verify providers
+ ; check providers: REQPRV, PRISTF, TRNSCP
+ K I,LROK,MSG,TCNT,CHKLOC,CHKPROC,CHKPRIDGC
+ S CHKLOC="",CHKPROC="",CHKPRIDGC=""
+ S TCNT=RACNT
+ S I="",LROK=1,MSG=""
+ I $G(PRISTF)="" S PRISTF=0
+ F I="REQPRV","TRNSCP","IMGLOC" S:@I=0 @I=""
+ F I="DFN","PROC","REQPRV","REQDT","PRISTF","EXMDT","RPTSTA","RPTDT","VRFDT","PRIDGC" D  ;
+ . Q:@I'=""
+ . S RACNT=RACNT+1
+ . S RAOROUT(RACNT)="ERR^REQUIRED FIELD NOT DEFINED "_I
+ . S LROK=0
+ Q:'LROK
+ S RACNT=1
+ ;
+ I $G(IMGLOC)="" S MSG="ERR^NO IMAGE LOCATION SPECIFIED " D ERR Q
+ I $$GET1^DIQ(2,DFN_",",.01,"I")="" S MSG="ERR^DFN "_DFN_" NOT IN PATIENT FILE " D ERR Q
+ ;Use fileman calls to check for global references (removing $D)
+ S CHKLOC=$$GET1^DIQ(79.1,IMGLOC,.01,"I")
+ S CHKPROC=$$GET1^DIQ(71,PROC,.01,"I")
+ S CHKPRIDGC=$$GET1^DIQ(78.3,PRIDGC,.01,"I")
+ I '$D(CHKLOC) S MSG="ERR^IMAGE LOCATION "_IMGLOC_" NOT IN IMG LOCATION FILE " D ERR Q
+ I '$D(CHKPROC) S MSG="ERR^PROCEDURE "_PROC_" NOT IN RAD PROC FILE " D ERR Q
+ ;I $$GET1^DIQ(200,REQPRV_",",.01,"I")="" S MSG="ERR^REQUESTING PROVIDER "_REQPRV_" NOT IN NEW PERSON FILE " D ERR Q
+ ;I $$GET1^DIQ(200,PRISTF_",",.01,"I")="" S MSG="ERR^REQUESTING PROVIDER "_REQPRV_" NOT IN NEW PERSON FILE " D ERR Q
+ ;I '$D(CHKPRIDGC) S MSG="ERR^PRIMARY DIAGNOSIS "_PRIDGC_" NOT IN RAD DIAGNOSIS FILE " D ERR Q
+ S RACNT=TCNT
+ ;
+ Q
+ ;
+CHK2 ; check for registration variables
+ ; check patient DFN & SSN
+ ; verify providers
+ ; check providers: REQPRV
+ K CHKLOC,CHKPROC
+ S CHKLOC="",CHKPROC=""
+ S I="",LROK=1
+ I $G(REQDT)>0 S EXMDT=REQDT
+ I $G(PRISTF)="" S PRISTF=0
+ F I="REQPRV","TRNSCP","IMGLOC" S:@I=0 @I=""
+ F I="DFN","PROC","REQPRV","REQDT","EXMDT" D  ;
+ . Q:@I'=""
+ . S RACNT=RACNT+1,RAOROUT(RACNT)="ERR^REQUIRED FIELD NOT DEFINED "_I,LROK=0
+ Q:'LROK
+ ;
+ I $$GET1^DIQ(2,DFN_",",.01,"I")="" S MSG="ERR^DFN "_DFN_" NOT IN PATIENT FILE " D ERR Q
+ S CHKLOC=$$GET1^DIQ(79.1,IMGLOC,.01,"I")
+ S CHKPROC=$$GET1^DIQ(71,PROC,.01,"I")
+ I $G(IMGLOC),'$D(CHKLOC) S MSG="ERR^IMAGE LOCATION "_IMGLOC_" NOT IN IMG LOCATION FILE " D ERR Q
+ I '$D(CHKPROC) S MSG="ERR^PROCEDURE "_PROC_" NOT IN RAD PROC FILE " D ERR Q
+ I $$GET1^DIQ(200,REQPRV_",",.01,"I")="" S MSG="ERR^REQUESTING PROVIDER "_REQPRV_" NOT IN NEW PERSON FILE " D ERR Q
+ ;
+ Q
+ ;
+SRADTI ; get RADTE & RADTI
+ ; input EXAMDT, Exam Date/Time in HL7 format
+ K RADTE,RADTI
+ S RADTE=EXMDT
+ ; RADTI is 9's complement of FM Internal D/T and used as 3rd subscript in 70.02, 70.03, etc.
+ S RADTI=9999999.9999-RADTE ; ^RADPT(RADFN,"DT",RADTI, . . .
+ ;BL;Adding code to ensure only 1 test per RADTI;JIRA 1822
+ ;check for existing RADTI
+CKRADTI ;begin loop for RADTI check (need a new RADTI)
+ K CHKRADTI
+ S CHKRADTI=$$GET1^DIQ(70.02,RADTI_","_DFN,.01,"I")
+ I CHKRADTI'="" D INCTI
+ Q
+INCTI ;RADTI exists increment X2 
+ S RADTE=$$FMADD^XLFDT(RADTE,,,+1)
+ S RADTI=9999999.9999-RADTE
+ D CKRADTI
+ Q
+SCASE ; get case#
+ ; RADTE & RADTI must be defined.
+ N RATYPE,RASET,RAX
+ S RATYPE=1,RASET=0
+ K CASE,LCASE
+ S CASE="",LCASE=""
+ D CN^RAREG1 ; create Case#  ;  need agreement
+ ;5265 - build temp Case# xref that the API, CN^RAREG1, uses to get
+ ;       the next available Case number. Both ORP & Legacy use this.
+ ;       Further down in our process, RAHBIN2, files are stored, which
+ ;       includes creating the real AE xref.  Then kill temp xref.
+ S ^RADPT("AE",X,$J)=""       ;temp xref  5265
+ S CASE=X
+ ;
+ S LCASE=$E(RADTE,4,5)_$E(RADTE,6,7)_$E(RADTE,2,3)_"-"_CASE
+ I $D(^RADPT("ADC",LCASE)) S LROK=0,RAOROUT(1)="-1^CASE NUMBER ALREADY IN USE"
+ Q
+HLD(XD) ; convert HL7 date to FM date
+ Q:$G(XD)="" ""
+ Q $$HL7TFM^XLFDT(XD)
+ ;
+ERR ;
+ S RACNT=RACNT+1,RAOROUT(RACNT)="ERR^"_MSG,LROK=0
+ Q
+GETSTA(PROC,STATUS) ; get status (EXSTAT) for RADPT ; rhl 20100929 - new subrtn
+ N IMGTYP,XIEN,X7,XSTAT
+ S EXMSTA=""
+ ;BL;IA compliance change
+ S IMGTYP=$$GET1^DIQ(71,PROC,12,"I") I IMGTYP="" Q ""
+ ;
+ S XSTAT=""
+ F  S XSTAT=$O(^RA(72,"B",XSTAT)) Q:XSTAT=""  D  Q:EXMSTA
+ . Q:XSTAT'[STATUS
+ . S XIEN=0 FOR  S XIEN=$O(^RA(72,"B",STATUS,XIEN)) Q:'XIEN  D  Q:EXMSTA
+ . . ;BL;IA compliance change
+ . . S X7=$$GET1^DIQ(72,XIEN,7,"I")
+ . . I X7=IMGTYP S EXMSTA=XIEN
+ ;
+ Q EXMSTA
+ ;
+ENDQ ;
+ K NWSTATUS,EXSTAT,HLARY,WPACH,WPRT,WRPT
+ Q
+
+
+

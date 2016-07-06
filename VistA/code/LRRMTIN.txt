@@ -1,0 +1,146 @@
+Cache for UNIX^INT^LAB SPOKE IN^~Format=Cache.S~^RAW
+%RO on 04 Jul 2016  10:57 AM
+LRRMTIN^INT^1^^0
+LRRMTIN ;;LEIDOS/TCK - REMOTE ORDER - INCOMING ; 7/1/16 9:43am
+ ;;1.0;REMOTE ORDERS;;OCT 1,2016;
+ ; Reference to UNESC^ORHLESC supported by IA #4922
+ ;; TEST
+ ;
+ ;-----------------------------------------------------------------------
+EN ; Entry point for INCOMING ORDERS FROM A HOST FACILITY
+ ;
+ ;    Input: HLMTIEN - ^HL(772,IEN
+ ;
+ ;   Output: None.
+ ;
+ N I
+ S (I,TYPE)="",ACKERR=0
+ ;
+ I $G(HLMTIEN)'>0 Q
+ ;
+ S REMOTE=1
+ S HLMA=$O(^HLMA("B",HLMTIEN,""))
+ I $G(HLMA)'>0 Q
+ ;
+ I '$D(^HLMA(HLMA,0)) Q
+ I '$D(^HLMA(HLMA,"MSH")) Q
+ ;
+ I $P(^HLMA(HLMA,"MSH",1,0),"|",3)["LA7V HOST" S TYPE="LAB"
+ I $P(^HLMA(HLMA,"MSH",1,0),"|",3)["RA HOST" S TYPE="RAD"
+ S LOC=+$P(^HLMA(HLMA,"MSH",1,0),"|",4)
+ S I=0 F  S I=$O(^HL(772,HLMTIEN,"IN",I)) Q:I=""  D
+  .S REC(I)=^HL(772,HLMTIEN,"IN",I,0)
+ ;
+ M ^TMP("POLICY")=REC
+ ;Q
+ Q:'$D(REC)
+ ;
+ D EN^LRRMTIN1(.REC,TYPE,LOC)
+ ;
+ I 'ACKERR D ACK(HLMA,HLMTIEN,"AA")
+ ;
+ Q
+ ;-----------------------------------------------------------------------
+ACK(HLMA,HLMTIEN,CODE,ERR) ; This sub-routine will handle the Application Errors
+ ;                   (AE) or Rejects (AR) or Accepts (AA) back to the
+ ;                   Hub (Ordering Lab).
+ ;
+ ;    Input:    HLMA - ^HLMA IEN                        [required]
+ ;           HLMTIEN - ^HL(772 IEN                      [required]
+ ;              CODE - AA=Accept, AE=Error, AR=Reject   [optional]
+ ;               ERR - Error Text to be returned.       [optional]
+ ;
+ ;   Output: None.
+ ;
+ N HLEID,HLEIDS,MSA1,PROT,SLOC
+ ;
+ S MSA1=$G(CODE) S:$G(ERR)="" MSA1="AA"     ; acknowledgement code
+ S SLOC=+$P(^HLMA(HLMA,"MSH",1,0),"|",4)    ; sending facility
+ S PROT="LA7V "_SLOC_" ORM-O01 EVENT"       ; event prototcol
+ S HLEID=$O(^ORD(101,"B",PROT,0))           ; event protocol IEN
+ S HL("MID")=$P(^HLMA(HLMA,0),U,2)          ; Message Control ID
+ S HLEIDS=$P(^HLMA(HLMA,0),U,8)             ; Subscriber Protocol
+ ;
+ S HLA("HLS",1)="MSA|"_MSA1_"|"_HL("MID")_$S($G(ERR)]"":"|"_ERR,1:"")
+ ;
+ D GENERATE^HLMA(HLEID,"LM",1,.RESULT,"",.HLP)
+ ;
+ Q
+ ;-----------------------------------------------------------------------
+TEST(LROROUT,HLMTIEN) ; HLMTIEN=IEN to ^HL(772
+ D EN
+ Q
+ ;-----------------------------------------------------------------------
+GTDOM(R) ; Get the list of performing labs from the "E" cross reference.
+ ;
+ N NME,INST,CNT
+ S (DOM,INST,R)=""
+ Q:'$D(^DIC(4,"E"))
+ ;
+ F  S INST=$O(^DIC(4,"E",INST)) Q:INST=""  D
+  .S NME=$$GET1^DIQ(4,INST,.01,"E")
+  .S CNT=$G(CNT)+1
+  .S R(CNT)=INST_U_NME
+ ;
+ Q
+ ;-----------------------------------------------------------------------
+DC(REC,ORID,ORVP,ORNP,ORL,REASON,DCORIG,ISNEWORD) ;
+ N FLG,FLAG,LRSEND,LRODT,LRSN,LRSEND,ORN,LRIEN,LRFILE,LRAA,LRAN,LRAD
+ S (FLG,FLAG)=0,(LRAA,LRAN,LRAD)=""
+ S (DCORIG,ISNEWORD)=0
+ I $G(REASON)'?.N,$D(^ORD(100.03,"B",REASON)) D
+ .S REASIEN="",REASIEN=$O(^ORD(100.03,"B",REASON,REASIEN))
+ I $G(REASIEN)>0 S REASON=REASIEN
+ I $G(REASON)?.N S REASIEN=REASON
+ I $G(REASIEN)="" S REASIEN=6
+ S ORDNUM=+ORID
+ S FILE=100,ORIEN=ORDNUM_","
+ I $$GET1^DIQ(FILE,ORIEN,31,"I") D  Q:FLG
+ .I $$GET1^DIQ(FILE,ORIEN,5,"I")=1 S NDE=$O(^OR(100,ORDNUM,8,9999),-1),REC(1)=ORDNUM_";"_NDE_"^RS" S FLG=1 Q
+ Q:FLG
+ S STATUS=$$GET1^DIQ(100,ORDNUM_",",5,"I")
+ S PTYPE=$$GET1^DIQ(100,ORDNUM_",",12)
+ ;4900 send error msg for a Lab DC try for a completed order
+ I STATUS=2&(PTYPE'["RAD") D  Q
+ .S REC(1)="Warning: Not cancelled. Lab order is already completed."
+ I PTYPE'["RAD" D
+ .S LRFILE=100,LRIEN=ORDNUM_","
+ .S LRDATA=$$GET1^DIQ(LRFILE,LRIEN,33,"I") I LRDATA="" Q
+ .S LRORD=$P(LRDATA,";"),LRODT=$P(LRDATA,";",2),LRSND=$P(LRDATA,";",3)
+ .Q:$G(LRORD)=""
+ .Q:$G(LRODT)=""
+ .Q:$G(LRSND)=""
+ .I '$D(^LRO(69,LRODT,1,LRSND)) Q
+ .I '$D(^LRO(69,LRODT,1,LRSND,2)) Q
+ .S LRSEND=0 F  S LRSEND=$O(^LRO(69,LRODT,1,LRSND,2,LRSEND)) Q:LRSEND'?.N  D
+ ..S ORN=$P(^LRO(69,LRODT,1,LRSND,2,LRSEND,0),U,7)
+ ..I ORN=ORDNUM D
+ ...S LRSN=LRSND,LRI=LRSEND,ORIFN=ORN
+ ...S LRTEST=$P(^LRO(69,LRODT,1,LRSND,2,LRSEND,0),U)
+ ...S LRSS=$$GET1^DIQ(60,LRTEST,4,"I")
+ ...S LIEN=LRSN_","_LRODT_","
+ ...S LRDFN=$$GET1^DIQ(69.01,LIEN,.01,"I")
+ ...S PNM=$$GET1^DIQ(2,ORVP,.01,"I"),LRDPF=2
+ ...S LRAA=$P(^LRO(69,LRODT,1,LRSND,2,LRSEND,0),U,4)
+ ...S LRAD=$P(^LRO(69,LRODT,1,LRSND,2,LRSEND,0),U,3)
+ ...S LRAN=$P(^LRO(69,LRODT,1,LRSND,2,LRSEND,0),U,5)
+ .I LRAA'="",LRAD'="",LRAN'="" S FLAG=1
+ I 'FLAG D
+ .D DC^ORWDXA(.REC,ORID,ORNP,ORL,REASON,DCORIG,ISNEWORD)
+ .D BLDSND^LRRMTIN1(.REC,.ORWREC)
+ .K REC S ES="AA",ORWLST=""
+ .D SEND^ORWDX(.ORWLST,ORVP,ORNP,ORL,ES,.ORWREC)
+ .M REC=ORWLST K ORWLST
+ .D UPDTOR(ORID)
+ ;
+ Q
+ ;-----------------------------------------------------------------------
+UPDTOR(ORID) ;
+ S USR=$P(^OR(100,+ORID,8,2,0),"^",3)
+ S $P(^OR(100,+ORID,8,2,0),"^",5)=USR
+ S $P(^OR(100,+ORID,8,2,0),"^",13)=USR
+ ;
+ Q
+
+
+

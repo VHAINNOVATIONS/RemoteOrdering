@@ -1,0 +1,118 @@
+Cache for UNIX^INT^RAD HUB IN^~Format=Cache.S~^RAW
+%RO on 28 Jun 2016   3:32 PM
+RAHBIN^INT^1^^0
+RAHBIN ;LEIDOS/TCK- Remote ordering - Radiology ; 6/22/16 12:31pm
+ ;;1.0;Radiology Orders Portability;;April 1, 2016;Build 46
+ ; Reference to ^DIC(4 supported by IA #10090
+ ; Reference to DC^ORWDXA supported by IA #5595
+ ; Reference to SEND^ORWDX supported by IA #5596
+ ;
+ ; Updated: 20100908
+ ; updated 20101124 rhl DBGOUT
+ ; updated 20110509 dje: IA comments, code cleanup.  Note:  the IA references may be unnecessary, since the relevant code is commented out.
+ ;
+ ; gsn - Start using RD1 type delimiters instead of D1 types as these
+ ;       variables are used by fileman calls
+ ; 4076 - PACS define REQLOC from OBR13
+ ;
+EN ;
+ ; Note: HL7 delimitors D1-D5 are defined in JVOR
+ ;
+ S ^TMP("HLMT")=HLMTIEN
+ ;
+ K ^TMP("RMTE"),REC,HLARY
+ N I,D1,D2,D3,D4,D5,TYPE
+ S (D1,D2,D3,D4,D5,TYPE)="",C=0  ;Initialize variables
+ I $G(HLMTIEN)'>0 S LROROUT(1)="0^No Results Array Received" Q
+ S HLMA="",HLMA=$O(^HLMA("B",HLMTIEN,HLMA))
+ Q:$G(HLMA)'>0
+ Q:'$D(^HLMA(HLMA,0))
+ Q:'$D(^HLMA(HLMA,"MSH"))
+ S LOC=+$P(^HLMA(HLMA,"MSH",1,0),"|",4)
+ M ^TMP("RMTE",1)=^HLMA(HLMA,"MSH",1,0)
+ S DONE=0
+ S I=0 F  S I=$O(^HL(772,HLMTIEN,"IN",I)) Q:I=""  D
+ .Q:I=""
+ .S C=$G(I)+1
+ .S SB=$P(^HL(772,HLMTIEN,"IN",I,0),"|")
+ .I 'DONE,SB=""!(SB'?.A),$P(^TMP("RMTE",I),"|")="OBR" D  Q
+ ..S ^TMP("RMTE",C-1)=^TMP("RMTE",C-1)_^HL(772,HLMTIEN,"IN",I,0),DONE=1
+ .S ^TMP("RMTE",C)=^HL(772,HLMTIEN,"IN",I,0)
+ K RAMSG M RAMSG=^TMP("RMTE")
+ K ^TMP("RMTE")	 
+ S RD1="|",RD2="^",RD3="\"
+ K RAOROUT
+ N XC
+ N ORIEN,WPRT,WPACH
+ N LROK S LROK=1
+ N IMGLOC,PROC,REQPRV,PRISTF,EXMDT,RPTSTA,RPTDT,TRNSCP,VRFDT
+ N RADTE,IMGTYP,HOSDIV,CASE,EXSTAT,EXCAT,WARD,SERVC,RAOIEN,REQPRV,RPTEN
+ N BED,REQLOC,CRDMTH,PRIRES,PRIDGC,RPTIEN,SECRES,SECSTF,SECDGC
+ N LCASE,DFN,RPTENTDT,VRFDT,VRFPHY,ESCD,SVCBY,ITRLOC,LOGDT,ACTION,WPIT,WPRT,REQSTA,LSTACT,RAOSTADT,RAONWSTA
+ ;
+ N RACNT S RACNT=1
+ Q:'$D(RAMSG)
+ D PARSE
+ Q:'$D(HLARY)
+ ;
+ I ORC1="DC" D EN^LRHBIN G ENQ ; CPRS discontinue
+ ;I ORC1="CA" D HLD^RAHBIN1 G ENQ ; Hold order
+ I ORC1="CA" D EN^LRHBIN G ENQ ; Cancel exam and case
+ I ORC1="NW",ORC5="IP" D REG^RAHBIN1 G ENQ
+ I ORC1="SC",ORC5="IP" D  G ENQ
+ .I OBR25="X" D HLD^RAHBIN1 ;Cancel Arrival
+ .I OBR25="I" D REG^RAHBIN1 ;Rad Arrival
+ I ORC1="RE" D  G ENQ ;  results
+ .I OBR25'["F" Q
+ .D RSLT^RAHBIN1 G ENQ
+ I ORC1="XO" D MOD^RAHBIN1 G ENQ  ;set to EXAMINED status
+ ;
+ ;bsl;non-translated vista codes instead of CHCS codes
+ ;I ORC1="NW" Q D REG^JVHLRAD G ENQ  ; registration
+ ;
+ S RAOROUT(1)="-1^UNKNOWN RAD MESSAGE TYPE RECEIVED="_ORC1
+ENQ ;
+ I '$D(RAOROUT(1)) S RAOROUT(1)="-1^NO RETURN MESSAGE"
+ S RAOROUT(1)=RAOROUT(1)_$C(13)
+ K MSHSEG,ORC,ORCSEG,ORDSEG,ORWREC,PID
+ Q
+ ;
+TEST(LROROUT,HLMTIEN) ;
+ D EN
+ Q
+ ;
+CHKORID(ID) ;
+ Q
+ ;
+PARSE ;
+ K PIDSEG
+ N ZCNT,FLG,XT,XC,X
+ S PIDSEG="",ORCSEG=""
+ ;
+ S ZCNT="",FLG=0,U="^"
+ F  S ZCNT=$O(RAMSG(ZCNT)) Q:ZCNT=""  D  Q:FLG=2
+ . S XT=$P(RAMSG(ZCNT),RD1,1) Q:XT=""
+ . S XC=$G(HLARY(XT))+1,HLARY(XT)=XC
+ . S HLARY(XT,XC)=$P(RAMSG(ZCNT),RD1,2,999)
+ ;   set some basic variables:
+ S X=HLARY("MSH",1),X=$P(X,RD1,8),XMT=$P(X,RD1,1),XME=$P(X,RD1,2)
+ S MSHSEG=HLARY("MSH",1),PIDSEG=$G(HLARY("PID",1)),ORCSEG=$G(HLARY("ORC",1))
+ S ORC1=$P($G(HLARY("ORC",1)),RD1,1),ORC5=$P($G(HLARY("ORC",1)),RD1,5)
+ S REQLOC=+$P($G(HLARY("ORC",1)),RD1,13)         ;4076 init Reqloc
+ S OBR25=$P($G(HLARY("OBR",1)),RD1,25)
+ S ORIEN=$P($G(HLARY("OBR",1)),RD1,2)
+ I $G(HLARY("ORC"))'>0 S ORC1="RE"
+ Q
+ ;
+DBG ;
+ K DBKIND,DBCNT
+ D INT^JVHLDBG("JVRA",.DBKIND,.DBCNT)
+ I DBKIND["I" D JVIN^JVHLDBG("JVRA",DBCNT,.RAMSG)
+ Q
+DBGOUT ;
+ I $D(RAOROUT),$G(DBCNT) D JVOUT^JVHLDBG("JVRA",DBCNT,.RAOROUT)
+ Q
+ ;
+
+
+
