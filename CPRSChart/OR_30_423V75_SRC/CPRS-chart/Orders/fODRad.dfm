@@ -75,6 +75,17 @@ inherited frmODRad: TfrmODRad
       Height = 13
       Caption = 'Selected Modifiers'
     end
+    object ORImageLocation: TOROffsetLabel
+      Left = 2
+      Top = 280
+      Width = 81
+      Height = 13
+      Caption = 'Imaging Location'
+      HorzOffset = 0
+      Transparent = False
+      VertOffset = 0
+      WordWrap = True
+    end
     object cboImType: TORComboBox
       Left = 0
       Top = 13
@@ -180,6 +191,24 @@ inherited frmODRad: TfrmODRad
       Caption = 'Remove'
       TabOrder = 5
       OnClick = cmdRemoveClick
+    end
+    object CBXImageRemoteSites: TComboBox
+      Left = 2
+      Top = 294
+      Width = 207
+      Height = 21
+      BevelInner = bvNone
+      Style = csDropDownList
+      Ctl3D = False
+      DoubleBuffered = True
+      DropDownCount = 20
+      ParentCtl3D = False
+      ParentDoubleBuffered = False
+      TabOrder = 6
+      OnDropDown = CBXImageRemoteSitesDropDown
+      OnSelect = CBXImageRemoteSitesSelect
+      Items.Strings = (
+        '')
     end
   end
   object pnlRightBase: TORAutoPanel [3]
@@ -683,6 +712,9 @@ inherited frmODRad: TfrmODRad
         'Status = stsDefault')
       (
         'Component = Submitlbl508'
+        'Status = stsDefault')
+      (
+        'Component = CBXImageRemoteSites'
         'Status = stsDefault'))
   end
   object VA508ComponentAccessibility1: TVA508ComponentAccessibility

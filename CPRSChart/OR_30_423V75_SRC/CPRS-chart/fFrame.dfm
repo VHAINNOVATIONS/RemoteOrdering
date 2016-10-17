@@ -15,7 +15,7 @@ inherited frmFrame: TfrmFrame
   OnDestroy = FormDestroy
   OnResize = FormResize
   ExplicitWidth = 819
-  ExplicitHeight = 731
+  ExplicitHeight = 732
   PixelsPerInch = 96
   TextHeight = 13
   object pnlNoPatientSelected: TPanel [0]

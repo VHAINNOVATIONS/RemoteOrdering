@@ -76,7 +76,7 @@ inherited frmODBase: TfrmODBase
       Width = 332
       Height = 32
       Color = clInfoBk
-      Font.Charset = DEFAULT_CHARSET
+      Font.Charset = ANSI_CHARSET
       Font.Color = clInfoText
       Font.Height = -12
       Font.Name = 'MS Sans Serif'
