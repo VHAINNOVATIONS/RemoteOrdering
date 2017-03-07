@@ -1,11 +1,11 @@
-KIDS Distribution saved on Feb 27, 2017@00:40:24
-remove U ref and added prot
+KIDS Distribution saved on Mar 06, 2017@17:13:20
+replaced rpc
 **KIDS**:AHMLDO*1.0*1^
 
 **INSTALL NAME**
 AHMLDO*1.0*1
 "BLD",9642,0)
-AHMLDO*1.0*1^MOBILE SCHEDULING APPLICATIONS^0^3170227^n
+AHMLDO*1.0*1^MOBILE SCHEDULING APPLICATIONS^0^3170306^n
 "BLD",9642,1,0)
 ^^1^1^3160906^
 "BLD",9642,1,1,0)
@@ -13,7 +13,7 @@ Remote ordering Hub
 "BLD",9642,4,0)
 ^9.64PA^^
 "BLD",9642,6.3)
-50
+53
 "BLD",9642,"INID")
 ^n
 "BLD",9642,"INIT")
@@ -317,7 +317,11 @@ AHMLDO3^^0
 "BLD",9642,"KRN",8994,0)
 8994
 "BLD",9642,"KRN",8994,"NM",0)
-^9.68A^^0
+^9.68A^1^1
+"BLD",9642,"KRN",8994,"NM",1,0)
+AHMLDO GTDOM^^0
+"BLD",9642,"KRN",8994,"NM","B","AHMLDO GTDOM",1)
+
 "BLD",9642,"KRN","B",.4,.4)
 
 "BLD",9642,"KRN","B",.401,.401)
@@ -816,6 +820,16 @@ AHMLDO3^^TCP^^^^^^^^^^^^^^^^^^10
 ^^^^^11^28
 "KRN",870,153,400)
 ^5026^C^N^^^^^
+"KRN",8994,3546,-1)
+0^1
+"KRN",8994,3546,0)
+AHMLDO GTDOM^GTDOM^AHMLDOL^2^^0^^1^1^^1
+"KRN",8994,3546,2,0)
+^8994.02A^^0
+"KRN",8994,3546,3,0)
+^8994.03^1^1^3160224^^^^
+"KRN",8994,3546,3,1,0)
+AN ARRAY WILL BE PASSED BACK TO THE CALLING APPLICATION.
 "MBREQ")
 0
 "ORD",11,3.8)
@@ -834,6 +848,10 @@ HL7 APPLICATION PARAMETER
 101;15;;;PRO^XPDTA;PROF1^XPDIA;PROE1^XPDIA;PROF2^XPDIA;;PRODEL^XPDIA
 "ORD",15,101,0)
 PROTOCOL
+"ORD",16,8994)
+8994;16;1;;;;;;;RPCDEL^XPDIA1
+"ORD",16,8994,0)
+REMOTE PROCEDURE
 "PKG",576,-1)
 1^1
 "PKG",576,0)
@@ -843,9 +861,9 @@ MOBILE SCHEDULING APPLICATIONS^MBAA^MOBILE SCHEDULING APPLICATIONS SUITE
 "PKG",576,22,1,0)
 1.0^3161115^3161114^10000000232
 "PKG",576,22,1,"PAH",1,0)
-1^3170227
+1^3170306
 "PKG",576,22,1,"PAH",1,1,0)
-^^1^1^3170227
+^^1^1^3170306
 "PKG",576,22,1,"PAH",1,1,1,0)
 Remote ordering Hub
 "QUES","XPF1",0)
@@ -925,7 +943,7 @@ D XPZ2^XPDIQ
 "RTN","AHMLDOL",1,0)
 AHMLDOL ;LEIDOS/TCK - REMOTE ORDER - INCOMING ; 2/23/17 9:06am
 "RTN","AHMLDOL",2,0)
- ;;1.0;REMOTE ORDERS;**1**;OCT 1,2016;Build 50
+ ;;1.0;REMOTE ORDERS;**1**;OCT 1,2016;Build 53
 "RTN","AHMLDOL",3,0)
  ; Reference to UNESC^ORHLESC supported by IA #4922
 "RTN","AHMLDOL",4,0)
@@ -1293,7 +1311,7 @@ END ;
 "RTN","AHMLDOL1",1,0)
 AHMLDOL1 ;LEIDOS/TCK; REMOTE ORDERING; 12/14/15 6:09pm ; 2/9/17 1:34pm
 "RTN","AHMLDOL1",2,0)
- ;;1.0;Remote orders;**1**;JAN 1, 2016;Build 50
+ ;;1.0;Remote orders;**1**;JAN 1, 2016;Build 53
 "RTN","AHMLDOL1",3,0)
  ;--------------------------------------------------------------------
 "RTN","AHMLDOL1",4,0)
@@ -1707,7 +1725,7 @@ END      ;
 "RTN","AHMLDOL2",1,0)
 AHMLDOL2 ;LEIDOS/TCK- Remote Ordering - Accession ; 2/26/17 5:15pm
 "RTN","AHMLDOL2",2,0)
- ;;1.0;Orders Portability;**1**;March 1, 2010;Build 50
+ ;;1.0;Orders Portability;**1**;March 1, 2010;Build 53
 "RTN","AHMLDOL2",3,0)
  ;
 "RTN","AHMLDOL2",4,0)
@@ -2517,7 +2535,7 @@ END ;
 "RTN","AHMLDOL3",1,0)
 AHMLDOL3 ;LEIDOS/TCK- Remote Order ; 2/9/17 1:39pm
 "RTN","AHMLDOL3",2,0)
- ;;1.0;Orders Portability;**1**;March 1, 2010;Build 50
+ ;;1.0;Orders Portability;**1**;March 1, 2010;Build 53
 "RTN","AHMLDOL3",3,0)
  Q
 "RTN","AHMLDOL3",4,0)
@@ -2885,7 +2903,7 @@ QUIT ;
 "RTN","AHMLDOL4",1,0)
 AHMLDOL4 ;LEIDOS/TCK- REMOTE ORDERING- Laboratory Accessioning process - main driver ; 2/9/17 1:44pm
 "RTN","AHMLDOL4",2,0)
- ;;1.0;Orders Portability;**1**;March 1, 2010;Build 50
+ ;;1.0;Orders Portability;**1**;March 1, 2010;Build 53
 "RTN","AHMLDOL4",3,0)
  ;
 "RTN","AHMLDOL4",4,0)
@@ -3283,7 +3301,7 @@ EXIT ;
 "RTN","AHMLDOL5",1,0)
 AHMLDOL5 ;LEIDOS/TCK- Remote Order - Laboratory Process ; 2/9/17 3:47pm
 "RTN","AHMLDOL5",2,0)
- ;;1.0;Orders Portability;**1**;March 1, 2010;Build 50
+ ;;1.0;Orders Portability;**1**;March 1, 2010;Build 53
 "RTN","AHMLDOL5",3,0)
  ;
 "RTN","AHMLDOL5",4,0)
@@ -3797,7 +3815,7 @@ EXIT ;
 "RTN","AHMLDOL6",1,0)
 AHMLDOL6 ;LEIDOS/TCK Remote ordering Lab results ; 2/9/17 1:47pm
 "RTN","AHMLDOL6",2,0)
- ;;1.0;Orders Portability;**1**;March 1, 2010;Build 50
+ ;;1.0;Orders Portability;**1**;March 1, 2010;Build 53
 "RTN","AHMLDOL6",3,0)
  ;
 "RTN","AHMLDOL6",4,0)
@@ -4419,7 +4437,7 @@ END ;
 "RTN","AHMLDOLO",1,0)
 AHMLDOLO ;LEIDOS/TCK - REMOTE ORDERING ; 2/23/17 11:15am
 "RTN","AHMLDOLO",2,0)
- ;;1.0;REMOTE ORDERING;**1**;DEC 28, 2015;Build 50
+ ;;1.0;REMOTE ORDERING;**1**;DEC 28, 2015;Build 53
 "RTN","AHMLDOLO",3,0)
  Q
 "RTN","AHMLDOLO",4,0)
@@ -4691,7 +4709,7 @@ END ;
 "RTN","AHMLDOP1",1,0)
 AHMLDOP1 ;LEIDOS/WW/TCK - REMOTE ORDERING - Lab Report ; 2/27/17 12:19am
 "RTN","AHMLDOP1",2,0)
- ;;1.0;REMOTE ORDERS;**1**;OCT 1,2016;Build 50
+ ;;1.0;REMOTE ORDERS;**1**;OCT 1,2016;Build 53
 "RTN","AHMLDOP1",3,0)
  ;
 "RTN","AHMLDOP1",4,0)
@@ -5345,7 +5363,7 @@ WAIT ; Pause for page breaks.
 "RTN","AHMLDOP2",1,0)
 AHMLDOP2 ;LEIDOS/WW/TCK - REMOTE ORDERING - Rad/Lab reports; 10/16/16 8:58pm ; 2/27/17 12:20am
 "RTN","AHMLDOP2",2,0)
- ;;1.0;REMOTE ORDERS;**1**;OCT 1,2016;Build 50
+ ;;1.0;REMOTE ORDERS;**1**;OCT 1,2016;Build 53
 "RTN","AHMLDOP2",3,0)
  ;
 "RTN","AHMLDOP2",4,0)
@@ -6149,7 +6167,7 @@ WAIT ; Pause for page breaks.
 "RTN","AHMLDOR",1,0)
 AHMLDOR ;LEIDOS/TCK- Remote ordering - Radiology ; 2/27/17 12:31am
 "RTN","AHMLDOR",2,0)
- ;;1.0;Radiology Orders Portability;**1**;April 1, 2016;Build 50
+ ;;1.0;Radiology Orders Portability;**1**;April 1, 2016;Build 53
 "RTN","AHMLDOR",3,0)
  ; Reference to ^DIC(4 supported by IA #10090
 "RTN","AHMLDOR",4,0)
@@ -6351,7 +6369,7 @@ PARSE ;
 "RTN","AHMLDOR1",1,0)
 AHMLDOR1 ;LEIDOS/TCK- Remote Order - Rad - filing driver ; 2/10/17 10:08am
 "RTN","AHMLDOR1",2,0)
- ;;1.0;Radiology Orders Portability;**1**;April 1, 2016;Build 50
+ ;;1.0;Radiology Orders Portability;**1**;April 1, 2016;Build 53
 "RTN","AHMLDOR1",3,0)
  ; Reference to ^OR(100 supported by IA #5196
 "RTN","AHMLDOR1",4,0)
@@ -7123,7 +7141,7 @@ END ;
 "RTN","AHMLDOR2",1,0)
 AHMLDOR2 ;LEIDOS/TCK- REMOTE ORDERING - Radiology - PARSER ; 2/9/17 1:57pm
 "RTN","AHMLDOR2",2,0)
- ;;1.0;Radiology Orders Portability;**1**;April 1, 2016;Build 50
+ ;;1.0;Radiology Orders Portability;**1**;April 1, 2016;Build 53
 "RTN","AHMLDOR2",3,0)
  ; Reference to NOW^%DTC supported by IA #10000
 "RTN","AHMLDOR2",4,0)
@@ -7811,7 +7829,7 @@ ENDQ ;
 "RTN","AHMLDOR3",1,0)
 AHMLDOR3 ;LEIDOS/TCK- Remote Ordering - Radiology - Filer ; 2/9/17 2:03pm
 "RTN","AHMLDOR3",2,0)
- ;;1.0;Radiology Orders Portability;**1**;March 1, 2016;Build 50
+ ;;1.0;Radiology Orders Portability;**1**;March 1, 2016;Build 53
 "RTN","AHMLDOR3",3,0)
  ; Reference to ^RADPT( supported by IA #5602
 "RTN","AHMLDOR3",4,0)
@@ -8639,7 +8657,7 @@ RPTERR ;Saves previous text fields to subfile #74.06 to trigger the Amended
 "RTN","AHMLDOST",1,0)
 AHMLDOST ;LEIDOS/TCK; REMOTE ORDERING; 12/14/15 6:09pm ; 1/5/17 8:10am
 "RTN","AHMLDOST",2,0)
- ;;1.0;Remote orders;**1**;JAN 1, 2016;Build 50
+ ;;1.0;Remote orders;**1**;JAN 1, 2016;Build 53
 "RTN","AHMLDOST",3,0)
  ;
 "RTN","AHMLDOST",4,0)
