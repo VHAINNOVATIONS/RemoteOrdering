@@ -2348,7 +2348,7 @@ var
  i: integer;
  SteInfo: TSiteInfo;
 begin
- //mnj- This procedure calls RPC "LRREM GTDOM"
+ //mnj- This procedure calls RPC "AHMLDO GTDOM"
  // and will return an array with SiteID and Description
 
  try
@@ -2361,7 +2361,7 @@ begin
       RemoteLabSiteLocations.Add(SteInfo);
      end;
 
-  CallV('LRREM GTDOM',[]);
+  CallV('AHMLDO GTDOM',[]);
   with RPCBrokerV do for i := 0 to Results.Count - 1 do
   begin
       SteInfo := TSiteInfo.Create;

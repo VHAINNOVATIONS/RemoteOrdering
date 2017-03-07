@@ -507,20 +507,18 @@ inherited frmODRad: TfrmODRad
       object lblHistory: TLabel
         Left = 0
         Top = 34
-        Width = 362
+        Width = 116
         Height = 13
         Align = alTop
         Caption = 'Clinical History (Optional)'
-        ExplicitWidth = 116
       end
       object lblReason: TLabel
         Left = 0
         Top = 0
-        Width = 362
+        Width = 268
         Height = 13
         Align = alTop
         Caption = 'Reason for Study (REQUIRED - 64 characters maximum)'
-        ExplicitWidth = 268
       end
       object memHistory: TCaptionMemo
         Left = 0
